@@ -57,7 +57,7 @@ export const SetDetails: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-background-black pt-8">
+                <div className="bg-background-black pt-6">
                     <div className="container pb-32">
                         {isLoadingSetDetails ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
                         <ul>
