@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
+import { ellipse, homeOutline, peopleOutline, playOutline, square, triangle } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
-import { Home } from './pages/Home/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -15,13 +15,37 @@ import '@ionic/react/css/typography.css';
 import './theme/variables.css';
 
 import './tailwindcss.css';
+import { Explore } from './pages/Explore/Explore';
+import { Game } from './pages/Game/Game';
+import { Player } from './pages/Player/Player';
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/" component={Home} />
-      </IonRouterOutlet>
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route exact path="/player" component={Player} />
+          <Route exact path="/game" component={Game} />
+          <Route exact path="/explore" component={Explore} />
+          <Route exact path="/">
+            <Redirect to="/explore" />
+          </Route>
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="explore" href="/explore">
+            <IonIcon icon={homeOutline} />
+            <IonLabel>Explore</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="/game" href="/game">
+            <IonIcon icon={playOutline} />
+            <IonLabel>Game</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="player" href="/player">
+            <IonIcon icon={peopleOutline} />
+            <IonLabel>Player</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
     </IonReactRouter>
   </IonApp>
 );
