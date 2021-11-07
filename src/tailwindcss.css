@@ -5,9 +5,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap');
 
 .truth-label {
-    @apply text-truth-yellow border-2 border-truth-yellow border-opacity-50 rounded-md text-center h-7 w-7 mr-2;
+    min-width: 20px;
+    min-height: 20px;
+    font-size: 11px;
+    @apply text-truth-yellow border-2 border-truth-yellow border-opacity-50 rounded-md text-center mr-2;
 }
 
 .dare-label {
-    @apply text-dare-green border-2 border-green-400 border-opacity-50 rounded-md text-center h-7 w-7 mr-2;
+    min-width: 20px;
+    min-height: 20px;
+    font-size: 11px;
+    @apply text-dare-green border-2 border-green-400 border-opacity-50 rounded-md text-center mr-2;
 }
