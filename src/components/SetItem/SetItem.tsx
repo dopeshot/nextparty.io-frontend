@@ -1,5 +1,4 @@
 import { IonRouterLink } from '@ionic/react';
-import { Link } from 'react-router-dom';
 import gradient from '../../assets/example.png';
 
 export const SetItem: React.FC<{
@@ -18,10 +17,10 @@ export const SetItem: React.FC<{
           <p className="text-gray-500 mb-3">by {author}</p>
           <div className="flex items-baseline">
             {/* Truth Count */}
-            <small className="text-yellow-400 text-opacity-50 border-2 border-yellow-400 border-opacity-25 text-center h-6 w-6 mr-2">W</small>
-            <small className="text-gray-500 mr-3">{truthCount}</small>
+            <p className="truth-label">W</p>
+            <p className="text-gray-500 mr-3">{truthCount}</p>
             {/* Dare Count */}
-            <small className="text-green-400 text-opacity-50 border-2 border-green-400 border-opacity-25 text-center h-6 w-6 mr-2">P</small>
+            <p className="dare-label">P</p>
             <p className="text-gray-500">{dareCount}</p>
           </div>
         </div>
