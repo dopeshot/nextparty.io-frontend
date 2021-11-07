@@ -26,7 +26,7 @@ export const Explore: React.FC = () => {
           {isLoadingSets ? <p>Loading sets...</p> : (
             <div className="grid">
               {sets.map((set: Set, index) => (
-                <SetItem name={set.name} author={set.createdBy.username} truthCount={20} dareCount={20}/>
+                <SetItem name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.daresCount}/>
               ))}
             </div>
           )}
