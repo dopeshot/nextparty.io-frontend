@@ -12,6 +12,9 @@ module.exports = {
         '2xl': '6rem',
       },
     },
+    fontFamily: {
+      'rubik': ['Rubik', 'sans-serif']
+    },
     extend: {},
   },
   variants: {

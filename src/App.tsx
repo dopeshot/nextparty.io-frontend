@@ -20,7 +20,7 @@ import { Game } from './pages/Game/Game';
 import { Player } from './pages/Player/Player';
 
 export const App: React.FC = () => (
-  <IonApp>
+  <IonApp className="font-rubik">
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
