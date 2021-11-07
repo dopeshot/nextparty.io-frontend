@@ -35,12 +35,12 @@ export const SetDetails: React.FC = () => {
                         <div className="container">
                             <div className="flex flex-col justify-end h-36" >
                                 <h1 className="text-3xl mb-2 font-bold">Love Set</h1>
-                                <p className="text-gray-400 mb-5">by Cabcon</p>
+                                <p className="text-lightgrey mb-5">by Cabcon</p>
                                 <div className="flex items-baseline">
                                     <p className="truth-label">W</p>
-                                    <p className="text-gray-400 mr-4">34 Wahrheit</p>
+                                    <p className="text-lightgrey mr-4">34 Wahrheit</p>
                                     <p className="dare-label">P</p>
-                                    <p className="text-gray-400">34 Pflicht</p>
+                                    <p className="text-lightgrey">34 Pflicht</p>
                                 </div>
                             </div>
                         </div>
