@@ -1,0 +1,7 @@
+{
+  "name": "truth-or-dare-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
