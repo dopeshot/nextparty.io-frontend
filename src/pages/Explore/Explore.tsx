@@ -29,10 +29,16 @@ export const Explore: React.FC = () => {
           )}
           <div className="grid">
             <div className="flex">
-              <img src={gradient} className="object-cover w-28 h-28" />
-              <div>
+              <img src={gradient} className="object-cover w-24 h-24 mr-2" />
+              <div className="flex flex-col justify-around">
                 <h3 className="text-xl font-bold">Love Set</h3>
-                <p className="text-gray-500">by Cabcon</p>
+                <p className="text-gray-500 mb-3">by Cabcon</p>
+                <div className="flex items-baseline">
+                  <span className="text-yellow-400 text-opacity-50 border-2 border-yellow-400 border-opacity-25 mr-2 px-1.5">W</span>
+                  <p className="text-gray-500 mr-3">34</p>
+                  <small className="text-green-400 text-opacity-50 border-2 border-green-400 border-opacity-25 mr-2 px-1.5">P</small>
+                  <p className="text-gray-500">89</p>
+                </div>
               </div>
             </div>
           </div>
