@@ -19,7 +19,7 @@ import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
 import { Player } from './pages/Player/Player';
 
-const App: React.FC = () => (
+export const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
@@ -48,6 +48,4 @@ const App: React.FC = () => (
       </IonTabs>
     </IonReactRouter>
   </IonApp>
-);
-
-export default App;
+)
