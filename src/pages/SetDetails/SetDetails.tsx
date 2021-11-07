@@ -1,10 +1,9 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonProgressBar, IonRouterLink, IonToolbar } from "@ionic/react"
-import { useParams } from "react-router"
-import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
-import example from '../../assets/example.png'
-import { useActions, useAppState } from "../../overmind"
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonProgressBar, IonRouterLink, IonToolbar } from "@ionic/react"
 import { useEffect } from "react"
-import { loadExplore } from "../../overmind/explore/actions"
+import { useParams } from "react-router"
+import example from '../../assets/example.png'
+import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
+import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 
 type SetDetailsParams = {
