@@ -31,7 +31,7 @@ export const SetDetails: React.FC = () => {
             </IonHeader>
             <IonContent style={{ "--background": "transparent" }}>
                 <div>
-                    <div className="bg-gradient-to-t from-black via-transparent pb-14">
+                    <div className="bg-gradient-to-t from-background-black via-transparent pb-14">
                         <div className="container">
                             <div className="flex flex-col justify-end h-36" >
                                 <h1 className="text-3xl mb-2 font-bold">Love Set</h1>
@@ -56,7 +56,7 @@ export const SetDetails: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-black pt-6">
+                <div className="bg-background-black pt-6">
                     <div className="container pb-32">
                         {isLoadingSetDetails ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
                         <ul>
