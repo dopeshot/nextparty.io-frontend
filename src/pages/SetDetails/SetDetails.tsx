@@ -36,7 +36,7 @@ export const SetDetails: React.FC = () => {
                             <div className="flex flex-col justify-end h-36" >
                                 <h1 className="text-3xl mb-2 font-bold">Love Set</h1>
                                 <p className="text-lightgrey mb-5">by Cabcon</p>
-                                <div className="flex items-baseline">
+                                <div className="flex items-center">
                                     <p className="truth-label">W</p>
                                     <p className="text-lightgrey mr-4">34 Wahrheit</p>
                                     <p className="dare-label">P</p>

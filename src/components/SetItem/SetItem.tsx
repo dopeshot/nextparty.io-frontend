@@ -15,9 +15,9 @@ export const SetItem: React.FC<{
         <div className="flex flex-col">
           <h3 className="text-white text-xl font-bold">{name}</h3>
           <p className="text-lightgrey mb-3">by {author}</p>
-          <div className="flex items-baseline">
+          <div className="flex items-center">
             {/* Truth Count */}
-            <p className="truth-label">W</p>
+            <span className="truth-label">W</span>
             <p className="text-lightgrey mr-3">{truthCount}</p>
             {/* Dare Count */}
             <p className="dare-label">P</p>
