@@ -33,16 +33,16 @@ export const App: React.FC = () => (
             <Redirect to="/explore" />
           </Route>
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="explore" href="/explore">
+        <IonTabBar slot="bottom" className="bg-black">
+          <IonTabButton tab="explore" href="/explore" className="bg-black">
             <IonIcon icon={homeOutline} />
             <IonLabel>Explore</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="/game" href="/game">
+          <IonTabButton tab="/game" href="/game" className="bg-black">
             <IonIcon icon={playOutline} />
             <IonLabel>Game</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="player" href="/player">
+          <IonTabButton tab="player" href="/player" className="bg-black">
             <IonIcon icon={peopleOutline} />
             <IonLabel>Player</IonLabel>
           </IonTabButton>
