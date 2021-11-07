@@ -10,7 +10,7 @@ export const SetDetails: React.FC = () => {
     const { setId } = useParams<SetDetailsParams>()
 
     return (
-        <IonPage>
+        <IonPage className="bg-gray-900"> {/* MC TODO: Fix this with the actual background color */ }
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
                     <IonButtons slot="start">
