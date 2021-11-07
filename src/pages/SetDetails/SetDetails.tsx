@@ -1,7 +1,10 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonRouterLink, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonProgressBar, IonRouterLink, IonToolbar } from "@ionic/react"
+import { useEffect } from "react"
 import { useParams } from "react-router"
-import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
 import example from '../../assets/example.png'
+import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
+import { useActions, useAppState } from "../../overmind"
+import { Task } from "../../overmind/explore/state"
 
 type SetDetailsParams = {
     setId: string
@@ -10,21 +13,28 @@ type SetDetailsParams = {
 export const SetDetails: React.FC = () => {
     const { setId } = useParams<SetDetailsParams>()
 
+    const { isLoadingSetDetails, setDetails } = useAppState().explore
+    const { loadSetDetails } = useActions().explore
+
+    useEffect(() => {
+        loadSetDetails(setId)
+    }, [loadSetDetails, setId])
+
     return (
-        <IonPage className="bg-gray-900"> {/* MC TODO: Fix this with the actual background color */}
+        <IonPage className="bg-center bg-no-repeat" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
                     <IonButtons slot="start">
-                        <IonBackButton defaultHref="explore" />
+                        <IonBackButton defaultHref="/explore" />
                     </IonButtons>
                 </ IonToolbar>
             </IonHeader>
-            <IonContent >
-                <div className="bg-center bg-cover" style={{ backgroundImage: `url('${example}')` }}>
-                    <div className="bg-gradient-to-t from-black via-transparent pb-20">
+            <IonContent style={{ "--background": "transparent" }}>
+                <div>
+                    <div className="bg-gradient-to-t from-black via-transparent pb-14">
                         <div className="container">
                             <div className="flex flex-col justify-end h-36" >
-                                <h1 className="text-3xl mb-2">Love Set</h1>
+                                <h1 className="text-3xl mb-2 font-bold">Love Set</h1>
                                 <p className="text-gray-400 mb-5">by Cabcon</p>
                                 <div className="flex items-baseline">
                                     <p className="truth-label">W</p>
@@ -46,25 +56,14 @@ export const SetDetails: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container">
-                    <ul>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                        <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                    </ul>
+                <div className="bg-black pt-6">
+                    <div className="container pb-32">
+                        {isLoadingSetDetails ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
+                        <ul>
+                            {setDetails?.tasks.map((task: Task, index) => (<li key={index}><TaskListItem type={task.type === 'truth' ? TaskType.TRUTH : TaskType.DARE} content={task.message} /></li>))}
+                        </ul>
+                        )}
+                    </div>
                 </div>
             </IonContent>
         </IonPage>
