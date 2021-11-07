@@ -1,7 +1,11 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonRouterLink, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonProgressBar, IonRouterLink, IonToolbar } from "@ionic/react"
 import { useParams } from "react-router"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
 import example from '../../assets/example.png'
+import { useActions, useAppState } from "../../overmind"
+import { useEffect } from "react"
+import { loadExplore } from "../../overmind/explore/actions"
+import { Task } from "../../overmind/explore/state"
 
 type SetDetailsParams = {
     setId: string
@@ -9,6 +13,13 @@ type SetDetailsParams = {
 
 export const SetDetails: React.FC = () => {
     const { setId } = useParams<SetDetailsParams>()
+
+    const { isLoadingSetDetails, setDetails } = useAppState().explore
+    const { loadSetDetails } = useActions().explore
+
+    useEffect(() => {
+        loadSetDetails(setId)
+    }, [loadSetDetails, setId])
 
     return (
         <IonPage className="bg-center bg-no-repeat" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
@@ -48,24 +59,11 @@ export const SetDetails: React.FC = () => {
                 </div>
                 <div className="bg-black pt-6">
                     <div className="container pb-32">
+                        {isLoadingSetDetails ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
                         <ul>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
-                            <li><TaskListItem type={TaskType.TRUTH} content="Wo würdest du gerne einmal Sex haben?" /></li>
+                            {setDetails?.tasks.map((task: Task, index) => (<li key={index}><TaskListItem type={task.type === 'truth' ? TaskType.TRUTH : TaskType.DARE} content={task.message} /></li>))}
                         </ul>
+                        )}
                     </div>
                 </div>
             </IonContent>
