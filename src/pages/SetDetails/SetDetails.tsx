@@ -34,7 +34,7 @@ export const SetDetails: React.FC = () => {
             <div className="fixed bottom-0 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <IonRouterLink routerLink="/game" className="flex justify-center items-baseline bg-white rounded-lg py-4">
+                            <IonRouterLink routerLink="/game" className="flex justify-center items-baseline cursor-pointer bg-white rounded-lg py-4">
                                 <i className="fas fa-play text-black mr-3"></i>
                                 <span className="text-black font-bold">Spielen</span>
                             </IonRouterLink>
