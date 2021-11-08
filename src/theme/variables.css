@@ -7,6 +7,10 @@ http://ionicframework.com/docs/theming/ */
    * -------------------------------------------
    */
 
+:root {
+    --ion-font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
+}
+
 body {
     --ion-color-primary: #09bb88;
     --ion-color-primary-rgb: 9, 187, 136;
