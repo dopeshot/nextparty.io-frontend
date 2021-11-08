@@ -5,6 +5,7 @@ import example from '../../assets/example.png'
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
+import { replaceStringWithIcon } from "../../services/Utilities"
 
 type SetDetailsParams = {
     setId: string
@@ -61,7 +62,7 @@ export const SetDetails: React.FC = () => {
                     <div className="container pb-32">
                         {isLoadingSetDetails ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
                         <ul>
-                            {setDetails?.tasks.map((task: Task, index) => (<li key={index}><TaskListItem type={task.type === 'truth' ? TaskType.TRUTH : TaskType.DARE} content={task.message} /></li>))}
+                            {setDetails?.tasks.map((task: Task, index) => (<li key={index}><TaskListItem type={task.type === 'truth' ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} /></li>))}
                         </ul>
                         )}
                     </div>
