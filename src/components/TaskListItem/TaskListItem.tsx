@@ -20,7 +20,7 @@ export const TaskListItem: React.FC<{
                 header: content
             })
         }
-        } style={{ "--min-height": "auto" }} className="rounded-lg my-1">
+        } style={{ "--min-height": "auto" }} className="rounded-lg my-3">
             <div className="flex items-center w-full py-2">
                 <p className={type == TaskType.TRUTH ? "truth-label" : "dare-label"}>{type}</p>
                 <p className="flex-grow ml-1 mr-3">{content}</p>
