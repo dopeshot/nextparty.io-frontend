@@ -23,7 +23,7 @@ export const SetDetails: React.FC = () => {
     }, [loadSetDetails, setId])
 
     return (
-        <IonPage className="bg-center bg-no-repeat" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
+        <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
                     <IonButtons slot="start">
