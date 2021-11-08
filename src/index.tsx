@@ -1,3 +1,4 @@
+import { setupConfig } from '@ionic/core';
 import { createOvermind } from 'overmind';
 import { Provider } from 'overmind-react';
 import React from 'react';
@@ -10,6 +11,10 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 const overmind = createOvermind(config, {
   devtools: true
 }) 
+
+setupConfig({
+  mode: 'md'
+})
 
 ReactDOM.render(
   <React.StrictMode>
