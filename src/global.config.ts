@@ -3,6 +3,6 @@ type Config = {
 }
 
 export const config: Config = {
-    fakeLoadingTime: 0
+    fakeLoadingTime: 1000
 }
 

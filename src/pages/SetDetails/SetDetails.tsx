@@ -1,6 +1,6 @@
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
 import { PrimaryButton } from "../../components/PrimaryButton/PrimaryButton"
@@ -18,9 +18,14 @@ export const SetDetails: React.FC = () => {
 
     const { isLoadingSetDetails, setDetails } = useAppState().explore
     const { loadSetDetails } = useActions().explore
-
+    const componentMounted = useRef(true)
+    
     useEffect(() => {
-        loadSetDetails(setId)
+        loadSetDetails({ setId, componentMounted })
+
+        return () => {
+            componentMounted.current = false
+        }
     }, [loadSetDetails, setId])
 
     return (
@@ -50,13 +55,13 @@ export const SetDetails: React.FC = () => {
                     <div className="bg-gradient-to-t from-background-black via-transparent">
                         <div className="container">
                             <div className="flex flex-col justify-end h-48 pb-6" >
-                                <h1 className="text-3xl mb-2 font-bold">Love Set</h1>
-                                <p className="text-lightgrey mb-5">by Cabcon</p>
+                                <h1 className="text-3xl mb-2 font-bold">{setDetails?.name}</h1>
+                                <p className="text-lightgrey mb-5">{setDetails?.createdBy.username}</p>
                                 <div className="flex items-center">
                                     <p className="truth-label">W</p>
-                                    <p className="text-lightgrey mr-4">34 Wahrheit</p>
+                                    <p className="text-lightgrey mr-4">{setDetails?.truthCount} Pflicht</p>
                                     <p className="dare-label">P</p>
-                                    <p className="text-lightgrey">34 Pflicht</p>
+                                    <p className="text-lightgrey">{setDetails?.daresCount} Wahrheit</p>
                                 </div>
                             </div>
                         </div>
