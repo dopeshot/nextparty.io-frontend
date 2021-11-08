@@ -4,7 +4,7 @@ export const Player: React.FC = () => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border container my-4">
-        <h1 className="text-3xl font-bold">Player</h1>
+        <h1 className="text-3xl text-white font-bold">Player</h1>
       </IonHeader>
       <IonContent>
         <div className="container">

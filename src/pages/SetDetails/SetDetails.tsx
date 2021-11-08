@@ -26,7 +26,7 @@ export const SetDetails: React.FC = () => {
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
                     <IonButtons slot="start">
-                        <IonBackButton defaultHref="/explore" />
+                        <IonBackButton className="text-white" defaultHref="/explore" />
                     </IonButtons>
                 </ IonToolbar>
             </IonHeader>
