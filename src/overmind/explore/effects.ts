@@ -427,7 +427,7 @@ export const api = {
                     currentPlayerGender: "@ca",
                     _id: "1",
                     type: "dare",
-                    message: "@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@a@aIss ein Stück von etwas (z.B Schlagsahne) von der Pobacke eines Freiwilligen"
+                    message: "Iss ein Stück von etwas (z.B Schlagsahne) von der Pobacke eines Freiwilligen"
                 }]
             }), config.fakeLoadingTime)
         })
