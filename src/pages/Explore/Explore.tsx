@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect } from 'react';
 import gradient from '../../assets/example.png';
 import { SetItem } from '../../components/SetItem/SetItem';
@@ -23,11 +23,13 @@ export const Explore: React.FC = () => {
       <IonContent>
         <div className="container">
           <h2 className="text-xl font-bold mb-2">All Sets</h2>
-          {isLoadingSets ? <p>Loading sets...</p> : (
-            <div className="grid">
-              {sets.map((set: Set, index) => (
-                <SetItem key={index} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.daresCount} link={`/explore/${set._id}`}/>
-              ))}
+          {isLoadingSets ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
+            <div>
+              <IonList>
+                {sets.map((set: Set, index) => (
+                    <SetItem key={index} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.daresCount} link={`/explore/${set._id}`} />
+                ))}
+              </IonList>
             </div>
           )}
         </div>

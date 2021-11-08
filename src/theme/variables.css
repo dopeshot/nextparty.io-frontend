@@ -144,3 +144,8 @@ body {
     --ion-tab-bar-background: #000000;
     --ion-card-background: #0c0c0c;
 }
+
+ion-item::part(native) {
+    padding-left: 0px;
+    padding-inline-start: 0px;
+}
