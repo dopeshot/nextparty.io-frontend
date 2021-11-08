@@ -112,7 +112,7 @@ export const api = {
                     currentPlayerGender: "@ca",
                     _id: "1",
                     type: "dare",
-                    message: "Ziehe @w bis zu ihrer Unterwäsche aus"
+                    message: "Ziehe @f bis zu ihrer Unterwäsche aus"
                 }, {
                     currentPlayerGender: "@ca",
                     _id: "1",
