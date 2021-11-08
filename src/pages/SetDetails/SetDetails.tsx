@@ -1,7 +1,8 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonProgressBar, IonRouterLink, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { useEffect } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
+import { PrimaryButton } from "../../components/PrimaryButton/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
@@ -34,10 +35,7 @@ export const SetDetails: React.FC = () => {
             <div className="fixed bottom-0 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <IonRouterLink routerLink="/game" className="flex justify-center items-baseline cursor-pointer bg-white rounded-lg py-4">
-                                <i className="fas fa-play text-black mr-3"></i>
-                                <span className="text-black font-bold">Spielen</span>
-                            </IonRouterLink>
+                            <PrimaryButton link="/game" content="Spielen" icon="fa-play" />
                         </div>
                     </div>
                 </div>
