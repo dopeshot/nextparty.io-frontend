@@ -10,7 +10,7 @@ export const SetItem: React.FC<{
 }> = ({ name, author, truthCount, dareCount, link }) => {
   return (
   <IonItem lines="none" routerLink={link} className="mb-5 rounded-lg">
-    <div className="flex">
+    <div className="flex items-center">
       <img src={gradient} className="object-cover rounded-lg w-24 h-24 mr-2" />
       <div className="flex flex-col">
         <h3 className="text-white text-xl font-bold">{name}</h3>

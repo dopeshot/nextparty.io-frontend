@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { useEffect } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
@@ -32,7 +32,7 @@ export const SetDetails: React.FC = () => {
                 </ IonToolbar>
             </IonHeader>
             <IonContent style={{ "--background": "transparent" }}>
-            <div className="fixed bottom-0 w-full">
+                <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
                             <PrimaryButton link="/game" content="Spielen" icon="fa-play" />
@@ -59,9 +59,13 @@ export const SetDetails: React.FC = () => {
                 <div className="bg-background-black pt-6">
                     <div className="container pb-32">
                         {isLoadingSetDetails ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
-                        <ul>
-                            {setDetails?.tasks.map((task: Task, index) => (<li key={index}><TaskListItem type={task.type === 'truth' ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} /></li>))}
-                        </ul>
+                            <div>
+                                <IonList lines="none">
+                                    {setDetails?.tasks.map((task: Task, index) => (
+                                        <TaskListItem key={index} type={task.type === 'truth' ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
+                                    ))}
+                                </IonList>
+                            </div>
                         )}
                     </div>
                 </div>
