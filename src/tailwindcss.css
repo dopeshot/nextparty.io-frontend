@@ -1,13 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap');
-
 .truth-label {
     min-width: 20px;
     height: 20px;
     font-size: 11px;
+    line-height: 16px;
     @apply text-truth-yellow border-2 border-truth-yellow border-opacity-50 rounded-md text-center mr-2;
 }
 
@@ -15,5 +14,6 @@
     min-width: 20px;
     height: 20px;
     font-size: 11px;
+    line-height: 16px;
     @apply text-dare-green border-2 border-green-400 border-opacity-50 rounded-md text-center mr-2;
 }
