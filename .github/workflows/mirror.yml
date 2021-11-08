@@ -20,11 +20,4 @@ jobs:
           REMOTE: ${{ secrets.GIT_MIRROR_REPO }}
           GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
           GIT_SSH_NO_VERIFY_HOST: "true"
-          
-      - name: mirror_gitlab
-        uses: spyoungtech/mirror-action@master
-        with:
-          REMOTE: "https://gitlab.mi.hdm-stuttgart.de/mwa/ws21/wop"
-          GIT_USERNAME: ${{ secrets.GITLAB_USERNAME }}
-          GIT_PASSWORD: ${{ secrets.GITLAB_PASSWORD }}
     
