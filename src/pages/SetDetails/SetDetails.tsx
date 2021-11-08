@@ -1,4 +1,5 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
+import { ellipsisHorizontal } from "ionicons/icons"
 import { useEffect } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
@@ -26,8 +27,13 @@ export const SetDetails: React.FC = () => {
         <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
-                    <IonButtons slot="start">
+                    <IonButtons>
                         <IonBackButton className="text-white" defaultHref="/explore" />
+                    </IonButtons>
+                    <IonButtons slot="end">
+                        <IonButton onClick={() => console.log(`Clicked options button`)}>
+                        <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
+                        </IonButton>
                     </IonButtons>
                 </ IonToolbar>
             </IonHeader>
