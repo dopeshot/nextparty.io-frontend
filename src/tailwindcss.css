@@ -7,7 +7,7 @@
     height: 20px;
     font-size: 11px;
     line-height: 16px;
-    @apply text-truth-yellow border-2 border-truth-yellow border-opacity-50 rounded-md text-center mr-2;
+    @apply text-truth-yellow border-2 border-truth-yellow border-opacity-50 rounded-sm text-center mr-2;
 }
 
 .dare-label {
@@ -15,5 +15,5 @@
     height: 20px;
     font-size: 11px;
     line-height: 16px;
-    @apply text-dare-green border-2 border-green-400 border-opacity-50 rounded-md text-center mr-2;
+    @apply text-dare-green border-2 border-green-400 border-opacity-50 rounded-sm text-center mr-2;
 }
