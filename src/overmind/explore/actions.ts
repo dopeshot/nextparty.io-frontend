@@ -9,6 +9,7 @@ export const loadExplore = async ({ state, effects }: Context) => {
 
 export const loadSetDetails = async ({ state, effects}: Context, { setId, componentMounted}: {setId: string, componentMounted: React.MutableRefObject<boolean> }) => {
     state.explore.isLoadingSetDetails = true
+    state.explore.setDetails = null
     const data = await effects.explore.api.getSetById(setId)
 
     // Only update content when component is still mounted
