@@ -1,8 +1,4 @@
-type Config = {
-    fakeLoadingTime: number
+export const config = {
+    fakeLoadingTime: 1000,
+    baseApiUrl: 'http://localhost:3001'
 }
-
-export const config: Config = {
-    fakeLoadingTime: 1000
-}
-
