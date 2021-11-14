@@ -33,7 +33,6 @@ export const Player: React.FC = () => {
               <PlayerInput key={player.id} player={player} />
             ))}
           </IonList>
-          <IonButton onClick={() => addPlayer()}>Add Player</IonButton>
         </div>
       </IonContent>
     </IonPage>

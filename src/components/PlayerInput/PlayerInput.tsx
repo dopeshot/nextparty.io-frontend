@@ -7,13 +7,13 @@ export const PlayerInput: React.FC<{player: Player}> = ({ player }) => {
 
     const { deletePlayer, updatePlayerName, togglePlayerGender } = useActions().players
 
-    return (<IonItem>
-        <IonToggle slot="start" checked={player.gender === Gender.MALE ? false : true} onIonChange={(event: CustomEvent) => {
+    return (<IonItem lines="none" className="bg-itemgrey rounded-lg mb-3 hover:bg-itemactivegrey focus:bg-itemactivegrey">
+        <IonToggle className="pl-3" mode="ios" slot="start" checked={player.gender === Gender.MALE ? false : true} onIonChange={(event: CustomEvent) => {
             togglePlayerGender(player.id)
         }}>
 
         </IonToggle>
-        <IonInput maxlength={playerNameLength} value={player.name} onIonChange={(event: CustomEvent) => {
+        <IonInput placeholder="Enter a name" maxlength={playerNameLength} value={player.name} onIonChange={(event: CustomEvent) => {
             updatePlayerName({id: player.id, name: event.detail.value})
         }}>
 
