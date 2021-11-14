@@ -1,4 +1,6 @@
-import { IonContent, IonHeader, IonPage } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonPage, IonToggle } from '@ionic/react';
+import { closeOutline } from 'ionicons/icons';
+import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
 
 export const Player: React.FC = () => {
   return (
@@ -8,7 +10,22 @@ export const Player: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="container">
-          <p>This is the content of the page</p>
+          <div className="bg-gray-100 w-full h-16"></div>
+          <IonList>
+            <IonItem>
+              <IonToggle slot="start">
+
+              </IonToggle>
+              <IonInput>
+
+              </IonInput>
+              <IonButtons slot="end">
+                <IonButton>
+                  <IonIcon icon={closeOutline} slot="icon-only"></IonIcon>
+                </IonButton>
+              </IonButtons>
+            </IonItem>
+          </IonList>
         </div>
       </IonContent>
     </IonPage>
