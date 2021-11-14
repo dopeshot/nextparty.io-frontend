@@ -1,3 +1,8 @@
+import { derived } from 'overmind'
+
+const playerRequiredToPlay = 2
+export const playerNameLength = 18
+
 export enum Gender {
     MALE = "male",
     FEMALE = "female"
@@ -15,6 +20,14 @@ export type State = {
 }
 
 export const state: State = {
-    enoughPlayer: false,
-    players: []
+    players: [{
+        id: 1,
+        name: "Michael",
+        gender: Gender.MALE
+    }, {
+        id: 2,
+        name: "Joy",
+        gender: Gender.FEMALE
+    }],
+    enoughPlayer: derived((state: State) => state.players.length >= playerRequiredToPlay ? true : false)
 }
