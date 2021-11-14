@@ -1,6 +1,5 @@
-import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar } from '@ionic/react';
 import { useEffect } from 'react';
-import gradient from '../../assets/example.png';
 import { SetItem } from '../../components/SetItem/SetItem';
 import { useActions, useAppState } from '../../overmind';
 import { Set } from '../../overmind/explore/state';
