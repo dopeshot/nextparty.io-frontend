@@ -12,7 +12,18 @@ module.exports = {
         '2xl': '6rem',
       },
     },
-    extend: {},
+    fontFamily: {
+      'rubik': ['Rubik', 'sans-serif']
+    },
+    extend: {
+      colors: {
+        'lightgrey': '#B3B3BF',
+        'darkgray': '#3E4851',
+        'truth-yellow': '#F6BF22',
+        'dare-green': '#09BB88',
+        'background-black': '#0C0C0C'
+      },
+    },
   },
   variants: {
     extend: {},

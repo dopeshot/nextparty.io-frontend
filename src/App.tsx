@@ -18,29 +18,31 @@ import './tailwindcss.css';
 import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
 import { Player } from './pages/Player/Player';
+import { SetDetails } from './pages/SetDetails/SetDetails';
 
 export const App: React.FC = () => (
-  <IonApp>
+  <IonApp className="font-rubik">
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/player" component={Player} />
           <Route exact path="/game" component={Game} />
           <Route exact path="/explore" component={Explore} />
+          <Route exact path="/explore/:setId" component={SetDetails} />
           <Route exact path="/">
             <Redirect to="/explore" />
           </Route>
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="explore" href="/explore">
+        <IonTabBar slot="bottom" className="bg-black">
+          <IonTabButton tab="explore" href="/explore" className="bg-black">
             <IonIcon icon={homeOutline} />
             <IonLabel>Explore</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="/game" href="/game">
+          <IonTabButton tab="/game" href="/game" className="bg-black">
             <IonIcon icon={playOutline} />
             <IonLabel>Game</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="player" href="/player">
+          <IonTabButton tab="player" href="/player" className="bg-black">
             <IonIcon icon={peopleOutline} />
             <IonLabel>Player</IonLabel>
           </IonTabButton>
