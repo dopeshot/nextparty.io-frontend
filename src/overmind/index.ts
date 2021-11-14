@@ -2,9 +2,11 @@ import { IContext } from 'overmind'
 import { createActionsHook, createStateHook } from 'overmind-react'
 import { namespaced } from 'overmind/config'
 import * as example from './example'
+import * as players from './players'
 
 export const config = namespaced({
-    example
+    example,
+    players
 })
 
 export type Context = IContext<{
