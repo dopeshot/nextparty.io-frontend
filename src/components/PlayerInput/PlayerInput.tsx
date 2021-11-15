@@ -3,8 +3,7 @@ import { closeOutline } from 'ionicons/icons';
 import { useActions, useAppState } from '../../overmind';
 import { Gender, Player, playerNameLength } from '../../overmind/players/state';
 
-export const PlayerInput: React.FC<{player: Player}> = ({ player }) => {
-    const { isAllowedToDelete } = useAppState().players
+export const PlayerInput: React.FC<{player: Player, isAllowedToDelete: boolean}> = ({ player, isAllowedToDelete }) => {
     const { deletePlayer, updatePlayerName, togglePlayerGender } = useActions().players
 
     return (<IonItem lines="none" className="bg-itemgrey rounded-lg mb-3 hover:bg-itemactivegrey focus:bg-itemactivegrey">
