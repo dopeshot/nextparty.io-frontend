@@ -13,7 +13,9 @@ http://ionicframework.com/docs/theming/ */
 
 * {
     --inner-padding-end: 0px;
+    --inner-padding-start: 0px;
     --padding-start: 0px;
+    --padding-end: 0px;
 }
 
 body {
