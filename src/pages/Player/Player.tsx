@@ -5,7 +5,7 @@ import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
 
 export const Player: React.FC = () => {
-  const { players } = useAppState().players
+  const { players, isAllowedToDelete } = useAppState().players
   const { addPlayer, confirmPlayers, loadPlayerScreen } = useActions().players
 
   useIonViewDidEnter(() => {
@@ -30,7 +30,7 @@ export const Player: React.FC = () => {
         <div className="container">
           <IonList>
             {players.map(player => (
-              <PlayerInput key={player.id} player={player} />
+              <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
             ))}
           </IonList>
           <IonButton onClick={() => addPlayer()}>Add Player</IonButton>
