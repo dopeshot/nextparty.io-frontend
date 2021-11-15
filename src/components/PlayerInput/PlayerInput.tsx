@@ -4,7 +4,7 @@ import { useActions, useAppState } from '../../overmind';
 import { Gender, Player, playerNameLength } from '../../overmind/players/state';
 
 export const PlayerInput: React.FC<{player: Player}> = ({ player }) => {
-    const { enoughPlayer } = useAppState().players
+    const { isAllowedToDelete } = useAppState().players
     const { deletePlayer, updatePlayerName, togglePlayerGender } = useActions().players
 
     return (<IonItem lines="none" className="bg-itemgrey rounded-lg mb-3 hover:bg-itemactivegrey focus:bg-itemactivegrey">
@@ -18,7 +18,7 @@ export const PlayerInput: React.FC<{player: Player}> = ({ player }) => {
         }}>
 
         </IonInput>
-        { enoughPlayer && <IonButtons slot="end">
+        { isAllowedToDelete && <IonButtons slot="end">
             <IonButton onClick={() => deletePlayer(player.id)}>
                 <IonIcon icon={closeOutline} slot="icon-only"></IonIcon>
             </IonButton>
