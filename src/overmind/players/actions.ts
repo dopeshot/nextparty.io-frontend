@@ -14,7 +14,7 @@ export const addPlayer = ({state}: Context) => {
     const newPlayer: Player = {
         id: Math.max(...state.players.players.map(player => player.id), 0) + 1,
         name: "",
-        gender: Gender.FEMALE
+        gender: Math.random() > 0.5 ? Gender.MALE : Gender.FEMALE
     }
     state.players.players.push(newPlayer)
 }
