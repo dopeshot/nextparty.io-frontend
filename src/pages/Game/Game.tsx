@@ -3,7 +3,7 @@ import { useAppState } from '../../overmind';
 
 export const Game: React.FC = () => {
   const { players } = useAppState().players
-  console.log(players)
+
   return (
     <IonPage className="bg-background-black">
       <IonHeader className="ion-no-border container my-4">
@@ -13,8 +13,8 @@ export const Game: React.FC = () => {
         <div className="container">
           <p>This is the content of the page</p>
           <IonList>
-            {players.length !== 0 && players.map(player => 
-              <IonItem><IonLabel>{player.gender}: {player.name} ({player.id})</IonLabel></IonItem>
+            {players.length !== 0 && players.map(player =>
+              <IonItem key={player.id}><IonLabel>{player.gender}: {player.name} ({player.id})</IonLabel></IonItem>
             )}
           </IonList>
         </div>
