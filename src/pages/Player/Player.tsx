@@ -18,15 +18,15 @@ export const Player: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader className="ion-no-border bg-cover mb-8" style={{ backgroundImage: `url(${example})` }}>
-        <div className="bg-gradient-to-t from-background-black w-full h-full">
-          <div className="container">
-            <h1 className="text-3xl pt-14 pb-6 text-white font-bold">Players</h1>
-            <p className="text-lightgrey">Füge deine Mitspieler hinzu und wähle ihr Geschlecht aus.</p>
+      <IonContent>
+        <div className="ion-no-border bg-cover mb-8" style={{ backgroundImage: `url(${example})` }}>
+          <div className="bg-gradient-to-t from-background-black w-full h-full">
+            <div className="container">
+              <h1 className="text-3xl pt-14 pb-6 text-white font-bold">Players</h1>
+              <p className="text-lightgrey">Füge deine Mitspieler hinzu und wähle ihr Geschlecht aus.</p>
+            </div>
           </div>
         </div>
-      </IonHeader>
-      <IonContent>
         <div className="container">
           <IonList>
             {players.map(player => (
