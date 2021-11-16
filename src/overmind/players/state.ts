@@ -1,6 +1,6 @@
 import { derived } from 'overmind'
 
-const playerRequiredToPlay = 2
+export const playerRequiredToPlay = 2
 export const playerNameLength = 18
 
 export enum Gender {

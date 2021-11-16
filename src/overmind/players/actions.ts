@@ -1,9 +1,12 @@
 import { Context } from '..'
-import { Gender, Player } from './state'
+import { Gender, Player, playerRequiredToPlay } from './state'
 
 
-export const loadPlayerScreen = ({state}: Context) => {
-    
+export const loadPlayerScreen = ({state, actions}: Context) => {
+    // MC: This does only create woman players. It should create one men and one woman if there are two empty. 
+    while(state.players.players.length < playerRequiredToPlay) {
+        actions.players.addPlayer()
+    }
 }
 
 export const confirmPlayers = ({state}: Context) => {
