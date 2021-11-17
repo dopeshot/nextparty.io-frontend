@@ -1,6 +1,7 @@
-import { IonButton, IonContent, IonHeader, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
-import { useEffect } from 'react';
+import { IonContent, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
+import { personAdd } from 'ionicons/icons';
 import example from '../../assets/example.png';
+import { SecondaryButton } from '../../components/Buttons/SecondaryButton';
 import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
 
@@ -27,13 +28,13 @@ export const Player: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="container">
+        <div className="container mb-12">
           <IonList>
             {players.map(player => (
               <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
             ))}
           </IonList>
-          <IonButton onClick={() => addPlayer()}>Add Player</IonButton>
+          <SecondaryButton onClick={() => addPlayer()} content="Add Player" icon={personAdd}/>
         </div>
       </IonContent>
     </IonPage>

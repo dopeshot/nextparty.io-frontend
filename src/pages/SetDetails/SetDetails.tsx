@@ -3,7 +3,7 @@ import { ellipsisHorizontal } from "ionicons/icons"
 import { useEffect, useRef } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
-import { PrimaryButton } from "../../components/PrimaryButton/PrimaryButton"
+import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"

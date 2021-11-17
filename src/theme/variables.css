@@ -161,3 +161,7 @@ ion-toggle {
     --handle-width: calc(32px - (4px * 2));
     --handle-height: calc(32px - (4px * 2));
 }
+
+ion-button {
+    --border-radius: 0.5rem;
+}
