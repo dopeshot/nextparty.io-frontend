@@ -34,7 +34,7 @@ export const Player: React.FC = () => {
               <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
             ))}
           </IonList>
-          <SecondaryButton onClick={() => addPlayer()} content="Add Player" icon={personAdd}/>
+          <SecondaryButton onClick={() => addPlayer()} keepFocus={true} content="Add Player" icon={personAdd}/>
         </div>
       </IonContent>
     </IonPage>
