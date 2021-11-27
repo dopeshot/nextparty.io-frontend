@@ -21,14 +21,17 @@ export const addPlayer = ({state}: Context) => {
     }
     state.players.players.push(newPlayer)
 }
-export const togglePlayerGender = ({state}: Context, id: number) => {
+
+export const setPlayerGender = ({state }: Context, {id, gender}: {id: number, gender: Gender}) => {
+    console.log(gender)
     const player = state.players.players.find(player => player.id === id)
     if(!player) {
         console.error(`There is no player with ${id}.`)
         return 
     }
-    player.gender = player.gender === Gender.MALE ? Gender.FEMALE : Gender.MALE
+    player.gender = gender
 }
+
 export const updatePlayerName = ({state}: Context, {id, name}: {id: number, name: string}) => {
     const player = state.players.players.find(player => player.id === id)
     if(!player) {

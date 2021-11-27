@@ -5,7 +5,8 @@ export const playerNameLength = 18
 
 export enum Gender {
     MALE = "male",
-    FEMALE = "female"
+    FEMALE = "female",
+    DIVERS = "divers"
 }
 
 export type Player = {
