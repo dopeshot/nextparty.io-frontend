@@ -19,6 +19,7 @@ import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
 import { Player } from './pages/Player/Player';
 import { SetDetails } from './pages/SetDetails/SetDetails';
+import { InGame } from './pages/Game/InGame';
 
 export const App: React.FC = () => (
   <IonApp className="font-rubik">
@@ -26,6 +27,7 @@ export const App: React.FC = () => (
       <IonTabs>
         <IonRouterOutlet>
           <Route exact path="/player" component={Player} />
+          <Route exact path="/game/ingame" component={InGame} />
           <Route exact path="/game" component={Game} />
           <Route exact path="/explore" component={Explore} />
           <Route exact path="/explore/:setId" component={SetDetails} />

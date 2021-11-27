@@ -11,3 +11,15 @@ export function replaceCurrentPlayerStringWithIcon(string: string): string {
         .replaceAll('@cm', '👨')
         .replaceAll('@cf', '👩')
 }
+
+export function countGenderOccurrences(string: string): {
+    male: number,
+    female: number,
+    any: number
+} {
+    return {
+        male: string.split('@m').length - 1,
+        female: string.split('@m').length - 1,
+        any: string.split('@a').length - 1
+    }
+}
