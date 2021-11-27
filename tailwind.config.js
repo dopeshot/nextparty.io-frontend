@@ -15,6 +15,13 @@ module.exports = {
         fontFamily: {
             'rubik': ['Rubik', 'sans-serif']
         },
+        borderWidth: {
+            DEFAULT: '1px',
+            '0': '0',
+            '2': '2px',
+            '3': '3px',
+            '4': '4px'
+        },
         extend: {
             colors: {
                 'lightgrey': '#B3B3BF',

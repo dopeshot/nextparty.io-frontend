@@ -1,4 +1,6 @@
-import { IonContent, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
+import { faFemale, faMale, faTransgender } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IonContent, IonItem, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
 import { personAdd } from 'ionicons/icons';
 import example from '../../assets/example.png';
 import { SecondaryButton } from '../../components/Buttons/SecondaryButton';
@@ -34,7 +36,29 @@ export const Player: React.FC = () => {
               <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
             ))}
           </IonList>
-          <SecondaryButton onClick={() => addPlayer()} keepFocus={true} content="Add Player" icon={personAdd}/>
+          <SecondaryButton onClick={() => addPlayer()} keepFocus={true} content="Add Player" icon={personAdd} />
+        </div>
+        <div className="container">
+          <IonList lines="none">
+            <IonItem>
+              <span className="flex items-center justify-center bg-truth-yellow border-4 border-background-black rounded-full mr-3" style={{ minWidth: "38px", minHeight: "38px" }}>
+                <FontAwesomeIcon className="text-background-black text-lg" icon={faFemale} />
+              </span>
+              <p>Female</p>
+            </IonItem>
+            <IonItem>
+              <span className="flex items-center justify-center bg-dare-green border-4 border-background-black rounded-full mr-3" style={{ minWidth: "38px", minHeight: "38px" }}>
+                <FontAwesomeIcon className="text-background-black text-lg" icon={faMale} />
+              </span>
+              <p>Male</p>
+            </IonItem>
+            <IonItem>
+              <span className="flex items-center justify-center bg-white border-4 border-background-black rounded-full mr-3" style={{ minWidth: "38px", minHeight: "38px" }}>
+                <FontAwesomeIcon className="text-background-black text-lg" icon={faTransgender} />
+              </span>
+              <p>Divers</p>
+            </IonItem>
+          </IonList>
         </div>
       </IonContent>
     </IonPage>
