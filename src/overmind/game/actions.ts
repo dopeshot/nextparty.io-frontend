@@ -2,10 +2,15 @@ import { Context } from "..";
 import { getFillableTasks, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
+import { playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, TaskType } from "./state";
 
 
 export const launchGame = ({state, actions}: Context) => {
+    if(state.game.players.length < playerRequiredToPlay || !state.game.set) {
+        console.error("Starting a game. Data is missing.")
+        return
+    }
 
     // First start
     if(state.game.gameStatus === GameStatus.START) {
