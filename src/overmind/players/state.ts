@@ -30,34 +30,14 @@ export const state: State = {
         id: 2,
         name: "Joy",
         gender: Gender.FEMALE
-    },  {
+    }, {
         id: 3,
-        name: "Joy",
-        gender: Gender.FEMALE
-    },  {
+        name: "Nicer Guy",
+        gender: Gender.DIVERS
+    }, {
         id: 4,
-        name: "Joy",
-        gender: Gender.FEMALE
-    },  {
-        id: 5,
-        name: "Joy",
-        gender: Gender.FEMALE
-    },  {
-        id: 6,
-        name: "Joy",
-        gender: Gender.FEMALE
-    },  {
-        id: 7,
-        name: "Joy",
-        gender: Gender.FEMALE
-    },  {
-        id: 8,
-        name: "Joy",
-        gender: Gender.FEMALE
-    },  {
-        id: 9,
-        name: "Joy",
-        gender: Gender.FEMALE
+        name: "Maxi",
+        gender: Gender.MALE
     }],
     enoughPlayer: derived((state: State) => state.players.length >= playerRequiredToPlay ? true : false),
     isAllowedToDelete: derived((state: State) => state.players.length > playerRequiredToPlay ? true : false)
