@@ -158,4 +158,5 @@ ion-button {
 
 .no-ripple {
     --ripple-color: transparent;
+    --color-hover: transparent;
 }
