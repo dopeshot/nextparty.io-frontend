@@ -1,13 +1,22 @@
 import { IonButton, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage } from '@ionic/react';
+import { useEffect } from 'react';
 import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
 import { useActions, useAppState } from '../../overmind';
 
 export const Game: React.FC = () => {
-  const { players: {
+  const { game: {
+    set,
     players
-  }, game: {
-    set
-  } } = useAppState()
+  }} = useAppState()
+
+  const { addPlayersToGame } = useActions().game
+
+  useEffect(() => {
+    addPlayersToGame()
+    return () => {
+      return
+    }
+  }, [addPlayersToGame])
   
   return (
     <IonPage className="bg-background-black">

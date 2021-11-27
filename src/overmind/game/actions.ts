@@ -1,4 +1,5 @@
 import { Context } from "..";
+import { getPossibleTasks } from "../../services/game/GameComponents";
 import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
 import { GameStatus, TaskType } from "./state";
@@ -13,19 +14,28 @@ export const launchGame = ({state, actions}: Context) => {
         state.game.set!.tasks = shuffleArray(state.game.set!.tasks)
 
         // Shuffle players
-        //state.players.players
+        state.game.players = shuffleArray(state.game.players)
     }
     actions.game.nextPlayer()
 }
 
 export const nextPlayer = ({state}: Context) => {
-    console.log("nextPlayer() ")
+    let nextPlayerIndex = state.game.currentPlayerIndex + 1
 
+    if(nextPlayerIndex > state.game.players.length - 1) {
+        state.game.players = shuffleArray(state.game.players)
+        nextPlayerIndex = 0
+    }
+    state.game.currentPlayerIndex = nextPlayerIndex
     state.game.gameStatus = GameStatus.PLAYER_PICKED
+
+    console.log("nextPlayer() ", nextPlayerIndex, state.game.players[nextPlayerIndex].name)
 }
 
 export const pickTaskType = ({state}: Context, taskType: TaskType) => {
     console.log("pickTaskType() ", taskType)
+
+    console.log(getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType))
 
     state.game.gameStatus = GameStatus.TYPE_PICKED
 }
@@ -47,4 +57,8 @@ export const addSetToGame = ({state}: Context) => {
 
     // Reset game status when selecting new set
     state.game.gameStatus = GameStatus.START
+}
+
+export const addPlayersToGame = ({state}: Context) => {
+    state.game.players = [...state.players.players]
 }

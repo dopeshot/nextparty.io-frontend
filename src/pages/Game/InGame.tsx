@@ -1,12 +1,11 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar, useIonViewDidEnter, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
 import { useEffect } from "react"
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus, TaskType } from "../../overmind/game/state"
 
 export const InGame: React.FC = () => {
     const {
-        gameStatus,
-        set
+        gameStatus, set, currentPlayerIndex, players
     } = useAppState().game
     const {
         nextPlayer, pickTaskType, launchGame
@@ -14,10 +13,11 @@ export const InGame: React.FC = () => {
 
     useEffect(() => {
         launchGame()
+
         return () => {
             return
         }
-    }, [nextPlayer])
+    }, [launchGame])
 
     return (
         <IonPage className="bg-background-black">
@@ -32,7 +32,7 @@ export const InGame: React.FC = () => {
             <IonContent>
                 <div className="container">
                     {(gameStatus === GameStatus.PLAYER_PICKED) && <>
-                        <p>Current Player: </p>
+                        <p>Current Player: {JSON.stringify(players[currentPlayerIndex])}</p>
                         <IonButton onClick={() => pickTaskType(TaskType.TRUTH)}>Truth</IonButton>
                         <IonButton onClick={() => pickTaskType(TaskType.DARE)}>Dare</IonButton>
                     </>}
