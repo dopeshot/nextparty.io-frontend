@@ -1,6 +1,6 @@
-import { PlayerGenderCount, PlayTask, TaskCurrentPlayerGender, TaskType } from "../../overmind/game/state"
+import { PlayerGenderCount, PlayTask, TaskCurrentPlayerGender, TaskPlayerGender, TaskType } from "../../overmind/game/state"
 import { Gender, Player } from "../../overmind/players/state"
-import { countPlayedByPlayer, genderToTaskCurrentPlayerGender } from "./GameUtilities"
+import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "./GameUtilities"
 
 export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType) => {
     return tasks.filter(task => 
@@ -54,4 +54,51 @@ export const getLeastPlayedByMe = (tasks: PlayTask[], player: Player) => {
 
 export const getLeastPlayedOverall = (tasks: PlayTask[]) => {
     return tasks.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0] // MC: Math min as well?
+}
+
+// MC: This is not finished!
+export const fillPlayersIntoMessage = (players: Player[], message: string, currentPlayer: Player) => {
+    const playersWithoutCurrent = [...players].filter(player => player.id !== currentPlayer.id)
+    const playerNamesByGender = shuffleArray(playersWithoutCurrent).reduce<{
+        male: string[],
+        female: string[],
+        divers: string[]
+    }>((result, player) => {
+        switch(player.gender) {
+            case Gender.MALE: 
+                result.male.push(player.name) 
+            break
+            case Gender.FEMALE:
+                result.female.push(player.name)
+            break
+            case Gender.DIVERS:
+                result.divers.push(player.name)
+            break
+        }
+        return result
+    }, {
+        male: [],
+        female: [],
+        divers: []
+    })
+
+    message = message.replaceAll(TaskPlayerGender.MALE, () => {
+        const maleName = playerNamesByGender.male[playerNamesByGender.male.length - 1]
+        playerNamesByGender.male.splice(playerNamesByGender.male.length - 1, 1)
+        return maleName
+    })
+
+    message = message.replaceAll(TaskPlayerGender.FEMALE, () => {
+        const femaleName = playerNamesByGender.female[playerNamesByGender.female.length - 1]
+        playerNamesByGender.male.splice(playerNamesByGender.female.length - 1, 1)
+        return femaleName
+    })
+
+    message = message.replaceAll(TaskPlayerGender.ANYONE, () => {
+        const maleName = playerNamesByGender.male[playerNamesByGender.male.length - 1]
+        playerNamesByGender.male.splice(playerNamesByGender.male.length - 1, 1)
+        return maleName
+    })
+
+    return message
 }

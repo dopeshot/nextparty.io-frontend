@@ -1,6 +1,6 @@
 import { action } from "overmind/lib/operator";
 import { Context } from "..";
-import { getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
+import { fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
 import { playerRequiredToPlay } from "../players/state";
@@ -91,7 +91,8 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
 export const generateFinalMessage = ({state}: Context, playTask: PlayTask) => {
     const task = state.game.set.tasks.find(task => task._id === playTask._id)!
     task.playedBy = [...task.playedBy, state.game.currentPlayer.id]
-    state.game.currentTaskMessage = playTask.message
+    
+    state.game.currentTaskMessage = fillPlayersIntoMessage(state.game.players, playTask.message, state.game.currentPlayer)
 }
 
 export const addSetToGame = ({state}: Context) => {
