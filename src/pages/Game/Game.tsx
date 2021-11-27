@@ -3,7 +3,11 @@ import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
 import { useActions, useAppState } from '../../overmind';
 
 export const Game: React.FC = () => {
-  const { players } = useAppState().players
+  const { players: {
+    players
+  }, game: {
+    set
+  } } = useAppState()
   const { addSetToGame } = useActions().game
   return (
     <IonPage className="bg-background-black">
@@ -19,6 +23,11 @@ export const Game: React.FC = () => {
           <IonList>
             {players.length !== 0 && players.map(player =>
               <IonItem key={player.id}><IonLabel>({player.id}): {player.gender}: {player.name}</IonLabel></IonItem>
+            )}
+          </IonList>
+          <IonList>
+            {set && set.tasks.length !== 0 && set.tasks.map(playTask =>
+              <IonItem key={playTask._id}><IonLabel>({playTask.currentPlayerGender}): {playTask.type}: {playTask.message} | {JSON.stringify(playTask.requires)}</IonLabel></IonItem>
             )}
           </IonList>
         </div>
