@@ -1,18 +1,19 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
 import { useEffect } from "react"
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus, TaskType } from "../../overmind/game/state"
 
 export const InGame: React.FC = () => {
     const {
-        gameStatus
+        gameStatus,
+        set
     } = useAppState().game
     const {
-        nextPlayer, pickTaskType
+        nextPlayer, pickTaskType, launchGame
     } = useActions().game
 
     useEffect(() => {
-        nextPlayer()
+        launchGame()
         return () => {
             return
         }
@@ -39,6 +40,11 @@ export const InGame: React.FC = () => {
                         <p>Current Task: </p>
                         <IonButton onClick={() => nextPlayer()}>Pick random Player</IonButton>
                     </>}
+                    <IonList>
+                        {set && set.tasks.length !== 0 && set.tasks.map(playTask =>
+                            <IonItem key={playTask._id}><IonLabel>{JSON.stringify(playTask)}</IonLabel></IonItem>
+                        )}
+                    </IonList>
                 </div>
             </IonContent>
         </IonPage>

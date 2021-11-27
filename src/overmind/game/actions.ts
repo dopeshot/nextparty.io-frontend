@@ -1,8 +1,22 @@
 import { Context } from "..";
+import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
 import { GameStatus, TaskType } from "./state";
 
 
+export const launchGame = ({state, actions}: Context) => {
+    console.log("launchGame() ")
+    if(state.game.gameStatus === GameStatus.START) {
+        console.log("firstStart")
+
+        // Shuffle tasks
+        state.game.set!.tasks = shuffleArray(state.game.set!.tasks)
+
+        // Shuffle players
+        //state.players.players
+    }
+    actions.game.nextPlayer()
+}
 
 export const nextPlayer = ({state}: Context) => {
     console.log("nextPlayer() ")
@@ -30,4 +44,7 @@ export const addSetToGame = ({state}: Context) => {
             playedBy: []
         }))
     }
+
+    // Reset game status when selecting new set
+    state.game.gameStatus = GameStatus.START
 }
