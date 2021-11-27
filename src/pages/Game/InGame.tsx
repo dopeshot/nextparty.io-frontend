@@ -1,6 +1,23 @@
-import { IonBackButton, IonButtons, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
+import { useEffect } from "react"
+import { useActions, useAppState } from "../../overmind"
+import { GameStatus, TaskType } from "../../overmind/game/state"
 
 export const InGame: React.FC = () => {
+    const {
+        gameStatus,
+        set
+    } = useAppState().game
+    const {
+        nextPlayer, pickTaskType, launchGame
+    } = useActions().game
+
+    useEffect(() => {
+        launchGame()
+        return () => {
+            return
+        }
+    }, [nextPlayer])
 
     return (
         <IonPage className="bg-background-black">
@@ -12,6 +29,24 @@ export const InGame: React.FC = () => {
                     <IonTitle>Ingame Dev</IonTitle>
                 </ IonToolbar>
             </IonHeader>
+            <IonContent>
+                <div className="container">
+                    {(gameStatus === GameStatus.PLAYER_PICKED) && <>
+                        <p>Current Player: </p>
+                        <IonButton onClick={() => pickTaskType(TaskType.TRUTH)}>Truth</IonButton>
+                        <IonButton onClick={() => pickTaskType(TaskType.DARE)}>Dare</IonButton>
+                    </>}
+                    {(gameStatus === GameStatus.TYPE_PICKED) && <>
+                        <p>Current Task: </p>
+                        <IonButton onClick={() => nextPlayer()}>Pick random Player</IonButton>
+                    </>}
+                    <IonList>
+                        {set && set.tasks.length !== 0 && set.tasks.map(playTask =>
+                            <IonItem key={playTask._id}><IonLabel>{JSON.stringify(playTask)}</IonLabel></IonItem>
+                        )}
+                    </IonList>
+                </div>
+            </IonContent>
         </IonPage>
     )
 }

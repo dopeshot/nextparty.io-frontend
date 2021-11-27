@@ -491,7 +491,7 @@ export const api = {
 							"currentPlayerGender": "@cf",
 							"_id": "618be342577d8c493e101379",
 							"type": "truth",
-							"message": "Requires to males: @m @m"
+							"message": "Requires two males: @m @m"
 						},
 						{
 							"currentPlayerGender": "@cm",
