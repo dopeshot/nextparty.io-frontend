@@ -1,4 +1,4 @@
 export const config = {
-    fakeLoadingTime: 1000,
+    fakeLoadingTime: 0,
     baseApiUrl: 'http://localhost:3001'
 }
