@@ -1,5 +1,5 @@
 import { Context } from "..";
-import { getPossibleTasks } from "../../services/game/GameComponents";
+import { getFillableTasks, getPossibleTasks } from "../../services/game/GameComponents";
 import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
 import { GameStatus, TaskType } from "./state";
@@ -34,8 +34,24 @@ export const nextPlayer = ({state}: Context) => {
 
 export const pickTaskType = ({state}: Context, taskType: TaskType) => {
     console.log("pickTaskType() ", taskType)
+    
+    // 5.1 Filter by type and Gender
+    let tasks = getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType)
+    if(tasks.length === 0) {
+        console.error("This player has no possible tasks at all")
+        return
+    }
+    
+    // 5.1.1 Filter for fillable tasks
+    tasks = getFillableTasks(tasks, state.game.currentPlayer, state.game.playersGenderCount)
+    if(tasks.length === 0) {
+        console.error("This group has no possible tasks for this player")
+        return
+    }
 
-    console.log(getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType))
+    
+
+    console.log("tasks ", tasks)
 
     state.game.gameStatus = GameStatus.TYPE_PICKED
 }

@@ -1,5 +1,5 @@
 import { Set, Task } from "../explore/state"
-import { Player } from "../players/state"
+import { Gender, Player } from "../players/state"
 import { derived } from 'overmind'
 
 export enum TaskType {
@@ -33,10 +33,16 @@ export type PlayTask = Task & {
     },
     playedBy: string[]
 }
+export type PlayerGenderCount = {
+    male: number,
+    female: number,
+    divers: number
+}
 
 export type State = {
     set: Set & { tasks: PlayTask[] },
     players: Player[],
+    playersGenderCount: PlayerGenderCount,
     gameStatus: GameStatus,
     currentPlayerIndex: number,
     currentPlayer: Player
@@ -105,6 +111,25 @@ export const state: State = {
         ]
     },
     players: [],
+    playersGenderCount: derived((state: State) => state.players.reduce((result, player) => {
+            switch(player.gender) {
+                case Gender.MALE: 
+                    result.male++ 
+                break
+                case Gender.FEMALE:
+                    result.female++
+                break
+                case Gender.DIVERS:
+                    result.divers++
+                break
+            }
+            return result
+        }, {
+            male: 0,
+            female: 0,
+            divers: 0
+        })
+    ),
     gameStatus: GameStatus.START,
     currentPlayerIndex: -1,
     currentPlayer: derived((state: State) => state.players[state.currentPlayerIndex])
