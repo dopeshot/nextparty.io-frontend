@@ -19,7 +19,7 @@ export function countGenderOccurrences(string: string): {
 } {
     return {
         male: string.split('@m').length - 1,
-        female: string.split('@m').length - 1,
+        female: string.split('@f').length - 1,
         any: string.split('@a').length - 1
     }
 }
