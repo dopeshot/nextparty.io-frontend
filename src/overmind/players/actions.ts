@@ -23,7 +23,6 @@ export const addPlayer = ({state}: Context) => {
 }
 
 export const setPlayerGender = ({state }: Context, {id, gender}: {id: number, gender: Gender}) => {
-    console.log(gender)
     const player = state.players.players.find(player => player.id === id)
     if(!player) {
         console.error(`There is no player with ${id}.`)
