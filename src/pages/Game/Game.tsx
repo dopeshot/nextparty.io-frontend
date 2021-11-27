@@ -8,7 +8,7 @@ export const Game: React.FC = () => {
   }, game: {
     set
   } } = useAppState()
-  const { addSetToGame } = useActions().game
+  
   return (
     <IonPage className="bg-background-black">
       <IonHeader className="ion-no-border container my-4">
@@ -17,7 +17,6 @@ export const Game: React.FC = () => {
       <IonContent>
         <div className="container">
           <p className="mb-6">This is the content of the page</p>
-          <IonButton onClick={() => addSetToGame()}>DEV: addSetToGame</IonButton>
           <PrimaryButton link="/game/ingame" content="Spielen" icon="fa-play" />
 
           <IonList>

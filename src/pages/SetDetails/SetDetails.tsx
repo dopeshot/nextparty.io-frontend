@@ -1,7 +1,7 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonRouterLink, IonToolbar } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
-import { useEffect, useRef } from "react"
-import { useParams } from "react-router"
+import { MouseEventHandler, useEffect, useRef } from "react"
+import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
@@ -14,12 +14,15 @@ type SetDetailsParams = {
 }
 
 export const SetDetails: React.FC = () => {
+    const history = useHistory()
     const { setId } = useParams<SetDetailsParams>()
 
     const { isLoadingSetDetails, setDetails } = useAppState().explore
     const { loadSetDetails } = useActions().explore
+    const { addSetToGame } = useActions().game
+
     const componentMounted = useRef(true)
-    
+
     useEffect(() => {
         loadSetDetails({ setId, componentMounted })
 
@@ -37,7 +40,7 @@ export const SetDetails: React.FC = () => {
                     </IonButtons>
                     <IonButtons slot="end">
                         <IonButton onClick={() => console.log(`Clicked options button`)}>
-                        <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
+                            <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
                         </IonButton>
                     </IonButtons>
                 </ IonToolbar>
@@ -46,7 +49,14 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <PrimaryButton link="/game" content="Spielen" icon="fa-play" />
+                            <IonButton onClick={(event: any) => {
+                                event.preventDefault()
+                                addSetToGame()
+                                history.push('/game')
+                            }} className="flex justify-center items-baseline cursor-pointer bg-white rounded-lg">
+                                <i className={`fas fa-play text-black mr-3`}></i>
+                                <span className="text-black font-bold">Spielen</span>
+                            </IonButton>
                         </div>
                     </div>
                 </div>
