@@ -1,5 +1,6 @@
+import { action } from "overmind/lib/operator";
 import { Context } from "..";
-import { getFillableTasks, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
+import { getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
 import { playerRequiredToPlay } from "../players/state";
@@ -37,9 +38,10 @@ export const nextPlayer = ({state}: Context) => {
 }
 
 export const pickTaskType = ({state, actions}: Context, taskType: TaskType) => {
+    
     // 5: Find Task
-    const success = actions.game.findTask(taskType)
-    console.log(success)
+    actions.game.findTask(taskType)
+
     state.game.gameStatus = GameStatus.TYPE_PICKED
 }
 
@@ -68,13 +70,22 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
     // 5.3 Filter unique for me
     matchingTasks = getUnplayedByMe(tasks, state.game.currentPlayer)
     if(matchingTasks.length > 0) {
-        actions.game.generateFinalMessage(matchingTasks[0])
+        actions.game.generateFinalMessage(getLeastPlayedOverall(matchingTasks))
         return true
     }
     console.warn("There are no more possible unique personal tasks")
 
-    // Fallback, didn't generate finale message
-    return false
+    // 5.4 Sort by least played for me 
+    matchingTasks = getLeastPlayedByMe(tasks, state.game.currentPlayer)
+    if(matchingTasks.length === 1) {
+        actions.game.generateFinalMessage(matchingTasks[0])
+        return true
+    }
+
+    // 5.5 Filter least played overall
+    const lastMatchingTask = getLeastPlayedOverall(matchingTasks)
+    actions.game.generateFinalMessage(lastMatchingTask)
+    return true
 }
 
 export const generateFinalMessage = ({state}: Context, playTask: PlayTask) => {

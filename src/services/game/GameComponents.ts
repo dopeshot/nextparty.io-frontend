@@ -1,6 +1,6 @@
 import { PlayerGenderCount, PlayTask, TaskCurrentPlayerGender, TaskType } from "../../overmind/game/state"
 import { Gender, Player } from "../../overmind/players/state"
-import { genderToTaskCurrentPlayerGender } from "./GameUtilities"
+import { countPlayedByPlayer, genderToTaskCurrentPlayerGender } from "./GameUtilities"
 
 export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType) => {
     return tasks.filter(task => 
@@ -44,4 +44,14 @@ export const getUnplayedOverall = (tasks: PlayTask[]) => {
 
 export const getUnplayedByMe = (tasks: PlayTask[], player: Player) => {
     return tasks.filter(task => !task.playedBy.includes(player.id))
+}
+
+
+export const getLeastPlayedByMe = (tasks: PlayTask[], player: Player) => {
+    const sortedTasks = tasks.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player)) // MC: This could be replaced with Math.min in combination with map.
+    return sortedTasks.filter(item => countPlayedByPlayer(item.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
+}
+
+export const getLeastPlayedOverall = (tasks: PlayTask[]) => {
+    return tasks.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0] // MC: Math min as well?
 }
