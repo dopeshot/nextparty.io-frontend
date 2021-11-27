@@ -66,6 +66,7 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
         actions.game.generateFinalMessage(matchingTasks[0])
         return true
     }
+    console.warn("There are no more possible unique tasks OVERALL")
 
     // 5.3 Filter unique for me
     matchingTasks = getUnplayedByMe(tasks, state.game.currentPlayer)
@@ -73,7 +74,7 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
         actions.game.generateFinalMessage(getLeastPlayedOverall(matchingTasks))
         return true
     }
-    console.warn("There are no more possible unique personal tasks")
+    console.warn("There are no more possible unique tasks FOR ME")
 
     // 5.4 Sort by least played for me 
     matchingTasks = getLeastPlayedByMe(tasks, state.game.currentPlayer)
@@ -91,7 +92,7 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
 export const generateFinalMessage = ({state}: Context, playTask: PlayTask) => {
     const task = state.game.set.tasks.find(task => task._id === playTask._id)!
     task.playedBy = [...task.playedBy, state.game.currentPlayer.id]
-    
+
     state.game.currentTaskMessage = fillPlayersIntoMessage(state.game.players, playTask.message, state.game.currentPlayer)
 }
 
