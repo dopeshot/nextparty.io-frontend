@@ -41,3 +41,7 @@ export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGender
 export const getUnplayedOverall = (tasks: PlayTask[]) => {
     return tasks.filter(task => task.playedBy.length === 0)
 }
+
+export const getUnplayedByMe = (tasks: PlayTask[], player: Player) => {
+    return tasks.filter(task => !task.playedBy.includes(player.id))
+}

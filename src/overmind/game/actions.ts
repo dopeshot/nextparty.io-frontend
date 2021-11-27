@@ -1,5 +1,5 @@
 import { Context } from "..";
-import { getFillableTasks, getPossibleTasks, getUnplayedOverall } from "../../services/game/GameComponents";
+import { getFillableTasks, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
 import { GameStatus, PlayTask, TaskType } from "./state";
@@ -59,6 +59,14 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
         actions.game.generateFinalMessage(matchingTasks[0])
         return true
     }
+
+    // 5.3 Filter unique for me
+    matchingTasks = getUnplayedByMe(tasks, state.game.currentPlayer)
+    if(matchingTasks.length > 0) {
+        actions.game.generateFinalMessage(matchingTasks[0])
+        return true
+    }
+    console.warn("There are no more possible unique personal tasks")
 
     // Fallback, didn't generate finale message
     return false
