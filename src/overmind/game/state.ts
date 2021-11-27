@@ -31,7 +31,7 @@ export type PlayTask = Task & {
         female: number,
         any: number
     },
-    playedBy: string[]
+    playedBy: number[]
 }
 export type PlayerGenderCount = {
     male: number,
@@ -45,7 +45,8 @@ export type State = {
     playersGenderCount: PlayerGenderCount,
     gameStatus: GameStatus,
     currentPlayerIndex: number,
-    currentPlayer: Player
+    currentPlayer: Player,
+    currentTaskMessage: string
 }
 
 export const state: State = {
@@ -132,5 +133,6 @@ export const state: State = {
     ),
     gameStatus: GameStatus.START,
     currentPlayerIndex: -1,
-    currentPlayer: derived((state: State) => state.players[state.currentPlayerIndex])
+    currentPlayer: derived((state: State) => state.players[state.currentPlayerIndex]),
+    currentTaskMessage: ""
 }

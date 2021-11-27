@@ -1,15 +1,14 @@
 import { Context } from "..";
-import { getFillableTasks, getPossibleTasks } from "../../services/game/GameComponents";
+import { getFillableTasks, getPossibleTasks, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
-import { GameStatus, TaskType } from "./state";
+import { GameStatus, PlayTask, TaskType } from "./state";
 
 
 export const launchGame = ({state, actions}: Context) => {
-    console.log("launchGame() ")
-    if(state.game.gameStatus === GameStatus.START) {
-        console.log("firstStart")
 
+    // First start
+    if(state.game.gameStatus === GameStatus.START) {
         // Shuffle tasks
         state.game.set!.tasks = shuffleArray(state.game.set!.tasks)
 
@@ -32,28 +31,43 @@ export const nextPlayer = ({state}: Context) => {
     console.log("nextPlayer() ", nextPlayerIndex, state.game.players[nextPlayerIndex].name)
 }
 
-export const pickTaskType = ({state}: Context, taskType: TaskType) => {
-    console.log("pickTaskType() ", taskType)
-    
+export const pickTaskType = ({state, actions}: Context, taskType: TaskType) => {
+    // 5: Find Task
+    const success = actions.game.findTask(taskType)
+    console.log(success)
+    state.game.gameStatus = GameStatus.TYPE_PICKED
+}
+
+export const findTask = ({state, actions}: Context, taskType: TaskType): boolean => {
     // 5.1 Filter by type and Gender
     let tasks = getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType)
     if(tasks.length === 0) {
         console.error("This player has no possible tasks at all")
-        return
+        return false
     }
     
     // 5.1.1 Filter for fillable tasks
     tasks = getFillableTasks(tasks, state.game.currentPlayer, state.game.playersGenderCount)
     if(tasks.length === 0) {
         console.error("This group has no possible tasks for this player")
-        return
+        return false
     }
 
-    
+    // 5.2 Filter unplayed / unique overall
+    let matchingTasks = getUnplayedOverall(tasks)
+    if(matchingTasks.length > 0) {
+        actions.game.generateFinalMessage(matchingTasks[0])
+        return true
+    }
 
-    console.log("tasks ", tasks)
+    // Fallback, didn't generate finale message
+    return false
+}
 
-    state.game.gameStatus = GameStatus.TYPE_PICKED
+export const generateFinalMessage = ({state}: Context, playTask: PlayTask) => {
+    const task = state.game.set.tasks.find(task => task._id === playTask._id)!
+    task.playedBy = [...task.playedBy, state.game.currentPlayer.id]
+    state.game.currentTaskMessage = playTask.message
 }
 
 export const addSetToGame = ({state}: Context) => {

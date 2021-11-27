@@ -12,7 +12,7 @@ export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskTy
         )
     )
 }
-
+// MC: Rename variables to get clean code!
 export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGenderCount: PlayerGenderCount) => {
     const reducedGenders = { ...playerGenderCount }
     reducedGenders[player.gender]--
@@ -38,3 +38,6 @@ export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGender
     return result
 }
 
+export const getUnplayedOverall = (tasks: PlayTask[]) => {
+    return tasks.filter(task => task.playedBy.length === 0)
+}
