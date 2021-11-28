@@ -1,6 +1,7 @@
 import { Set, Task } from "../explore/state"
 import { Gender, Player } from "../players/state"
 import { derived } from 'overmind'
+import { config } from ".."
 
 export enum TaskType {
     TRUTH = "truth",
@@ -46,7 +47,12 @@ export type State = {
     gameStatus: GameStatus,
     currentPlayerIndex: number,
     currentPlayer: Player,
-    currentTaskMessage: string
+    currentTaskMessage: string,
+    debug: {
+        tasksUnplayedAtAll: number,
+        tasksPlayedOnce: number,
+        tasksPlayedMoreThanOnce: number
+    }
 }
 
 export const state: State = {
@@ -60,7 +66,7 @@ export const state: State = {
             "username": "Michael"
         },
         "name": "Dev Testing",
-        "tasks": [
+        tasks: [
             {
                 "currentPlayerGender": "@ca",
                 "_id": "618be342577d8c493e101377",
@@ -133,6 +139,11 @@ export const state: State = {
     ),
     gameStatus: GameStatus.START,
     currentPlayerIndex: -1,
-    currentPlayer: derived((state: State) => state.players[state.currentPlayerIndex]),
-    currentTaskMessage: ""
+    currentPlayer: derived((state: State) => {console.log(state); return state.players[state.currentPlayerIndex]}),
+    currentTaskMessage: "",
+    debug: {
+        tasksUnplayedAtAll: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 0).length),
+        tasksPlayedOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 1).length),
+        tasksPlayedMoreThanOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length > 1).length)
+    }
 }
