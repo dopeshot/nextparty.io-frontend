@@ -17,25 +17,25 @@ export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGender
     const reducedGenders = { ...playerGenderCount }
     reducedGenders[player.gender]--
 
-    const result = tasks.filter((item) => {
-        if (Object.values(reducedGenders).reduce((a, b) => a + b) - Object.values(item.requires).reduce((a, b) => a + b) < 0) {
+    const fillableTasks = tasks.filter((task) => {
+        if (Object.values(reducedGenders).reduce((a, b) => a + b) - Object.values(task.requires).reduce((a, b) => a + b) < 0) {
             return false
         }
-        if ((item.requires["male"] <= reducedGenders["male"] && item.requires["female"] <= reducedGenders["female"])) {
+        if ((task.requires["male"] <= reducedGenders["male"] && task.requires["female"] <= reducedGenders["female"])) {
             return true
         }
         else {
             let divers = reducedGenders["divers"]
-            if (item.requires["male"] > reducedGenders["male"]) {
-                divers += item.requires["male"] - reducedGenders["male"]
+            if (task.requires["male"] > reducedGenders["male"]) {
+                divers += task.requires["male"] - reducedGenders["male"]
             }
-            if (item.requires["female"] > reducedGenders["female"]) {
-                divers += item.requires["female"] - reducedGenders["female"]
+            if (task.requires["female"] > reducedGenders["female"]) {
+                divers += task.requires["female"] - reducedGenders["female"]
             }
             return divers >= 0
         }
     })
-    return result
+    return fillableTasks
 }
 
 export const getUnplayedOverall = (tasks: PlayTask[]) => {
@@ -49,7 +49,7 @@ export const getUnplayedByMe = (tasks: PlayTask[], player: Player) => {
 
 export const getLeastPlayedByMe = (tasks: PlayTask[], player: Player) => {
     const sortedTasks = tasks.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player)) // MC: This could be replaced with Math.min in combination with map.
-    return sortedTasks.filter(item => countPlayedByPlayer(item.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
+    return sortedTasks.filter(task => countPlayedByPlayer(task.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
 }
 
 export const getLeastPlayedOverall = (tasks: PlayTask[]) => {
