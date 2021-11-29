@@ -83,21 +83,15 @@ export const fillPlayersIntoMessage = (players: Player[], message: string, curre
     })
 
     message = message.replaceAll(TaskPlayerGender.MALE, () => {
-        const maleName = playerNamesByGender.male[playerNamesByGender.male.length - 1]
-        playerNamesByGender.male.splice(playerNamesByGender.male.length - 1, 1)
-        return maleName
+        return playerNamesByGender.male.pop()!
     })
 
     message = message.replaceAll(TaskPlayerGender.FEMALE, () => {
-        const femaleName = playerNamesByGender.female[playerNamesByGender.female.length - 1]
-        playerNamesByGender.male.splice(playerNamesByGender.female.length - 1, 1)
-        return femaleName
+        return playerNamesByGender.female.pop()!
     })
 
     message = message.replaceAll(TaskPlayerGender.ANYONE, () => {
-        const maleName = playerNamesByGender.male[playerNamesByGender.male.length - 1]
-        playerNamesByGender.male.splice(playerNamesByGender.male.length - 1, 1)
-        return maleName
+        return playerNamesByGender.male.pop()!
     })
 
     return message

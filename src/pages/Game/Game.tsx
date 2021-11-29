@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, useIonViewWillEnter } from '@ionic/react';
 import { useEffect } from 'react';
 import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
 import { useActions, useAppState } from '../../overmind';
@@ -7,17 +7,15 @@ export const Game: React.FC = () => {
   const { game: {
     set,
     players
-  }} = useAppState()
+  } } = useAppState()
 
   const { addPlayersToGame } = useActions().game
 
-  useEffect(() => {
+  useIonViewWillEnter(() => {
     addPlayersToGame()
-    return () => {
-      return
-    }
   }, [addPlayersToGame])
-  
+
+
   return (
     <IonPage className="bg-background-black">
       <IonHeader className="ion-no-border container my-4">
