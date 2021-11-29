@@ -156,6 +156,10 @@ ion-button {
     --border-radius: 0.5rem;
 }
 
+ion-content {
+    --background: transparent;
+}
+
 .no-ripple {
     --ripple-color: transparent;
     --color-hover: transparent;
