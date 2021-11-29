@@ -93,7 +93,7 @@ export const generateFinalMessage = ({state}: Context, playTask: PlayTask) => {
     const task = state.game.set.tasks.find(task => task._id === playTask._id)!
     task.playedBy = [...task.playedBy, state.game.currentPlayer.id]
 
-    state.game.currentTaskMessage = fillPlayersIntoMessage(state.game.players, playTask.message, state.game.currentPlayer)
+    state.game.currentTask = fillPlayersIntoMessage(state.game.players, playTask, state.game.currentPlayer)
 }
 
 export const addSetToGame = ({state}: Context) => {

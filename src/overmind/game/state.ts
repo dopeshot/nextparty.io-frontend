@@ -47,7 +47,7 @@ export type State = {
     gameStatus: GameStatus,
     currentPlayerIndex: number,
     currentPlayer: Player,
-    currentTaskMessage: string,
+    currentTask: PlayTask | null,
     debug: {
         tasksUnplayedAtAll: number,
         tasksPlayedOnce: number,
@@ -140,7 +140,7 @@ export const state: State = {
     gameStatus: GameStatus.START,
     currentPlayerIndex: -1,
     currentPlayer: derived((state: State) => {console.log(state); return state.players[state.currentPlayerIndex]}),
-    currentTaskMessage: "",
+    currentTask: null,
     debug: {
         tasksUnplayedAtAll: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 0).length),
         tasksPlayedOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 1).length),

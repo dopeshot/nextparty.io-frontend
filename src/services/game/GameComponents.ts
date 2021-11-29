@@ -3,11 +3,11 @@ import { Gender, Player } from "../../overmind/players/state"
 import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "./GameUtilities"
 
 export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType) => {
-    return tasks.filter(task => 
-        (task.type === pickedTaskType) && 
+    return tasks.filter(task =>
+        (task.type === pickedTaskType) &&
         (
-            task.currentPlayerGender === TaskCurrentPlayerGender.ANYONE || 
-            task.currentPlayerGender === genderToTaskCurrentPlayerGender(player.gender) || 
+            task.currentPlayerGender === TaskCurrentPlayerGender.ANYONE ||
+            task.currentPlayerGender === genderToTaskCurrentPlayerGender(player.gender) ||
             player.gender === Gender.DIVERS
         )
     )
@@ -56,24 +56,23 @@ export const getLeastPlayedOverall = (tasks: PlayTask[]) => {
     return tasks.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0] // MC: Math min as well?
 }
 
-// MC: This is not finished!
-export const fillPlayersIntoMessage = (players: Player[], message: string, currentPlayer: Player) => {
+export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, currentPlayer: Player) => {
     const playersWithoutCurrent = [...players].filter(player => player.id !== currentPlayer.id)
     const playerNamesByGender = shuffleArray(playersWithoutCurrent).reduce<{
         male: string[],
         female: string[],
         divers: string[]
     }>((result, player) => {
-        switch(player.gender) {
-            case Gender.MALE: 
-                result.male.push(player.name) 
-            break
+        switch (player.gender) {
+            case Gender.MALE:
+                result.male.push(player.name)
+                break
             case Gender.FEMALE:
                 result.female.push(player.name)
-            break
+                break
             case Gender.DIVERS:
                 result.divers.push(player.name)
-            break
+                break
         }
         return result
     }, {
@@ -82,17 +81,41 @@ export const fillPlayersIntoMessage = (players: Player[], message: string, curre
         divers: []
     })
 
-    message = message.replaceAll(TaskPlayerGender.MALE, () => {
-        return playerNamesByGender.male.pop()!
+    // Merge divers into male and female
+    for (let i = 0; i < playTask.requires.male - playerNamesByGender.male.length; i++) {
+        playerNamesByGender.male.push(playerNamesByGender.divers.pop()!)
+    }
+    for (let i = 0; i < playTask.requires.female - playerNamesByGender.female.length; i++) {
+        playerNamesByGender.female.push(playerNamesByGender.divers.pop()!)
+    }
+    for (let i = 0; i < playerNamesByGender.divers.length; i++) {
+        if (Math.random() - 0.5 <= 0) {
+            playerNamesByGender.male.push(playerNamesByGender.divers[i])
+        }
+        else {
+            playerNamesByGender.female.push(playerNamesByGender.divers[i])
+        }
+    }
+
+    // Shuffle again to have divers random 
+    playerNamesByGender.male = shuffleArray(playerNamesByGender.male)
+    playerNamesByGender.female = shuffleArray(playerNamesByGender.female)
+
+    // Create message
+    const message = playTask.message
+    .replaceAll(TaskPlayerGender.MALE, () => playerNamesByGender.male.pop()!)
+    .replaceAll(TaskPlayerGender.FEMALE, () => playerNamesByGender.female.pop()!)
+    .replaceAll(TaskPlayerGender.ANYONE, () => {
+        if (playerNamesByGender.male.length > 0 && playerNamesByGender.female.length > 0)
+            return Math.random() - 0.5 < 0 ? playerNamesByGender.male.pop()! : playerNamesByGender.female.pop()!
+        else if (playerNamesByGender.male.length > 0)
+            return playerNamesByGender.male.pop()!
+        else
+            return playerNamesByGender.female.pop()!
     })
 
-    message = message.replaceAll(TaskPlayerGender.FEMALE, () => {
-        return playerNamesByGender.female.pop()!
-    })
-
-    message = message.replaceAll(TaskPlayerGender.ANYONE, () => {
-        return playerNamesByGender.male.pop()!
-    })
-
-    return message
+    return {
+        ...playTask,
+        message
+    }
 }

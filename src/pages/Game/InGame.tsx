@@ -8,7 +8,7 @@ import { GameStatus, TaskType } from "../../overmind/game/state"
 
 export const InGame: React.FC = () => {
     const {
-        gameStatus, set, currentPlayerIndex, players, currentTaskMessage, debug
+        gameStatus, set, currentPlayerIndex, players, currentTask, debug
     } = useAppState().game
     const {
         nextPlayer, pickTaskType, launchGame
@@ -40,7 +40,8 @@ export const InGame: React.FC = () => {
                         <IonButton onClick={() => pickTaskType(TaskType.DARE)}>Dare</IonButton>
                     </>}
                     {(gameStatus === GameStatus.TYPE_PICKED) && <>
-                        <p>Current Task: {currentTaskMessage}</p>
+                        <p>Current Player: {JSON.stringify(players[currentPlayerIndex])}</p>
+                        <p>Current Task: {JSON.stringify(currentTask)}</p>
                         <IonButton onClick={() => nextPlayer()}>Pick random Player</IonButton>
                     </>}
                     <IonText color="success">
