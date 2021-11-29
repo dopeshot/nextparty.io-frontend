@@ -1,9 +1,8 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonRouterLink, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
-import { MouseEventHandler, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
-import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
