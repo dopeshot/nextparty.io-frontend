@@ -68,9 +68,9 @@ export const SetDetails: React.FC = () => {
                                 <p className="text-lightgrey mb-5">{setDetails?.createdBy.username}</p>
                                 <div className="flex items-center">
                                     <p className="truth-label">W</p>
-                                    <p className="text-lightgrey mr-4">{setDetails?.truthCount} Pflicht</p>
+                                    <p className="text-lightgrey mr-4">{setDetails?.truthCount} Wahrheit</p>
                                     <p className="dare-label">P</p>
-                                    <p className="text-lightgrey">{setDetails?.daresCount} Wahrheit</p>
+                                    <p className="text-lightgrey">{setDetails?.daresCount} Pflicht</p>
                                 </div>
                             </div>
                         </div>

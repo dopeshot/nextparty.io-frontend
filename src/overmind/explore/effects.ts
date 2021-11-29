@@ -15,7 +15,7 @@ export const api = {
 		return new Promise((resolve) => setTimeout(() => resolve([
 			{
 				"_id": "618be342577d8c493e1012ed",
-				"daresCount": 0,
+				"daresCount": 21,
 				"truthCount": 0,
 				"language": "de",
 				"createdBy": {
@@ -26,7 +26,7 @@ export const api = {
 			},
 			{
 				"_id": "618be342577d8c493e1012ee",
-				"daresCount": 0,
+				"daresCount": 22,
 				"truthCount": 0,
 				"language": "de",
 				"createdBy": {
@@ -37,8 +37,8 @@ export const api = {
 			},
 			{
 				"_id": "618be342577d8c493e1012ef",
-				"daresCount": 0,
-				"truthCount": 0,
+				"daresCount": 1,
+				"truthCount": 3,
 				"language": "de",
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
@@ -48,8 +48,8 @@ export const api = {
 			},
 			{
 				"_id": "618be342577d8c493e1012f0",
-				"daresCount": 0,
-				"truthCount": 0,
+				"daresCount": 4,
+				"truthCount": 4,
 				"language": "de",
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
@@ -59,8 +59,8 @@ export const api = {
 			},
 			{
 				"_id": "618be342577d8c493e1012en",
-				"daresCount": 0,
-				"truthCount": 0,
+				"daresCount": 1,
+				"truthCount": 3,
 				"language": "de",
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
@@ -76,7 +76,7 @@ export const api = {
 			case '618be342577d8c493e1012ed':
 				response = {
 					"_id": "618be342577d8c493e1012ed",
-					"daresCount": 0,
+					"daresCount": 21,
 					"truthCount": 0,
 					"language": "de",
 					"createdBy": {
@@ -217,7 +217,7 @@ export const api = {
 			case '618be342577d8c493e1012ee':
 				response = {
 					"_id": "618be342577d8c493e1012ee",
-					"daresCount": 0,
+					"daresCount": 22,
 					"truthCount": 0,
 					"language": "de",
 					"createdBy": {
@@ -364,8 +364,8 @@ export const api = {
 			case '618be342577d8c493e1012ef':
 				response = {
 					"_id": "618be342577d8c493e1012ef",
-					"daresCount": 0,
-					"truthCount": 0,
+					"daresCount": 3,
+					"truthCount": 1,
 					"language": "de",
 					"createdBy": {
 						"_id": "618bda75ab1028126ec0b779",
@@ -403,8 +403,8 @@ export const api = {
 			case '618be342577d8c493e1012f0':
 				response = {
 					"_id": "618be342577d8c493e1012f0",
-					"daresCount": 0,
-					"truthCount": 0,
+					"daresCount": 4,
+					"truthCount": 4,
 					"language": "de",
 					"createdBy": {
 						"_id": "618bda75ab1028126ec0b779",
@@ -466,8 +466,8 @@ export const api = {
 			case '618be342577d8c493e1012en':
 				response = {
 					"_id": "618be342577d8c493e1012en",
-					"daresCount": 0,
-					"truthCount": 0,
+					"daresCount": 3,
+					"truthCount": 1,
 					"language": "de",
 					"createdBy": {
 						"_id": "618bda75ab1028126ec0b779",
