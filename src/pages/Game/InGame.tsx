@@ -2,6 +2,9 @@ import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, I
 import { useEffect } from "react"
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus, TaskType } from "../../overmind/game/state"
+// import gameBackgroundImage from '../../assets/backgrounds/select@2x.jpg'
+// import dareBackgroundImage from '../../assets/backgrounds/dare@2x.jpg'
+// import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
 
 export const InGame: React.FC = () => {
     const {
@@ -20,7 +23,7 @@ export const InGame: React.FC = () => {
     }, [launchGame])
 
     return (
-        <IonPage className="bg-background-black">
+        <IonPage className="bg-background-black" style={{ /* backgroundImage: `url(${truthBackgroundImage})` */ }}>
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
                     <IonButtons slot="start">
