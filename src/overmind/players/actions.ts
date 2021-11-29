@@ -1,4 +1,5 @@
 import { Context } from '..'
+import { GameStatus } from '../game/state'
 import { Gender, Player, playerRequiredToPlay } from './state'
 
 
@@ -20,6 +21,9 @@ export const addPlayer = ({state}: Context) => {
         gender: Gender.FEMALE // MC: Set only to one gender because of UX Math.random() > 0.5 ? ...
     }
     state.players.players.push(newPlayer)
+    
+    // Reset game status when selecting new set
+    state.game.gameStatus = GameStatus.START
 }
 
 export const setPlayerGender = ({state }: Context, {id, gender}: {id: number, gender: Gender}) => {
@@ -29,6 +33,9 @@ export const setPlayerGender = ({state }: Context, {id, gender}: {id: number, ge
         return 
     }
     player.gender = gender
+
+    // Reset game status when selecting new set
+    state.game.gameStatus = GameStatus.START
 }
 
 export const updatePlayerName = ({state}: Context, {id, name}: {id: number, name: string}) => {
@@ -43,4 +50,7 @@ export const updatePlayerName = ({state}: Context, {id, name}: {id: number, name
 export const deletePlayer = ({state}: Context, id: number) => {
     const playerIndex = state.players.players.findIndex(player => player.id === id)
     state.players.players.splice(playerIndex, 1)
+
+    // Reset game status when selecting new set
+    state.game.gameStatus = GameStatus.START
 }
