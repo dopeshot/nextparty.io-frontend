@@ -7,7 +7,7 @@ export const loadExplore = async ({ state, effects }: Context) => {
         const response = await effects.explore.api.getSets()
         state.explore.sets = response.data
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
     state.explore.isLoadingSets = false
 }
@@ -23,7 +23,7 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
             state.explore.isLoadingSetDetails = false
         }
     } catch (error) {
-        console.log(error)
+        console.error(error)
     }
 
 }
