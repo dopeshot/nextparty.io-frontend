@@ -348,7 +348,7 @@ export const api = {
 	// 						"currentPlayerGender": "@cm",
 	// 						"_id": "618be342577d8c493e101348",
 	// 						"type": "dare",
-	// 						"message": "Ziehe @f bis zu seiner Unterwäsche aus"
+	// 						"message": "Ziehe @f bis auf ihre Unterwäsche aus"
 	// 					},
 	// 					{
 	// 						"currentPlayerGender": "@ca",
