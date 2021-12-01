@@ -154,6 +154,10 @@ body {
 
 ion-button {
     --border-radius: 0.5rem;
+    --background: white;
+    --color: black;
+    --padding-bottom: 1.5rem;
+    --padding-top: 1.5rem;
 }
 
 ion-content {
