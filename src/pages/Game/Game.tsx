@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, useIonViewWillEnter } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonToggle, useIonViewWillEnter } from '@ionic/react';
 import { useEffect } from 'react';
 import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
 import { useActions, useAppState } from '../../overmind';
@@ -6,10 +6,13 @@ import { useActions, useAppState } from '../../overmind';
 export const Game: React.FC = () => {
   const { game: {
     set,
-    players
+    players,
+    debug: {
+      isDeveloper
+    }
   } } = useAppState()
 
-  const { addPlayersToGame } = useActions().game
+  const { addPlayersToGame, toggleDeveloper } = useActions().game
 
   useIonViewWillEnter(() => {
     addPlayersToGame()
@@ -25,7 +28,12 @@ export const Game: React.FC = () => {
         <div className="container">
           <p className="mb-6">This is the content of the page</p>
           <PrimaryButton link="/game/ingame" content="Spielen" icon="fa-play" />
-
+          <IonList>
+          <IonItem>
+            <IonLabel>{isDeveloper ? 'Du bist Entwickler' : 'Du bist kein Entwickler'}</IonLabel>
+            <IonToggle checked={isDeveloper} onIonChange={e => toggleDeveloper()} />
+          </IonItem>
+          </IonList>
           <IonList>
             {players.length !== 0 && players.map(player =>
               <IonItem key={player.id}><IonLabel>{JSON.stringify(player)}</IonLabel></IonItem>

@@ -56,7 +56,8 @@ export type State = {
     debug: {
         tasksUnplayedAtAll: number,
         tasksPlayedOnce: number,
-        tasksPlayedMoreThanOnce: number
+        tasksPlayedMoreThanOnce: number,
+        isDeveloper: boolean
     }
 }
 
@@ -144,11 +145,12 @@ export const state: State = {
     ),
     gameStatus: GameStatus.START,
     currentPlayerIndex: -1,
-    currentPlayer: derived((state: State) => {console.log(state); return state.players[state.currentPlayerIndex]}),
+    currentPlayer: derived((state: State) => state.players[state.currentPlayerIndex]),
     currentTask: null,
     debug: {
         tasksUnplayedAtAll: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 0).length),
         tasksPlayedOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 1).length),
-        tasksPlayedMoreThanOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length > 1).length)
+        tasksPlayedMoreThanOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length > 1).length),
+        isDeveloper: false
     }
 }

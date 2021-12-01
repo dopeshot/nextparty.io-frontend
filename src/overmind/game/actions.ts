@@ -34,7 +34,7 @@ export const nextPlayer = ({state}: Context) => {
     state.game.currentPlayerIndex = nextPlayerIndex
     state.game.gameStatus = GameStatus.PLAYER_PICKED
 
-    console.log("nextPlayer() ", nextPlayerIndex, state.game.players[nextPlayerIndex].name)
+    // console.log("nextPlayer() ", nextPlayerIndex, state.game.players[nextPlayerIndex].name)
 }
 
 export const pickTaskType = ({state, actions}: Context, taskType: TaskType) => {
@@ -120,4 +120,9 @@ export const addPlayersToGame = ({state}: Context) => {
         ...player,
         possibleTaskCount: countPossibleTasksForPlayer(state.game.set.tasks, player, state.game.playersGenderCount)
     }))
+}
+
+
+export const toggleDeveloper = ({state}: Context) => {
+    state.game.debug.isDeveloper = !state.game.debug.isDeveloper
 }

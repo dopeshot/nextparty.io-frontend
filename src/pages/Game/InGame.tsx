@@ -15,8 +15,6 @@ export const InGame: React.FC = () => {
         nextPlayer, pickTaskType, launchGame
     } = useActions().game
 
-    const [devMode] = useState(false)
-
     useEffect(() => {
         launchGame()
 
@@ -27,7 +25,7 @@ export const InGame: React.FC = () => {
 
     return (
         <IonPage className="bg-background-black bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${truthBackgroundImage})` }}>
-            {!devMode && <>
+            {!debug.isDeveloper && <>
                 <IonHeader className="ion-no-border container">
                 </IonHeader>
                 <IonContent>
@@ -47,7 +45,7 @@ export const InGame: React.FC = () => {
                     }
                     {(gameStatus === GameStatus.TYPE_PICKED) && <>
                         <div className="md:container flex flex-col items-center justify-center cursor-pointer mx-10" onClick={() => nextPlayer()} style={{ height: "calc(100vh - 56px)" }}>
-                            <div style={{ height: "400px"}}>
+                            <div style={{ height: "400px" }}>
                                 <h2 className="text-5xl text-center font-semibold mb-10">{currentTask?.type == "truth" ? "Wahrheit" : "Pflicht"}</h2>
                                 <p className="text-3xl mb-48">{currentTask?.message}</p>
                                 <p className="text-center text-lg opacity-25">Tab to continue</p>
@@ -57,7 +55,7 @@ export const InGame: React.FC = () => {
                 </IonContent>
             </>}
 
-            {devMode && <>
+            {debug.isDeveloper && <>
                 <IonHeader className="ion-no-border container">
                     <IonToolbar color="transparent">
                         <IonButtons slot="start">
@@ -68,16 +66,18 @@ export const InGame: React.FC = () => {
                 </IonHeader>
                 <IonContent>
                     <div className="container">
-                        {(gameStatus === GameStatus.PLAYER_PICKED) && <>
+                        <div className="mb-12">
+                            {(gameStatus === GameStatus.PLAYER_PICKED) && <>
                             <p>Current Player: {JSON.stringify(players[currentPlayerIndex])}</p>
                             <IonButton onClick={() => pickTaskType(TaskType.TRUTH)}>Truth</IonButton>
                             <IonButton onClick={() => pickTaskType(TaskType.DARE)}>Dare</IonButton>
                         </>}
-                        {(gameStatus === GameStatus.TYPE_PICKED) && <>
-                            <p>Current Player: {JSON.stringify(players[currentPlayerIndex])}</p>
-                            <p>Current Task: {JSON.stringify(currentTask)}</p>
-                            <IonButton onClick={() => nextPlayer()}>Pick random Player</IonButton>
-                        </>}
+                            {(gameStatus === GameStatus.TYPE_PICKED) && <>
+                                <p>Current Player: {JSON.stringify(players[currentPlayerIndex])}</p>
+                                <p>Current Task: {JSON.stringify(currentTask)}</p>
+                                <IonButton onClick={() => nextPlayer()}>Pick random Player</IonButton>
+                            </>}
+                        </div>
                         <IonText color="success">
                             <p>Unplayed Overall {debug.tasksUnplayedAtAll}/{set.tasks.length}</p>
                         </IonText>
