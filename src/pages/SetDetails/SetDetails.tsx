@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
 import { useEffect, useRef } from "react"
 import { useHistory, useParams } from "react-router"
@@ -13,6 +13,8 @@ type SetDetailsParams = {
 }
 
 export const SetDetails: React.FC = () => {
+    const [present, dismiss] = useIonToast()
+
     const history = useHistory()
     const { setId } = useParams<SetDetailsParams>()
 
@@ -38,7 +40,13 @@ export const SetDetails: React.FC = () => {
                         <IonBackButton className="text-white" defaultHref="/explore" />
                     </IonButtons>
                     <IonButtons slot="end">
-                        <IonButton onClick={() => console.log(`Clicked options button`)}>
+                        <IonButton onClick={() => present({
+                            position: 'top',
+                            buttons: [{ text: 'hide', handler: () => dismiss() }],
+                            message: 'Clicked options button',
+                            onDidDismiss: () => console.log('dismissed'),
+                            onWillDismiss: () => console.log('will dismiss'),
+                        })}>
                             <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
                         </IonButton>
                     </IonButtons>
