@@ -15,7 +15,7 @@ export const InGame: React.FC = () => {
         nextPlayer, pickTaskType, launchGame
     } = useActions().game
 
-    const [devMode] = useState(true)
+    const [devMode] = useState(false)
 
     useEffect(() => {
         launchGame()
@@ -31,20 +31,29 @@ export const InGame: React.FC = () => {
                 <IonHeader className="ion-no-border container">
                 </IonHeader>
                 <IonContent>
-                    <div className="grid grid-cols-2 grid-rows-1 place-content-center place-items-center">
-                        {(gameStatus === GameStatus.PLAYER_PICKED) && <>
-                            <button onClick={() => console.log("Wahrheit")} className="flex items-end" style={{ width: "50vw", height: "calc(100vh - 56px)", gridArea: "1 / 1" }}>
+                    {(gameStatus === GameStatus.PLAYER_PICKED) &&
+                        <div className="grid grid-cols-2 grid-rows-1 place-content-center place-items-center">
+                            <button onClick={() => pickTaskType(TaskType.TRUTH)} className="flex items-end" style={{ width: "50vw", height: "calc(100vh - 56px)", gridArea: "1 / 1" }}>
                                 <span className="text-3xl font-semibold mb-32" style={{ transform: "rotate(-90deg)" }}>Wahrheit</span>
                             </button>
-                            <button onClick={() => console.log("Pflicht")} className="flex items-end justify-end" style={{ width: "50vw", height: "calc(100vh - 56px)", gridArea: "1 / 2" }}>
+                            <button onClick={() => pickTaskType(TaskType.DARE)} className="flex items-end justify-end" style={{ width: "50vw", height: "calc(100vh - 56px)", gridArea: "1 / 2" }}>
                                 <span className="text-3xl font-semibold mb-32" style={{ transform: "rotate(-90deg)" }}>Pflicht</span>
                             </button>
-                            <div className="text-center" style={{ gridArea: "1 / 1 / 2 / 3"}}>
-                                <h1 className="text-5xl font-semibold">Michael</h1>
+                            <div className="text-center mb-10" style={{ gridArea: "1 / 1 / 2 / 3" }}>
+                                <h1 className="text-5xl font-semibold">{players[currentPlayerIndex].name}</h1>
                                 <p>Du bist dran</p>
                             </div>
-                        </>}
-                    </div>
+                        </div>
+                    }
+                    {(gameStatus === GameStatus.TYPE_PICKED) && <>
+                        <div className="md:container flex flex-col items-center justify-center cursor-pointer mx-10" onClick={() => nextPlayer()} style={{ height: "calc(100vh - 56px)" }}>
+                            <div style={{ height: "400px"}}>
+                                <h2 className="text-5xl text-center font-semibold mb-10">{currentTask?.type == "truth" ? "Wahrheit" : "Pflicht"}</h2>
+                                <p className="text-3xl mb-48">{currentTask?.message}</p>
+                                <p className="text-center text-lg opacity-25">Tab to continue</p>
+                            </div>
+                        </div>
+                    </>}
                 </IonContent>
             </>}
 
