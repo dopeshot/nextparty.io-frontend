@@ -27,10 +27,10 @@ export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGender
         else {
             let divers = reducedGenders["divers"]
             if (task.requires["male"] > reducedGenders["male"]) {
-                divers += task.requires["male"] - reducedGenders["male"]
+                divers -= task.requires["male"] - reducedGenders["male"]
             }
             if (task.requires["female"] > reducedGenders["female"]) {
-                divers += task.requires["female"] - reducedGenders["female"]
+                divers -= task.requires["female"] - reducedGenders["female"]
             }
             return divers >= 0
         }
