@@ -103,19 +103,30 @@ export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, cu
 
     // Create message
     const message = playTask.message
-    .replaceAll(TaskPlayerGender.MALE, () => playerNamesByGender.male.pop()!)
-    .replaceAll(TaskPlayerGender.FEMALE, () => playerNamesByGender.female.pop()!)
-    .replaceAll(TaskPlayerGender.ANYONE, () => {
-        if (playerNamesByGender.male.length > 0 && playerNamesByGender.female.length > 0)
-            return Math.random() - 0.5 < 0 ? playerNamesByGender.male.pop()! : playerNamesByGender.female.pop()!
-        else if (playerNamesByGender.male.length > 0)
-            return playerNamesByGender.male.pop()!
-        else
-            return playerNamesByGender.female.pop()!
-    })
+        .replaceAll(TaskPlayerGender.MALE, () => playerNamesByGender.male.pop()!)
+        .replaceAll(TaskPlayerGender.FEMALE, () => playerNamesByGender.female.pop()!)
+        .replaceAll(TaskPlayerGender.ANYONE, () => {
+            if (playerNamesByGender.male.length > 0 && playerNamesByGender.female.length > 0)
+                return Math.random() - 0.5 < 0 ? playerNamesByGender.male.pop()! : playerNamesByGender.female.pop()!
+            else if (playerNamesByGender.male.length > 0)
+                return playerNamesByGender.male.pop()!
+            else
+                return playerNamesByGender.female.pop()!
+        })
 
     return {
         ...playTask,
         message
     }
 }
+
+export const countPossibleTasksForPlayer = (tasks: PlayTask[], player: Player, playerGenderCount: PlayerGenderCount): number => {
+    // MC: This is the same as in getPossibleTasks but we have to get it without a type
+    const getPossibleTasks = tasks.filter(task =>
+        task.currentPlayerGender === TaskCurrentPlayerGender.ANYONE ||
+        task.currentPlayerGender === genderToTaskCurrentPlayerGender(player.gender) ||
+        player.gender === Gender.DIVERS
+    )
+    return getFillableTasks(getPossibleTasks, player, playerGenderCount).length
+}
+

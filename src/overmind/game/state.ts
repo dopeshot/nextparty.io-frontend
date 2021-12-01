@@ -34,6 +34,11 @@ export type PlayTask = Task & {
     },
     playedBy: number[]
 }
+
+export type PlayPlayers = Player & {
+    possibleTaskCount: number
+}
+
 export type PlayerGenderCount = {
     male: number,
     female: number,

@@ -28,7 +28,7 @@ export const Game: React.FC = () => {
 
           <IonList>
             {players.length !== 0 && players.map(player =>
-              <IonItem key={player.id}><IonLabel>({player.id}): {player.gender}: {player.name}</IonLabel></IonItem>
+              <IonItem key={player.id}><IonLabel>{JSON.stringify(player)}</IonLabel></IonItem>
             )}
           </IonList>
           <IonList>

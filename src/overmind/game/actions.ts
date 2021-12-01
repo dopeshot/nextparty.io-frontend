@@ -1,6 +1,6 @@
 import { action } from "overmind/lib/operator";
 import { Context } from "..";
-import { fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
+import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
 import { playerRequiredToPlay } from "../players/state";
@@ -116,5 +116,8 @@ export const addSetToGame = ({state}: Context) => {
 }
 
 export const addPlayersToGame = ({state}: Context) => {
-    state.game.players = [...state.players.players]
+    state.game.players = state.players.players.map(player => ({
+        ...player,
+        possibleTaskCount: countPossibleTasksForPlayer(state.game.set.tasks, player, state.game.playersGenderCount)
+    }))
 }
