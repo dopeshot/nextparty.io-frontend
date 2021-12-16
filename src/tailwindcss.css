@@ -17,3 +17,11 @@
     line-height: 16px;
     @apply text-dare-green border-2 border-green-400 border-opacity-50 rounded-sm text-center mr-2;
 }
+
+.height-450 {
+    height: 450px;
+}
+
+.height-250 {
+    height: 250px;
+}
