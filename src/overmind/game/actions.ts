@@ -1,25 +1,39 @@
 import { action } from "overmind/lib/operator";
 import { Context } from "..";
 import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
-import { shuffleArray } from "../../services/game/GameUtilities";
+import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
-import { playerRequiredToPlay } from "../players/state";
+import { Player, playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, TaskType } from "./state";
 
 
 export const launchGame = ({state, actions}: Context) => {
+    // Add players to game
+    state.game.players = state.players.players.map(player => ({
+        ...player,
+        possibleTaskCount: countPossibleTasksForPlayer(state.game.set.tasks, player, state.game.playersGenderCount)
+    }))
+
     if(state.game.players.length < playerRequiredToPlay || !state.game.set) {
         console.error("Starting a game. Data is missing.")
         return
     }
 
-    // First start
+    // New game
     if(state.game.gameStatus === GameStatus.START) {
+        // Remove game history if set was used before
+        state.game.set.tasks = state.game.set.tasks.map(task => ({
+            ...task,
+            playedBy: []
+        }))
+
         // Shuffle tasks
-        state.game.set!.tasks = shuffleArray(state.game.set!.tasks)
+        state.game.set.tasks = shuffleArray(state.game.set.tasks)
 
         // Shuffle players
-        state.game.players = shuffleArray(state.game.players)
+        state.game.players = shufflePlayers(state.game.players)
+
+        state.game.currentPlayerIndex = -1
     }
     actions.game.nextPlayer()
 }
@@ -28,13 +42,13 @@ export const nextPlayer = ({state}: Context) => {
     let nextPlayerIndex = state.game.currentPlayerIndex + 1
 
     if(nextPlayerIndex > state.game.players.length - 1) {
-        state.game.players = shuffleArray(state.game.players)
+        state.game.players = shufflePlayers(state.game.players)
         nextPlayerIndex = 0
     }
     state.game.currentPlayerIndex = nextPlayerIndex
     state.game.gameStatus = GameStatus.PLAYER_PICKED
 
-    // console.log("nextPlayer() ", nextPlayerIndex, state.game.players[nextPlayerIndex].name)
+    state.game.debug.playerLog = [...state.game.debug.playerLog, `${nextPlayerIndex} - ${state.game.players[nextPlayerIndex].name}`]
 }
 
 export const pickTaskType = ({state, actions}: Context, taskType: TaskType) => {
@@ -116,10 +130,6 @@ export const addSetToGame = ({state}: Context) => {
 }
 
 export const addPlayersToGame = ({state}: Context) => {
-    state.game.players = state.players.players.map(player => ({
-        ...player,
-        possibleTaskCount: countPossibleTasksForPlayer(state.game.set.tasks, player, state.game.playersGenderCount)
-    }))
 }
 
 

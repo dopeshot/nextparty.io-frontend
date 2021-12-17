@@ -17,3 +17,7 @@ export const genderToTaskCurrentPlayerGender = (gender: Gender) => {
 export const countPlayedByPlayer = (playedBy: number[], player: Player) => {
     return playedBy.filter(item => item === player.id).length
 }
+
+export const shufflePlayers = (players: Player[]): Player[] => {
+    return shuffleArray(players)
+}

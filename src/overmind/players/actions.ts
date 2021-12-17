@@ -45,6 +45,9 @@ export const updatePlayerName = ({state}: Context, {id, name}: {id: number, name
         return 
     }
     player.name = name
+
+    // Reset game status
+    state.game.gameStatus = GameStatus.START
 }
 
 export const deletePlayer = ({state}: Context, id: number) => {

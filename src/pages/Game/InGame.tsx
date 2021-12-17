@@ -96,6 +96,13 @@ export const InGame: React.FC = () => {
                                 <IonItem key={playTask._id}><IonLabel>{JSON.stringify(playTask)}</IonLabel></IonItem>
                             )}
                         </IonList>
+                        
+                        <h2>Player Log</h2>
+                        <IonList>
+                            {debug.playerLog && debug.playerLog.length !== 0 && debug.playerLog.map((log, index) =>
+                                <IonItem key={log + index}><IonLabel>{log}</IonLabel></IonItem>
+                            )}
+                        </IonList>
                     </div>
                 </IonContent>
             </>}

@@ -57,7 +57,8 @@ export type State = {
         tasksUnplayedAtAll: number,
         tasksPlayedOnce: number,
         tasksPlayedMoreThanOnce: number,
-        isDeveloper: boolean
+        isDeveloper: boolean,
+        playerLog: string[]
     }
 }
 
@@ -151,6 +152,7 @@ export const state: State = {
         tasksUnplayedAtAll: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 0).length),
         tasksPlayedOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 1).length),
         tasksPlayedMoreThanOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length > 1).length),
-        isDeveloper: false
+        isDeveloper: false,
+        playerLog: []
     }
 }
