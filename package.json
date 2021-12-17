@@ -20,6 +20,7 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "axios": "^0.24.0",
     "ionicons": "^5.4.0",
     "overmind": "^28.0.1",
     "overmind-react": "^29.0.1",

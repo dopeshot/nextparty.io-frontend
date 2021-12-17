@@ -1,16 +1,13 @@
+import { AxiosResponse } from "axios"
 import { config } from "../../global.config"
+import { request } from "../../services/axios"
 import { Set, SetWithTasks } from "./state"
 
-export const api = {
-    // getSets: async (): Promise<Set[]> => {
-    //     const data = await fetch(`${config.baseApiUrl}/api/set`)
-    //     return await data.json()
-    // },
+export const getSets = () => request.get<Set[]>('/api/set')
 
-    // getSetById: async (id: string): Promise<SetWithTasks> => {
-    //     const data = await fetch(`${config.baseApiUrl}/api/set/${id}`)
-    //     return await data.json()
-    // }
+export const getSetById = (id: string) => request.get<SetWithTasks>(`/api/set/${id}`)
+
+export const mock = {
     getSets: async (): Promise<Set[]> => {
         return new Promise((resolve) => setTimeout(() => resolve([
             {
