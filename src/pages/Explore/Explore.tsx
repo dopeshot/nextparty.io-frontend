@@ -1,5 +1,5 @@
 import { IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar } from '@ionic/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SetItem } from '../../components/SetItem/SetItem';
 import { useActions, useAppState } from '../../overmind';
 import { Set } from '../../overmind/explore/state';
@@ -8,8 +8,10 @@ export const Explore: React.FC = () => {
   const { isLoadingSets, sets } = useAppState().explore
   const { loadExplore } = useActions().explore
 
+  const [errors, setErrors] = useState<string[]>()
+
   useEffect(() => {
-    loadExplore()
+    loadExplore(setErrors)
   }, [loadExplore])
 
   return (
@@ -26,7 +28,7 @@ export const Explore: React.FC = () => {
             <div>
               <IonList>
                 {sets.map((set: Set, index) => (
-                    <SetItem key={index} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.daresCount} link={`/explore/${set._id}`} />
+                  <SetItem key={index} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.daresCount} link={`/explore/${set._id}`} />
                 ))}
               </IonList>
             </div>

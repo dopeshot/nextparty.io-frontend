@@ -1,13 +1,13 @@
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
-import { replaceStringWithIcon } from "../../services/Utilities"
+import { replaceStringWithIcon } from "../../services/utilities"
 
 type SetDetailsParams = {
     setId: string
@@ -19,9 +19,11 @@ export const SetDetails: React.FC = () => {
     const { isLoadingSetDetails, setDetails } = useAppState().explore
     const { loadSetDetails } = useActions().explore
     const componentMounted = useRef(true)
+
+    const [errors, setErrors] = useState<string[]>()
     
     useEffect(() => {
-        loadSetDetails({ setId, componentMounted })
+        loadSetDetails({ setId, componentMounted, setErrors })
 
         return () => {
             componentMounted.current = false
