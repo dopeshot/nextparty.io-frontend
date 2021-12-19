@@ -52,6 +52,7 @@ export type PlayerGenderCount = {
 
 export type State = {
     set: (Set & { tasks: PlayTask[] }) | null,
+    hideTabBar: boolean,
     players: Player[],
     playersGenderCount: PlayerGenderCount,
     gameStatus: GameStatus,
@@ -68,6 +69,7 @@ export type State = {
 }
 
 export const state: State = {
+    hideTabBar: false,
     set: {
         "_id": "61a7bd4c08c2192fcff61465",
         "daresCount": 22,

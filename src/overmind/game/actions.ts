@@ -188,3 +188,8 @@ export const addSetToGame = ({ state }: Context) => {
 export const toggleDeveloper = ({ state }: Context) => {
     state.game.debug.isDeveloper = !state.game.debug.isDeveloper
 }
+
+export const hideTabBar = ({ state }: Context, bool: boolean) => {
+    if (state.game.hideTabBar !== bool)
+        state.game.hideTabBar = bool
+}

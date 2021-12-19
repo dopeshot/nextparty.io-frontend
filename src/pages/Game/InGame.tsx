@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonText, IonTitle, IonToolbar, useIonViewWillEnter } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonText, IonTitle, IonToolbar, useIonViewDidLeave, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
 // import gameBackgroundImage from '../../assets/backgrounds/select@2x.jpg'
 // import dareBackgroundImage from '../../assets/backgrounds/dare@2x.jpg'
 import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
@@ -14,13 +14,17 @@ export const InGame: React.FC = () => {
     } = useAppState().game
 
     const {
-        nextPlayer, pickTaskType, launchGame, isPossibleTask
+        nextPlayer, pickTaskType, launchGame, hideTabBar
     } = useActions().game
 
     useIonViewWillEnter(() => {
+        hideTabBar(true)
         launchGame()
     }, [launchGame])
 
+    useIonViewWillLeave(() => {
+        hideTabBar(false)
+    })
     return (
         <IonPage className="bg-background-black bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${truthBackgroundImage})` }}>
             {!debug.isDeveloper && <>

@@ -20,9 +20,12 @@ import { Game } from './pages/Game/Game';
 import { Player } from './pages/Player/Player';
 import { SetDetails } from './pages/SetDetails/SetDetails';
 import { InGame } from './pages/Game/InGame';
+import { useAppState } from './overmind';
 
-export const App: React.FC = () => (
-  <IonApp className="font-rubik">
+export const App: React.FC = () => {
+  const hideTabBar = useAppState().game.hideTabBar
+
+  return <IonApp className="font-rubik">
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
@@ -35,7 +38,7 @@ export const App: React.FC = () => (
             <Redirect to="/explore" />
           </Route>
         </IonRouterOutlet>
-        <IonTabBar slot="bottom" className="bg-black">
+        <IonTabBar hidden={hideTabBar} slot="bottom" className="bg-black">
           <IonTabButton tab="explore" href="/explore" className="bg-black">
             <IonIcon icon={homeOutline} />
             <IonLabel>Explore</IonLabel>
@@ -52,4 +55,4 @@ export const App: React.FC = () => (
       </IonTabs>
     </IonReactRouter>
   </IonApp>
-)
+}
