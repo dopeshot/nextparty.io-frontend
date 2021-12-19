@@ -1,3 +1,4 @@
+import { History } from 'history';
 import { Context } from "..";
 import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
@@ -5,11 +6,15 @@ import { countGenderOccurrences } from "../../services/Utilities";
 import { playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, StartGameErrors, TaskType } from "./state";
 
-export const launchGame = ({ actions }: Context) => {
+export const launchGame = ({ actions }: Context, history: History) => {
     const isPossibleToPlay = actions.game.isPossibleToPlay()
 
     if (!isPossibleToPlay.status) {
         console.error(isPossibleToPlay.errors)
+
+        // Push back to start page
+        history.push('/game')
+
         return
     }
     actions.game.newGame()

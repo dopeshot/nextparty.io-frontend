@@ -1,25 +1,27 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonText, IonTitle, IonToolbar, useIonViewDidLeave, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonText, IonTitle, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
+import { useHistory } from "react-router"
 // import gameBackgroundImage from '../../assets/backgrounds/select@2x.jpg'
 // import dareBackgroundImage from '../../assets/backgrounds/dare@2x.jpg'
 import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus, TaskType } from "../../overmind/game/state"
-import { lowerCaseFirstLetter } from "../../services/Utilities"
 import { ChooseTask } from "./ChooseTask"
 import { DisplayTask } from "./DisplayTask"
 
 export const InGame: React.FC = () => {
+    const history = useHistory()
+
     const {
         gameStatus, set, currentPlayerIndex, players, currentTask, debug, currentPlayer
     } = useAppState().game
 
     const {
-        nextPlayer, pickTaskType, launchGame, hideTabBar
+        nextPlayer, pickTaskType, hideTabBar, launchGame
     } = useActions().game
 
     useIonViewWillEnter(() => {
         hideTabBar(true)
-        launchGame()
+        launchGame(history)
     }, [launchGame])
 
     useIonViewWillLeave(() => {
@@ -28,18 +30,22 @@ export const InGame: React.FC = () => {
     return (
         <IonPage className="bg-background-black bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${truthBackgroundImage})` }}>
             {!debug.isDeveloper && <>
-                <div className="fixed w-full z-50"><IonHeader className="ion-no-border container">
-                    <IonToolbar color="transparent">
-                        <IonButtons slot="start">
-                            <IonBackButton className="text-white" defaultHref="/game" />
-                        </IonButtons>
-                    </ IonToolbar>
-                </IonHeader></div>
+                <div className="fixed w-full z-50">
+                    <IonHeader className="ion-no-border container">
+                        <IonToolbar color="transparent">
+                            <IonButtons slot="start">
+                                <IonBackButton className="text-white" defaultHref="/game" />
+                            </IonButtons>
+                        </ IonToolbar>
+                    </IonHeader>
+                </div>
                 <IonContent>
                     {(gameStatus === GameStatus.PLAYER_PICKED) &&
                         <ChooseTask playerName={currentPlayer.name} />
                     }
-                    {(gameStatus === GameStatus.TYPE_PICKED) && <DisplayTask currentTask={currentTask} playerName={currentPlayer.name} />}
+                    {(gameStatus === GameStatus.TYPE_PICKED) &&
+                        <DisplayTask currentTask={currentTask} playerName={currentPlayer.name} />
+                    }
                 </IonContent>
             </>}
 
