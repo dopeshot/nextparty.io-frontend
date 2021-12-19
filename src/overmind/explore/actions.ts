@@ -1,20 +1,24 @@
 import axios from "axios"
 import React from "react"
 import { Context } from ".."
+import { HttpStatus } from "../../enums/http-status"
 import { generateErrorMessage } from "../../services/error"
 
-export const loadExplore = async ({ state, effects }: Context, setErrors: (value: string[]) => void) => {
+export const loadExplore = async ({ state, effects }: Context, setError: (value: HttpStatus) => void) => {
+    if(state.explore.isLoadingSets)
+        return 
+
     state.explore.isLoadingSets = true
     try {
         const response = await effects.explore.getSets()
         state.explore.sets = response.data
     } catch (error) {
-        generateErrorMessage(error, setErrors)
+        generateErrorMessage(error, setError)
     }
     state.explore.isLoadingSets = false
 }
 
-export const loadSetDetails = async ({ state, effects }: Context, { setId, componentMounted, setErrors }: { setId: string, componentMounted: React.MutableRefObject<boolean>, setErrors: (values: string[]) => void }) => {
+export const loadSetDetails = async ({ state, effects }: Context, { setId, componentMounted, setError }: { setId: string, componentMounted: React.MutableRefObject<boolean>, setError: (values: HttpStatus) => void }) => {
     state.explore.isLoadingSetDetails = true
     state.explore.setDetails = null
 
@@ -28,6 +32,6 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
             state.explore.isLoadingSetDetails = false
         }
     } catch (error) {
-        generateErrorMessage(error, setErrors)
+        generateErrorMessage(error, setError)
     }
 }

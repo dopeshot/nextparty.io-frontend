@@ -1,3 +1,4 @@
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { IonContent, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
 import { personAdd } from 'ionicons/icons';
 import example from '../../assets/example.png';
@@ -34,7 +35,7 @@ export const Player: React.FC = () => {
               <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
             ))}
           </IonList>
-          <SecondaryButton color='primary' type='button' onClick={() => addPlayer()} keepFocus={true} icon={personAdd}>Add Player</SecondaryButton>
+          <SecondaryButton color='primary' type='button' onClick={() => addPlayer()} keepFocus={true} icon={faUserPlus}>Add Player</SecondaryButton>
         </div>
       </IonContent>
     </IonPage>

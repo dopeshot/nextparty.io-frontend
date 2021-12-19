@@ -10,7 +10,7 @@ import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 import { homeOutline, peopleOutline, playOutline } from 'ionicons/icons';
 import { Redirect, Route } from 'react-router-dom';
-import { Error } from './pages/Error/Error';
+import { NotFoundError } from './components/Errors/NotFoundError';
 import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
 import { Player } from './pages/Player/Player';
@@ -19,7 +19,6 @@ import './tailwindcss.css';
 
 /* Theme variables */
 import './theme/variables.css';
-
 
 export const App: React.FC = () => (
   <IonApp className="font-rubik">
@@ -33,7 +32,9 @@ export const App: React.FC = () => (
           <Route exact path="/">
             <Redirect to="/explore" />
           </Route>
-          <Route component={Error} />
+          <Route>
+            <NotFoundError link='/explore' />
+          </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom" className="bg-black">
           <IonTabButton tab="explore" href="/explore" className="bg-black">

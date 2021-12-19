@@ -1,3 +1,4 @@
+import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
 import { useEffect, useRef, useState } from "react"
@@ -5,6 +6,7 @@ import { useParams } from "react-router"
 import example from '../../assets/example.png'
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
+import { HttpStatus } from "../../enums/http-status"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 import { replaceStringWithIcon } from "../../services/utilities"
@@ -20,15 +22,21 @@ export const SetDetails: React.FC = () => {
     const { loadSetDetails } = useActions().explore
     const componentMounted = useRef(true)
 
-    const [errors, setErrors] = useState<string[]>()
-    
+    const [error, setError] = useState<HttpStatus>()
+
     useEffect(() => {
-        loadSetDetails({ setId, componentMounted, setErrors })
+        loadSetDetails({ setId, componentMounted, setError })
 
         return () => {
             componentMounted.current = false
         }
     }, [loadSetDetails, setId])
+
+    // if (errors[0] === 'id must be a mongodb id') {
+    //     return <Error type={404} />
+    // } else if (errors.length > 0) {
+    //     return <Error type={500} onClick={() => loadSetDetails({ setId, componentMounted, setErrors })} />
+    // }
 
     return (
         <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
@@ -39,7 +47,7 @@ export const SetDetails: React.FC = () => {
                     </IonButtons>
                     <IonButtons slot="end">
                         <IonButton onClick={() => console.log(`Clicked options button`)}>
-                        <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
+                            <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
                         </IonButton>
                     </IonButtons>
                 </ IonToolbar>
@@ -48,7 +56,7 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <PrimaryButton link="/game" content="Spielen" icon="fa-play" />
+                            <PrimaryButton type="button" className="bg-white" link="/game" icon={faPlay}>Spielen</PrimaryButton>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { HttpStatus } from "../enums/http-status";
 
 export const formatErrors = (data: string | string[]): string[] => {
     if (typeof data === 'string') {
@@ -7,11 +8,11 @@ export const formatErrors = (data: string | string[]): string[] => {
     return data
 };
 
-export const generateErrorMessage = (error: any, setErrors: (values: string[]) => void): void => {
+export const generateErrorMessage = (error: any, setError: (values: HttpStatus) => void): void => {
     if (axios.isAxiosError(error) && error.response) {
-        setErrors(formatErrors(error.response.data.message))
+        setError(error.response.status)
     } else if (axios.isAxiosError(error)) {
-        setErrors([`Cannot connect to ${error.config.baseURL}${error.config.url?.substring(1)}!`])
+        setError(HttpStatus.REQUEST_TIMEOUT)
     } else {
         console.error(error)
     }

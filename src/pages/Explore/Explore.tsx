@@ -1,6 +1,8 @@
-import { IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar, useIonViewWillEnter } from '@ionic/react';
 import { useEffect, useState } from 'react';
+import { InternalServerError } from '../../components/Errors/InternalServerError';
 import { SetItem } from '../../components/SetItem/SetItem';
+import { HttpStatus } from '../../enums/http-status';
 import { useActions, useAppState } from '../../overmind';
 import { Set } from '../../overmind/explore/state';
 
@@ -8,14 +10,14 @@ export const Explore: React.FC = () => {
   const { isLoadingSets, sets } = useAppState().explore
   const { loadExplore } = useActions().explore
 
-  const [errors, setErrors] = useState<string[]>()
-
-  useEffect(() => {
-    loadExplore(setErrors)
+  const [error, setError] = useState<HttpStatus>()
+  
+  useIonViewWillEnter(() => {
+    loadExplore(setError)
   }, [loadExplore])
 
-  return (
-    <IonPage>
+  return <>{error && error === HttpStatus.INTERNAL_SERVER_ERROR && <InternalServerError onClick={() => loadExplore(setError)} />}
+    {!error && <IonPage>
       <IonHeader className="container ion-no-border my-4">
         <IonToolbar color="transparent">
           <h1 className="text-3xl font-bold">Explore</h1>
@@ -35,6 +37,5 @@ export const Explore: React.FC = () => {
           )}
         </div>
       </IonContent>
-    </IonPage>
-  )
+    </IonPage>}</>
 }
