@@ -22,7 +22,8 @@ export const isPossibleToPlay = ({ state }: Context) => {
     if (state.players.players.length < playerRequiredToPlay) {
         errors.push(StartGameErrors.PLAYERS)
     }
-    if (!state.game.set) {
+
+    if (!state.game.set || state.game.set.tasks.length === 0) {
         errors.push(StartGameErrors.SET)
     }
 
