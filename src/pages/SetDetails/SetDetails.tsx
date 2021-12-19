@@ -29,7 +29,6 @@ export const SetDetails: React.FC = () => {
 
     useEffect(() => {
         loadSetDetails({ setId, componentMounted, setErrorStatusCode })
-        {console.log(errorStatusCode, setId)}
 
         return () => {
             componentMounted.current = false

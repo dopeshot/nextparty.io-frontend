@@ -24,13 +24,14 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
     try {
         const response = await effects.explore.getSetById(setId)
         const set = response.data
- 
+
         // Only update content when component is still mounted
         if (componentMounted.current) {
             state.explore.setDetails = set
             state.explore.isLoadingSetDetails = false
         }
     } catch (error) {
+        state.explore.isLoadingSetDetails = false
         generateErrorMessage(error, setErrorStatusCode)
     }
 }
