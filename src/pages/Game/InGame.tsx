@@ -28,13 +28,13 @@ export const InGame: React.FC = () => {
     return (
         <IonPage className="bg-background-black bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${truthBackgroundImage})` }}>
             {!debug.isDeveloper && <>
-                <IonHeader className="ion-no-border container fixed">
+                <div className="fixed w-full z-50"><IonHeader className="ion-no-border container">
                     <IonToolbar color="transparent">
                         <IonButtons slot="start">
                             <IonBackButton className="text-white" defaultHref="/game" />
                         </IonButtons>
                     </ IonToolbar>
-                </IonHeader>
+                </IonHeader></div>
                 <IonContent>
                     {(gameStatus === GameStatus.PLAYER_PICKED) &&
                         <ChooseTask playerName={currentPlayer.name} />
