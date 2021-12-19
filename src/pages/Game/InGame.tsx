@@ -1,10 +1,9 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonText, IonTitle, IonToolbar, useIonViewDidEnter, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
-import { useEffect, useState } from "react"
-import { useActions, useAppState } from "../../overmind"
-import { GameStatus, TaskType } from "../../overmind/game/state"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonText, IonTitle, IonToolbar, useIonViewWillEnter } from "@ionic/react"
 // import gameBackgroundImage from '../../assets/backgrounds/select@2x.jpg'
 // import dareBackgroundImage from '../../assets/backgrounds/dare@2x.jpg'
 import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
+import { useActions, useAppState } from "../../overmind"
+import { GameStatus, TaskType } from "../../overmind/game/state"
 
 export const InGame: React.FC = () => {
     const {
@@ -15,12 +14,8 @@ export const InGame: React.FC = () => {
         nextPlayer, pickTaskType, launchGame
     } = useActions().game
 
-    useEffect(() => {
+    useIonViewWillEnter(() => {
         launchGame()
-
-        return () => {
-            return
-        }
     }, [launchGame])
 
     return (
@@ -65,7 +60,7 @@ export const InGame: React.FC = () => {
                     </ IonToolbar>
                 </IonHeader>
                 <IonContent>
-                    <div className="container">
+                    {set && set.tasks.length > 0 && <div className="container">
                         <div className="mb-12">
                             {(gameStatus === GameStatus.PLAYER_PICKED) && <>
                                 <p>Current Player: {JSON.stringify(players[currentPlayerIndex])}</p>
@@ -83,7 +78,7 @@ export const InGame: React.FC = () => {
                         </IonText>
                         <IonProgressBar color="success" value={debug.tasksUnplayedAtAll / set.tasks.length}></IonProgressBar><br />
                         <IonText color="warning">
-                            <p>Played once {debug.tasksPlayedOnce}/{set.tasks.length}</p>
+                            <p>Played once {debug.tasksPlayedOnce}/{set?.tasks.length}</p>
                         </IonText>
                         <IonProgressBar color="warning" value={debug.tasksPlayedOnce / set.tasks.length}></IonProgressBar><br />
                         <IonText color="danger">
@@ -103,7 +98,7 @@ export const InGame: React.FC = () => {
                                 <IonItem key={log + index}><IonLabel>{log}</IonLabel></IonItem>
                             )}
                         </IonList>
-                    </div>
+                    </div>}
                 </IonContent>
             </>}
         </IonPage>

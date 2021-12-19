@@ -46,7 +46,7 @@ export type PlayerGenderCount = {
 }
 
 export type State = {
-    set: Set & { tasks: PlayTask[] },
+    set: (Set & { tasks: PlayTask[] }) | null,
     players: Player[],
     playersGenderCount: PlayerGenderCount,
     gameStatus: GameStatus,
@@ -63,67 +63,7 @@ export type State = {
 }
 
 export const state: State = {
-    set: {
-        "_id": "618be342577d8c493e1012en",
-        "daresCount": 0,
-        "truthCount": 0,
-        "language": "de",
-        "createdBy": {
-            "_id": "618bda75ab1028126ec0b779",
-            "username": "Michael"
-        },
-        "name": "Dev Testing",
-        tasks: [
-            {
-                "currentPlayerGender": "@ca",
-                "_id": "618be342577d8c493e101377",
-                "type": "truth",
-                "message": "Requires one girl @f",
-                "requires": {
-                    "male": 0,
-                    "female": 1,
-                    "any": 0
-                },
-                "playedBy": []
-            },
-            {
-                "currentPlayerGender": "@ca",
-                "_id": "618be342577d8c493e101378",
-                "type": "dare",
-                "message": "Matches for all",
-                "requires": {
-                    "male": 0,
-                    "female": 0,
-                    "any": 0
-                },
-                "playedBy": []
-            },
-            {
-                "currentPlayerGender": "@cf",
-                "_id": "618be342577d8c493e101379",
-                "type": "truth",
-                "message": "Requires two males: @m @m",
-                "requires": {
-                    "male": 2,
-                    "female": 0,
-                    "any": 0
-                },
-                "playedBy": []
-            },
-            {
-                "currentPlayerGender": "@cm",
-                "_id": "618be342577d8c493e10137a",
-                "type": "truth",
-                "message": "Requires one any: @a",
-                "requires": {
-                    "male": 0,
-                    "female": 0,
-                    "any": 1
-                },
-                "playedBy": []
-            }
-        ]
-    },
+    set: null,
     players: [],
     playersGenderCount: derived((state: State) => state.players.reduce((result, player) => {
             switch(player.gender) {
@@ -149,9 +89,9 @@ export const state: State = {
     currentPlayer: derived((state: State) => state.players[state.currentPlayerIndex]),
     currentTask: null,
     debug: {
-        tasksUnplayedAtAll: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 0).length),
-        tasksPlayedOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length === 1).length),
-        tasksPlayedMoreThanOnce: derived((state, rootState: typeof config.state) => rootState.game.set.tasks.filter(task => task.playedBy.length > 1).length),
+        tasksUnplayedAtAll: derived((state, rootState: typeof config.state) => rootState.game.set ? rootState.game.set.tasks.filter(task => task.playedBy.length === 0).length : 0),
+        tasksPlayedOnce: derived((state, rootState: typeof config.state) => rootState.game.set ? rootState.game.set.tasks.filter(task => task.playedBy.length === 1).length : 0),
+        tasksPlayedMoreThanOnce: derived((state, rootState: typeof config.state) => rootState.game.set ? rootState.game.set.tasks.filter(task => task.playedBy.length > 1).length : 0),
         isDeveloper: false,
         playerLog: []
     }

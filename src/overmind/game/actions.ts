@@ -1,47 +1,59 @@
-import { action } from "overmind/lib/operator";
 import { Context } from "..";
 import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
-import { Player, playerRequiredToPlay } from "../players/state";
+import { playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, TaskType } from "./state";
 
 
-export const launchGame = ({state, actions}: Context) => {
+export const launchGame = ({ state, actions }: Context) => {
+    try {
+        actions.game.newGame()
+        actions.game.nextPlayer()    
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+export const newGame = ({ state, actions }: Context) => {
+    // Validate data from set and players
+    if (state.players.players.length < playerRequiredToPlay || !state.game.set) {
+        throw "Data is missing."
+    }
+
+    // Set Game Status 
+    state.game.gameStatus = GameStatus.START
+
     // Add players to game
     state.game.players = state.players.players.map(player => ({
         ...player,
+        // @ts-ignore We validate before that it's not null
         possibleTaskCount: countPossibleTasksForPlayer(state.game.set.tasks, player, state.game.playersGenderCount)
     }))
 
-    if(state.game.players.length < playerRequiredToPlay || !state.game.set) {
-        console.error("Starting a game. Data is missing.")
-        return
-    }
+    // Remove game history if set was used before
+    state.game.set.tasks = state.game.set.tasks.map(task => ({
+        ...task,
+        playedBy: []
+    }))
 
-    // New game
-    if(state.game.gameStatus === GameStatus.START) {
-        // Remove game history if set was used before
-        state.game.set.tasks = state.game.set.tasks.map(task => ({
-            ...task,
-            playedBy: []
-        }))
+    // Shuffle tasks
+    state.game.set.tasks = shuffleArray(state.game.set.tasks)
 
-        // Shuffle tasks
-        state.game.set.tasks = shuffleArray(state.game.set.tasks)
+    // Shuffle players
+    state.game.players = shufflePlayers(state.game.players)
 
-        // Shuffle players
-        state.game.players = shufflePlayers(state.game.players)
+    state.game.currentPlayerIndex = -1
+    state.game.currentTask = null
 
-        state.game.currentPlayerIndex = -1
-    }
-    actions.game.nextPlayer()
+    // Developer
+    state.game.debug.playerLog = []
 }
 
-export const nextPlayer = ({state}: Context) => {
+export const nextPlayer = ({ state }: Context) => {
     let nextPlayerIndex = state.game.currentPlayerIndex + 1
 
-    if(nextPlayerIndex > state.game.players.length - 1) {
+    if (nextPlayerIndex > state.game.players.length - 1) {
         state.game.players = shufflePlayers(state.game.players)
         nextPlayerIndex = 0
     }
@@ -51,32 +63,37 @@ export const nextPlayer = ({state}: Context) => {
     state.game.debug.playerLog = [...state.game.debug.playerLog, `${nextPlayerIndex} - ${state.game.players[nextPlayerIndex].name}`]
 }
 
-export const pickTaskType = ({state, actions}: Context, taskType: TaskType) => {
-    
+export const pickTaskType = ({ state, actions }: Context, taskType: TaskType) => {
     // 5: Find Task
     actions.game.findTask(taskType)
 
     state.game.gameStatus = GameStatus.TYPE_PICKED
 }
 
-export const findTask = ({state, actions}: Context, taskType: TaskType): boolean => {
+export const findTask = ({ state, actions }: Context, taskType: TaskType): boolean => {
+    
+    if(!state.game.set) {
+        console.error("Data is missing.")
+        return false
+    }
+
     // 5.1 Filter by type and Gender
     let tasks = getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType)
-    if(tasks.length === 0) {
+    if (tasks.length === 0) {
         console.error("This player has no possible tasks at all")
         return false
     }
-    
+
     // 5.1.1 Filter for fillable tasks
     tasks = getFillableTasks(tasks, state.game.currentPlayer, state.game.playersGenderCount)
-    if(tasks.length === 0) {
+    if (tasks.length === 0) {
         console.error("This group has no possible tasks for this player")
         return false
     }
 
     // 5.2 Filter unplayed / unique overall
     let matchingTasks = getUnplayedOverall(tasks)
-    if(matchingTasks.length > 0) {
+    if (matchingTasks.length > 0) {
         actions.game.generateFinalMessage(matchingTasks[0])
         return true
     }
@@ -84,7 +101,7 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
 
     // 5.3 Filter unique for me
     matchingTasks = getUnplayedByMe(tasks, state.game.currentPlayer)
-    if(matchingTasks.length > 0) {
+    if (matchingTasks.length > 0) {
         actions.game.generateFinalMessage(getLeastPlayedOverall(matchingTasks))
         return true
     }
@@ -92,7 +109,7 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
 
     // 5.4 Sort by least played for me 
     matchingTasks = getLeastPlayedByMe(tasks, state.game.currentPlayer)
-    if(matchingTasks.length === 1) {
+    if (matchingTasks.length === 1) {
         actions.game.generateFinalMessage(matchingTasks[0])
         return true
     }
@@ -103,15 +120,20 @@ export const findTask = ({state, actions}: Context, taskType: TaskType): boolean
     return true
 }
 
-export const generateFinalMessage = ({state}: Context, playTask: PlayTask) => {
+export const generateFinalMessage = ({ state }: Context, playTask: PlayTask) => {
+    if(!state.game.set) {
+        console.error("Data is missing.")
+        return false
+    }
+
     const task = state.game.set.tasks.find(task => task._id === playTask._id)!
     task.playedBy = [...task.playedBy, state.game.currentPlayer.id]
 
     state.game.currentTask = fillPlayersIntoMessage(state.game.players, playTask, state.game.currentPlayer)
 }
 
-export const addSetToGame = ({state}: Context) => {
-    if(!state.explore.setDetails) {
+export const addSetToGame = ({ state }: Context) => {
+    if (!state.explore.setDetails) {
         console.error("setDetails is not set")
         return
     }
@@ -129,10 +151,6 @@ export const addSetToGame = ({state}: Context) => {
     state.game.gameStatus = GameStatus.START
 }
 
-export const addPlayersToGame = ({state}: Context) => {
-}
-
-
-export const toggleDeveloper = ({state}: Context) => {
+export const toggleDeveloper = ({ state }: Context) => {
     state.game.debug.isDeveloper = !state.game.debug.isDeveloper
 }

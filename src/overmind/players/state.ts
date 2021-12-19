@@ -22,23 +22,7 @@ export type State = {
 }
 
 export const state: State = {
-    players: [{
-        id: 1,
-        name: "Michael",
-        gender: Gender.MALE
-    }, {
-        id: 2,
-        name: "Joy",
-        gender: Gender.FEMALE
-    }, {
-        id: 3,
-        name: "Nicer Guy",
-        gender: Gender.DIVERS
-    }, {
-        id: 4,
-        name: "Maxi",
-        gender: Gender.MALE
-    }],
+    players: [],
     enoughPlayer: derived((state: State) => state.players.length >= playerRequiredToPlay ? true : false),
     isAllowedToDelete: derived((state: State) => state.players.length > playerRequiredToPlay ? true : false)
 }
