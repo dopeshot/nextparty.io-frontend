@@ -5,14 +5,16 @@ import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus, TaskType } from "../../overmind/game/state"
 import { lowerCaseFirstLetter } from "../../services/Utilities"
+import { ChooseTask } from "./ChooseTask"
+import { DisplayTask } from "./DisplayTask"
 
 export const InGame: React.FC = () => {
     const {
-        gameStatus, set, currentPlayerIndex, players, currentTask, debug
+        gameStatus, set, currentPlayerIndex, players, currentTask, debug, currentPlayer
     } = useAppState().game
 
     const {
-        nextPlayer, pickTaskType, launchGame
+        nextPlayer, pickTaskType, launchGame, isPossibleTask
     } = useActions().game
 
     useIonViewWillEnter(() => {
@@ -31,28 +33,9 @@ export const InGame: React.FC = () => {
                 </IonHeader>
                 <IonContent>
                     {(gameStatus === GameStatus.PLAYER_PICKED) &&
-                        <div className="container grid grid-rows-1 grid-cols-2 h-full">
-                            <div className="self-center text-center row-start-1 col-start-1 col-end-3 mb-10">
-                                <h1 className="text-5xl font-semibold">{players[currentPlayerIndex].name}</h1>
-                                <p>Du bist dran!</p>
-                            </div>
-                            <div className="col-start-1 col-end-3 row-start-1 self-end flex justify-between pointer-events-none mb-10">
-                                <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold">Wahrheit</span>
-                                <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold">Pflicht</span>
-                            </div>
-                            <button onClick={() => pickTaskType(TaskType.TRUTH)} className="col-start-1 col-end-2 row-start-1"></button>
-                            <button onClick={() => pickTaskType(TaskType.DARE)} className="col-start-2 col-end-3 row-start-1"></button>
-                        </div>
+                        <ChooseTask playerName={currentPlayer.name} />
                     }
-                    {(gameStatus === GameStatus.TYPE_PICKED) && currentTask && <>
-                        <div className="md:container flex flex-col items-center justify-center cursor-pointer h-full mx-5" onClick={() => nextPlayer()}>
-                            <div className={`${currentTask.message.length > 100 ? "height-450" : "height-250"}`}>
-                                <h2 className="text-5xl text-center font-semibold mb-10">{currentTask.type == "truth" ? "Wahrheit" : "Pflicht"}</h2>
-                                <p className="text-2xl mb-5">{players[currentPlayerIndex].name}, {lowerCaseFirstLetter(currentTask.message)}</p>
-                            </div>
-                            <p className="text-center text-lg opacity-25">Tab to continue</p>
-                        </div>
-                    </>}
+                    {(gameStatus === GameStatus.TYPE_PICKED) && <DisplayTask currentTask={currentTask} playerName={currentPlayer.name} />}
                 </IonContent>
             </>}
 

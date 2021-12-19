@@ -86,10 +86,27 @@ export const pickTaskType = ({ state, actions }: Context, taskType: TaskType) =>
     state.game.gameStatus = GameStatus.TYPE_PICKED
 }
 
+// MC: Require Ref is duplicate
+export const isPossibleTask = ({ state }: Context, taskType: TaskType) => {
+
+    if (!state.game.set)
+        return false // There is data missing
+
+    let tasks = getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType)
+    if (tasks.length === 0)
+        return false // This player has no possible tasks at all
+
+    tasks = getFillableTasks(tasks, state.game.currentPlayer, state.game.playersGenderCount)
+    if (tasks.length === 0)
+        return false // This group has no possible tasks for this player
+
+    return true
+}
+
 export const findTask = ({ state, actions }: Context, taskType: TaskType): boolean => {
 
     if (!state.game.set) {
-        console.error("Data is missing.")
+        console.error("Data is missing")
         return false
     }
 
