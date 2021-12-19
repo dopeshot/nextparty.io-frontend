@@ -23,3 +23,8 @@ export function countGenderOccurrences(string: string): {
         any: string.split('@a').length - 1
     }
 }
+
+
+export function lowerCaseFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}

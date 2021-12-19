@@ -4,6 +4,7 @@ import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, I
 import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus, TaskType } from "../../overmind/game/state"
+import { lowerCaseFirstLetter } from "../../services/Utilities"
 
 export const InGame: React.FC = () => {
     const {
@@ -38,11 +39,11 @@ export const InGame: React.FC = () => {
                             <button onClick={() => pickTaskType(TaskType.DARE)} className="col-start-2 col-end-3 row-start-1"></button>
                         </div>
                     }
-                    {(gameStatus === GameStatus.TYPE_PICKED) && <>
+                    {(gameStatus === GameStatus.TYPE_PICKED) && currentTask && <>
                         <div className="md:container flex flex-col items-center justify-center cursor-pointer h-full mx-5" onClick={() => nextPlayer()}>
-                            <div className={`${currentTask!.message.length > 100 ? "height-450" : "height-250"}`}>
-                                <h2 className="text-5xl text-center font-semibold mb-10">{currentTask?.type == "truth" ? "Wahrheit" : "Pflicht"}</h2>
-                                <p className="text-2xl mb-5">{currentTask!.message}</p>
+                            <div className={`${currentTask.message.length > 100 ? "height-450" : "height-250"}`}>
+                                <h2 className="text-5xl text-center font-semibold mb-10">{currentTask.type == "truth" ? "Wahrheit" : "Pflicht"}</h2>
+                                <p className="text-2xl mb-5">{players[currentPlayerIndex].name}, {lowerCaseFirstLetter(currentTask.message)}</p>
                             </div>
                             <p className="text-center text-lg opacity-25">Tab to continue</p>
                         </div>
@@ -91,7 +92,7 @@ export const InGame: React.FC = () => {
                                 <IonItem key={playTask._id}><IonLabel>{JSON.stringify(playTask)}</IonLabel></IonItem>
                             )}
                         </IonList>
-                        
+
                         <h2>Player Log</h2>
                         <IonList>
                             {debug.playerLog && debug.playerLog.length !== 0 && debug.playerLog.map((log, index) =>
