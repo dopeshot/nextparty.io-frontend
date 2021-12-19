@@ -26,6 +26,11 @@ export enum GameStatus {
     TYPE_PICKED = "type_picked"
 }
 
+export enum StartGameErrors {
+    PLAYERS = "players",
+    SET = "set"
+}
+
 export type PlayTask = Task & {
     requires: {
         male: number,
@@ -66,23 +71,23 @@ export const state: State = {
     set: null,
     players: [],
     playersGenderCount: derived((state: State) => state.players.reduce((result, player) => {
-            switch(player.gender) {
-                case Gender.MALE: 
-                    result.male++ 
+        switch (player.gender) {
+            case Gender.MALE:
+                result.male++
                 break
-                case Gender.FEMALE:
-                    result.female++
+            case Gender.FEMALE:
+                result.female++
                 break
-                case Gender.DIVERS:
-                    result.divers++
+            case Gender.DIVERS:
+                result.divers++
                 break
-            }
-            return result
-        }, {
-            male: 0,
-            female: 0,
-            divers: 0
-        })
+        }
+        return result
+    }, {
+        male: 0,
+        female: 0,
+        divers: 0
+    })
     ),
     gameStatus: GameStatus.START,
     currentPlayerIndex: -1,

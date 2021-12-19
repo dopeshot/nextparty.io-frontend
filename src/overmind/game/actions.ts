@@ -3,23 +3,39 @@ import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, 
 import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/Utilities";
 import { playerRequiredToPlay } from "../players/state";
-import { GameStatus, PlayTask, TaskType } from "./state";
+import { GameStatus, PlayTask, StartGameErrors, TaskType } from "./state";
 
+export const launchGame = ({ actions }: Context) => {
+    const isPossibleToPlay = actions.game.isPossibleToPlay()
 
-export const launchGame = ({ state, actions }: Context) => {
-    try {
-        actions.game.newGame()
-        actions.game.nextPlayer()    
-    } catch(error) {
-        console.error(error)
+    if (!isPossibleToPlay.status) {
+        console.error(isPossibleToPlay.errors)
+        return
     }
+    actions.game.newGame()
+    actions.game.nextPlayer()
 }
 
-export const newGame = ({ state, actions }: Context) => {
-    // Validate data from set and players
-    if (state.players.players.length < playerRequiredToPlay || !state.game.set) {
-        throw "Data is missing."
+export const isPossibleToPlay = ({ state }: Context) => {
+    const errors: StartGameErrors[] = []
+
+    if (state.players.players.length < playerRequiredToPlay) {
+        errors.push(StartGameErrors.PLAYERS)
     }
+    if (!state.game.set) {
+        errors.push(StartGameErrors.SET)
+    }
+
+    return {
+        status: errors.length ? false : true,
+        errors
+    }
+}
+export const newGame = ({ state, actions }: Context) => {
+    // MC: We know that state.game.set is not null here.
+    if (!state.game.set)
+        return
+
 
     // Set Game Status 
     state.game.gameStatus = GameStatus.START
@@ -71,8 +87,8 @@ export const pickTaskType = ({ state, actions }: Context, taskType: TaskType) =>
 }
 
 export const findTask = ({ state, actions }: Context, taskType: TaskType): boolean => {
-    
-    if(!state.game.set) {
+
+    if (!state.game.set) {
         console.error("Data is missing.")
         return false
     }
@@ -121,7 +137,7 @@ export const findTask = ({ state, actions }: Context, taskType: TaskType): boole
 }
 
 export const generateFinalMessage = ({ state }: Context, playTask: PlayTask) => {
-    if(!state.game.set) {
+    if (!state.game.set) {
         console.error("Data is missing.")
         return false
     }

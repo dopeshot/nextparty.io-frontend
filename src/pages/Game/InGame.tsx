@@ -22,7 +22,12 @@ export const InGame: React.FC = () => {
     return (
         <IonPage className="bg-background-black bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${truthBackgroundImage})` }}>
             {!debug.isDeveloper && <>
-                <IonHeader className="ion-no-border container">
+                <IonHeader className="ion-no-border container fixed">
+                    <IonToolbar color="transparent">
+                        <IonButtons slot="start">
+                            <IonBackButton className="text-white" defaultHref="/game" />
+                        </IonButtons>
+                    </ IonToolbar>
                 </IonHeader>
                 <IonContent>
                     {(gameStatus === GameStatus.PLAYER_PICKED) &&

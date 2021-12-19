@@ -12,7 +12,7 @@ export const Game: React.FC = () => {
     players
   } } = useAppState()
 
-  const { toggleDeveloper } = useActions().game
+  const { toggleDeveloper, isPossibleToPlay } = useActions().game
 
   return (
     <IonPage className="bg-background-black">
@@ -22,7 +22,7 @@ export const Game: React.FC = () => {
       <IonContent>
         <div className="container">
           <p className="mb-6">This is the content of the page</p>
-          <PrimaryButton link="/game/ingame" content="Spielen" icon="fa-play" />
+          {isPossibleToPlay().status && <PrimaryButton link="/game/ingame" content="Spielen" icon="fa-play" />}
           <IonList>
             <IonItem>
               <IonLabel>{isDeveloper ? 'Du bist Entwickler' : 'Du bist kein Entwickler'}</IonLabel>
