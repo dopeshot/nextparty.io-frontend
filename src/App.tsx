@@ -19,25 +19,22 @@ import './tailwindcss.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import { ErrorHandler } from './utils/ErrorHandler';
 
 export const App: React.FC = () => (
 	<IonApp className="font-rubik">
 		<IonReactRouter>
 			<IonTabs>
 				<IonRouterOutlet>
-					<ErrorHandler>
-						<Route path="/player" component={Player} />
-						<Route path="/game" component={Game} />
-						<Route exact path="/explore" component={Explore} />
-						<Route path="/explore/:setId" component={SetDetails} />
-						<Route exact path="/">
-							<Redirect to="/explore" />
-						</Route>
-						<Route>
-							<NotFoundError link='/explore' />
-						</Route>
-					</ErrorHandler>
+					<Route path="/player" component={Player} />
+					<Route path="/game" component={Game} />
+					<Route exact path="/explore" component={Explore} />
+					<Route path="/explore/:setId" component={SetDetails} />
+					<Route exact path="/">
+						<Redirect to="/explore" />
+					</Route>
+					<Route>
+						<NotFoundError link='/explore' />
+					</Route>
 				</IonRouterOutlet>
 				<IonTabBar slot="bottom" className="bg-black">
 					<IonTabButton tab="explore" href="/explore" className="bg-black">

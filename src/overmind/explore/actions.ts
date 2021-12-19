@@ -3,7 +3,7 @@ import { Context } from ".."
 import { HttpStatus } from "../../enums/http-status"
 import { generateErrorMessage } from "../../services/error"
 
-export const loadExplore = async ({ state, effects }: Context,  setErrorStatusCode : (value: HttpStatus) => void) => {
+export const loadExplore = async ({ state, effects }: Context, setErrorStatusCode : (value: HttpStatus) => void) => {
     if (state.explore.isLoadingSets)
         return
 
@@ -24,7 +24,7 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
     try {
         const response = await effects.explore.getSetById(setId)
         const set = response.data
-
+ 
         // Only update content when component is still mounted
         if (componentMounted.current) {
             state.explore.setDetails = set
