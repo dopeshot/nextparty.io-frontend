@@ -1,12 +1,11 @@
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
-import { HttpStatus } from "../../enums/http-status"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 import { replaceStringWithIcon } from "../../services/utilities"
@@ -22,21 +21,14 @@ export const SetDetails: React.FC = () => {
     const { loadSetDetails } = useActions().explore
     const componentMounted = useRef(true)
 
-    const [error, setError] = useState<HttpStatus>()
 
     useEffect(() => {
-        loadSetDetails({ setId, componentMounted, setError })
+        //loadSetDetails({ setId, componentMounted })
 
         return () => {
             componentMounted.current = false
         }
     }, [loadSetDetails, setId])
-
-    // if (errors[0] === 'id must be a mongodb id') {
-    //     return <Error type={404} />
-    // } else if (errors.length > 0) {
-    //     return <Error type={500} onClick={() => loadSetDetails({ setId, componentMounted, setErrors })} />
-    // }
 
     return (
         <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}

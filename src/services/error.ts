@@ -8,11 +8,11 @@ export const formatErrors = (data: string | string[]): string[] => {
     return data
 };
 
-export const generateErrorMessage = (error: any, setError: (values: HttpStatus) => void): void => {
+export const generateErrorMessage = (error: any, setErrorStatusCode: (value: HttpStatus) => void): void => {
     if (axios.isAxiosError(error) && error.response) {
-        setError(error.response.status)
+        setErrorStatusCode(error.response.status)
     } else if (axios.isAxiosError(error)) {
-        setError(HttpStatus.REQUEST_TIMEOUT)
+        setErrorStatusCode(HttpStatus.REQUEST_TIMEOUT)
     } else {
         console.error(error)
     }

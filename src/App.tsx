@@ -19,38 +19,41 @@ import './tailwindcss.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { ErrorHandler } from './utils/ErrorHandler';
 
 export const App: React.FC = () => (
-  <IonApp className="font-rubik">
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route path="/player" component={Player} />
-          <Route path="/game" component={Game} />
-          <Route exact path="/explore" component={Explore} />
-          <Route path="/explore/:setId" component={SetDetails} />
-          <Route exact path="/">
-            <Redirect to="/explore" />
-          </Route>
-          <Route>
-            <NotFoundError link='/explore' />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom" className="bg-black">
-          <IonTabButton tab="explore" href="/explore" className="bg-black">
-            <IonIcon icon={homeOutline} />
-            <IonLabel>Explore</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="/game" href="/game" className="bg-black">
-            <IonIcon icon={playOutline} />
-            <IonLabel>Game</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="player" href="/player" className="bg-black">
-            <IonIcon icon={peopleOutline} />
-            <IonLabel>Player</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
+	<IonApp className="font-rubik">
+		<IonReactRouter>
+			<IonTabs>
+				<IonRouterOutlet>
+					<ErrorHandler>
+						<Route path="/player" component={Player} />
+						<Route path="/game" component={Game} />
+						<Route exact path="/explore" component={Explore} />
+						<Route path="/explore/:setId" component={SetDetails} />
+						<Route exact path="/">
+							<Redirect to="/explore" />
+						</Route>
+						<Route>
+							<NotFoundError link='/explore' />
+						</Route>
+					</ErrorHandler>
+				</IonRouterOutlet>
+				<IonTabBar slot="bottom" className="bg-black">
+					<IonTabButton tab="explore" href="/explore" className="bg-black">
+						<IonIcon icon={homeOutline} />
+						<IonLabel>Explore</IonLabel>
+					</IonTabButton>
+					<IonTabButton tab="/game" href="/game" className="bg-black">
+						<IonIcon icon={playOutline} />
+						<IonLabel>Game</IonLabel>
+					</IonTabButton>
+					<IonTabButton tab="player" href="/player" className="bg-black">
+						<IonIcon icon={peopleOutline} />
+						<IonLabel>Player</IonLabel>
+					</IonTabButton>
+				</IonTabBar>
+			</IonTabs>
+		</IonReactRouter>
+	</IonApp>
 )

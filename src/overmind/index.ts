@@ -4,11 +4,13 @@ import { namespaced } from 'overmind/config'
 import * as example from './example'
 import * as explore from './explore'
 import * as players from './players'
+import * as app from './app'
 
 export const config = namespaced({
     example,
     explore,
-    players
+    players,
+    app
 })
 
 export type Context = IContext<{
