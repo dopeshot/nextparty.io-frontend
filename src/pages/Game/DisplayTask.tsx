@@ -1,6 +1,6 @@
 import { useActions, useAppState } from "../../overmind"
 import { PlayTask } from "../../overmind/game/state"
-import { lowerCaseFirstLetter } from "../../services/Utilities"
+import { lowerCaseFirstLetter } from "../../services/Utilities/lowerCaseFirstLetter"
 
 type DisplayTaskType = {
     currentTask: PlayTask | null
