@@ -16,11 +16,11 @@ export const ChooseTask: React.FC<ChooseTaskType> = ({ playerName }) => {
     return (<div className="container grid grid-rows-1 grid-cols-2 h-full">
         <div className="self-center text-center row-start-1 col-start-1 col-end-3 mb-10">
             <h1 className="text-5xl font-semibold">{playerName}</h1>
-            <p>Du bist dran!</p>
+            <p>It's your turn!</p>
         </div>
         <div className="col-start-1 col-end-3 row-start-1 self-end flex pointer-events-none mb-10">
-            {canPlayTruth && <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold">Wahrheit</span>}
-            {canPlayDare && <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold ml-auto">Pflicht</span>}
+            {canPlayTruth && <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold">Truth</span>}
+            {canPlayDare && <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold ml-auto">Dare</span>}
             {!canPlayTruth && !canPlayDare && <p>This player doesn't have any tasks to play.</p>}
         </div>
         {canPlayTruth && <button onClick={() => pickTaskType(TaskType.TRUTH)} className="col-start-1 col-end-2 row-start-1"></button>}

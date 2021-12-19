@@ -21,11 +21,10 @@ export const Game: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="container">
-          <p className="mb-6">This is the content of the page</p>
-          {isPossibleToPlay().status && <PrimaryButton link="/game/ingame" content="Spielen" icon="fa-play" />}
+          {isPossibleToPlay().status && <PrimaryButton link="/game/ingame" content="Play" icon="fa-play" />}
           <IonList>
             <IonItem>
-              <IonLabel>{isDeveloper ? 'Du bist Entwickler' : 'Du bist kein Entwickler'}</IonLabel>
+              <IonLabel>{isDeveloper ? 'You are a developer' : 'You are not a developer'}</IonLabel>
               <IonToggle checked={isDeveloper} onIonChange={e => toggleDeveloper()} />
             </IonItem>
           </IonList>

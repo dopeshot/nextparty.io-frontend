@@ -26,7 +26,7 @@ export const Player: React.FC = () => {
           <div className="bg-gradient-to-t from-background-black w-full h-full">
             <div className="container">
               <h1 className="text-3xl pt-14 pb-6 text-white font-bold">Players</h1>
-              <p className="text-lightgrey">Füge deine Mitspieler hinzu und wähle ihr Geschlecht aus.</p>
+              <p className="text-lightgrey">Add your friends and choose their gender.</p>
             </div>
           </div>
         </div>

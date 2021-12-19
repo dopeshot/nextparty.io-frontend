@@ -3,9 +3,10 @@ import { ellipsisHorizontal } from "ionicons/icons"
 import { useEffect, useRef } from "react"
 import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
-import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
+import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
+import { TaskType } from "../../overmind/game/state"
 import { replaceStringWithIcon } from "../../services/Utilities"
 
 type SetDetailsParams = {
@@ -62,7 +63,7 @@ export const SetDetails: React.FC = () => {
                                 history.push('/game')
                             }} className="flex justify-center items-baseline cursor-pointer bg-white rounded-lg">
                                 <i className={`fas fa-play text-black mr-3`}></i>
-                                <span className="text-black font-bold">Spielen</span>
+                                <span className="text-black font-bold">Play</span>
                             </IonButton>
                         </div>
                     </div>
@@ -75,10 +76,10 @@ export const SetDetails: React.FC = () => {
                                 <h1 className="text-3xl mb-2 font-bold">{setDetails?.name}</h1>
                                 <p className="text-lightgrey mb-5">{setDetails?.createdBy.username}</p>
                                 <div className="flex items-center">
-                                    <p className="truth-label">W</p>
-                                    <p className="text-lightgrey mr-4">{setDetails?.truthCount} Wahrheit</p>
-                                    <p className="dare-label">P</p>
-                                    <p className="text-lightgrey">{setDetails?.daresCount} Pflicht</p>
+                                    <p className="truth-label">T</p>
+                                    <p className="text-lightgrey mr-4">{setDetails?.truthCount} Truth</p>
+                                    <p className="dare-label">D</p>
+                                    <p className="text-lightgrey">{setDetails?.daresCount} Dare</p>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +91,7 @@ export const SetDetails: React.FC = () => {
                             <div>
                                 <IonList lines="none">
                                     {setDetails?.tasks.map((task: Task, index) => (
-                                        <TaskListItem key={index} type={task.type === 'truth' ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
+                                        <TaskListItem key={index} type={task.type === "truth" ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
                                     ))}
                                 </IonList>
                             </div>
