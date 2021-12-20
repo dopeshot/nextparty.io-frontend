@@ -1,4 +1,4 @@
-import { useActions, useAppState } from "../../overmind"
+import { useActions } from "../../overmind"
 import { TaskType } from "../../overmind/game/state"
 
 type ChooseTaskType = {

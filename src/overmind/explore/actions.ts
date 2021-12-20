@@ -1,6 +1,5 @@
 import React from "react"
 import { Context } from ".."
-import { HttpStatus } from "../../enums/http-status"
 
 export const loadExplore = async ({ state, effects }: Context) => {
     if (state.explore.isLoadingSets)

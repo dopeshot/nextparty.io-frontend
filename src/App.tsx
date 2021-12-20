@@ -16,36 +16,36 @@ import './tailwindcss.css';
 import './theme/variables.css';
 
 export const App: React.FC = () => {
-  const hideTabBar = useAppState().game.hideTabBar
+    const hideTabBar = useAppState().game.hideTabBar
 
-  return <IonApp className="font-rubik">
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/player" component={Player} />
-          <Route exact path="/game/ingame" component={InGame} />
-          <Route exact path="/game" component={Game} />
-          <Route exact path="/explore" component={Explore} />
-          <Route exact path="/explore/:setId" component={SetDetails} />
-          <Route exact path="/">
-            <Redirect to="/explore" />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar hidden={hideTabBar} slot="bottom" className="bg-black">
-          <IonTabButton tab="explore" href="/explore" className="bg-black">
-            <IonIcon icon={homeOutline} />
-            <IonLabel>Explore</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="/game" href="/game" className="bg-black">
-            <IonIcon icon={playOutline} />
-            <IonLabel>Game</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="player" href="/player" className="bg-black">
-            <IonIcon icon={peopleOutline} />
-            <IonLabel>Player</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
+    return <IonApp className="font-rubik">
+        <IonReactRouter>
+            <IonTabs>
+                <IonRouterOutlet>
+                    <Route exact path="/player" component={Player} />
+                    <Route exact path="/game/ingame" component={InGame} />
+                    <Route exact path="/game" component={Game} />
+                    <Route exact path="/explore" component={Explore} />
+                    <Route exact path="/explore/:setId" component={SetDetails} />
+                    <Route exact path="/">
+                        <Redirect to="/explore" />
+                    </Route>
+                </IonRouterOutlet>
+                <IonTabBar hidden={hideTabBar} slot="bottom" className="bg-black">
+                    <IonTabButton tab="explore" href="/explore" className="bg-black">
+                        <IonIcon icon={homeOutline} />
+                        <IonLabel>Explore</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="/game" href="/game" className="bg-black">
+                        <IonIcon icon={playOutline} />
+                        <IonLabel>Game</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="player" href="/player" className="bg-black">
+                        <IonIcon icon={peopleOutline} />
+                        <IonLabel>Player</IonLabel>
+                    </IonTabButton>
+                </IonTabBar>
+            </IonTabs>
+        </IonReactRouter>
+    </IonApp>
 }

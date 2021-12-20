@@ -7,7 +7,7 @@ export const shuffleArray = <T>(array: Array<T>) => {
 }
 
 export const genderToTaskCurrentPlayerGender = (gender: Gender) => {
-    switch(gender) {
+    switch (gender) {
         case Gender.FEMALE: return TaskCurrentPlayerGender.FEMALE
         case Gender.MALE: return TaskCurrentPlayerGender.MALE
         case Gender.DIVERS: return TaskCurrentPlayerGender.ANYONE

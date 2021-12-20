@@ -10,7 +10,7 @@ type IconButtonProps = {
 
 export const IconButton: React.FC<IconButtonProps> = (props) => {
     return (
-        <IonButton className={`${props.bgColor} border-4 border-background-black rounded-full no-ripple`} onClick={props.onClick} style={{ minWidth: "38px", minHeight: "38px"}}>
+        <IonButton className={`${props.bgColor} border-4 border-background-black rounded-full no-ripple`} onClick={props.onClick} style={{ minWidth: "38px", minHeight: "38px" }}>
             <FontAwesomeIcon className="text-background-black text-lg" icon={props.icon} />
         </IonButton>
     )

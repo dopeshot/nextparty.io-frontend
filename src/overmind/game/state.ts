@@ -1,7 +1,7 @@
-import { Set, Task } from "../explore/state"
-import { Gender, Player } from "../players/state"
 import { derived } from 'overmind'
 import { config } from ".."
+import { Set, Task } from "../explore/state"
+import { Gender, Player } from "../players/state"
 
 export enum TaskType {
     TRUTH = "truth",

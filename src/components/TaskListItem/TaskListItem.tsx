@@ -1,5 +1,5 @@
-import { IonItem, IonLabel, useIonActionSheet } from "@ionic/react"
-import { flag, flagOutline, trash } from "ionicons/icons"
+import { IonItem, useIonActionSheet } from "@ionic/react"
+import { flag, trash } from "ionicons/icons"
 import { TaskType } from "../../overmind/game/state"
 
 export const TaskListItem: React.FC<{

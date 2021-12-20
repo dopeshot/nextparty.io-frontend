@@ -4,36 +4,36 @@ import { Gender, Player, playerRequiredToPlay } from './state'
 
 const playerDefaultGender = Gender.FEMALE
 
-export const loadPlayerScreen = ({state, actions}: Context) => {
-    while(state.players.players.length < playerRequiredToPlay) {
-        if(state.players.players.length === 0)
+export const loadPlayerScreen = ({ state, actions }: Context) => {
+    while (state.players.players.length < playerRequiredToPlay) {
+        if (state.players.players.length === 0)
             actions.players.addPlayer(Gender.MALE)
         else
             actions.players.addPlayer()
     }
 }
 
-export const confirmPlayers = ({state}: Context) => {
+export const confirmPlayers = ({ state }: Context) => {
     state.players.players = state.players.players.filter(player => player.name !== "")
 }
 
-export const addPlayer = ({state}: Context, gender?: Gender) => {
+export const addPlayer = ({ state }: Context, gender?: Gender) => {
     const newPlayer: Player = {
         id: Math.max(...state.players.players.map(player => player.id), 0) + 1,
         name: "",
         gender: gender ?? playerDefaultGender // MC: This is nice https://github.com/tc39/proposal-nullish-coalescing
     }
     state.players.players.push(newPlayer)
-    
+
     // Reset game status when selecting new set
     state.game.gameStatus = GameStatus.START
 }
 
-export const setPlayerGender = ({state }: Context, {id, gender}: {id: number, gender: Gender}) => {
+export const setPlayerGender = ({ state }: Context, { id, gender }: { id: number, gender: Gender }) => {
     const player = state.players.players.find(player => player.id === id)
-    if(!player) {
+    if (!player) {
         console.error(`There is no player with ${id}.`)
-        return 
+        return
     }
     player.gender = gender
 
@@ -41,11 +41,11 @@ export const setPlayerGender = ({state }: Context, {id, gender}: {id: number, ge
     state.game.gameStatus = GameStatus.START
 }
 
-export const updatePlayerName = ({state}: Context, {id, name}: {id: number, name: string}) => {
+export const updatePlayerName = ({ state }: Context, { id, name }: { id: number, name: string }) => {
     const player = state.players.players.find(player => player.id === id)
-    if(!player) {
+    if (!player) {
         console.error(`There is no player with ${id}.`)
-        return 
+        return
     }
     player.name = name
 
@@ -53,7 +53,7 @@ export const updatePlayerName = ({state}: Context, {id, name}: {id: number, name
     state.game.gameStatus = GameStatus.START
 }
 
-export const deletePlayer = ({state}: Context, id: number) => {
+export const deletePlayer = ({ state }: Context, id: number) => {
     const playerIndex = state.players.players.findIndex(player => player.id === id)
     state.players.players.splice(playerIndex, 1)
 

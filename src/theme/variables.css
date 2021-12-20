@@ -1,7 +1,6 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
-
 /*
    * Dark Colors
    * -------------------------------------------
@@ -75,7 +74,6 @@ body {
     --ion-color-light-tint: #383a3e;
 }
 
-
 /*
    * iOS Dark Theme
    * -------------------------------------------
@@ -114,7 +112,6 @@ body {
     --ion-toolbar-background: var(--ion-color-step-150);
     --ion-toolbar-border-color: var(--ion-color-step-250);
 }
-
 
 /*
    * Material Design Dark Theme

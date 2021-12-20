@@ -1,10 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBlenderPhone, faFemale, faMale, faTransgender } from '@fortawesome/free-solid-svg-icons'
+import { faFemale, faMale, faTransgender } from '@fortawesome/free-solid-svg-icons';
 import { IonButton, IonButtons, IonIcon, IonInput, IonItem } from '@ionic/react';
-import { closeOutline, female, transgender } from 'ionicons/icons';
-import { useActions, useAppState } from '../../overmind';
+import { closeOutline } from 'ionicons/icons';
+import { useActions } from '../../overmind';
 import { Gender, Player, playerNameLength } from '../../overmind/players/state';
-import { useState } from 'react';
 import { IconButton } from '../Buttons/IconButton';
 
 export const PlayerInput: React.FC<{ player: Player, isAllowedToDelete: boolean }> = ({ player, isAllowedToDelete }) => {
