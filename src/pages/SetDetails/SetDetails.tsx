@@ -1,12 +1,11 @@
 import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
-import { HttpStatus } from "../../enums/http-status"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 import { replaceStringWithIcon } from "../../services/utilities"
