@@ -1,9 +1,8 @@
 import React from "react"
 import { Context } from ".."
 import { HttpStatus } from "../../enums/http-status"
-import { generateErrorMessage } from "../../services/error"
 
-export const loadExplore = async ({ state, effects }: Context, setErrorStatusCode : (value: HttpStatus) => void) => {
+export const loadExplore = async ({ state, effects }: Context) => {
     if (state.explore.isLoadingSets)
         return
 
@@ -12,12 +11,12 @@ export const loadExplore = async ({ state, effects }: Context, setErrorStatusCod
         const response = await effects.explore.getSets()
         state.explore.sets = response.data
     } catch (error) {
-        generateErrorMessage(error, setErrorStatusCode)
+        console.error(error)
     }
     state.explore.isLoadingSets = false
 }
 
-export const loadSetDetails = async ({ state, effects }: Context, { setId, componentMounted, setErrorStatusCode }: { setId: string, componentMounted: React.MutableRefObject<boolean>, setErrorStatusCode: (value: HttpStatus) => void }) => {
+export const loadSetDetails = async ({ state, effects }: Context, { setId, componentMounted }: { setId: string, componentMounted: React.MutableRefObject<boolean> }) => {
     state.explore.isLoadingSetDetails = true
     state.explore.setDetails = null
 
@@ -32,6 +31,6 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
         }
     } catch (error) {
         state.explore.isLoadingSetDetails = false
-        generateErrorMessage(error, setErrorStatusCode)
+        console.error(error)
     }
 }

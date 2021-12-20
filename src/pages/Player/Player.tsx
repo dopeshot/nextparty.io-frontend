@@ -1,6 +1,5 @@
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { IonContent, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
-import { personAdd } from 'ionicons/icons';
 import example from '../../assets/example.png';
 import { SecondaryButton } from '../../components/Buttons/SecondaryButton';
 import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
