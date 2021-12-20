@@ -5,7 +5,6 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core"
 type SecondaryButtonProps = {
     icon: IconProp
     className: string
-    type: "submit" | "reset" | "button" | undefined
     link: string
 }
 
