@@ -9,7 +9,8 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const overmind = createOvermind(config, {
-  devtools: true
+  devtools: true,
+  // devEnv: "production"
 }) 
 
 setupConfig({

@@ -1,7 +1,6 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
-
 /*
    * Dark Colors
    * -------------------------------------------
@@ -75,7 +74,6 @@ body {
     --ion-color-light-tint: #383a3e;
 }
 
-
 /*
    * iOS Dark Theme
    * -------------------------------------------
@@ -115,7 +113,6 @@ body {
     --ion-toolbar-border-color: var(--ion-color-step-250);
 }
 
-
 /*
    * Material Design Dark Theme
    * -------------------------------------------
@@ -152,16 +149,19 @@ body {
     --ion-card-background: #0c0c0c;
 }
 
-ion-toggle {
-    --background: #0C0C0C;
-    --background-checked: #0C0C0C;
-    --handle-background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgNTEyIj48cGF0aCBkPSJNMTI4IDBjMzUuMzQ2IDAgNjQgMjguNjU0IDY0IDY0cy0yOC42NTQgNjQtNjQgNjRjLTM1LjM0NiAwLTY0LTI4LjY1NC02NC02NFM5Mi42NTQgMCAxMjggMG0xMTkuMjgzIDM1NC4xNzlsLTQ4LTE5MkEyNCAyNCAwIDAgMCAxNzYgMTQ0aC0xMS4zNmMtMjIuNzExIDEwLjQ0My00OS41OSAxMC44OTQtNzMuMjggMEg4MGEyNCAyNCAwIDAgMC0yMy4yODMgMTguMTc5bC00OCAxOTJDNC45MzUgMzY5LjMwNSAxNi4zODMgMzg0IDMyIDM4NGg1NnYxMDRjMCAxMy4yNTUgMTAuNzQ1IDI0IDI0IDI0aDMyYzEzLjI1NSAwIDI0LTEwLjc0NSAyNC0yNFYzODRoNTZjMTUuNTkxIDAgMjcuMDcxLTE0LjY3MSAyMy4yODMtMjkuODIxeiIvPjwvc3ZnPg==') center center/40% no-repeat #F6BF22;
-    --handle-background-checked: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgNTEyIj48cGF0aCBkPSJNOTYgMGMzNS4zNDYgMCA2NCAyOC42NTQgNjQgNjRzLTI4LjY1NCA2NC02NCA2NC02NC0yOC42NTQtNjQtNjRTNjAuNjU0IDAgOTYgMG00OCAxNDRoLTExLjM2Yy0yMi43MTEgMTAuNDQzLTQ5LjU5IDEwLjg5NC03My4yOCAwSDQ4Yy0yNi41MSAwLTQ4IDIxLjQ5LTQ4IDQ4djEzNmMwIDEzLjI1NSAxMC43NDUgMjQgMjQgMjRoMTZ2MTM2YzAgMTMuMjU1IDEwLjc0NSAyNCAyNCAyNGg2NGMxMy4yNTUgMCAyNC0xMC43NDUgMjQtMjRWMzUyaDE2YzEzLjI1NSAwIDI0LTEwLjc0NSAyNC0yNFYxOTJjMC0yNi41MS0yMS40OS00OC00OC00OHoiLz48L3N2Zz4=') center center/30% no-repeat #09BB88;
-    --handle-spacing: 4px;
-    --handle-width: calc(32px - (4px * 2));
-    --handle-height: calc(32px - (4px * 2));
-}
-
 ion-button {
     --border-radius: 0.5rem;
+    --background: white;
+    --color: black;
+    --padding-bottom: 1.5rem;
+    --padding-top: 1.5rem;
+}
+
+ion-content {
+    --background: transparent;
+}
+
+.no-ripple {
+    --ripple-color: transparent;
+    --color-hover: transparent;
 }

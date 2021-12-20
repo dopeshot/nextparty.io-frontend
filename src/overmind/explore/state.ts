@@ -13,7 +13,7 @@ export type Set = {
 export type Task = {
     currentPlayerGender: string
     _id: string
-    type: string
+    type: "truth" | "dare"
     message: string
 }
 

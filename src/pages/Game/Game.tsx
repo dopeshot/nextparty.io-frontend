@@ -1,8 +1,19 @@
-import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage } from '@ionic/react';
-import { useAppState } from '../../overmind';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonToggle } from '@ionic/react';
+import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
+import { useActions, useAppState } from '../../overmind';
 
 export const Game: React.FC = () => {
-  const { players } = useAppState().players
+  const { game: {
+    set,
+    debug: {
+      isDeveloper
+    }
+  }, players: {
+    players
+  } } = useAppState()
+
+  const { toggleDeveloper, isPossibleToPlay } = useActions().game
 
   return (
     <IonPage className="bg-background-black">
@@ -11,10 +22,27 @@ export const Game: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="container">
-          <p>This is the content of the page</p>
+          {isPossibleToPlay().status && <PrimaryButton link="/game/ingame" className="bg-white" icon={faPlay}>Play</PrimaryButton>}
           <IonList>
-            {players.length !== 0 && players.map(player =>
-              <IonItem key={player.id}><IonLabel>{player.gender}: {player.name} ({player.id})</IonLabel></IonItem>
+            <IonItem>
+              <IonLabel>{isDeveloper ? 'You are a developer' : 'You are not a developer'}</IonLabel>
+              <IonToggle checked={isDeveloper} onIonChange={e => toggleDeveloper()} />
+            </IonItem>
+          </IonList>
+          <IonList>
+            <IonListHeader>
+              <IonLabel>Players</IonLabel>
+            </IonListHeader>
+            {players && players.map(player =>
+              <IonItem key={player.id}><IonLabel>{JSON.stringify(player)}</IonLabel></IonItem>
+            )}
+          </IonList>
+          <IonList>
+            <IonListHeader>
+              <IonLabel>Set</IonLabel>
+            </IonListHeader>
+            {set && set.tasks.map(playTask =>
+              <IonItem key={playTask._id}><IonLabel>({playTask.currentPlayerGender}): {playTask.type}: {playTask.message} | {JSON.stringify(playTask.requires)}</IonLabel></IonItem>
             )}
           </IonList>
         </div>

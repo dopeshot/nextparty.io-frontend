@@ -1,10 +1,10 @@
-import { IonRouterLink } from "@ionic/react"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IonRouterLink } from "@ionic/react"
 
 type SecondaryButtonProps = {
     icon: IconProp
-    className: string
+    className?: string
     link: string
 }
 

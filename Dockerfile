@@ -16,4 +16,4 @@ COPY . .
 
 FROM full as depl
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start"] 

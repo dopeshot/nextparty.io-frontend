@@ -30,4 +30,4 @@ describe('Example Actions', () => {
     })
 })
 
-export {} // JS: Is required for ES-Lint TS. A file without import or export is getting ignore so we just add an empty export
+export { } // JS: Is required for ES-Lint TS. A file without import or export is getting ignore so we just add an empty export

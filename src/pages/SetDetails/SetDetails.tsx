@@ -1,24 +1,28 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons"
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
 import { useEffect, useRef } from "react"
-import { useParams } from "react-router"
+import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
-import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
-import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
+import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
-import { replaceStringWithIcon } from "../../services/utilities"
+import { TaskType } from "../../overmind/game/state"
+import { replaceStringWithIcon } from "../../services/utilities/utilities"
 
 type SetDetailsParams = {
     setId: string
 }
 
 export const SetDetails: React.FC = () => {
+    const [present, dismiss] = useIonToast()
+
+    const history = useHistory()
     const { setId } = useParams<SetDetailsParams>()
 
     const { isLoadingSetDetails, setDetails } = useAppState().explore
     const { loadSetDetails } = useActions().explore
+    const { addSetToGame } = useActions().game
+
     const componentMounted = useRef(true)
 
     useEffect(() => {
@@ -37,7 +41,13 @@ export const SetDetails: React.FC = () => {
                         <IonBackButton className="text-white" defaultHref="/explore" />
                     </IonButtons>
                     <IonButtons slot="end">
-                        <IonButton onClick={() => console.log(`Clicked options button`)}>
+                        <IonButton onClick={() => present({
+                            position: 'top',
+                            buttons: [{ text: 'hide', handler: () => dismiss() }],
+                            message: 'Clicked options button',
+                            onDidDismiss: () => console.log('dismissed'),
+                            onWillDismiss: () => console.log('will dismiss'),
+                        })}>
                             <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
                         </IonButton>
                     </IonButtons>
@@ -47,7 +57,14 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <PrimaryButton className="bg-white" link="/game" icon={faPlay}>Spielen</PrimaryButton>
+                            <IonButton onClick={(event: any) => {
+                                event.preventDefault()
+                                addSetToGame()
+                                history.push('/game')
+                            }} className="flex justify-center items-baseline cursor-pointer bg-white rounded-lg">
+                                <i className={`fas fa-play text-black mr-3`}></i>
+                                <span className="text-black font-bold">Play</span>
+                            </IonButton>
                         </div>
                     </div>
                 </div>
@@ -59,10 +76,10 @@ export const SetDetails: React.FC = () => {
                                 <h1 className="text-3xl mb-2 font-bold">{setDetails?.name}</h1>
                                 <p className="text-lightgrey mb-5">{setDetails?.createdBy.username}</p>
                                 <div className="flex items-center">
-                                    <p className="truth-label">W</p>
-                                    <p className="text-lightgrey mr-4">{setDetails?.truthCount} Pflicht</p>
-                                    <p className="dare-label">P</p>
-                                    <p className="text-lightgrey">{setDetails?.daresCount} Wahrheit</p>
+                                    <p className="truth-label">T</p>
+                                    <p className="text-lightgrey mr-4">{setDetails?.truthCount} Truth</p>
+                                    <p className="dare-label">D</p>
+                                    <p className="text-lightgrey">{setDetails?.daresCount} Dare</p>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +91,7 @@ export const SetDetails: React.FC = () => {
                             <div>
                                 <IonList lines="none">
                                     {setDetails?.tasks.map((task: Task, index) => (
-                                        <TaskListItem key={index} type={task.type === 'truth' ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
+                                        <TaskListItem key={index} type={task.type === "truth" ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
                                     ))}
                                 </IonList>
                             </div>

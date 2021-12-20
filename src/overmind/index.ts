@@ -3,12 +3,14 @@ import { createActionsHook, createStateHook } from 'overmind-react'
 import { namespaced } from 'overmind/config'
 import * as example from './example'
 import * as explore from './explore'
+import * as game from './game'
 import * as players from './players'
 
 export const config = namespaced({
     example,
     explore,
-    players
+    players,
+    game
 })
 
 export type Context = IContext<{
