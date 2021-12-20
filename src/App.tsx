@@ -28,7 +28,6 @@ export const App: React.FC = () => (
 					<Route exact path="/">
 						<Redirect to="/explore" />
 					</Route>
-					<Route render={() => <Redirect to="/explore" />} />
 				</IonRouterOutlet>
 				<IonTabBar slot="bottom" className="bg-black">
 					<IonTabButton tab="explore" href="/explore" className="bg-black">
