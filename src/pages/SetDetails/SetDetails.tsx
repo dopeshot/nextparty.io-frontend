@@ -47,7 +47,7 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <PrimaryButton type="button" className="bg-white" link="/game" icon={faPlay}>Spielen</PrimaryButton>
+                            <PrimaryButton className="bg-white" link="/game" icon={faPlay}>Spielen</PrimaryButton>
                         </div>
                     </div>
                 </div>
