@@ -86,6 +86,7 @@
   "devDependencies": {
     "@capacitor/cli": "3.3.1",
     "@cypress/code-coverage": "^3.9.12",
+    "@cypress/instrument-cra": "^1.4.0",
     "autoprefixer": "^9.8.8",
     "cypress": "^9.1.1",
     "postcss": "^7.0.39",
