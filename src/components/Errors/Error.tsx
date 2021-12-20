@@ -21,7 +21,7 @@ export const Error: React.FC<ErrorProps> = (props) => {
                 <p className="text-lightgrey mb-4">{props.paragraphContent}</p>
                 <div className="md:w-44">
                     {props.link ?
-                        <PrimaryButton link='/explore' icon={props.icon} className="bg-dare-green" type="button">
+                        <PrimaryButton link={props.link} icon={props.icon} className="bg-dare-green">
                             {props.buttonContent}
                         </PrimaryButton>
                         :
