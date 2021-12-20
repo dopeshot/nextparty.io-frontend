@@ -21,7 +21,8 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src",   
-    "test" 
+    "src",
+    "craco.config.js",
+    "cypress"
   ]
 }

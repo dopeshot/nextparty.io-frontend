@@ -1,18 +1,29 @@
-import { IonButton, IonIcon } from "@ionic/react"
+import { IconProp } from "@fortawesome/fontawesome-svg-core"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { IonButton } from "@ionic/react"
+import React from "react"
 
-export const SecondaryButton: React.FC<{
-    onClick: () => void,
-    content: string,
-    icon: string,
+type SecondaryButtonProps = {
+    icon: IconProp
+    type: "submit" | "reset" | "button" | undefined
+    color: string
+    onClick: () => void
     keepFocus: boolean
-}> = ({ onClick, content, icon, keepFocus }) => {
+}
+
+export const SecondaryButton: React.FC<SecondaryButtonProps> = (props) => {
+    const handleMouseDown = (event: React.MouseEvent) => {
+        if (props.keepFocus) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
+        props.onClick()
+    }
+
     return (
-        <IonButton className="m-0 h-12 rounded-lg text-black capitalize font-bold text-base" onMouseDown={(e) => {
-            if (keepFocus) {
-                e.preventDefault()
-                e.stopPropagation()
-            }
-            onClick()
-        }} expand="block"><IonIcon slot="start" icon={icon} />{content}</IonButton>
+        <IonButton mode="md" type={props.type} color={props.color} className="rounded-lg capitalize font-bold text-base h-12 m-0" onMouseDown={(event: React.MouseEvent) => handleMouseDown(event)} expand="block">
+            <FontAwesomeIcon icon={props.icon} className="mr-3" />
+            {props.children}
+        </IonButton>
     )
 }

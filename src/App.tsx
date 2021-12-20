@@ -1,26 +1,19 @@
-import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
-import { ellipse, homeOutline, peopleOutline, playOutline, square, triangle } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
-
-/* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
-
-/* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
-
-/* Theme variables */
-import './theme/variables.css';
-
-import './tailwindcss.css';
+import { homeOutline, peopleOutline, playOutline } from 'ionicons/icons';
+import { Redirect, Route } from 'react-router-dom';
+import { useAppState } from './overmind';
 import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
+import { InGame } from './pages/Game/InGame';
 import { Player } from './pages/Player/Player';
 import { SetDetails } from './pages/SetDetails/SetDetails';
-import { InGame } from './pages/Game/InGame';
-import { useAppState } from './overmind';
+import './tailwindcss.css';
+import './theme/variables.css';
 
 export const App: React.FC = () => {
   const hideTabBar = useAppState().game.hideTabBar

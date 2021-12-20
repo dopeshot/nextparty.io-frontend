@@ -1,4 +1,4 @@
-import { replaceStringWithIcon } from "../Utilities"
+import { replaceStringWithIcon } from "./utilities"
 
 describe('unit replaceStringWithIcon', () => {
     it('it should replace male icon', () => {

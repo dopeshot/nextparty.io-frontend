@@ -7,6 +7,11 @@
 
 # testing
 /coverage
+/instrumented
+/.nyc_output
+/cypress/downloads
+/cypress/videos
+/cypress/screenshots
 
 # production
 /build

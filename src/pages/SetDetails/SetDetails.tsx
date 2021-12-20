@@ -7,7 +7,7 @@ import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 import { TaskType } from "../../overmind/game/state"
-import { replaceStringWithIcon } from "../../services/Utilities"
+import { replaceStringWithIcon } from "../../services/utilities/utilities"
 
 type SetDetailsParams = {
     setId: string

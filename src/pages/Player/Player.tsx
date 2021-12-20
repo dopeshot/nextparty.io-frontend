@@ -1,4 +1,4 @@
-import { faFemale, faMale, faTransgender } from '@fortawesome/free-solid-svg-icons';
+import { faFemale, faMale, faTransgender, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IonContent, IonItem, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
 import { personAdd } from 'ionicons/icons';
@@ -36,7 +36,7 @@ export const Player: React.FC = () => {
               <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
             ))}
           </IonList>
-          <SecondaryButton onClick={() => addPlayer()} keepFocus={true} content="Add Player" icon={personAdd} />
+          <SecondaryButton onClick={() => addPlayer()} type='button' color='primary' keepFocus={true} icon={faUserPlus} >Add player</SecondaryButton>
         </div>
         <div className="container">
           <IonList lines="none">
