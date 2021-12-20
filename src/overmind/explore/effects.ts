@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios"
 import { config } from "../../global.config"
-import { request } from "../../services/ff"
+import { request } from "../../services/axios"
 import { Set, SetWithTasks } from "./state"
 
 export const getSets = () => request.get<Set[]>('/set')
