@@ -45,9 +45,25 @@
   },
   "scripts": {
     "start": "craco start",
+    "start:cc": "craco -r @cypress/instrument-cra start",
     "build": "craco build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cc:instrument": "nyc instrument --compact=false src instrumented",
+    "cc:report": "nyc report --reporter=text-summary"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "src/overmind/example",
+      "src/reportWebVitals.ts",
+      "src/serviceWorkerRegistration.ts"
+    ],
+    "excludeAfterRemap": true
   },
   "eslintConfig": {
     "extends": [
@@ -69,7 +85,9 @@
   },
   "devDependencies": {
     "@capacitor/cli": "3.3.1",
+    "@cypress/code-coverage": "^3.9.12",
     "autoprefixer": "^9.8.8",
+    "cypress": "^9.1.1",
     "postcss": "^7.0.39",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   },
