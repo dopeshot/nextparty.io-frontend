@@ -11,7 +11,6 @@ import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 import { replaceStringWithIcon } from "../../services/utilities"
 
-
 type SetDetailsParams = {
     setId: string
 }
