@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import { lowerCaseFirstLetter } from "./lowerCaseFirstLetter"
 
 describe("unit lowerCaseFirstLetter", () => {

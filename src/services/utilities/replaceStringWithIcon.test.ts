@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import { replaceStringWithIcon } from "./utilities"
 
 describe('unit replaceStringWithIcon', () => {
