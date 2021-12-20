@@ -1,14 +1,19 @@
 import { IonRouterLink } from "@ionic/react"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconProp } from "@fortawesome/fontawesome-svg-core"
 
-export const PrimaryButton: React.FC<{
-    link: string,
-    content: string,
-    icon: string
-}> = ({ link, content, icon }) => {
+type SecondaryButtonProps = {
+    icon: IconProp
+    className: string
+    type: "submit" | "reset" | "button" | undefined
+    link: string
+}
+
+export const PrimaryButton: React.FC<SecondaryButtonProps> = (props) => {
     return (
-        <IonRouterLink routerLink={link} className="flex justify-center items-baseline cursor-pointer bg-white rounded-lg py-4">
-            <i className={`fas ${icon} text-black mr-3`}></i>
-            <span className="text-black font-bold">{content}</span>
+        <IonRouterLink routerLink={props.link} className={`flex justify-center items-baseline cursor-pointer ${props.className} rounded-lg py-4`}>
+            <FontAwesomeIcon icon={props.icon} className="text-black mr-3" />
+            <span className="text-black font-bold">{props.children}</span>
         </IonRouterLink>
     )
 }

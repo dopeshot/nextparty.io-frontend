@@ -1,10 +1,12 @@
+import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router"
 import example from '../../assets/example.png'
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
+import { HttpStatus } from "../../enums/http-status"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 import { replaceStringWithIcon } from "../../services/utilities"
@@ -19,7 +21,7 @@ export const SetDetails: React.FC = () => {
     const { isLoadingSetDetails, setDetails } = useAppState().explore
     const { loadSetDetails } = useActions().explore
     const componentMounted = useRef(true)
-    
+
     useEffect(() => {
         loadSetDetails({ setId, componentMounted })
 
@@ -37,7 +39,7 @@ export const SetDetails: React.FC = () => {
                     </IonButtons>
                     <IonButtons slot="end">
                         <IonButton onClick={() => console.log(`Clicked options button`)}>
-                        <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
+                            <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
                         </IonButton>
                     </IonButtons>
                 </ IonToolbar>
@@ -46,7 +48,7 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <PrimaryButton link="/game" content="Spielen" icon="fa-play" />
+                            <PrimaryButton type="button" className="bg-white" link="/game" icon={faPlay}>Spielen</PrimaryButton>
                         </div>
                     </div>
                 </div>
