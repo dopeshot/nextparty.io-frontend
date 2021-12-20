@@ -13,6 +13,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { NotFoundError } from './components/Errors/NotFoundError';
 import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
+import { NotFound } from './pages/NotFound/NotFound';
 import { Player } from './pages/Player/Player';
 import { SetDetails } from './pages/SetDetails/SetDetails';
 import './tailwindcss.css';
@@ -32,9 +33,7 @@ export const App: React.FC = () => (
 					<Route exact path="/">
 						<Redirect to="/explore" />
 					</Route>
-					<Route>
-						<NotFoundError link='/explore' />
-					</Route>
+					<Route render={() => <Redirect to="/explore" />} />
 				</IonRouterOutlet>
 				<IonTabBar slot="bottom" className="bg-black">
 					<IonTabButton tab="explore" href="/explore" className="bg-black">
