@@ -7,7 +7,7 @@ import { PrimaryButton } from "../../components/Buttons/PrimaryButton"
 import { TaskListItem, TaskType } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
-import { replaceStringWithIcon } from "../../services/Utilities"
+import { replaceStringWithIcon } from "../../services/utilities"
 
 type SetDetailsParams = {
     setId: string
