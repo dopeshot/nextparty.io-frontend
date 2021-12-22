@@ -19,7 +19,7 @@ export const Player: React.FC = () => {
     })
 
     return (
-        <IonPage>
+        <IonPage className="bg-background-black">
             <IonContent>
                 <div className="ion-no-border bg-cover mb-8" style={{ backgroundImage: `url(${example})` }}>
                     <div className="bg-gradient-to-t from-background-black w-full h-full">
