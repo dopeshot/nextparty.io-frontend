@@ -1,7 +1,8 @@
-import { faCheckCircle, faCircle, faGlassCheers } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faCircle, faGlassCheers, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IonContent, IonPage } from '@ionic/react';
 import example from '../../assets/example.png';
+import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
 import { useActions, useAppState } from '../../overmind';
 import { StartGameErrors } from '../../overmind/game/state';
 
@@ -30,16 +31,30 @@ export const Game: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className='container bg-gray-900'>
-            <FontAwesomeIcon className="text-white" icon={isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS) ? faCircle : faCheckCircle} />
-            <p>Players</p>
-            <FontAwesomeIcon className="text-white" icon={isPossibleToPlay().errors.includes(StartGameErrors.SET) ? faCircle : faCheckCircle} />
-            <p>Set</p>
+          <div className='container bg-gray-900 pb-4'>
+            {/* Player block */}
+            {isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS) ? <>
+              <FontAwesomeIcon className="text-white" icon={faCircle} />
+              <p>Add players</p>
+            </> : <>
+              <FontAwesomeIcon className="text-white" icon={faCheckCircle} />
+              <p>{`${players.length} players added`}</p>
+            </>}
+
+            {/* Set block */}
+            {isPossibleToPlay().errors.includes(StartGameErrors.SET) ? <>
+              <FontAwesomeIcon className="text-white" icon={faCircle} />
+              <p>Pick a set to play</p>
+            </> : <>
+              <FontAwesomeIcon className="text-white" icon={faCheckCircle} />
+              <p>{set && `${set.name} picked`}</p>
+            </>}
           </div>
-          <div className='container bg-gray-900'>
-            <FontAwesomeIcon className="text-white" icon={isPossibleToPlay().status ? faCheckCircle : faCircle} />
-            <p>Play</p>
-            {/* Play is a link to link="/game/ingame" */}
+
+          {/* Play button */}
+          <div className='container bg-gray-900 pb-12'>
+            <PrimaryButton icon={faPlay} link='/game/ingame' className={`text-black ${isPossibleToPlay().status ? 'bg-dare-green' : 'bg-darkgray'}`}>Play</PrimaryButton>
+            {/* How can we do disabled state? */}
           </div>
         </div>
       </IonContent>
