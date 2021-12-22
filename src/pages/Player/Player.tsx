@@ -5,6 +5,7 @@ import example from '../../assets/example.png';
 import { SecondaryButton } from '../../components/Buttons/SecondaryButton';
 import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
+import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Player: React.FC = () => {
     const { players, isAllowedToDelete } = useAppState().players
@@ -12,6 +13,7 @@ export const Player: React.FC = () => {
 
     useIonViewDidEnter(() => {
         loadPlayerScreen()
+        setSeoTitle('Players')
     })
 
     useIonViewDidLeave(() => {

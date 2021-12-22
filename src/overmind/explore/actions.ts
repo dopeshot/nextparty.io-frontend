@@ -1,5 +1,6 @@
 import React from "react"
 import { Context } from ".."
+import { setSeoTitle } from "../../services/utilities/setSeoTitle"
 
 export const loadExplore = async ({ state, effects }: Context) => {
     if (state.explore.isLoadingSets)
@@ -27,6 +28,7 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
         if (componentMounted.current) {
             state.explore.setDetails = set
             state.explore.isLoadingSetDetails = false
+            setSeoTitle(`Play ${state.explore.setDetails.name}`)
         }
     } catch (error) {
         state.explore.isLoadingSetDetails = false
