@@ -1,8 +1,9 @@
-import { faCheckCircle, faCircle, faGlassCheers, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faGlassCheers, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IonContent, IonPage } from '@ionic/react';
 import example from '../../assets/example.png';
 import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
+import { ActionBlock } from '../../components/Game/ActionBlock';
 import { useActions, useAppState } from '../../overmind';
 import { StartGameErrors } from '../../overmind/game/state';
 
@@ -33,22 +34,9 @@ export const Game: React.FC = () => {
           </div>
           <div className='container bg-gray-900 pb-4'>
             {/* Player block */}
-            {isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS) ? <>
-              <FontAwesomeIcon className="text-white" icon={faCircle} />
-              <p>Add players</p>
-            </> : <>
-              <FontAwesomeIcon className="text-white" icon={faCheckCircle} />
-              <p>{`${players.length} players added`}</p>
-            </>}
-
+            <ActionBlock routerLink='/player' isReady={!isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS)}>{isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS) ? 'Add player' : `${players.length} players added`}</ActionBlock>
             {/* Set block */}
-            {isPossibleToPlay().errors.includes(StartGameErrors.SET) ? <>
-              <FontAwesomeIcon className="text-white" icon={faCircle} />
-              <p>Pick a set to play</p>
-            </> : <>
-              <FontAwesomeIcon className="text-white" icon={faCheckCircle} />
-              <p>{set && `${set.name} picked`}</p>
-            </>}
+            <ActionBlock routerLink='/explore' isReady={!isPossibleToPlay().errors.includes(StartGameErrors.SET)}>{isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS) ? 'Pick a set to play' : set && `${set.name} picked`}</ActionBlock>
           </div>
 
           {/* Play button */}
