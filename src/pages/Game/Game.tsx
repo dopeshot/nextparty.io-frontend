@@ -32,7 +32,7 @@ export const Game: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className='container bg-gray-900 pb-4'>
+          <div className='container pb-4'>
             {/* Player block */}
             <ActionBlock routerLink='/player' isReady={!isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS)}>{isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS) ? 'Add player' : `${players.length} players added`}</ActionBlock>
             {/* Set block */}
@@ -40,7 +40,7 @@ export const Game: React.FC = () => {
           </div>
 
           {/* Play button */}
-          <div className='container bg-gray-900 pb-12'>
+          <div className='container pb-12'>
             <PrimaryButton icon={faPlay} link='/game/ingame' className={`text-black ${isPossibleToPlay().status ? 'bg-dare-green' : 'bg-darkgray'}`}>Play</PrimaryButton>
             {/* How can we do disabled state? */}
           </div>
