@@ -17,7 +17,7 @@ export const Game: React.FC = () => {
   const { toggleDeveloper, isPossibleToPlay } = useActions().game
 
   useIonViewWillEnter(() => {
-    setSeoTitle('Truth or Dare', false)
+    setSeoTitle('Truth or Dare - Next Party', false)
   })
   return (
     <IonPage className="bg-background-black">
