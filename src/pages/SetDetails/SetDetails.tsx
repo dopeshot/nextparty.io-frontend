@@ -1,8 +1,10 @@
+import { faPlay } from "@fortawesome/free-solid-svg-icons"
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
 import { ellipsisHorizontal } from "ionicons/icons"
 import { useEffect, useRef } from "react"
 import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
+import { Button } from "../../components/Buttons/Button"
 import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
@@ -57,14 +59,11 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <IonButton onClick={(event: any) => {
+                            <Button onClick={(event: any) => {
                                 event.preventDefault()
                                 addSetToGame()
                                 history.push('/game')
-                            }} className="flex justify-center items-baseline cursor-pointer bg-white rounded-lg">
-                                <i className={`fas fa-play text-black mr-3`}></i>
-                                <span className="text-black font-bold">Play</span>
-                            </IonButton>
+                            }} icon={faPlay}>Play</Button>
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import { faFemale, faMale, faTransgender, faUserPlus } from '@fortawesome/free-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IonContent, IonItem, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
 import example from '../../assets/example.png';
-import { SecondaryButton } from '../../components/Buttons/SecondaryButton';
+import { Button } from '../../components/Buttons/Button';
 import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
 
@@ -35,7 +35,7 @@ export const Player: React.FC = () => {
                             <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
                         ))}
                     </IonList>
-                    <SecondaryButton onClick={() => addPlayer()} type='button' color='primary' keepFocus={true} icon={faUserPlus} >Add player</SecondaryButton>
+                    <Button onClick={() => addPlayer()} icon={faUserPlus}>Add player</Button>
                 </div>
                 <div className="container">
                     <IonList lines="none">
