@@ -31,11 +31,11 @@ export const Player: React.FC = () => {
                 </div>
                 <div className="container mb-12">
                     <IonList>
-                        {players.map(player => (
-                            <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
+                        {players.map((player, index) => (
+                            <PlayerInput dataCy={`player-input-${index}`} key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
                         ))}
                     </IonList>
-                    <SecondaryButton onClick={() => addPlayer()} type='button' color='primary' keepFocus={true} icon={faUserPlus} >Add player</SecondaryButton>
+                    <SecondaryButton dataCy='player-add-button' onClick={() => addPlayer()} type='button' color='primary' keepFocus={true} icon={faUserPlus} >Add player</SecondaryButton>
                 </div>
                 <div className="container">
                     <IonList lines="none">

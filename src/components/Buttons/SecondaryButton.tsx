@@ -9,6 +9,7 @@ type SecondaryButtonProps = {
     color: string
     onClick: () => void
     keepFocus: boolean
+    dataCy?: string
 }
 
 export const SecondaryButton: React.FC<SecondaryButtonProps> = (props) => {
@@ -21,7 +22,7 @@ export const SecondaryButton: React.FC<SecondaryButtonProps> = (props) => {
     }
 
     return (
-        <IonButton mode="md" type={props.type} color={props.color} className="rounded-lg capitalize font-bold text-base h-12 m-0" onMouseDown={(event: React.MouseEvent) => handleMouseDown(event)} expand="block">
+        <IonButton data-cy={props.dataCy} mode="md" type={props.type} color={props.color} className="rounded-lg capitalize font-bold text-base h-12 m-0" onMouseDown={(event: React.MouseEvent) => handleMouseDown(event)} expand="block">
             <FontAwesomeIcon icon={props.icon} className="mr-3" />
             {props.children}
         </IonButton>
