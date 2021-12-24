@@ -12,9 +12,9 @@ export const PlayerInput: React.FC<{ player: Player, isAllowedToDelete: boolean,
         <IonItem data-cy={dataCy} lines="none" className="bg-itemgrey rounded-lg mb-3 hover:bg-itemactivegrey focus-within:bg-itemactivegrey">
             <IonButtons className="ml-3 mr-2 py-2">
                 {
-                    player.gender === Gender.FEMALE && <IconButton icon={faFemale} bgColor="bg-truth-yellow" onClick={() => { setPlayerGender({ id: player.id, gender: Gender.MALE }) }} /> ||
-                    player.gender === Gender.MALE && <IconButton icon={faMale} bgColor="bg-dare-green" onClick={() => { setPlayerGender({ id: player.id, gender: Gender.DIVERS }) }} /> ||
-                    player.gender === Gender.DIVERS && <IconButton icon={faTransgender} bgColor="bg-white" onClick={() => { setPlayerGender({ id: player.id, gender: Gender.FEMALE }) }} />
+                    player.gender === Gender.FEMALE && <IconButton dataCy="player-input-gender-female-button" icon={faFemale} bgColor="bg-truth-yellow" onClick={() => { setPlayerGender({ id: player.id, gender: Gender.MALE }) }} /> ||
+                    player.gender === Gender.MALE && <IconButton dataCy="player-input-gender-male-button" icon={faMale} bgColor="bg-dare-green" onClick={() => { setPlayerGender({ id: player.id, gender: Gender.DIVERS }) }} /> ||
+                    player.gender === Gender.DIVERS && <IconButton dataCy="player-input-gender-diverse-button" icon={faTransgender} bgColor="bg-white" onClick={() => { setPlayerGender({ id: player.id, gender: Gender.FEMALE }) }} />
                 }
             </IonButtons>
             <IonInput placeholder="Enter a name" maxlength={playerNameLength} value={player.name} onIonChange={(event: CustomEvent) => {

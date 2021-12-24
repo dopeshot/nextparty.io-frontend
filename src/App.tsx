@@ -32,15 +32,15 @@ export const App: React.FC = () => {
                     </Route>
                 </IonRouterOutlet>
                 <IonTabBar hidden={hideTabBar} slot="bottom" className="bg-black">
-                    <IonTabButton tab="explore" href="/explore" className="bg-black">
+                    <IonTabButton data-cy="app-nav-explore" tab="explore" href="/explore" className="bg-black">
                         <IonIcon icon={homeOutline} />
                         <IonLabel>Explore</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="/game" href="/game" className="bg-black">
+                    <IonTabButton data-cy="app-nav-game" tab="/game" href="/game" className="bg-black">
                         <IonIcon icon={playOutline} />
                         <IonLabel>Game</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="player" href="/player" className="bg-black">
+                    <IonTabButton data-cy="app-nav-player" tab="player" href="/player" className="bg-black">
                         <IonIcon icon={peopleOutline} />
                         <IonLabel>Player</IonLabel>
                     </IonTabButton>
