@@ -8,6 +8,8 @@ describe('Sets', () => {
 
     })
 
+    it('should show loading bar when load sets and hide when loading finished on explore page')
+
     it('should show name of set on detail page')
 
     it('should show creator of set on detail page')

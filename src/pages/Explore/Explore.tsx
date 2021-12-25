@@ -25,7 +25,7 @@ export const Explore: React.FC = () => {
             <div>
               <IonList>
                 {sets.length !== 0 && sets.map((set: Set, index) => (
-                  <SetItem key={index} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.daresCount} link={`/explore/${set._id}`} />
+                  <SetItem key={index} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}`} />
                 ))}
               </IonList>
             </div>

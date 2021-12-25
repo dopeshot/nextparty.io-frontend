@@ -79,7 +79,7 @@ export const SetDetails: React.FC = () => {
                                     <p className="truth-label">T</p>
                                     <p className="text-lightgrey mr-4">{setDetails?.truthCount} Truth</p>
                                     <p className="dare-label">D</p>
-                                    <p className="text-lightgrey">{setDetails?.daresCount} Dare</p>
+                                    <p className="text-lightgrey">{setDetails?.dareCount} Dare</p>
                                 </div>
                             </div>
                         </div>

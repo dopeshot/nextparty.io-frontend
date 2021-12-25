@@ -1,6 +1,6 @@
 export type Set = {
     _id: string
-    daresCount: number
+    dareCount: number
     truthCount: number
     createdBy: {
         _id: string
