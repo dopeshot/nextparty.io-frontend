@@ -6,6 +6,7 @@ export const getSets = () => request.get<Set[]>('/set')
 
 export const getSetById = (id: string) => request.get<SetWithTasks>(`/set/${id}`)
 
+/* istanbul ignore next */
 export const mock = {
 	getSets: async (): Promise<Set[]> => {
 		return new Promise((resolve) => setTimeout(() => resolve([

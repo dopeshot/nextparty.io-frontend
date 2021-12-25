@@ -2,15 +2,19 @@ import { IonItem, useIonActionSheet } from "@ionic/react"
 import { flag, trash } from "ionicons/icons"
 import { TaskType } from "../../overmind/game/state"
 
-export const TaskListItem: React.FC<{
-    type: TaskType,
+type TaskListItemProps = {
+    type: TaskType
     content: string
-}> = ({ type, content }) => {
+    dataCy: string
+}
+
+export const TaskListItem: React.FC<TaskListItemProps> = ({ type, content, dataCy }) => {
 
     const [present] = useIonActionSheet()
 
     return (
-        <IonItem button onClick={() => {
+        <IonItem data-cy={dataCy} button onClick={() => {
+            /* istanbul ignore next */ /* Remove when implemented */
             present({
                 buttons: [{ text: 'Delete', icon: trash }, { text: 'Report', icon: flag, handler: () => { console.log("Report") } }],
                 header: content

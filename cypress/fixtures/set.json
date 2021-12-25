@@ -1,145 +1,61 @@
 {
     "_id": "61a7f1305d991051b395a59b",
-    "truthCount": 0,
-    "dareCount": 22,
+    "truthCount": 4,
+    "dareCount": 4,
     "language": "de",
     "createdBy": {
         "_id": "61a7f1045d991051b395a595",
         "username": "Hello"
     },
-    "name": "Versaut",
+    "name": "Sex",
     "tasks": [
         {
             "currentPlayerGender": "@ca",
-            "_id": "61a7f1305d991051b395a5a2",
-            "type": "dare",
-            "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @a's Pobacke"
-        },
-        {
-            "currentPlayerGender": "@cf",
-            "_id": "61a7f1305d991051b395a5a3",
-            "type": "dare",
-            "message": "Präsentiere, wie du eine einen Mann anmachen würdest"
-        },
-        {
-            "currentPlayerGender": "@cm",
-            "_id": "61a7f1305d991051b395a5a4",
-            "type": "dare",
-            "message": "Präsentiere, wie du eine Frau anmachen würdest"
-        },
-        {
-            "currentPlayerGender": "@cm",
-            "_id": "61a7f1305d991051b395a5a5",
-            "type": "dare",
-            "message": "Streichle @m seine Wange, dann seine Hand, dann seinen Nacken"
-        },
-        {
-            "currentPlayerGender": "@cf",
-            "_id": "61a7f1305d991051b395a5a6",
-            "type": "dare",
-            "message": "Mach bis zur nächsten Runde mit @m"
-        },
-        {
-            "currentPlayerGender": "@cm",
-            "_id": "61a7f1305d991051b395a5a7",
-            "type": "dare",
-            "message": "Mach bis zur nächsten Runde mit @f"
-        },
-        {
-            "currentPlayerGender": "@cm",
-            "_id": "61a7f1305d991051b395a5a8",
-            "type": "dare",
-            "message": "Verpasse @f einen Knutschfleck"
-        },
-        {
-            "currentPlayerGender": "@cf",
-            "_id": "61a7f1305d991051b395a5a9",
-            "type": "dare",
-            "message": "Verpasse @m einen Knutschfleck"
-        },
-        {
-            "currentPlayerGender": "@cm",
-            "_id": "61a7f1305d991051b395a5aa",
-            "type": "dare",
-            "message": "Massiere die Brüste von @f mit Öl"
-        },
-        {
-            "currentPlayerGender": "@cf",
-            "_id": "61a7f1305d991051b395a5ab",
-            "type": "dare",
-            "message": "Massiere die Brust von @m mit Öl"
+            "_id": "61a7f1305d991051b395a5e4",
+            "type": "truth",
+            "message": "Wo würdest du gerne einmal Sex haben?"
         },
         {
             "currentPlayerGender": "@ca",
-            "_id": "61a7f1305d991051b395a5ac",
-            "type": "dare",
-            "message": "Mache @a einen Fake-Antrag"
+            "_id": "61a7f1305d991051b395a5e5",
+            "type": "truth",
+            "message": "Erzähle von deiner Beziehung/Liebe vor @a"
         },
         {
             "currentPlayerGender": "@ca",
-            "_id": "61a7f1305d991051b395a5ad",
+            "_id": "61a7f1305d991051b395a5e6",
+            "type": "truth",
+            "message": "In wen warst du in deinem Leben verliebt?"
+        },
+        {
+            "currentPlayerGender": "@ca",
+            "_id": "61a7f1305d991051b395a5e7",
             "type": "dare",
-            "message": "Mach eine kurze Werbung für Kondome! Wenn du magst, kannst du es auch filmen"
+            "message": "Lecke mit deiner Zunge über die Lippen von @a"
         },
         {
             "currentPlayerGender": "@cf",
-            "_id": "61a7f1305d991051b395a5ae",
+            "_id": "61a7f1305d991051b395a5e8",
             "type": "dare",
-            "message": "Mach ein Selfie, wo du mit @m rummachst"
-        },
-        {
-            "currentPlayerGender": "@cm",
-            "_id": "61a7f1305d991051b395a5af",
-            "type": "dare",
-            "message": "Mach ein Selfie, wo du mit @f rummachst"
+            "message": "Verführe @m mit einem Blowjob"
         },
         {
             "currentPlayerGender": "@ca",
-            "_id": "61a7f1305d991051b395a5b0",
+            "_id": "61a7f1305d991051b395a5e9",
             "type": "dare",
-            "message": "Erzähle von deinem Lieblings-Sexspielzeug"
+            "message": "Schaue @a eine Minuten lang in die Augen"
         },
         {
             "currentPlayerGender": "@ca",
-            "_id": "61a7f1305d991051b395a5b1",
+            "_id": "61a7f1305d991051b395a5ea",
             "type": "dare",
-            "message": "Küsse den unteren Bauch von @a"
-        },
-        {
-            "currentPlayerGender": "@cf",
-            "_id": "61a7f1305d991051b395a5b2",
-            "type": "dare",
-            "message": "Tausche alle Klamotten (einschließlich Unterwäsche) mit @m"
-        },
-        {
-            "currentPlayerGender": "@cm",
-            "_id": "61a7f1305d991051b395a5b3",
-            "type": "dare",
-            "message": "Tausche alle Klamotten (einschließlich Unterwäsche) mit @f"
+            "message": "Gib @a eine romantische Rückenmassage"
         },
         {
             "currentPlayerGender": "@ca",
-            "_id": "61a7f1305d991051b395a5b4",
-            "type": "dare",
-            "message": "Stöhne sinnlich und turne damit @a an"
-        },
-        {
-            "currentPlayerGender": "@cf",
-            "_id": "61a7f1305d991051b395a5b5",
-            "type": "dare",
-            "message": "Ziehe @m bis zu seiner Unterwäsche aus"
-        },
-        {
-            "currentPlayerGender": "@cm",
-            "_id": "61a7f1305d991051b395a5b6",
-            "type": "dare",
-            "message": "Ziehe @f bis zu seiner Unterwäsche aus"
-        },
-        {
-            "currentPlayerGender": "@ca",
-            "_id": "61a7f1305d991051b395a5b7",
-            "type": "dare",
-            "message": "Singe deinem Partner/Schwarm ein Ständchen"
+            "_id": "61a7f1305d991051b395a5eb",
+            "type": "truth",
+            "message": "DAS IST DIE BESTE WAHRHEIT ODER PFLICHT APP DIE ICH JE GESEHEN HABE!!!!"
         }
     ]
 }

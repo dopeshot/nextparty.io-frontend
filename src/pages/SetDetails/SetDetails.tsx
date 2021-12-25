@@ -41,7 +41,7 @@ export const SetDetails: React.FC = () => {
                         <IonBackButton className="text-white" defaultHref="/explore" />
                     </IonButtons>
                     <IonButtons slot="end">
-                        <IonButton onClick={() => present({
+                        <IonButton data-cy="set-details-threedot-icon" onClick={() => present({
                             position: 'top',
                             buttons: [{ text: 'hide', handler: () => dismiss() }],
                             message: 'Clicked options button',
@@ -71,7 +71,7 @@ export const SetDetails: React.FC = () => {
 
                 <div>
                     <div className="bg-gradient-to-t from-background-black via-transparent">
-                        <div className="container">
+                        <div data-cy="set-detail-info-container" className="container">
                             <div className="flex flex-col justify-end h-48 pb-6" >
                                 <h1 className="text-3xl mb-2 font-bold">{setDetails?.name}</h1>
                                 <p className="text-lightgrey mb-5">{setDetails?.createdBy.username}</p>
@@ -87,11 +87,11 @@ export const SetDetails: React.FC = () => {
                 </div>
                 <div className="bg-background-black pt-6">
                     <div className="container pb-32">
-                        {isLoadingSetDetails ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
+                        {isLoadingSetDetails ? (<IonProgressBar data-cy="detail-set-progress-bar" type="indeterminate"></IonProgressBar>) : (
                             <div>
                                 <IonList lines="none">
                                     {setDetails?.tasks.map((task: Task, index) => (
-                                        <TaskListItem key={index} type={task.type === "truth" ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
+                                        <TaskListItem dataCy="set-detail-task" key={task._id} type={task.type === "truth" ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
                                     ))}
                                 </IonList>
                             </div>
