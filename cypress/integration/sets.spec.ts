@@ -1,9 +1,12 @@
 describe('Sets', () => {
     beforeEach(() => {
+        cy.getSets()
         cy.visit('/')
     })
 
-    it('should list all sets on explore page')
+    it('should list all sets on explore page', () => {
+
+    })
 
     it('should show name of set on detail page')
 
@@ -19,3 +22,6 @@ describe('Sets', () => {
 
     it('should show toast when click on three dots in nav on detail page')
 })
+
+export { }
+
