@@ -33,6 +33,21 @@ describe('Players', () => {
         cy.get('[data-cy="player-input-1"] [data-cy="player-input-close-button"]').should('not.exist')
     })
 
+    it('should remove all inputs except last two when all are empty and you change site', () => {
+        cy.get('[data-cy="player-add-button"]').click()
+
+        cy.get('[data-cy="player-input-0"] input').should('be.visible').clear()
+        cy.get('[data-cy="player-input-1"] input').should('be.visible').clear()
+        cy.get('[data-cy="player-input-2"] input').should('be.visible').clear()
+
+        cy.get('[data-cy="app-nav-game"]').click()
+        cy.get('[data-cy="app-nav-player"]').click()
+
+        cy.get('[data-cy="player-input-0"] input').should('have.value', '')
+        cy.get('[data-cy="player-input-1"] input').should('have.value', '')
+        cy.get('[data-cy="player-input-2"] input').should('not.exist')
+    })
+
     it('should have female gender when add player', () => {
         cy.get('[data-cy="player-add-button"]').click()
 
