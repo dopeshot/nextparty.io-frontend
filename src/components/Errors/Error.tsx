@@ -8,7 +8,7 @@ type ErrorProps = {
     buttonContent: string
     icon: IconProp
     link?: string
-    onClick?: () => void
+    onClick?: (values: any) => void
 }
 
 export const Error: React.FC<ErrorProps> = (props) => {
@@ -22,7 +22,7 @@ export const Error: React.FC<ErrorProps> = (props) => {
                     {props.link ?
                         <Button to={props.link} />
                         :
-                        <Button type="button" onClick={props.onClick} />}
+                        props.onClick && <Button onClick={props.onClick} />}
                     {/* {props.link ?
                         <PrimaryButton link={props.link} icon={props.icon} className="bg-dare-green">
                             {props.buttonContent}
