@@ -1,6 +1,7 @@
 import { LightningBoltIcon } from '@heroicons/react/outline';
 import { IonContent, IonPage, useIonViewWillEnter } from '@ionic/react';
 import example from '../../assets/example.png';
+import play from '../../assets/icons/play.svg';
 import { Button } from '../../components/Buttons/Button';
 import { ActionBlock } from '../../components/Game/ActionBlock';
 import { useActions, useAppState } from '../../overmind';
@@ -29,8 +30,8 @@ export const Game: React.FC = () => {
         <div className='flex flex-col justify-between h-full'>
           <div className="ion-no-border bg-cover mb-8" style={{ backgroundImage: `url(${example})` }}>
             <div className="bg-gradient-to-t from-background-black w-full h-full">
-              <div className="container text-center">
-                <LightningBoltIcon className="text-white text-6xl mt-14 mb-6" />
+              <div className="container text-center flex justify-center flex-col">
+                <LightningBoltIcon className="text-white mt-14 pb-6 h-20" />
                 <h1 className="text-3xl text-white font-bold mb-2">Truth or Dare</h1>
                 <p className="text-lightgrey">nextparty.io</p>
               </div>
@@ -45,8 +46,7 @@ export const Game: React.FC = () => {
 
           {/* Play button */}
           <div className='container pb-12'>
-            <Button icon="" to='/game/ingame' className={`text-black ${isPossibleToPlay().status ? 'bg-dare-green' : 'bg-darkgray'}`}>Play</Button>
-            {/* How can we do disabled state? */}
+            <Button disabled={!isPossibleToPlay().status} icon={play} to='/game/ingame'>Play</Button>
           </div>
         </div>
       </IonContent>
