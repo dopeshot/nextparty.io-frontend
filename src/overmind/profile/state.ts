@@ -1,6 +1,7 @@
 export type CurrentUser = {
     username: string
     sub: string
+    accessToken: string
 }
 
 export type State = {
