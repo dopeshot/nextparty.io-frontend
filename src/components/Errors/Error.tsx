@@ -1,4 +1,3 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Button } from '../Buttons/Button';
 
 type ErrorProps = {
@@ -6,7 +5,7 @@ type ErrorProps = {
     titleContent: string
     paragraphContent: string
     buttonContent: string
-    icon: IconProp
+    icon: string
     link?: string
     onClick?: (values: any) => void
 }

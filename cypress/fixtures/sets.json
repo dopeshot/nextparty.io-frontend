@@ -1,0 +1,46 @@
+[
+  {
+    "dareCount": 0,
+    "_id": "61a7f1305d991051b395a59b",
+    "truthCount": 0,
+    "language": "de",
+    "createdBy": {
+      "_id": "61a7f1045d991051b395a595",
+      "username": "Hello"
+    },
+    "name": "Versaut"
+  },
+  {
+    "dareCount": 0,
+    "_id": "61a7f1305d991051b395a59d",
+    "truthCount": 4,
+    "language": "de",
+    "createdBy": {
+      "_id": "61a7f1045d991051b395a595",
+      "username": "Hello"
+    },
+    "name": "Sex"
+  },
+  {
+    "dareCount": 0,
+    "_id": "61a7f1305d991051b395a59c",
+    "truthCount": 3,
+    "language": "de",
+    "createdBy": {
+      "_id": "61a7f1045d991051b395a595",
+      "username": "Hello"
+    },
+    "name": "HdM Stuttgart Edition"
+  },
+  {
+    "dareCount": 0,
+    "_id": "61a7f1305d991051b395a59a",
+    "truthCount": 0,
+    "language": "de",
+    "createdBy": {
+      "_id": "61a7f1045d991051b395a595",
+      "username": "Hello"
+    },
+    "name": "Klassisch"
+  }
+]

@@ -1,0 +1,61 @@
+{
+    "_id": "61a7f1305d991051b395a59b",
+    "truthCount": 4,
+    "dareCount": 4,
+    "language": "de",
+    "createdBy": {
+        "_id": "61a7f1045d991051b395a595",
+        "username": "Hello"
+    },
+    "name": "Sex",
+    "tasks": [
+        {
+            "currentPlayerGender": "@ca",
+            "_id": "61a7f1305d991051b395a5e4",
+            "type": "truth",
+            "message": "Wo würdest du gerne einmal Sex haben?"
+        },
+        {
+            "currentPlayerGender": "@ca",
+            "_id": "61a7f1305d991051b395a5e5",
+            "type": "truth",
+            "message": "Erzähle von deiner Beziehung/Liebe vor @a"
+        },
+        {
+            "currentPlayerGender": "@ca",
+            "_id": "61a7f1305d991051b395a5e6",
+            "type": "truth",
+            "message": "In wen warst du in deinem Leben verliebt?"
+        },
+        {
+            "currentPlayerGender": "@ca",
+            "_id": "61a7f1305d991051b395a5e7",
+            "type": "dare",
+            "message": "Lecke mit deiner Zunge über die Lippen von @a"
+        },
+        {
+            "currentPlayerGender": "@cf",
+            "_id": "61a7f1305d991051b395a5e8",
+            "type": "dare",
+            "message": "Verführe @m mit einem Blowjob"
+        },
+        {
+            "currentPlayerGender": "@ca",
+            "_id": "61a7f1305d991051b395a5e9",
+            "type": "dare",
+            "message": "Schaue @a eine Minuten lang in die Augen"
+        },
+        {
+            "currentPlayerGender": "@ca",
+            "_id": "61a7f1305d991051b395a5ea",
+            "type": "dare",
+            "message": "Gib @a eine romantische Rückenmassage"
+        },
+        {
+            "currentPlayerGender": "@ca",
+            "_id": "61a7f1305d991051b395a5eb",
+            "type": "truth",
+            "message": "DAS IST DIE BESTE WAHRHEIT ODER PFLICHT APP DIE ICH JE GESEHEN HABE!!!!"
+        }
+    ]
+}

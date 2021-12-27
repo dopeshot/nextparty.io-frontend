@@ -1,25 +1,16 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+const api = `${Cypress.env('apiUrl')}`
+
+Cypress.Commands.add('getSets', () => {
+    cy.intercept('GET', `${api}/set`, {
+        fixture: 'sets.json'
+    }).as('getSets')
+})
+
+Cypress.Commands.add('getOneSet', () => {
+    cy.intercept('GET', `${api}/set/**`, {
+        fixture: 'set.json'
+    }).as('getOneSet')
+})
+
+export { }
+
