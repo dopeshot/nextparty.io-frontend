@@ -17,6 +17,12 @@ declare global {
              * @getOneSet cy.getOneSet()
              */
             getOneSet(): void
+
+            /**
+             * Custom command to get overmind window object
+             * @getOneSet cy.overmind()
+             */
+            overmind(): any
         }
     }
 }
