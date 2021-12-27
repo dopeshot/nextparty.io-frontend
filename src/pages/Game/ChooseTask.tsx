@@ -23,8 +23,8 @@ export const ChooseTask: React.FC<ChooseTaskType> = ({ playerName }) => {
             {canPlayDare && <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold ml-auto">Dare</span>}
             {!canPlayTruth && !canPlayDare && <p>This player doesn't have any tasks to play.</p>}
         </div>
-        {canPlayTruth && <button onClick={() => pickTaskType(TaskType.TRUTH)} className="col-start-1 col-end-2 row-start-1"></button>}
-        {canPlayDare && <button onClick={() => pickTaskType(TaskType.DARE)} className="col-start-2 col-end-3 row-start-1"></button>}
+        {canPlayTruth && <button data-cy="choosetask-truth-button" onClick={() => pickTaskType(TaskType.TRUTH)} className="col-start-1 col-end-2 row-start-1"></button>}
+        {canPlayDare && <button data-cy="choosetask-dare-button" onClick={() => pickTaskType(TaskType.DARE)} className="col-start-2 col-end-3 row-start-1"></button>}
     </div>
     )
 }

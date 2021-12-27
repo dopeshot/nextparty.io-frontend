@@ -3,6 +3,7 @@ import { Context } from "..";
 import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/utilities/utilities";
+import { Set } from '../explore/state';
 import { playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, StartGameErrors, TaskType } from "./state";
 
@@ -198,3 +199,141 @@ export const hideTabBar = ({ state }: Context, bool: boolean) => {
     if (state.game.hideTabBar !== bool)
         state.game.hideTabBar = bool
 }
+
+/**
+ * For Testing
+ */
+export const resetSet = ({ state }: Context) => {
+    state.game.set = null
+
+    // Reset game status
+    state.game.gameStatus = GameStatus.START
+}
+
+/**
+ * For Testing
+ */
+export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare") => {
+    const onlyTruths: (Set & { tasks: PlayTask[] }) = {
+        "_id": "61a7bd4c08c2192fcff61461",
+        "dareCount": 0,
+        "truthCount": 2,
+        "language": "de",
+        "createdBy": {
+            "_id": "61952ca8a3b39d65488ac330",
+            "username": "Zoe"
+        },
+        "name": "Only Truths",
+        "tasks": [
+            {
+                "currentPlayerGender": "@ca",
+                "_id": "61a7bd4c08c2192fcff614d0",
+                "type": "truth",
+                "message": "Wann hattest du das letzte mal Sex?",
+                "requires": {
+                    "male": 0,
+                    "female": 0,
+                    "any": 0
+                },
+                "playedBy": []
+            },
+            {
+                "currentPlayerGender": "@ca",
+                "_id": "61a7bd4c08c2192fcff614d1",
+                "type": "truth",
+                "message": "Wie viele Partner*innen hattest du bis jetzt?",
+                "requires": {
+                    "male": 0,
+                    "female": 0,
+                    "any": 0
+                },
+                "playedBy": []
+            }
+        ]
+    }
+
+    const onlyDares: (Set & { tasks: PlayTask[] }) = {
+        "_id": "61a7bd4c08c2192fcff61462",
+        "dareCount": 2,
+        "truthCount": 0,
+        "language": "de",
+        "createdBy": {
+            "_id": "61952ca8a3b39d65488ac330",
+            "username": "Zoe"
+        },
+        "name": "Only Dares",
+        "tasks": [
+            {
+                "currentPlayerGender": "@ca",
+                "_id": "61a7bd4c08c2192fcff614d0",
+                "type": "dare",
+                "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @a's Pobacke",
+                "requires": {
+                    "male": 0,
+                    "female": 0,
+                    "any": 1
+                },
+                "playedBy": []
+            },
+            {
+                "currentPlayerGender": "@cf",
+                "_id": "61a7bd4c08c2192fcff614d1",
+                "type": "dare",
+                "message": "Präsentiere, wie du eine einen Mann anmachen würdest",
+                "requires": {
+                    "male": 0,
+                    "female": 0,
+                    "any": 0
+                },
+                "playedBy": []
+            }
+        ]
+    }
+
+    const both: (Set & { tasks: PlayTask[] }) = {
+        "_id": "61a7bd4c08c2192fcff61465",
+        "dareCount": 1,
+        "truthCount": 1,
+        "language": "de",
+        "createdBy": {
+            "_id": "61952ca8a3b39d65488ac330",
+            "username": "Zoe"
+        },
+        "name": "Versaut",
+        "tasks": [
+            {
+                "currentPlayerGender": "@ca",
+                "_id": "61a7bd4c08c2192fcff614d0",
+                "type": "dare",
+                "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @a's Pobacke",
+                "requires": {
+                    "male": 0,
+                    "female": 0,
+                    "any": 1
+                },
+                "playedBy": []
+            },
+            {
+                "currentPlayerGender": "@ca",
+                "_id": "61a7bd4c08c2192fcff614d1",
+                "type": "truth",
+                "message": "Wie viele Partner*innen hattest du bis jetzt?",
+                "requires": {
+                    "male": 0,
+                    "female": 0,
+                    "any": 0
+                },
+                "playedBy": []
+            }
+        ]
+    }
+
+    if (!onlyTaskType) {
+        state.game.set = both
+    } else {
+        state.game.set = onlyTaskType === "truth" ? onlyTruths : onlyDares
+    }
+
+    // Reset game status
+    state.game.gameStatus = GameStatus.START
+} 

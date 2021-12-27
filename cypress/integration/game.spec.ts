@@ -1,16 +1,67 @@
 describe('Game', () => {
     describe('Game UI', () => {
-        it('should open truth screen when click on truth')
+        beforeEach(() => {
+            cy.visit('/game')
+            cy.overmind().its('actions').invoke('players.resetPlayer')
+            cy.overmind().its('actions').invoke('game.resetSet')
 
-        it('should open dare screen when click on dare')
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
+            cy.overmind().its('actions').invoke('game.addTestSet')
 
-        it('should only display dare when in set are only dares')
+            cy.get('[data-cy="game-play-button"]').click()
+        })
 
-        it('should only display truth when in set are only truths')
+        it('should open truth screen when click on truth', () => {
+            cy.get('[data-cy="choosetask-truth-button"]').click()
+            cy.get('[data-cy="displaytask-container"]').contains('Truth')
+        })
 
-        it('should display truth/dare selection when you click on screen when there is a truth/dare question')
+        it('should open dare screen when click on dare', () => {
+            cy.get('[data-cy="choosetask-dare-button"]').click()
+            cy.get('[data-cy="displaytask-container"]').contains('Dare')
+        })
 
-        it('should hide tabbar when you are ingame')
+        it('should only display dare when in set are only dares', () => {
+            cy.visit('/game')
+            cy.overmind().its('actions').invoke('game.resetSet')
+            cy.overmind().its('actions').invoke('game.addTestSet', "dare")
+            cy.get('[data-cy="game-set-actionblock"]').contains('Only Dares')
+            cy.get('[data-cy="game-play-button"]').click()
+
+            cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
+            cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+        })
+
+        it('should only display truth when in set are only truths', () => {
+            cy.visit('/game')
+            cy.overmind().its('actions').invoke('game.resetSet')
+            cy.overmind().its('actions').invoke('game.addTestSet', "truth")
+            cy.get('[data-cy="game-set-actionblock"]').contains('Only Truths')
+            cy.get('[data-cy="game-play-button"]').click()
+
+            cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
+            cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
+        })
+
+        it('should display truth/dare selection when you click on screen when there is a truth or dare question', () => {
+            cy.get('[data-cy="choosetask-truth-button"]').click()
+            cy.get('[data-cy="displaytask-container"]').contains('Truth')
+
+            cy.get('[data-cy="displaytask-container"]').click('center')
+            cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
+            cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
+
+            cy.get('[data-cy="choosetask-dare-button"]').click()
+            cy.get('[data-cy="displaytask-container"]').contains('Dare')
+
+            cy.get('[data-cy="displaytask-container"]').click('center')
+            cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
+            cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
+        })
+
+        it('should hide tabbar when you are ingame', () => {
+            cy.get('[data-cy="app-tabbar"]').should('not.be.visible')
+        })
     })
 
     describe('Startscreen', () => {
@@ -31,3 +82,6 @@ describe('Game', () => {
         it('should change to Explore Page when click set-actionblock')
     })
 })
+
+export { }
+

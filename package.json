@@ -63,7 +63,10 @@
         "exclude": [
             "src/overmind/example",
             "src/reportWebVitals.ts",
-            "src/serviceWorkerRegistration.ts"
+            "src/serviceWorkerRegistration.ts",
+            "src/services/game",
+            "src/services/utilities",
+            "src/overmind/game/actions.ts"
         ],
         "excludeAfterRemap": true
     },

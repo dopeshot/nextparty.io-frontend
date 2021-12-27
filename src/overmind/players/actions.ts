@@ -60,3 +60,31 @@ export const deletePlayer = ({ state }: Context, id: number) => {
     // Reset game status when selecting new set
     state.game.gameStatus = GameStatus.START
 }
+
+/**
+ * For Testing
+ */
+export const resetPlayer = ({ state }: Context) => {
+    state.players.players = []
+
+    // Reset game status
+    state.game.gameStatus = GameStatus.START
+}
+
+/**
+ * For Testing
+ */
+export const addTestPlayer = ({ state }: Context) => {
+    state.players.players = [{
+        id: 0,
+        name: "Michael",
+        gender: Gender.MALE
+    }, {
+        id: 1,
+        name: "Joy",
+        gender: Gender.FEMALE
+    }]
+
+    // Reset game status
+    state.game.gameStatus = GameStatus.START
+}
