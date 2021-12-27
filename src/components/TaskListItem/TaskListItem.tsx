@@ -1,5 +1,7 @@
+import { DotsVerticalIcon } from '@heroicons/react/outline'
 import { IonItem, useIonActionSheet } from "@ionic/react"
-import { flag, trash } from "ionicons/icons"
+import flag from '../../assets/icons/flag.svg'
+import trash from '../../assets/icons/trash.svg'
 import { TaskType } from "../../overmind/game/state"
 
 export const TaskListItem: React.FC<{
@@ -20,7 +22,7 @@ export const TaskListItem: React.FC<{
             <div className="flex items-center w-full py-2">
                 <p className={type === TaskType.TRUTH ? "truth-label" : "dare-label"}>{type === TaskType.TRUTH ? "T" : "D"}</p>
                 <p className="flex-grow ml-1 mr-3">{content}</p>
-                <i className="fas fa-ellipsis-v text-darkgray"></i>
+                <DotsVerticalIcon className="text-darkgray h-6 w-6" />
             </div>
         </IonItem>
     )

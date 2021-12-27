@@ -1,8 +1,9 @@
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonToggle, useIonViewWillEnter } from '@ionic/react';
-import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
+import play from '../../assets/icons/play.svg';
+import { Button } from '../../components/Buttons/Button';
 import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
+
 
 export const Game: React.FC = () => {
   const { game: {
@@ -26,7 +27,7 @@ export const Game: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="container">
-          {isPossibleToPlay().status && <PrimaryButton link="/game/ingame" className="bg-white" icon={faPlay}>Play</PrimaryButton>}
+          {isPossibleToPlay().status && <Button to="/game/ingame" icon={play}>Play</Button>}
           <IonList>
             <IonItem>
               <IonLabel>{isDeveloper ? 'You are a developer' : 'You are not a developer'}</IonLabel>
