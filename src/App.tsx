@@ -1,4 +1,4 @@
-import { HomeIcon, PlayIcon, UsersIcon } from '@heroicons/react/outline';
+import { HomeIcon, PlayIcon, UserIcon, UsersIcon } from '@heroicons/react/outline';
 import { IonApp, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import '@ionic/react/css/core.css';
@@ -7,6 +7,7 @@ import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 import { Redirect, Route } from 'react-router-dom';
 import { useAppState } from './overmind';
+import { Account } from './pages/Account/Account';
 import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
 import { InGame } from './pages/Game/InGame';
@@ -27,6 +28,7 @@ export const App: React.FC = () => {
                     <Route exact path="/game" component={Game} />
                     <Route exact path="/explore" component={Explore} />
                     <Route exact path="/explore/:setId" component={SetDetails} />
+                    <Route exact path="/account" component={Account} />
                     <Route exact path="/">
                         <Redirect to="/explore" />
                     </Route>
@@ -36,13 +38,17 @@ export const App: React.FC = () => {
                         <HomeIcon className='h-6 w-6' />
                         <IonLabel>Explore</IonLabel>
                     </IonTabButton>
-                    <IonTabButton data-cy="app-nav-game" tab="/game" href="/game" className="bg-black">
+                    <IonTabButton data-cy="app-nav-game" tab="game" href="/game" className="bg-black">
                         <PlayIcon className='h-6 w-6' />
                         <IonLabel>Game</IonLabel>
                     </IonTabButton>
                     <IonTabButton data-cy="app-nav-player" tab="player" href="/player" className="bg-black">
                         <UsersIcon className='h-6 w-6' />
                         <IonLabel>Player</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton data-cy="app-nav-player" tab="account" href="/account" className="bg-black">
+                        <UserIcon className='h-6 w-6' />
+                        <IonLabel>Profil</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>
