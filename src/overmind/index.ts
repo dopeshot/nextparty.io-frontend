@@ -5,12 +5,14 @@ import * as example from './example'
 import * as explore from './explore'
 import * as game from './game'
 import * as players from './players'
+import * as profile from './profile'
 
 export const config = namespaced({
     example,
     explore,
     players,
-    game
+    game,
+    profile
 })
 
 export type Context = IContext<{
