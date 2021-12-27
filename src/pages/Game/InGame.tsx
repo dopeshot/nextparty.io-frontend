@@ -5,6 +5,7 @@ import { useHistory } from "react-router"
 import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus, TaskType } from "../../overmind/game/state"
+import { setSeoTitle } from "../../services/utilities/setSeoTitle"
 import { ChooseTask } from "./ChooseTask"
 import { DisplayTask } from "./DisplayTask"
 
@@ -22,6 +23,7 @@ export const InGame: React.FC = () => {
     useIonViewWillEnter(() => {
         hideTabBar(true)
         launchGame(history)
+        setSeoTitle('Ingame')
     }, [launchGame])
 
     useIonViewWillLeave(() => {
