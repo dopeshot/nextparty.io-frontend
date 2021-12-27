@@ -54,6 +54,9 @@ export const updatePlayerName = ({ state }: Context, { id, name }: { id: number,
 }
 
 export const deletePlayer = ({ state }: Context, id: number) => {
+    if (state.players.players.length - 1 < playerRequiredToPlay)
+        return
+
     const playerIndex = state.players.players.findIndex(player => player.id === id)
     state.players.players.splice(playerIndex, 1)
 
