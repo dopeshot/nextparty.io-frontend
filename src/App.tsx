@@ -1,10 +1,10 @@
-import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
+import { HomeIcon, PlayIcon, UsersIcon } from '@heroicons/react/outline';
+import { IonApp, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
-import { homeOutline, peopleOutline, playOutline } from 'ionicons/icons';
 import { Redirect, Route } from 'react-router-dom';
 import { useAppState } from './overmind';
 import { Explore } from './pages/Explore/Explore';
@@ -32,16 +32,16 @@ export const App: React.FC = () => {
                     </Route>
                 </IonRouterOutlet>
                 <IonTabBar hidden={hideTabBar} slot="bottom" className="bg-black">
-                    <IonTabButton tab="explore" href="/explore" className="bg-black">
-                        <IonIcon icon={homeOutline} />
+                    <IonTabButton data-cy="app-nav-explore" tab="explore" href="/explore" className="bg-black">
+                        <HomeIcon className='h-6 w-6' />
                         <IonLabel>Explore</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="/game" href="/game" className="bg-black">
-                        <IonIcon icon={playOutline} />
+                    <IonTabButton data-cy="app-nav-game" tab="/game" href="/game" className="bg-black">
+                        <PlayIcon className='h-6 w-6' />
                         <IonLabel>Game</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="player" href="/player" className="bg-black">
-                        <IonIcon icon={peopleOutline} />
+                    <IonTabButton data-cy="app-nav-player" tab="player" href="/player" className="bg-black">
+                        <UsersIcon className='h-6 w-6' />
                         <IonLabel>Player</IonLabel>
                     </IonTabButton>
                 </IonTabBar>

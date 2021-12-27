@@ -1,15 +1,13 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { PrimaryButton } from '../../components/Buttons/PrimaryButton';
-import { SecondaryButton } from '../../components/Buttons/SecondaryButton';
+import { Button } from '../Buttons/Button';
 
 type ErrorProps = {
     errorType: number
     titleContent: string
     paragraphContent: string
     buttonContent: string
-    icon: IconProp
+    icon: string
     link?: string
-    onClick?: () => void
+    onClick?: (values: any) => void
 }
 
 export const Error: React.FC<ErrorProps> = (props) => {
@@ -21,13 +19,17 @@ export const Error: React.FC<ErrorProps> = (props) => {
                 <p className="text-lightgrey mb-4">{props.paragraphContent}</p>
                 <div className="md:w-44">
                     {props.link ?
+                        <Button to={props.link} />
+                        :
+                        props.onClick && <Button onClick={props.onClick} />}
+                    {/* {props.link ?
                         <PrimaryButton link={props.link} icon={props.icon} className="bg-dare-green">
                             {props.buttonContent}
                         </PrimaryButton>
                         :
                         <SecondaryButton icon={props.icon} type='button' color='secondary' keepFocus={false} onClick={props.onClick ? props.onClick : () => ""}>
                             {props.buttonContent}
-                        </SecondaryButton>}
+                        </SecondaryButton>} */}
                 </div>
             </div>
         </div>

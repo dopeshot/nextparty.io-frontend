@@ -1,15 +1,18 @@
 import { IonItem } from '@ionic/react';
 import gradient from '../../assets/example.png';
 
-export const SetItem: React.FC<{
-	name: string,
-	author: string,
-	truthCount: number,
-	dareCount: number,
+type SetItemProps = {
+	name: string
+	author: string
+	truthCount: number
+	dareCount: number
 	link: string
-}> = ({ name, author, truthCount, dareCount, link }) => {
+	dataCy: string
+}
+
+export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dareCount, link, dataCy }) => {
 	return (
-		<IonItem lines="none" routerLink={link} className="mb-5 rounded-lg">
+		<IonItem data-cy={dataCy} lines="none" routerLink={link} className="mb-5 rounded-lg">
 			<div className="flex items-center">
 				<img src={gradient} className="object-cover rounded-lg w-24 h-24 mr-2" />
 				<div className="flex flex-col">

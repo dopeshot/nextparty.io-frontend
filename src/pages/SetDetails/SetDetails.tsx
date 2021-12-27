@@ -1,8 +1,11 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
-import { ellipsisHorizontal } from "ionicons/icons"
+import { DotsHorizontalIcon } from '@heroicons/react/outline'
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
 import { useEffect, useRef } from "react"
 import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
+import arrowBack from "../../assets/icons/arrowback.svg"
+import play from '../../assets/icons/play.svg'
+import { Button } from "../../components/Buttons/Button"
 import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
@@ -38,17 +41,17 @@ export const SetDetails: React.FC = () => {
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
                     <IonButtons>
-                        <IonBackButton className="text-white" defaultHref="/explore" />
+                        <IonBackButton className="text-white" icon={arrowBack} defaultHref="/explore" />
                     </IonButtons>
                     <IonButtons slot="end">
-                        <IonButton onClick={() => present({
+                        <IonButton data-cy="set-details-threedot-icon" onClick={() => present({
                             position: 'top',
                             buttons: [{ text: 'hide', handler: () => dismiss() }],
                             message: 'Clicked options button',
                             onDidDismiss: () => console.log('dismissed'),
                             onWillDismiss: () => console.log('will dismiss'),
                         })}>
-                            <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
+                            <DotsHorizontalIcon className="h-6 w-6" />
                         </IonButton>
                     </IonButtons>
                 </ IonToolbar>
@@ -57,21 +60,18 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <IonButton onClick={(event: any) => {
+                            <Button type="button" onClick={(event: any) => {
                                 event.preventDefault()
                                 addSetToGame()
                                 history.push('/game')
-                            }} className="flex justify-center items-baseline cursor-pointer bg-white rounded-lg">
-                                <i className={`fas fa-play text-black mr-3`}></i>
-                                <span className="text-black font-bold">Play</span>
-                            </IonButton>
+                            }} icon={play}>Play</Button>
                         </div>
                     </div>
                 </div>
 
                 <div>
                     <div className="bg-gradient-to-t from-background-black via-transparent">
-                        <div className="container">
+                        <div data-cy="set-detail-info-container" className="container">
                             <div className="flex flex-col justify-end h-48 pb-6" >
                                 <h1 className="text-3xl mb-2 font-bold">{setDetails?.name}</h1>
                                 <p className="text-lightgrey mb-5">{setDetails?.createdBy.username}</p>
@@ -79,7 +79,7 @@ export const SetDetails: React.FC = () => {
                                     <p className="truth-label">T</p>
                                     <p className="text-lightgrey mr-4">{setDetails?.truthCount} Truth</p>
                                     <p className="dare-label">D</p>
-                                    <p className="text-lightgrey">{setDetails?.daresCount} Dare</p>
+                                    <p className="text-lightgrey">{setDetails?.dareCount} Dare</p>
                                 </div>
                             </div>
                         </div>
@@ -87,11 +87,11 @@ export const SetDetails: React.FC = () => {
                 </div>
                 <div className="bg-background-black pt-6">
                     <div className="container pb-32">
-                        {isLoadingSetDetails ? (<IonProgressBar type="indeterminate"></IonProgressBar>) : (
+                        {isLoadingSetDetails ? (<IonProgressBar data-cy="detail-set-progress-bar" type="indeterminate"></IonProgressBar>) : (
                             <div>
                                 <IonList lines="none">
                                     {setDetails?.tasks.map((task: Task, index) => (
-                                        <TaskListItem key={index} type={task.type === "truth" ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
+                                        <TaskListItem dataCy="set-detail-task" key={task._id} type={task.type === "truth" ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
                                     ))}
                                 </IonList>
                             </div>

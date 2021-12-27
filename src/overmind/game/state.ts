@@ -72,7 +72,7 @@ export const state: State = {
     hideTabBar: false,
     set: {
         "_id": "61a7bd4c08c2192fcff61465",
-        "daresCount": 22,
+        "dareCount": 22,
         "truthCount": 0,
         "language": "de",
         "createdBy": {

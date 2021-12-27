@@ -1,4 +1,3 @@
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Error } from './Error';
 
 type NotFoundErrorProps = {
@@ -12,5 +11,5 @@ const data = {
 }
 
 export const NotFoundError: React.FC<NotFoundErrorProps> = (props) => {
-    return <Error errorType={404} titleContent={data.title} paragraphContent={data.content} buttonContent={data.button} icon={faArrowLeft} link={props.link} />
+    return <Error errorType={404} titleContent={data.title} paragraphContent={data.content} buttonContent={data.button} icon="fa" link={props.link} />
 }
