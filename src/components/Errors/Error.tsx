@@ -22,7 +22,7 @@ export const Error: React.FC<ErrorProps> = (props) => {
                     {props.link ?
                         <Button to={props.link} />
                         :
-                        <Button onClick={props.onClick} />}
+                        <Button type="button" onClick={props.onClick} />}
                     {/* {props.link ?
                         <PrimaryButton link={props.link} icon={props.icon} className="bg-dare-green">
                             {props.buttonContent}

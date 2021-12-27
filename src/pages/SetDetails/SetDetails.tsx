@@ -1,9 +1,10 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons"
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
-import { ellipsisHorizontal } from "ionicons/icons"
+import { DotsHorizontalIcon } from '@heroicons/react/outline'
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
 import { useEffect, useRef } from "react"
 import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
+import arrowBack from "../../assets/icons/arrowback.svg"
+import play from '../../assets/icons/play.svg'
 import { Button } from "../../components/Buttons/Button"
 import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
@@ -40,7 +41,7 @@ export const SetDetails: React.FC = () => {
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
                     <IonButtons>
-                        <IonBackButton className="text-white" defaultHref="/explore" />
+                        <IonBackButton className="text-white" icon={arrowBack} defaultHref="/explore" />
                     </IonButtons>
                     <IonButtons slot="end">
                         <IonButton onClick={() => present({
@@ -50,7 +51,7 @@ export const SetDetails: React.FC = () => {
                             onDidDismiss: () => console.log('dismissed'),
                             onWillDismiss: () => console.log('will dismiss'),
                         })}>
-                            <IonIcon slot="icon-only" icon={ellipsisHorizontal} />
+                            <DotsHorizontalIcon className="h-6 w-6" />
                         </IonButton>
                     </IonButtons>
                 </ IonToolbar>
@@ -59,11 +60,11 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <Button onClick={(event: any) => {
+                            <Button type="button" onClick={(event: any) => {
                                 event.preventDefault()
                                 addSetToGame()
                                 history.push('/game')
-                            }} icon={faPlay}>Play</Button>
+                            }} icon={play}>Play</Button>
                         </div>
                     </div>
                 </div>
