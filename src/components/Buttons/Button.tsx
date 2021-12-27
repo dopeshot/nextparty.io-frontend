@@ -5,7 +5,7 @@ type BaseButtonProps = {
     icon?: string
     className?: string
     disabled?: boolean
-    dataCy: string
+    dataCy?: string
 }
 
 type LinkButtonProps = {
