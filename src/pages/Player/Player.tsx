@@ -1,8 +1,10 @@
-import { faFemale, faMale, faTransgender, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IonContent, IonItem, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
+import { IonContent, IonIcon, IonItem, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
 import example from '../../assets/example.png';
-import { SecondaryButton } from '../../components/Buttons/SecondaryButton';
+import divers from '../../assets/icons/divers.svg';
+import female from '../../assets/icons/female.svg';
+import male from '../../assets/icons/male.svg';
+import useradd from '../../assets/icons/useradd.svg';
+import { Button } from '../../components/Buttons/Button';
 import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
 
@@ -35,25 +37,25 @@ export const Player: React.FC = () => {
                             <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
                         ))}
                     </IonList>
-                    <SecondaryButton onClick={() => addPlayer()} type='button' color='primary' keepFocus={true} icon={faUserPlus} >Add player</SecondaryButton>
+                    <Button type="button" onClick={() => addPlayer()} icon={useradd}>Add player</Button>
                 </div>
                 <div className="container">
                     <IonList lines="none">
                         <IonItem>
-                            <span className="flex items-center justify-center bg-truth-yellow border-4 border-background-black rounded-full mr-3" style={{ minWidth: "38px", minHeight: "38px" }}>
-                                <FontAwesomeIcon className="text-background-black text-lg" icon={faFemale} />
+                            <span className="flex items-center justify-center bg-truth-yellow border-4 border-background-black rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
+                                <IonIcon icon={female} className="text-background-black text-xl" />
                             </span>
                             <p>Female</p>
                         </IonItem>
                         <IonItem>
-                            <span className="flex items-center justify-center bg-dare-green border-4 border-background-black rounded-full mr-3" style={{ minWidth: "38px", minHeight: "38px" }}>
-                                <FontAwesomeIcon className="text-background-black text-lg" icon={faMale} />
+                            <span className="flex items-center justify-center bg-dare-green border-4 border-background-black rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
+                                <IonIcon icon={male} className="text-background-black text-xl" />
                             </span>
                             <p>Male</p>
                         </IonItem>
                         <IonItem>
-                            <span className="flex items-center justify-center bg-white border-4 border-background-black rounded-full mr-3" style={{ minWidth: "38px", minHeight: "38px" }}>
-                                <FontAwesomeIcon className="text-background-black text-lg" icon={faTransgender} />
+                            <span className="flex items-center justify-center bg-white border-4 border-background-black rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
+                                <IonIcon icon={divers} className="text-background-black text-xl" />
                             </span>
                             <p>Divers</p>
                         </IonItem>
