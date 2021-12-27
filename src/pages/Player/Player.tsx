@@ -7,6 +7,7 @@ import useradd from '../../assets/icons/useradd.svg';
 import { Button } from '../../components/Buttons/Button';
 import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
+import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Player: React.FC = () => {
     const { players, isAllowedToDelete } = useAppState().players
@@ -14,6 +15,7 @@ export const Player: React.FC = () => {
 
     useIonViewDidEnter(() => {
         loadPlayerScreen()
+        setSeoTitle('Players')
     })
 
     useIonViewDidLeave(() => {

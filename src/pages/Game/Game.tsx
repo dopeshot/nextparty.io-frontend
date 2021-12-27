@@ -1,7 +1,8 @@
-import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonToggle } from '@ionic/react';
+import { IonContent, IonHeader, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonToggle, useIonViewWillEnter } from '@ionic/react';
 import play from '../../assets/icons/play.svg';
 import { Button } from '../../components/Buttons/Button';
 import { useActions, useAppState } from '../../overmind';
+import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 
 export const Game: React.FC = () => {
@@ -16,6 +17,9 @@ export const Game: React.FC = () => {
 
   const { toggleDeveloper, isPossibleToPlay } = useActions().game
 
+  useIonViewWillEnter(() => {
+    setSeoTitle('Truth or Dare - Next Party', false)
+  })
   return (
     <IonPage className="bg-background-black">
       <IonHeader className="ion-no-border container my-4">
