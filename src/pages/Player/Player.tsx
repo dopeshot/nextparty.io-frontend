@@ -35,11 +35,11 @@ export const Player: React.FC = () => {
                 </div>
                 <div className="container mb-12">
                     <IonList>
-                        {players.map(player => (
-                            <PlayerInput key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
+                        {players.map((player, index) => (
+                            <PlayerInput dataCy={`player-input-${index}`} key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
                         ))}
                     </IonList>
-                    <Button type="button" onClick={() => addPlayer()} icon={useradd}>Add player</Button>
+                    <Button type="button" dataCy='player-add-button' onClick={() => addPlayer()} icon={useradd}>Add player</Button>
                 </div>
                 <div className="container">
                     <IonList lines="none">
