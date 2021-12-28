@@ -1,6 +1,9 @@
 describe('Players', () => {
     beforeEach(() => {
         cy.visit('/player')
+
+        cy.overmind().its('actions').invoke('players.resetPlayer')
+        cy.overmind().its('actions').invoke('players.addTestPlayer')
     })
 
     it('should load two sample players on start', () => {
@@ -10,7 +13,7 @@ describe('Players', () => {
         cy.get('[data-cy="player-input-2"]').should('not.exist')
     })
 
-    it('should add one player', () => {
+    it('should add one player when click add player button', () => {
         cy.get('[data-cy="player-add-button"]').click()
 
         cy.get('[data-cy="player-input-2"]').should('be.visible')
@@ -18,7 +21,8 @@ describe('Players', () => {
     })
 
     it('should remove one player', () => {
-        cy.get('[data-cy="player-add-button"]').click()
+        cy.overmind().its('actions').invoke('players.addPlayer')
+
         cy.get('[data-cy="player-input-2"] [data-cy="player-input-close-button"]').click()
 
         cy.get('[data-cy="player-input-2"]').should('not.exist')
@@ -34,7 +38,7 @@ describe('Players', () => {
     })
 
     it('should remove all inputs except last two when all are empty and you change site', () => {
-        cy.get('[data-cy="player-add-button"]').click()
+        cy.overmind().its('actions').invoke('players.addPlayer')
 
         cy.get('[data-cy="player-input-0"] input').should('be.visible').clear()
         cy.get('[data-cy="player-input-1"] input').should('be.visible').clear()
@@ -49,7 +53,7 @@ describe('Players', () => {
     })
 
     it('should have female gender when add player', () => {
-        cy.get('[data-cy="player-add-button"]').click()
+        cy.overmind().its('actions').invoke('players.addPlayer')
 
         cy.get('[data-cy="player-input-2"] [data-cy="player-input-gender-female-button"]').should('be.visible')
         cy.get('[data-cy="player-input-2"] [data-cy="player-input-gender-male-button"]').should('not.exist')
@@ -57,7 +61,7 @@ describe('Players', () => {
     })
 
     it('should toggle gender when click on gender button', () => {
-        cy.get('[data-cy="player-add-button"]').click()
+        cy.overmind().its('actions').invoke('players.addPlayer')
         cy.get('[data-cy="player-input-2"] [data-cy="player-input-gender-female-button"]').should('be.visible')
 
         cy.get('[data-cy="player-input-2"] [data-cy="player-input-gender-female-button"]').click()
@@ -71,14 +75,14 @@ describe('Players', () => {
     })
 
     it('should change player name', () => {
-        cy.get('[data-cy="player-add-button"]').click()
+        cy.overmind().its('actions').invoke('players.addPlayer')
         cy.get('[data-cy="player-input-2"] input').type('Maxi').should('have.value', 'Maxi')
 
         cy.get('[data-cy="player-input-2"] input').clear().type('Max').should('have.value', 'Max')
     })
 
     it('should remove empty inputs when leaving site', () => {
-        cy.get('[data-cy="player-add-button"]').click()
+        cy.overmind().its('actions').invoke('players.addPlayer')
         cy.get('[data-cy="player-input-2"]').should('be.visible')
 
         cy.get('[data-cy="app-nav-game"]').click()
@@ -88,6 +92,21 @@ describe('Players', () => {
 
         cy.get('[data-cy="player-input-0"]').should('be.visible')
         cy.get('[data-cy="player-input-1"]').should('be.visible')
+    })
+
+    it('should add new player input when press enter in input', () => {
+        cy.get('[data-cy="player-input-1"]').type('{enter}')
+        cy.get('[data-cy="player-input-2"]').should('be.visible')
+    })
+
+    it('should delete player input when press backspace in empty input', () => {
+        cy.overmind().its('actions').invoke('players.addPlayer')
+
+        cy.get('[data-cy="player-input-2"]').type('Hello')
+        cy.get('[data-cy="player-input-2"]').should('be.visible')
+
+        cy.get('[data-cy="player-input-2"]').clear().type('{backspace}')
+        cy.get('[data-cy="player-input-2"]').should('not.exist')
     })
 })
 
