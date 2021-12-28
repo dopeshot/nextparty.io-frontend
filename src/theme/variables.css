@@ -165,3 +165,17 @@ ion-content {
     --ripple-color: transparent;
     --color-hover: transparent;
 }
+
+.text-lines::before,
+.text-lines::after {
+    content: "";
+    display: inline-block;
+    width: 50%;
+    margin: 0 0.5em 0 -55%;
+    vertical-align: middle;
+    border-bottom: 1px solid #3e4851;
+}
+
+.text-lines::after {
+    margin: 0 -55% 0 0.5em;
+}

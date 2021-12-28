@@ -1,12 +1,17 @@
 import { CheckCircleIcon } from "@heroicons/react/outline";
-import { IonContent, IonItem, IonLabel, IonList, IonPage } from "@ionic/react";
+import { IonContent, IonItem, IonLabel, IonList, IonPage, useIonViewWillEnter } from "@ionic/react";
 import { Link } from "react-router-dom";
 import example from '../../assets/example.png';
 import email from '../../assets/icons/email.svg';
 import google from '../../assets/icons/google.svg';
 import { Button } from "../../components/Buttons/Button";
+import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const Account: React.FC = () => {
+    useIonViewWillEnter(() => {
+        setSeoTitle('Account')
+    }, [])
+
     return (
         <IonPage className="bg-background-black">
             <IonContent>
@@ -39,10 +44,10 @@ export const Account: React.FC = () => {
                     </IonList>
 
                     <Button to="#" icon={google} className="mb-4">Continue with Google</Button>
-                    <Button to="#" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
+                    <Button to="/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
 
                     <div className="flex justify-center w-full">
-                        <Link className="text-darkgray" to="#">Login instead</Link>
+                        <Link className="text-darkgray" to="/login">Login instead</Link>
                     </div>
                 </div>
             </IonContent>

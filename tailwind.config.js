@@ -47,6 +47,10 @@ module.exports = {
                 'hover-green': "#EEFFFA",
                 'background-black': '#0C0C0C'
             },
+            screens: {
+                'xxs': '375px',
+                'xs': '560px'
+            }
         },
     },
     variants: {

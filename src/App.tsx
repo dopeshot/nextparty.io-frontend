@@ -8,6 +8,8 @@ import '@ionic/react/css/typography.css';
 import { Redirect, Route } from 'react-router-dom';
 import { useAppState } from './overmind';
 import { Account } from './pages/Account/Account';
+import { Login } from './pages/Account/Login';
+import { Register } from './pages/Account/Register';
 import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
 import { InGame } from './pages/Game/InGame';
@@ -29,6 +31,8 @@ export const App: React.FC = () => {
                     <Route exact path="/explore" component={Explore} />
                     <Route exact path="/explore/:setId" component={SetDetails} />
                     <Route exact path="/account" component={Account} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
                     <Route exact path="/">
                         <Redirect to="/explore" />
                     </Route>
