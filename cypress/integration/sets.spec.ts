@@ -79,6 +79,23 @@ describe('Sets', () => {
 
             cy.get('ion-toast').shadow().contains('Clicked options button')
         })
+
+        it('should close toast when click hide when toast is open', () => {
+            cy.get('[data-cy="set-details-threedot-icon"]').click()
+            cy.get('ion-toast').shadow().contains('Clicked options button')
+
+            cy.get('ion-toast').shadow().find('.toast-button').contains('hide').click()
+            cy.get('ion-toast').shadow().should('not.exist')
+        })
+
+        it('should redirect to game page and add set to state when click play button', () => {
+            cy.get('[data-cy="setdetails-play-button"]').click()
+
+            cy.overmind().its('state.game.set.name').should('equal', set.name)
+
+            cy.get('[data-cy="game-player-actionblock"]').should('be.visible')
+            cy.get('[data-cy="game-set-actionblock"]').should('be.visible')
+        })
     })
 })
 

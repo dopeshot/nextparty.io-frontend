@@ -54,9 +54,40 @@ export const updatePlayerName = ({ state }: Context, { id, name }: { id: number,
 }
 
 export const deletePlayer = ({ state }: Context, id: number) => {
+    if (state.players.players.length - 1 < playerRequiredToPlay)
+        return
+
     const playerIndex = state.players.players.findIndex(player => player.id === id)
     state.players.players.splice(playerIndex, 1)
 
     // Reset game status when selecting new set
+    state.game.gameStatus = GameStatus.START
+}
+
+/**
+ * For Testing
+ */
+export const resetPlayer = ({ state }: Context) => {
+    state.players.players = []
+
+    // Reset game status
+    state.game.gameStatus = GameStatus.START
+}
+
+/**
+ * For Testing
+ */
+export const addTestPlayer = ({ state }: Context) => {
+    state.players.players = [{
+        id: 0,
+        name: "Michael",
+        gender: Gender.MALE
+    }, {
+        id: 1,
+        name: "Joy",
+        gender: Gender.FEMALE
+    }]
+
+    // Reset game status
     state.game.gameStatus = GameStatus.START
 }

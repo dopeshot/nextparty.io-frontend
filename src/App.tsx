@@ -33,7 +33,7 @@ export const App: React.FC = () => {
                         <Redirect to="/explore" />
                     </Route>
                 </IonRouterOutlet>
-                <IonTabBar hidden={hideTabBar} slot="bottom" className="bg-black">
+                <IonTabBar data-cy="app-tabbar" hidden={hideTabBar} slot="bottom" className="bg-black">
                     <IonTabButton data-cy="app-nav-explore" tab="explore" href="/explore" className="bg-black">
                         <HomeIcon className='h-6 w-6' />
                         <IonLabel>Explore</IonLabel>

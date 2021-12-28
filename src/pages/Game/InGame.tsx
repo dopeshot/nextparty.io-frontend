@@ -36,7 +36,7 @@ export const InGame: React.FC = () => {
                     <IonHeader className="ion-no-border container">
                         <IonToolbar color="transparent">
                             <IonButtons slot="start">
-                                <IonBackButton className="text-white" defaultHref="/game" />
+                                <IonBackButton data-cy="ingame-back-button" className="text-white" defaultHref="/game" />
                             </IonButtons>
                         </ IonToolbar>
                     </IonHeader>

@@ -11,11 +11,19 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 const overmind = createOvermind(config, {
   devtools: true,
   // devEnv: "production"
-}) 
+})
 
 setupConfig({
   mode: 'md'
 })
+
+if (window.Cypress) {
+  window.overmind = overmind
+}
+
+declare global {
+  interface Window { overmind: typeof overmind, Cypress: any }
+}
 
 ReactDOM.render(
   <React.StrictMode>
