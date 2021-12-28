@@ -22,7 +22,7 @@ declare global {
              * Custom command to get overmind window object
              * @getOneSet cy.overmind()
              */
-            overmind(): any
+            overmind(): Chainable
         }
     }
 }
