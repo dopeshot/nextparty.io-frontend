@@ -24,7 +24,7 @@ export const Register: React.FC = () => {
     const validationSchema = Yup.object().shape({
         email: Yup.string().email().required("email is required"),
         username: Yup.string().min(3, "username must be at least 3 characters long").max(20, "username cannot be longer than 20 characters").required("username is required"),
-        password: Yup.string().min(8, "password must be at least 8 characters long").max(32, "username cannot be longer than 32 characters").required("password is required")
+        password: Yup.string().min(8, "password must be at least 8 characters long").max(32, "password cannot be longer than 32 characters").required("password is required")
     })
 
     useIonViewWillEnter(() => {
@@ -85,7 +85,7 @@ export const Register: React.FC = () => {
                             )}
                         </Formik>
 
-                        <Link to="/login" className="block text-darkgray text-center my-4">Login insted</Link>
+                        <Link to="/account/login" className="block text-darkgray text-center my-4">Login insted</Link>
                         <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
                         <Button to="#" icon={google} className="mb-4">Continue with Google</Button>
                     </div>

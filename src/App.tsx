@@ -31,8 +31,8 @@ export const App: React.FC = () => {
                     <Route exact path="/explore" component={Explore} />
                     <Route exact path="/explore/:setId" component={SetDetails} />
                     <Route exact path="/account" component={Account} />
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/account/login" component={Login} />
+                    <Route exact path="/account/register" component={Register} />
                     <Route exact path="/">
                         <Redirect to="/explore" />
                     </Route>

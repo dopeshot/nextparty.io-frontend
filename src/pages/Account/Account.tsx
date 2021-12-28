@@ -44,10 +44,10 @@ export const Account: React.FC = () => {
                     </IonList>
 
                     <Button to="#" icon={google} className="mb-4">Continue with Google</Button>
-                    <Button to="/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
+                    <Button to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
 
                     <div className="flex justify-center w-full">
-                        <Link className="text-darkgray" to="/login">Login instead</Link>
+                        <Link className="text-darkgray" to="/account/login">Login instead</Link>
                     </div>
                 </div>
             </IonContent>
