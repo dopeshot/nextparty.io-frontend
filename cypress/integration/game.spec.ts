@@ -27,22 +27,28 @@ describe('Game', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "dare")
-            cy.get('[data-cy="game-set-actionblock"]').contains('Only Dares')
-            cy.get('[data-cy="game-play-button"]').click()
 
-            cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
-            cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+            cy.overmind().its('state.game.set.name').then((name: string) => {
+                cy.get('[data-cy="game-set-actionblock"]').contains(name)
+                cy.get('[data-cy="game-play-button"]').click()
+
+                cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
+                cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+            })
         })
 
         it('should only display truth when in set are only truths', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "truth")
-            cy.get('[data-cy="game-set-actionblock"]').contains('Only Truths')
-            cy.get('[data-cy="game-play-button"]').click()
 
-            cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
-            cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
+            cy.overmind().its('state.game.set.name').then((name: string) => {
+                cy.get('[data-cy="game-set-actionblock"]').contains(name)
+                cy.get('[data-cy="game-play-button"]').click()
+
+                cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
+                cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
+            })
         })
 
         it('should display truth/dare selection when you click on screen when there is a truth or dare question', () => {
