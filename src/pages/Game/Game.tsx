@@ -39,9 +39,9 @@ export const Game: React.FC = () => {
           </div>
           <div className='container pb-4'>
             {/* Player block */}
-            <ActionBlock dataCy='game-player-actionblock' routerLink='/player' isReady={!isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS)}>{isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS) ? 'Add player' : `${players.length} players added`}</ActionBlock>
+            <ActionBlock dataCy="game-player-actionblock" routerLink='/player' isReady={!isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS)}>{isPossibleToPlay().errors.includes(StartGameErrors.PLAYERS) ? 'Add player' : `${players.length} players added`}</ActionBlock>
             {/* Set block */}
-            <ActionBlock dataCy='game-set-actionblock' routerLink='/explore' isReady={!isPossibleToPlay().errors.includes(StartGameErrors.SET)}>{isPossibleToPlay().errors.includes(StartGameErrors.SET) ? 'Pick a set to play' : set && `${set.name} picked`}</ActionBlock>
+            <ActionBlock dataCy="game-set-actionblock" routerLink='/explore' isReady={!isPossibleToPlay().errors.includes(StartGameErrors.SET)}>{isPossibleToPlay().errors.includes(StartGameErrors.SET) ? 'Pick a set to play' : set && `${set.name} picked`}</ActionBlock>
           </div>
 
           {/* Play button */}

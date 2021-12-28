@@ -1,3 +1,5 @@
+import { Player } from "../../src/overmind/players/state"
+
 describe('Game', () => {
     describe('Game UI', () => {
         beforeEach(() => {
@@ -59,27 +61,85 @@ describe('Game', () => {
             cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
         })
 
-        it('should hide tabbar when you are ingame', () => {
+        it('should hide tabbar when you are ingame and display again when you leave screen', () => {
             cy.get('[data-cy="app-tabbar"]').should('not.be.visible')
+            cy.get('[data-cy="ingame-back-button"]').click()
+            cy.get('[data-cy="app-tabbar"]').should('be.visible')
         })
     })
 
     describe('Startscreen', () => {
-        it('should have unchecked icon and "addplayer" text in actionblock when there is no player added')
+        beforeEach(() => {
+            cy.visit('/game')
+            cy.overmind().its('actions').invoke('players.resetPlayer')
+            cy.overmind().its('actions').invoke('game.resetSet')
+        })
 
-        it('should have checked icon and player count text in actionblock when there is are 2 or more players added')
+        it('should have unchecked icon and "Add player" text in actionblock when there is no player added', () => {
+            cy.get('[data-cy="game-player-actionblock"] [data-cy="minuscircle-icon"]').should('be.visible')
+            cy.get('[data-cy="game-player-actionblock"]').contains('Add player')
+        })
 
-        it('should have unchecked icon and "pick a set" text in actionblock when there is no set added')
+        it('should have checked icon and player count text in actionblock when there is are 2 or more players added', () => {
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
 
-        it('should have checked icon and set name + "picked" in actionblock when a set is selected')
+            cy.overmind().its('state.players.players').then((players: Player[]) => {
+                cy.get('[data-cy="game-player-actionblock"] [data-cy="checkcircle-icon"]').should('be.visible')
+                cy.get('[data-cy="game-player-actionblock"]').contains(`${players.length} players added`)
+            })
+        })
 
-        it('should have play button disabled when both set and players are not selected')
+        it('should have unchecked icon and "Pick a set to play" text in actionblock when there is no set added', () => {
+            cy.get('[data-cy="game-set-actionblock"] [data-cy="minuscircle-icon"]').should('be.visible')
+            cy.get('[data-cy="game-set-actionblock"]').contains('Pick a set to play')
+        })
 
-        it('should change to Ingame Page when click play button and both set and players are selected')
+        it('should have checked icon and set name + "picked" in actionblock when a set is selected', () => {
+            cy.overmind().its('actions').invoke('game.addTestSet')
 
-        it('should change to Player Page when click player-actionblock')
+            cy.overmind().its('state.game.set.name').then((name: string) => {
+                cy.get('[data-cy="game-set-actionblock"] [data-cy="checkcircle-icon"]').should('be.visible')
+                cy.get('[data-cy="game-set-actionblock"]').contains(`${name} picked`)
+            })
+        })
 
-        it('should change to Explore Page when click set-actionblock')
+        it('should have play button disabled when both set and players are not selected', () => {
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+        })
+
+        it('should have play button disabled when set or players are not selected', () => {
+            cy.overmind().its('actions').invoke('game.addTestSet')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+
+            cy.overmind().its('actions').invoke('game.resetSet')
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+        })
+
+        it('should change to Ingame Page when click play button and both set and players are selected', () => {
+            cy.overmind().its('actions').invoke('game.addTestSet')
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
+
+            cy.get('[data-cy="game-play-button"]').click()
+            cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
+            cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
+        })
+
+        it('should change to Player Page when click player-actionblock', () => {
+            cy.overmind().its('actions').invoke('game.addTestSet')
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
+
+            cy.get('[data-cy="game-player-actionblock"]').click({ force: true })
+            cy.get('h1').contains('Players')
+        })
+
+        it('should change to Explore Page when click set-actionblock', () => {
+            cy.overmind().its('actions').invoke('game.addTestSet')
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
+
+            cy.get('[data-cy="game-set-actionblock"]').click({ force: true })
+            cy.get('h1').contains('Explore')
+        })
     })
 })
 

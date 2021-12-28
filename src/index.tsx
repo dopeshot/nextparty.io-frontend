@@ -18,9 +18,10 @@ setupConfig({
 })
 
 // JS: I dont know how to do this better sorry TODO: fix the type issues
-if ((window as any).Cypress) {
-  (window as any).overmind = overmind
-}
+//if ((window as any).Cypress) {
+// @ts-ignore
+window.overmind = overmind
+//}
 
 ReactDOM.render(
   <React.StrictMode>
