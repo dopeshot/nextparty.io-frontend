@@ -17,11 +17,13 @@ setupConfig({
   mode: 'md'
 })
 
-// JS: I dont know how to do this better sorry TODO: fix the type issues
-//if ((window as any).Cypress) {
-// @ts-ignore
-window.overmind = overmind
-//}
+if (window.Cypress) {
+  window.overmind = overmind
+}
+
+declare global {
+  interface Window { overmind: typeof overmind, Cypress: any }
+}
 
 ReactDOM.render(
   <React.StrictMode>
