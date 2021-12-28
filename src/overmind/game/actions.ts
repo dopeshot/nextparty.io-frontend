@@ -213,7 +213,7 @@ export const resetSet = ({ state }: Context) => {
 /**
  * For Testing
  */
-export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare") => {
+export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | "longmessage") => {
     const onlyTruths: (Set & { tasks: PlayTask[] }) = {
         "_id": "61a7bd4c08c2192fcff61461",
         "dareCount": 0,
@@ -328,11 +328,64 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare") =
         ]
     }
 
+    const longmessage: (Set & { tasks: PlayTask[] }) = {
+        "_id": "61a7bd4c08c2192fcff61465",
+        "dareCount": 1,
+        "truthCount": 1,
+        "language": "de",
+        "createdBy": {
+            "_id": "61952ca8a3b39d65488ac330",
+            "username": "Zoe"
+        },
+        "name": "Long Message",
+        "tasks": [
+            {
+                "currentPlayerGender": "@ca",
+                "_id": "61a7bd4c08c2192fcff614d0",
+                "type": "dare",
+                "message": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,",
+                "requires": {
+                    "male": 0,
+                    "female": 0,
+                    "any": 0
+                },
+                "playedBy": []
+            },
+            {
+                "currentPlayerGender": "@ca",
+                "_id": "61a7bd4c08c2192fcff614d1",
+                "type": "truth",
+                "message": "Wie viele Partner*innen hattest du bis jetzt?",
+                "requires": {
+                    "male": 0,
+                    "female": 0,
+                    "any": 0
+                },
+                "playedBy": []
+            }
+        ]
+    }
+
     if (!onlyTaskType) {
         state.game.set = both
-    } else {
-        state.game.set = onlyTaskType === "truth" ? onlyTruths : onlyDares
     }
+
+    switch (onlyTaskType) {
+        case "truth":
+            state.game.set = onlyTruths
+            break
+        case "dare":
+            state.game.set = onlyDares
+            break
+        case "longmessage":
+            state.game.set = longmessage
+            break
+        default:
+            state.game.set = both
+            break
+    }
+
+    console.log(onlyTaskType)
 
     // Reset game status
     state.game.gameStatus = GameStatus.START

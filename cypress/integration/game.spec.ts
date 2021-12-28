@@ -67,6 +67,25 @@ describe('Game', () => {
             cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
         })
 
+        it('container should have height: 250px when message shorter than 100 letters when longer than height: 450px', () => {
+            cy.visit('/game')
+            cy.overmind().its('actions').invoke('game.resetSet')
+            cy.overmind().its('actions').invoke('game.addTestSet', "longmessage")
+
+            cy.overmind().its('state.game.set.name').then((name: string) => {
+                cy.get('[data-cy="game-set-actionblock"]').contains(name)
+                cy.get('[data-cy="game-play-button"]').click()
+
+                // Short Message
+                cy.get('[data-cy="choosetask-truth-button"]').click()
+                cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "250px").click()
+
+                // Long Message
+                cy.get('[data-cy="choosetask-dare-button"]').click()
+                cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "450px").click()
+            })
+        })
+
         it('should hide tabbar when you are ingame and display again when you leave screen', () => {
             cy.get('[data-cy="app-tabbar"]').should('not.be.visible')
             cy.get('[data-cy="ingame-back-button"]').click()
