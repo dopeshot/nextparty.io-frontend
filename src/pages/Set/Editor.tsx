@@ -34,7 +34,7 @@ export const Editor: React.FC = () => {
                             <PencilIcon className={`${categories[formik.values.background as SetCategory]?.foreground === ForegroundColor.DARK ? `text-black` : `text-white`} h-6`} />
                         </button>
 
-                        <IonModal onDidDismiss={() => setShowThemePicker(false)} isOpen={showThemePicker} cssClass="my-custom-class">
+                        <IonModal onWillDismiss={() => setShowThemePicker(false)} isOpen={showThemePicker} cssClass="my-custom-class">
                             <IonHeader>
                                 <IonToolbar>
                                     <IonTitle>Choose Theme</IonTitle>
