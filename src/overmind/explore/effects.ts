@@ -14,6 +14,7 @@ export const mock = {
 				"_id": "618be342577d8c493e1012ed",
 				"dareCount": 0,
 				"truthCount": 0,
+				"played": 0,
 				"language": "de",
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
@@ -24,6 +25,7 @@ export const mock = {
 			{
 				"_id": "618be342577d8c493e1012ee",
 				"dareCount": 0,
+				"played": 0,
 				"truthCount": 0,
 				"language": "de",
 				"createdBy": {
@@ -36,6 +38,7 @@ export const mock = {
 				"_id": "618be342577d8c493e1012ef",
 				"dareCount": 0,
 				"truthCount": 0,
+				"played": 0,
 				"language": "de",
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
@@ -47,6 +50,7 @@ export const mock = {
 				"_id": "618be342577d8c493e1012f0",
 				"dareCount": 0,
 				"truthCount": 0,
+				"played": 0,
 				"language": "de",
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",

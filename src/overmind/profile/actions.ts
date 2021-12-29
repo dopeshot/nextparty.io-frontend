@@ -1,14 +1,14 @@
 import { Context } from '..'
-import { parseJwt, request } from '../../services/axios'
+import { request } from '../../services/axios'
 
 export const setToken = ({ state }: Context, token?: string) => {
     if (!token) {
-        state.profile.token = null
+        state.profile.accessToken = null
         delete request.defaults.headers.common['Authorization']
     }
 
     if (token) {
-        state.profile.token = token
+        state.profile.accessToken = token
         request.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
 }
@@ -20,12 +20,9 @@ export const login = async ({ state, effects, actions }: Context, credentials: {
         const { access_token } = responseToken.data
 
         actions.profile.setToken(access_token)
-
-        state.profile.currentUser = parseJwt(access_token)
     } catch (error) {
         console.error(error)
         actions.profile.setToken()
-        state.profile.currentUser = null
     }
     state.profile.authenticating = false
 }
@@ -37,17 +34,32 @@ export const register = async ({ state, effects, actions }: Context, credentials
         const { access_token } = responseToken.data
 
         actions.profile.setToken(access_token)
-
-        state.profile.currentUser = parseJwt(access_token)
     } catch (error) {
         console.error(error)
         actions.profile.setToken()
-        state.profile.currentUser = null
     }
     state.profile.authenticating = false
 }
 
-export const logout = ({ state, actions }: Context) => {
-    state.profile.currentUser = null
+export const logout = ({ actions }: Context) => {
     actions.profile.setToken()
+}
+
+export const getSetsByUser = async ({ state, effects }: Context) => {
+    if (!state.profile.currentUser) {
+        console.warn("There is an issue.")
+        return
+    }
+
+
+    state.profile.isLoadingSets = true
+    try {
+        const response = await effects.profile.getSetsFromUser(state.profile.currentUser.sub)
+        const data = response.data
+
+        state.profile.sets.data = data
+    } catch (error) {
+        console.error(error)
+    }
+    state.profile.isLoadingSets = false
 }

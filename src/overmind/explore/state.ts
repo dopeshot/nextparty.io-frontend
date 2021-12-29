@@ -2,6 +2,7 @@ export type Set = {
     _id: string
     dareCount: number
     truthCount: number
+    played: number
     createdBy: {
         _id: string
         username: string

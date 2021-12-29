@@ -219,6 +219,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "dareCount": 0,
         "truthCount": 2,
         "language": "de",
+        "played": 0,
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
             "username": "Zoe"
@@ -255,6 +256,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
     const onlyDares: (Set & { tasks: PlayTask[] }) = {
         "_id": "61a7bd4c08c2192fcff61462",
         "dareCount": 2,
+        "played": 0,
         "truthCount": 0,
         "language": "de",
         "createdBy": {
@@ -293,6 +295,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
     const both: (Set & { tasks: PlayTask[] }) = {
         "_id": "61a7bd4c08c2192fcff61465",
         "dareCount": 1,
+        "played": 0,
         "truthCount": 1,
         "language": "de",
         "createdBy": {
@@ -332,6 +335,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "_id": "61a7bd4c08c2192fcff61465",
         "dareCount": 1,
         "truthCount": 1,
+        "played": 0,
         "language": "de",
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
