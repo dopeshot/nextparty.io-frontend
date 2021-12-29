@@ -5,7 +5,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
-import { categories, ForegroundColor } from "../../overmind/creative/state";
+import { categories, categoriesList, ForegroundColor, SetCategory } from "../../overmind/creative/state";
 
 export const Editor: React.FC = () => {
     const initialValues = {
@@ -30,8 +30,8 @@ export const Editor: React.FC = () => {
                     <Form>
                         {/** Background picker */}
                         <button type="button" onClick={() => setShowThemePicker(true)}
-                            className="bg-red-500 rounded-lg h-24 w-full flex justify-center items-center">
-                            <PencilIcon className="text-white h-6" />
+                            className={`${categories[formik.values.background as SetCategory]?.background} rounded-lg h-24 w-full flex justify-center items-center`}>
+                            <PencilIcon className={`${categories[formik.values.background as SetCategory]?.foreground === ForegroundColor.DARK ? `text-black` : `text-white`} h-6`} />
                         </button>
 
                         <IonModal onDidDismiss={() => setShowThemePicker(false)} isOpen={showThemePicker} cssClass="my-custom-class">
@@ -47,7 +47,7 @@ export const Editor: React.FC = () => {
                             <IonContent>
                                 <div className="container mt-4">
                                     {
-                                        categories.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.background} ${category.foreground === ForegroundColor.LIGHT ? 'text-white' : 'text-black'}`}>
+                                        categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.background} ${category.foreground === ForegroundColor.LIGHT ? 'text-white' : 'text-black'}`}>
                                             <Field type="radio" name="background" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
                                             {category.name}
                                         </label>
