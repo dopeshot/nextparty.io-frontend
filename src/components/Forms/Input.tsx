@@ -3,7 +3,7 @@ import { ErrorInput } from "./ErrorMessage";
 
 type IconButtonProps = {
     formik: FormikProps<any>
-    field: "email" | "password" | "username"
+    field: string
     type: "email" | "text" | "password"
     id: string
     placeholder: string
