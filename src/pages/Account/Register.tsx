@@ -8,6 +8,7 @@ import google from '../../assets/icons/google.svg';
 import login from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
 import { Input } from '../../components/Forms/Input';
+import { PasswordInput } from '../../components/Forms/PasswordInput';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Register: React.FC = () => {
@@ -53,9 +54,9 @@ export const Register: React.FC = () => {
                                 <Form>
                                     <Input formik={formik} field="email" id="register-email" type="email" placeholder="E-Mail" />
                                     <Input formik={formik} field="username" id="register-username" type="text" placeholder="Username" />
-                                    <Input formik={formik} field="password" id="register-password" type="password" placeholder="Password" />
+                                    <PasswordInput formik={formik} id="register-password" />
 
-                                    <Button onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
+                                    <Button onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Register</Button>
                                 </Form>
                             )}
                         </Formik>

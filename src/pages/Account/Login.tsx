@@ -8,6 +8,7 @@ import google from '../../assets/icons/google.svg';
 import login from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
 import { Input } from '../../components/Forms/Input';
+import { PasswordInput } from '../../components/Forms/PasswordInput';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Login: React.FC = () => {
@@ -49,8 +50,8 @@ export const Login: React.FC = () => {
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
                             {(formik) => (
                                 <Form>
-                                    <Input formik={formik} field="email" id="login-email" type="email" placeholder='E-Mail' />
-                                    <Input formik={formik} field="password" id="login-password" type="password" placeholder='Password' />
+                                    <Input formik={formik} field="email" id="login-email" type="email" placeholder="E-Mail" />
+                                    <PasswordInput formik={formik} id="login-password" />
 
                                     <Button onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
                                 </Form>
