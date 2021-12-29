@@ -1,15 +1,30 @@
+import { derived } from "overmind"
+
 export type CurrentUser = {
     username: string
     sub: string
     accessToken: string
+    role: "admin" | "user",
+    iat: number
+    exp: number
+}
+
+export type ResponseUser = {
+    userId: string
+    username: string
+    role: "admin" | "user"
 }
 
 export type State = {
-    isLoggedIn: boolean,
-    user: CurrentUser | null
+    currentUser: CurrentUser | null
+    authenticating: boolean
+    isLoggedIn: boolean
+    token: string | null
 }
 
 export const state: State = {
-    isLoggedIn: false,
-    user: null
+    currentUser: null,
+    authenticating: false,
+    isLoggedIn: derived((state: State) => Boolean(state.currentUser)),
+    token: null
 }

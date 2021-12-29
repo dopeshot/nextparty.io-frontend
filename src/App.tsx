@@ -6,9 +6,12 @@ import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 import { Redirect, Route } from 'react-router-dom';
+import { GuestRoute } from './components/Routes/GuestRoute';
+import { PrivateRoute } from './components/Routes/PrivateRoute';
 import { useAppState } from './overmind';
-import { Account } from './pages/Account/Account';
 import { Login } from './pages/Account/Login';
+import { NotLoggedInProfile } from './pages/Account/NotLoggedInProfile';
+import { Profile } from './pages/Account/Profile';
 import { Register } from './pages/Account/Register';
 import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
@@ -31,9 +34,10 @@ export const App: React.FC = () => {
                     <Route exact path="/game" component={Game} />
                     <Route exact path="/explore" component={Explore} />
                     <Route exact path="/explore/:setId" component={SetDetails} />
-                    <Route exact path="/account" component={Account} />
-                    <Route exact path="/account/login" component={Login} />
-                    <Route exact path="/account/register" component={Register} />
+                    <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={NotLoggedInProfile} />
+                    <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
+                    <GuestRoute exact path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
+                    <PrivateRoute exact path="/account/profile" component={Profile} />
                     <Route exact path="/account/creative" component={Editor} />
                     <Route exact path="/">
                         <Redirect to="/explore" />

@@ -7,7 +7,7 @@ import google from '../../assets/icons/google.svg';
 import { Button } from "../../components/Buttons/Button";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
-export const Account: React.FC = () => {
+export const NotLoggedInProfile: React.FC = () => {
     useIonViewWillEnter(() => {
         setSeoTitle('Account')
     }, [])
