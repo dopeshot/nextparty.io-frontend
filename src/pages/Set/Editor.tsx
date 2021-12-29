@@ -1,9 +1,12 @@
 import { PencilIcon } from "@heroicons/react/outline";
-import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
+import { closeOutline } from "ionicons/icons";
 import { useState } from "react";
 import * as Yup from "yup";
+import female from '../../assets/icons/female.svg';
 import { Button } from "../../components/Buttons/Button";
+import { IconButton } from "../../components/Buttons/IconButton";
 import { Input } from "../../components/Forms/Input";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
@@ -27,7 +30,7 @@ export const Editor: React.FC = () => {
     })
     const [showThemePicker, setShowThemePicker] = useState(false);
 
-    return <IonPage>
+    return <IonPage className="bg-background-black">
         <IonContent>
             <div className="container">
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
@@ -65,6 +68,23 @@ export const Editor: React.FC = () => {
                         {/** Title input */}
                         <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
 
+                        {/** Tasks */}
+                        <IonList>
+                            <IonItem>
+                                <IonButtons slot="start">
+                                    <IconButton icon={female} onClick={() => console.log("Hello world!")} bgColor="bg-red-500" />
+                                    <IconButton icon={female} onClick={() => console.log("Hello world!")} bgColor="bg-red-500" />
+                                </IonButtons>
+                                <IonInput />
+
+                                <IonButtons slot="end">
+                                    <IonButton onClick={() => console.log("delete")}>
+                                        <IonIcon icon={closeOutline} slot="icon-only"></IonIcon>
+                                    </IonButton>
+                                </IonButtons>
+
+                            </IonItem>
+                        </IonList>
 
                         <Button onClick={() => null} type="submit" disabled={!(formik.dirty && formik.isValid)}>Create</Button>
                     </Form>
