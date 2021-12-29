@@ -5,7 +5,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
-import { categories, categoriesList, ForegroundColor, SetCategory } from "../../overmind/creative/state";
+import { categories, categoriesList, ForegroundColor, SetCategory } from "../../overmind/creative/types/categories";
 
 export const Editor: React.FC = () => {
     const initialValues = {
@@ -47,7 +47,7 @@ export const Editor: React.FC = () => {
                             <IonContent>
                                 <div className="container mt-4">
                                     {
-                                        categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.background} ${category.foreground === ForegroundColor.LIGHT ? 'text-white' : 'text-black'}`}>
+                                        categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.background} ${category.foreground === ForegroundColor.LIGHT ? 'text-white' : 'text-black'} ${formik.values.background === category.name ? `border-4 border-green-500 box-border` : ``}`}>
                                             <Field type="radio" name="background" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
                                             {category.name}
                                         </label>
