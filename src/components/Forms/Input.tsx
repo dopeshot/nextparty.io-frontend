@@ -4,7 +4,7 @@ import { ErrorInput } from "./ErrorMessage";
 
 type InputProps = {
     formik: FormikProps<any>
-    field: "email" | "password" | "username"
+    field: string
     type: "email" | "text" | "password"
     id: string
     placeholder: string

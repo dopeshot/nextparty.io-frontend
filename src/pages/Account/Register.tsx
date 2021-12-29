@@ -36,7 +36,7 @@ export const Register: React.FC = () => {
     }, [])
 
     return (
-        <IonPage className="bg-center bg-no-repeat" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100%', backgroundPosition: 'top' }}>
+        <IonPage className="bg-center bg-no-repeat bg-background-black " style={{ backgroundImage: `url('${example}')`, backgroundSize: '100%', backgroundPosition: 'top' }}>
             <IonHeader className="container ion-no-border my-1">
                 <IonToolbar color="transparent">
                     <IonButtons>
