@@ -3,21 +3,21 @@ import gradient from '../../assets/example.png';
 
 type SetItemProps = {
 	name: string
-	author: string
+	author?: string
 	truthCount: number
 	dareCount: number
 	link: string
-	dataCy: string
+	dataCy?: string
 }
 
 export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dareCount, link, dataCy }) => {
 	return (
 		<IonItem data-cy={dataCy} lines="none" routerLink={link} className="mb-5 rounded-lg">
 			<div className="flex items-center">
-				<img src={gradient} className="object-cover rounded-lg w-24 h-24 mr-2" />
+				<img src={gradient} className={`object-cover rounded-lg ${author ? "w-24 h-24" : "w-20 h-20"} mr-2`} />
 				<div className="flex flex-col">
-					<h3 className="text-white text-xl font-bold">{name}</h3>
-					<p className="text-lightgrey mb-3">by {author}</p>
+					<h3 className={`text-white font-bold ${author ? "text-xl" : "text-lg mb-2"}`}>{name}</h3>
+					{author && <p className="text-lightgrey mb-3">by {author}</p>}
 					<div className="flex items-center">
 						{/* Truth Count */}
 						<span className="truth-label">T</span>
