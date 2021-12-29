@@ -5,20 +5,23 @@ import * as Yup from "yup";
 import example from '../../assets/example.png';
 import arrowBack from "../../assets/icons/arrowback.svg";
 import google from '../../assets/icons/google.svg';
-import login from "../../assets/icons/login.svg";
+import loginicon from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
 import { Input } from '../../components/Forms/Input';
 import { PasswordInput } from '../../components/Forms/PasswordInput';
+import { useActions } from '../../overmind';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Login: React.FC = () => {
+    const { login } = useActions().profile
+
     const initialValues = {
         email: "",
         password: ""
     }
 
     const submitForm = (values: typeof initialValues) => {
-        console.log(values);
+        login(values)
     }
 
     const validationSchema = Yup.object().shape({
@@ -53,7 +56,7 @@ export const Login: React.FC = () => {
                                     <Input formik={formik} field="email" id="login-email" type="email" placeholder="E-Mail" />
                                     <PasswordInput formik={formik} id="login-password" />
 
-                                    <Button onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
+                                    <Button onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
                                 </Form>
                             )}
                         </Formik>

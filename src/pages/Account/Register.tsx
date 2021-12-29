@@ -9,9 +9,12 @@ import login from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
 import { Input } from '../../components/Forms/Input';
 import { PasswordInput } from '../../components/Forms/PasswordInput';
+import { useActions } from '../../overmind';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Register: React.FC = () => {
+    const { register } = useActions().profile
+
     const initialValues = {
         email: "",
         username: "",
@@ -19,7 +22,7 @@ export const Register: React.FC = () => {
     }
 
     const submitForm = (values: typeof initialValues) => {
-        console.log(values);
+        register(values)
     }
 
     const validationSchema = Yup.object().shape({

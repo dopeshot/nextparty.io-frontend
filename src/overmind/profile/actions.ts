@@ -1,4 +1,4 @@
-import { Context } from 'mocha'
+import { Context } from '..'
 import { parseJwt, request } from '../../services/axios'
 
 export const setToken = ({ state }: Context, token?: string) => {
