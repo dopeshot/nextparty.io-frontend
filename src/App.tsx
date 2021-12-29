@@ -14,6 +14,7 @@ import { Explore } from './pages/Explore/Explore';
 import { Game } from './pages/Game/Game';
 import { InGame } from './pages/Game/InGame';
 import { Player } from './pages/Player/Player';
+import { Editor } from './pages/Set/Editor';
 import { SetDetails } from './pages/SetDetails/SetDetails';
 import './tailwindcss.css';
 import './theme/variables.css';
@@ -33,6 +34,7 @@ export const App: React.FC = () => {
                     <Route exact path="/account" component={Account} />
                     <Route exact path="/account/login" component={Login} />
                     <Route exact path="/account/register" component={Register} />
+                    <Route exact path="/account/creative" component={Editor} />
                     <Route exact path="/">
                         <Redirect to="/explore" />
                     </Route>
