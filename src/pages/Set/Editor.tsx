@@ -59,7 +59,7 @@ export const Editor: React.FC = () => {
 
 
                         {/** Title input */}
-                        <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" />
+                        <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
 
 
                         <Button onClick={() => null} type="submit" disabled={!(formik.dirty && formik.isValid)}>Create</Button>
