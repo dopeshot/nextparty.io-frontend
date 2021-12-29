@@ -1,6 +1,5 @@
-import { ExclamationCircleIcon } from '@heroicons/react/outline';
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonToolbar, useIonViewWillEnter } from '@ionic/react';
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { Link } from 'react-router-dom';
 import * as Yup from "yup";
 import example from '../../assets/example.png';
@@ -8,6 +7,7 @@ import arrowBack from "../../assets/icons/arrowback.svg";
 import google from '../../assets/icons/google.svg';
 import login from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
+import { Input } from '../../components/Forms/Input';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Login: React.FC = () => {
@@ -49,25 +49,9 @@ export const Login: React.FC = () => {
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
                             {(formik) => (
                                 <Form>
-                                    <div className="flex flex-col mb-4">
-                                        <Field type="email" name="email" id="email" placeholder="E-Mail" className={`rounded pl-4 py-3 ${formik.errors.email && formik.touched.email ? "border-2 border-red-400 focus:outline-none mb-2" : ""}`} />
-                                        <ErrorMessage name="email" component="span">
-                                            {errorMessage => <div className="flex items-center text-red-400">
-                                                <ExclamationCircleIcon className="h-6 w-6 mr-2" />
-                                                <span className="text-sm font-semibold">{errorMessage}</span>
-                                            </div>}
-                                        </ErrorMessage>
-                                    </div>
+                                    <Input formik={formik} field="email" id="login-email" type="email" placeholder='E-Mail' />
+                                    <Input formik={formik} field="password" id="login-password" type="password" placeholder='Password' />
 
-                                    <div className="flex flex-col mb-6">
-                                        <Field type="password" name="password" id="password" placeholder="Password" className={`rounded pl-4 py-3 ${formik.errors.password && formik.touched.password ? "border-2 border-red-400 focus:outline-none mb-2" : ""}`} />
-                                        <ErrorMessage name="password" component="span">
-                                            {errorMessage => <div className="flex items-center text-red-400">
-                                                <ExclamationCircleIcon className="h-6 w-6 mr-2" />
-                                                <span className="text-sm font-semibold">{errorMessage}</span>
-                                            </div>}
-                                        </ErrorMessage>
-                                    </div>
                                     <Button onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
                                 </Form>
                             )}
