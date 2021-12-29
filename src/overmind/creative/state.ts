@@ -1,5 +1,5 @@
+import { SetCategory } from "../../shared/types/SetCategory"
 import { TaskCurrentPlayerGender, TaskType } from "../game/state"
-import { SetCategory } from "./types/categories"
 
 export type EditSet = {
     _id?: string

@@ -1,22 +1,23 @@
 export enum SetCategory {
-    KIDS = 'Kids',
-    CLASSIC = 'Classic',
-    FRIENDSHIP = 'Friendship',
-    COUPLES = 'Couples',
-    SOFT = 'Soft',
-    PARTY = 'Party',
-    HOT = 'Hot',
-    SEXY = 'Sexy',
-    HARDCORE = 'Hardcore',
-    ONLYDARES = 'OnlyDares',
-    ONLYTRUTHS = 'OnlyTruths',
-    CRAZY = 'Crazy'
+    KIDS = 'kids',
+    CLASSIC = 'classic',
+    FRIENDSHIP = 'friendship',
+    COUPLES = 'couples',
+    SOFT = 'soft',
+    PARTY = 'party',
+    HOT = 'hot',
+    SEXY = 'sexy',
+    HARDCORE = 'hardcore',
+    ONLYDARES = 'onlydares',
+    ONLYTRUTHS = 'onlytruths',
+    CRAZY = 'crazy'
 }
 
 export enum ForegroundColor {
     LIGHT = "light",
     DARK = "dark"
 }
+
 export const categories: { [key in SetCategory]: {
     name: SetCategory
     background: string
