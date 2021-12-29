@@ -55,9 +55,9 @@ export const Register: React.FC = () => {
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
                             {(formik) => (
                                 <Form>
-                                    <Input formik={formik} field="email" id="register-email" type="email" placeholder="E-Mail" />
-                                    <Input formik={formik} field="username" id="register-username" type="text" placeholder="Username" />
-                                    <PasswordInput formik={formik} id="register-password" />
+                                    <Input formik={formik} autocomplete="email" field="email" id="register-email" type="email" placeholder="E-Mail" />
+                                    <Input formik={formik} autocomplete="username" field="username" id="register-username" type="text" placeholder="Username" />
+                                    <PasswordInput autocomplete="new-password" formik={formik} id="register-password" />
 
                                     <Button onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Register</Button>
                                 </Form>
