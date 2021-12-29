@@ -53,8 +53,8 @@ export const Login: React.FC = () => {
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
                             {(formik) => (
                                 <Form>
-                                    <Input formik={formik} field="email" id="login-email" type="email" placeholder="E-Mail" />
-                                    <PasswordInput formik={formik} id="login-password" />
+                                    <Input formik={formik} field="email" autocomplete="email" id="login-email" type="email" placeholder="E-Mail" />
+                                    <PasswordInput formik={formik} autocomplete="current-password" id="login-password" />
 
                                     <Button onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
                                 </Form>
