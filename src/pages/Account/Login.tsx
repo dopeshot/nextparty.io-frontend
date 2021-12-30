@@ -35,8 +35,8 @@ export const Login: React.FC = () => {
     }, [])
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100%', backgroundPosition: 'top' }}>
-            <IonHeader className="container ion-no-border my-4">
+        <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 172px', backgroundPosition: 'top' }}>
+            <IonHeader className="container ion-no-border my-1">
                 <IonToolbar color="transparent">
                     <IonButtons>
                         <IonBackButton className="text-white" icon={arrowBack} defaultHref="/account" />
@@ -44,28 +44,28 @@ export const Login: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent style={{ "--background": "transparent" }}>
-                <div className="bg-gradient-to-t from-background-black via-background-black h-32 xxs:h-56 xs:h-full">
-                    <div className="container flex flex-col items-center mb-14">
+                <div className='pb-10 bg-gradient-to-t from-background-black'>
+                    <div className="container flex flex-col items-center">
                         <h1 className="text-3xl text-white font-bold pb-4">Welcome back!</h1>
                         <p className="text-lightgrey">Enter your account details below</p>
                     </div>
+                </div>
 
-                    <div className='container'>
-                        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
-                            {(formik) => (
-                                <Form>
-                                    <Input formik={formik} field="email" hasLabel autocomplete="email" id="login-email" type="email" placeholder="E-Mail" />
-                                    <PasswordInput formik={formik} hasLabel autocomplete="current-password" id="login-password" />
+                <div className='container bg-background-black'>
+                    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
+                        {(formik) => (
+                            <Form>
+                                <Input formik={formik} field="email" hasLabel autocomplete="email" id="login-email" type="email" placeholder="E-Mail" />
+                                <PasswordInput formik={formik} hasLabel autocomplete="current-password" id="login-password" />
 
-                                    <Button keepFocus={true} loading={authenticating} onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
-                                </Form>
-                            )}
-                        </Formik>
+                                <Button keepFocus={true} loading={authenticating} onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
+                            </Form>
+                        )}
+                    </Formik>
 
-                        <Link to="#" className="block text-darkgray text-center my-4">Forgot your Password?</Link>
-                        <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
-                        <Button keepFocus={true} to="#" icon={google} className="mb-4">Continue with Google</Button>
-                    </div>
+                    <Link to="#" className="block text-darkgray text-center my-4">Forgot your Password?</Link>
+                    <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
+                    <Button keepFocus={true} to="#" icon={google} className="mb-4">Continue with Google</Button>
                 </div>
             </IonContent>
         </IonPage>
