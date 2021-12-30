@@ -1,7 +1,9 @@
 import { CogIcon } from "@heroicons/react/outline";
-import { IonContent, IonList, IonPage, IonProgressBar, useIonViewWillEnter } from "@ionic/react";
+import { RefresherEventDetail } from "@ionic/core";
+import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonViewWillEnter } from "@ionic/react";
 import example from '../../assets/example.png';
 import plus from '../../assets/icons/plus.svg';
+import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
 import { CountItem } from "../../components/Profile/CountItem";
 import { SetItem } from "../../components/SetItem/SetItem";
@@ -14,23 +16,33 @@ export const Profile: React.FC = () => {
     const { currentUser, isLoadingSets, sets } = useAppState().profile
     const { getSetsByUser } = useActions().profile
 
+    const getSets = async (event?: CustomEvent<RefresherEventDetail>) => {
+        await getSetsByUser()
+
+        animateValue(document.querySelector("#truths"), 0, sets.truthCount, 800)
+        animateValue(document.querySelector("#dares.count-number"), 0, sets.dareCount, 800)
+        animateValue(document.querySelector("#sets.count-number"), 0, sets.setCount, 800)
+        animateValue(document.querySelector("#total-played.count-number"), 0, sets.playedCount, 800)
+
+        if (event) event.detail.complete()
+    }
+
     useIonViewWillEnter(() => {
         setSeoTitle('Profile')
-
-        const getSets = async () => {
-            await getSetsByUser()
-
-            animateValue(document.querySelector("#truths"), 0, sets.truthCount, 800)
-            animateValue(document.querySelector("#dares.count-number"), 0, sets.dareCount, 800)
-            animateValue(document.querySelector("#sets.count-number"), 0, sets.setCount, 800)
-            animateValue(document.querySelector("#total-played.count-number"), 0, sets.playedCount, 800)
-        }
         getSets()
     }, [])
+
+    const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+        getSets(event)
+    }
 
     return (
         <IonPage className="bg-background-black">
             <IonContent>
+                <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+                    <IonRefresherContent pullingIcon={refresh}
+                        refreshingSpinner="circles" />
+                </IonRefresher>
                 <div className="ion-no-border bg-cover mb-4" style={{ backgroundImage: `url(${example})` }}>
                     <div className="bg-gradient-to-t from-background-black w-full h-full">
                         <div className="container">
