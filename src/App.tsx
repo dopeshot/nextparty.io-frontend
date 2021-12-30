@@ -9,8 +9,8 @@ import { Redirect, Route } from 'react-router-dom';
 import { GuestRoute } from './components/Routes/GuestRoute';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
 import { useAppState } from './overmind';
+import { GuestLanding } from './pages/Account/GuestLanding';
 import { Login } from './pages/Account/Login';
-import { NotLoggedInProfile } from './pages/Account/NotLoggedInProfile';
 import { Profile } from './pages/Account/Profile';
 import { Register } from './pages/Account/Register';
 import { Explore } from './pages/Explore/Explore';
@@ -34,7 +34,7 @@ export const App: React.FC = () => {
                     <Route exact path="/game" component={Game} />
                     <Route exact path="/explore" component={Explore} />
                     <Route exact path="/explore/:setId" component={SetDetails} />
-                    <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={NotLoggedInProfile} />
+                    <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={GuestLanding} />
                     <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
                     <GuestRoute exact path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
                     <PrivateRoute exact path="/account/profile" component={Profile} />

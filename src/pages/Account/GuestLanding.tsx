@@ -7,7 +7,7 @@ import google from '../../assets/icons/google.svg';
 import { Button } from "../../components/Buttons/Button";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
-export const NotLoggedInProfile: React.FC = () => {
+export const GuestLanding: React.FC = () => {
     useIonViewWillEnter(() => {
         setSeoTitle('Account')
     }, [])
@@ -44,9 +44,9 @@ export const NotLoggedInProfile: React.FC = () => {
                     </IonList>
 
                     <Button keepFocus={false} to="#" icon={google} className="mb-4">Continue with Google</Button>
-                    <Button keepFocus={true} to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
+                    <Button dataCy="guestlanding-signup-button" keepFocus={true} to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
 
-                    <Link className="block text-darkgray text-center" to="/account/login">Login instead</Link>
+                    <Link data-cy="guestlanding-login-link" className="block text-darkgray text-center" to="/account/login">Login instead</Link>
                 </div>
             </IonContent>
         </IonPage>

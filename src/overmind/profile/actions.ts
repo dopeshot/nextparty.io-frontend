@@ -68,6 +68,8 @@ export const getSetsByUser = async ({ state, effects }: Context) => {
 * Only Testing
 */
 export const setTestUser = ({ state }: Context) => {
+    state.profile.accessToken = "blabal"
+
     state.profile.currentUser = {
         username: 'Hello',
         sub: '61a7f1045d991051b395a595',
@@ -131,4 +133,12 @@ export const setTestUser = ({ state }: Context) => {
                 "name": "Sex"
             }
         ]
+}
+
+/*
+* Only Testing
+*/
+export const resetTestUser = ({ state }: Context) => {
+    state.profile.currentUser = null
+    state.profile.sets.data = null
 }
