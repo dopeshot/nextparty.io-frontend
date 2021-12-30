@@ -8,6 +8,7 @@ type PasswordInputProps = {
     formik: FormikProps<any>
     id: string
     autocomplete: AutocompleteTypes
+    hasLabel?: boolean
 }
 
 export const PasswordInput: React.FC<PasswordInputProps> = (props) => {
@@ -16,7 +17,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = (props) => {
 
     return (
         <>
-            <label htmlFor={props.id}>Password</label>
+            {props.hasLabel ? <label htmlFor={props.id}>Password</label> : <></>}
             <div className="relative flex flex-col mb-4">
                 <button type="button" onClick={() => setShowPassword(!showPassword)}>
                     {showPassword ? <EyeIcon className="absolute top-3 left-auto right-5 w-6 h-6" /> : <EyeOffIcon className="absolute top-3 left-auto right-5 w-6 h-6" />}
