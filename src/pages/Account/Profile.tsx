@@ -1,7 +1,8 @@
 import { CogIcon } from "@heroicons/react/outline";
 import { RefresherEventDetail } from "@ionic/core";
-import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonViewWillEnter } from "@ionic/react";
+import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonViewWillEnter } from "@ionic/react";
 import example from '../../assets/example.png';
+import signout from '../../assets/icons/logout.svg';
 import plus from '../../assets/icons/plus.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
@@ -14,7 +15,8 @@ import { animateValue } from "../../services/utilities/utilities";
 
 export const Profile: React.FC = () => {
     const { currentUser, isLoadingSets, sets } = useAppState().profile
-    const { getSetsByUser } = useActions().profile
+    const { getSetsByUser, logout } = useActions().profile
+    const [present, dismiss] = useIonActionSheet()
 
     const getSets = async (event?: CustomEvent<RefresherEventDetail>) => {
         await getSetsByUser()
@@ -51,7 +53,7 @@ export const Profile: React.FC = () => {
                                     <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `url(${example})`, minWidth: "100px" }}></div>
                                     <h1 className="text-2xl text-white font-bold break-all px-4 pb-4">{currentUser?.username}</h1>
                                 </div>
-                                <button>
+                                <button onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => logout() }], header: 'Settings' })}>
                                     <CogIcon className="w-6 h-6" />
                                 </button>
                             </div>
