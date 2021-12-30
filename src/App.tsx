@@ -56,7 +56,7 @@ export const App: React.FC = () => {
                         <UsersIcon className='h-6 w-6' />
                         <IonLabel>Player</IonLabel>
                     </IonTabButton>
-                    <IonTabButton data-cy="app-nav-player" tab="account" href="/account" className="bg-black">
+                    <IonTabButton data-cy="app-nav-profile" tab="account" href="/account" className="bg-black">
                         <UserIcon className='h-6 w-6' />
                         <IonLabel>Profil</IonLabel>
                     </IonTabButton>
