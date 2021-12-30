@@ -25,7 +25,7 @@ export const PlayerInput: React.FC<{ player: Player, isAllowedToDelete: boolean,
                     player.gender === Gender.DIVERS && <IconButton dataCy="player-input-gender-diverse-button" icon={divers} className="bg-white" onClick={() => { setPlayerGender({ id: player.id, gender: Gender.FEMALE }) }} />
                 }
             </IonButtons>
-            <IonInput placeholder="Enter a name" maxlength={playerNameLength} value={player.name} onIonChange={(event: CustomEvent) => {
+            <IonInput autocomplete="off" placeholder="Enter a name" maxlength={playerNameLength} value={player.name} onIonChange={(event: CustomEvent) => {
                 updatePlayerName({ id: player.id, name: event.detail.value })
             }} onKeyDown={handleKeyDown}>
             </IonInput>

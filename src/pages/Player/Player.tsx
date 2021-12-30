@@ -39,7 +39,7 @@ export const Player: React.FC = () => {
                             <PlayerInput dataCy={`player-input-${index}`} key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
                         ))}
                     </IonList>
-                    <Button type="button" dataCy='player-add-button' onClick={() => addPlayer()} icon={useradd}>Add player</Button>
+                    <Button keepFocus={true} type="button" dataCy='player-add-button' onClick={() => addPlayer()} icon={useradd}>Add player</Button>
                 </div>
                 <div className="container">
                     <IonList lines="none">

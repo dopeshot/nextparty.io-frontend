@@ -59,14 +59,14 @@ export const Register: React.FC = () => {
                                     <Input formik={formik} autocomplete="username" field="username" id="register-username" type="text" placeholder="Username" />
                                     <PasswordInput autocomplete="new-password" formik={formik} id="register-password" />
 
-                                    <Button onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Register</Button>
+                                    <Button keepFocus={true} onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Register</Button>
                                 </Form>
                             )}
                         </Formik>
 
                         <Link to="/account/login" className="block text-darkgray text-center my-4">Login insted</Link>
                         <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
-                        <Button to="#" icon={google} className="mb-4">Continue with Google</Button>
+                        <Button keepFocus={false} to="#" icon={google} className="mb-4">Continue with Google</Button>
                     </div>
                 </div>
             </IonContent>

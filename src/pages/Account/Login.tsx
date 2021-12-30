@@ -56,14 +56,14 @@ export const Login: React.FC = () => {
                                     <Input formik={formik} field="email" autocomplete="email" id="login-email" type="email" placeholder="E-Mail" />
                                     <PasswordInput formik={formik} autocomplete="current-password" id="login-password" />
 
-                                    <Button onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
+                                    <Button keepFocus={true} onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
                                 </Form>
                             )}
                         </Formik>
 
                         <Link to="#" className="block text-darkgray text-center my-4">Forgot your Password?</Link>
                         <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
-                        <Button to="#" icon={google} className="mb-4">Continue with Google</Button>
+                        <Button keepFocus={true} to="#" icon={google} className="mb-4">Continue with Google</Button>
                     </div>
                 </div>
             </IonContent>

@@ -86,7 +86,7 @@ export const Editor: React.FC = () => {
                             </IonItem>
                         </IonList>
 
-                        <Button onClick={() => null} type="submit" disabled={!(formik.dirty && formik.isValid)}>Create</Button>
+                        <Button keepFocus={true} onClick={() => null} type="submit" disabled={!(formik.dirty && formik.isValid)}>Create</Button>
                     </Form>
                 }
                 </Formik>

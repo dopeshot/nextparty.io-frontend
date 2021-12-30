@@ -43,8 +43,8 @@ export const NotLoggedInProfile: React.FC = () => {
                         </IonItem>
                     </IonList>
 
-                    <Button to="#" icon={google} className="mb-4">Continue with Google</Button>
-                    <Button to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
+                    <Button keepFocus={false} to="#" icon={google} className="mb-4">Continue with Google</Button>
+                    <Button keepFocus={true} to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
 
                     <Link className="block text-darkgray text-center" to="/account/login">Login instead</Link>
                 </div>
