@@ -5,7 +5,7 @@ import female from '../../assets/icons/female.svg';
 import male from '../../assets/icons/male.svg';
 import useradd from '../../assets/icons/useradd.svg';
 import { Button } from '../../components/Buttons/Button';
-import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
+import { PlayerInput } from '../../components/Forms/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
