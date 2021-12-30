@@ -9,11 +9,12 @@ import loginicon from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
 import { Input } from '../../components/Forms/Input';
 import { PasswordInput } from '../../components/Forms/PasswordInput';
-import { useActions } from '../../overmind';
+import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Login: React.FC = () => {
     const { login } = useActions().profile
+    const { authenticating } = useAppState().profile
 
     const initialValues = {
         email: "",
@@ -56,7 +57,7 @@ export const Login: React.FC = () => {
                                     <Input formik={formik} field="email" autocomplete="email" id="login-email" type="email" placeholder="E-Mail" />
                                     <PasswordInput formik={formik} autocomplete="current-password" id="login-password" />
 
-                                    <Button keepFocus={true} onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
+                                    <Button keepFocus={true} loading={authenticating} onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
                                 </Form>
                             )}
                         </Formik>

@@ -57,7 +57,7 @@ export const Profile: React.FC = () => {
                                     <h2 className="text-lg font-semibold">Your Sets</h2>
                                     <Button keepFocus={false} type="button" to="#" icon={plus} className="px-7">New</Button>
                                 </div>
-                                {isLoadingSets ? (<IonProgressBar data-cy="explore-progress-bar" type="indeterminate" />) : (
+                                {isLoadingSets ? (<IonProgressBar type="indeterminate" className="mt-5" />) : (
                                     <div>
                                         <IonList>
                                             {sets.data?.length !== 0 && sets.data?.map((set: Set) => (
