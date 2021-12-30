@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 
 COPY --from=prod /usr/src/app/build /usr/share/nginx/html
 
-COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 ## add permissions for nginx user as using root is not a good idea
 RUN chown -R nginx:nginx /usr/src/app && chmod -R 755 /usr/src/app && \
