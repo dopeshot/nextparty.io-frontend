@@ -76,6 +76,7 @@ export const state: State = {
         "truthCount": 0,
         "played": 0,
         "language": "de",
+        "category": "classic",
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
             "username": "Zoe"

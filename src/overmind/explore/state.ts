@@ -7,6 +7,7 @@ export type Set = {
         _id: string
         username: string
     }
+    category: string
     language: string
     name: string
 }
