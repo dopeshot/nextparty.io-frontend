@@ -28,8 +28,8 @@ export const Register: React.FC = () => {
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email().required("email is required"),
-        username: Yup.string().min(3, "username must be at least 3 characters long").max(20, "username cannot be longer than 20 characters").required("username is required"),
-        password: Yup.string().min(8, "password must be at least 8 characters long").max(32, "password cannot be longer than 32 characters").required("password is required")
+        username: Yup.string().min(3, "username must be at least 3 characters long").max(24, "username cannot be longer than 24 characters").required("username is required"),
+        password: Yup.string().min(8, "password must be at least 8 characters long").max(124, "password cannot be longer than 124 characters").required("password is required")
     })
 
     useIonViewWillEnter(() => {
@@ -41,7 +41,7 @@ export const Register: React.FC = () => {
             <IonHeader className="container ion-no-border my-1">
                 <IonToolbar color="transparent">
                     <IonButtons>
-                        <IonBackButton className="text-white" icon={arrowBack} defaultHref="/explore" />
+                        <IonBackButton className="text-white" icon={arrowBack} defaultHref="/account" />
                     </IonButtons>
                 </IonToolbar>
             </IonHeader>

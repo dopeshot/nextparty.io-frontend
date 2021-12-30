@@ -39,7 +39,7 @@ export const Login: React.FC = () => {
             <IonHeader className="container ion-no-border my-4">
                 <IonToolbar color="transparent">
                     <IonButtons>
-                        <IonBackButton className="text-white" icon={arrowBack} defaultHref="/explore" />
+                        <IonBackButton className="text-white" icon={arrowBack} defaultHref="/account" />
                     </IonButtons>
                 </IonToolbar>
             </IonHeader>
