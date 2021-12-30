@@ -72,8 +72,8 @@ export const Editor: React.FC = () => {
                         <IonList>
                             <IonItem>
                                 <IonButtons slot="start">
-                                    <IconButton icon={female} onClick={() => console.log("Hello world!")} />
-                                    <IconButton icon={female} onClick={() => console.log("Hello world!")} />
+                                    <IconButton icon={female} onClick={() => console.log("Hello world!")} className="bg-red-500" />
+                                    <IconButton icon={female} onClick={() => console.log("Hello world!")} className="bg-green-500" />
                                 </IonButtons>
                                 <IonInput />
 

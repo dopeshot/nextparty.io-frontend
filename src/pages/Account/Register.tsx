@@ -37,7 +37,7 @@ export const Register: React.FC = () => {
     }, [])
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-background-black " style={{ backgroundImage: `url('${example}')`, backgroundSize: '100%', backgroundPosition: 'top' }}>
+        <IonPage className="bg-center bg-no-repeat bg-background-black " style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 172px', backgroundPosition: 'top' }}>
             <IonHeader className="container ion-no-border my-1">
                 <IonToolbar color="transparent">
                     <IonButtons>
@@ -46,29 +46,29 @@ export const Register: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent style={{ "--background": "transparent" }}>
-                <div className="bg-gradient-to-t from-background-black via-background-black h-32 xxs:h-56 xs:h-full">
-                    <div className="container flex flex-col items-center mb-10">
+                <div className='pb-10 bg-gradient-to-t from-background-black'>
+                    <div className="container flex flex-col items-center">
                         <h1 className="text-3xl text-white font-bold pb-4">Create an account</h1>
                         <p className="text-lightgrey">Enter your account details below</p>
                     </div>
+                </div>
 
-                    <div className='container'>
-                        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
-                            {(formik) => (
-                                <Form>
-                                    <Input dataCy="register-email-input" formik={formik} autocomplete="email" hasLabel field="email" id="register-email" type="email" placeholder="E-Mail" />
-                                    <Input dataCy="register-username-input" formik={formik} autocomplete="username" hasLabel field="username" id="register-username" type="text" placeholder="Username" />
-                                    <PasswordInput dataCy="register-password-input" autocomplete="new-password" hasLabel formik={formik} id="register-password" />
+                <div className='container bg-background-black'>
+                    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
+                        {(formik) => (
+                            <Form>
+                                <Input dataCy="register-email-input" formik={formik} autocomplete="email" hasLabel field="email" id="register-email" type="email" placeholder="E-Mail" />
+                                <Input dataCy="register-username-input" formik={formik} autocomplete="username" hasLabel field="username" id="register-username" type="text" placeholder="Username" />
+                                <PasswordInput dataCy="register-password-input" autocomplete="new-password" hasLabel formik={formik} id="register-password" />
 
-                                    <Button dataCy="register-button" keepFocus={true} loading={authenticating} onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Register</Button>
-                                </Form>
-                            )}
-                        </Formik>
+                                <Button dataCy="register-button" keepFocus={true} loading={authenticating} onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Register</Button>
+                            </Form>
+                        )}
+                    </Formik>
 
-                        <Link data-cy="register-login-link" to="/account/login" className="block text-darkgray text-center my-4">Login insted</Link>
-                        <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
-                        <Button keepFocus={false} to="#" icon={google} className="mb-4">Continue with Google</Button>
-                    </div>
+                    <Link data-cy="register-login-link" to="/account/login" className="block text-darkgray text-center my-4">Login insted</Link>
+                    <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
+                    <Button keepFocus={false} to="#" icon={google} className="mb-4">Continue with Google</Button>
                 </div>
             </IonContent>
         </IonPage>
