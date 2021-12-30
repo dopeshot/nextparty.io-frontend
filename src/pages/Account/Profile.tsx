@@ -3,6 +3,7 @@ import { IonContent, IonList, IonPage, IonProgressBar, useIonViewWillEnter } fro
 import example from '../../assets/example.png';
 import plus from '../../assets/icons/plus.svg';
 import { Button } from "../../components/Buttons/Button";
+import { CountItem } from "../../components/Profile/CountItem";
 import { SetItem } from "../../components/SetItem/SetItem";
 import { useActions, useAppState } from "../../overmind";
 import { Set } from "../../overmind/explore/state";
@@ -34,22 +35,10 @@ export const Profile: React.FC = () => {
                             </div>
 
                             <div className="flex justify-around mb-12 md:mb-20">
-                                <div className="text-center">
-                                    <p className="font-semibold">{sets.truthCount}</p>
-                                    <p>Truths</p>
-                                </div>
-                                <div className="text-center">
-                                    <p className="font-semibold">{sets.dareCount}</p>
-                                    <p>Dares</p>
-                                </div>
-                                <div className="text-center">
-                                    <p className="font-semibold">{sets.setCount}</p>
-                                    <p>Sets</p>
-                                </div>
-                                <div className="text-center">
-                                    <p className="font-semibold">{sets.playedCount}</p>
-                                    <p>Total played</p>
-                                </div>
+                                <CountItem number={sets.truthCount} name="Truths" />
+                                <CountItem number={sets.dareCount} name="Dares" />
+                                <CountItem number={sets.setCount} name="Sets" />
+                                <CountItem number={sets.playedCount} name="Total played" />
                             </div>
 
                             <div>
