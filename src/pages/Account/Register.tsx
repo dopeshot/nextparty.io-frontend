@@ -56,16 +56,16 @@ export const Register: React.FC = () => {
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
                             {(formik) => (
                                 <Form>
-                                    <Input formik={formik} autocomplete="email" hasLabel field="email" id="register-email" type="email" placeholder="E-Mail" />
-                                    <Input formik={formik} autocomplete="username" hasLabel field="username" id="register-username" type="text" placeholder="Username" />
-                                    <PasswordInput autocomplete="new-password" hasLabel formik={formik} id="register-password" />
+                                    <Input dataCy="register-email-input" formik={formik} autocomplete="email" hasLabel field="email" id="register-email" type="email" placeholder="E-Mail" />
+                                    <Input dataCy="register-username-input" formik={formik} autocomplete="username" hasLabel field="username" id="register-username" type="text" placeholder="Username" />
+                                    <PasswordInput dataCy="register-password-input" autocomplete="new-password" hasLabel formik={formik} id="register-password" />
 
-                                    <Button keepFocus={true} loading={authenticating} onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Register</Button>
+                                    <Button dataCy="register-button" keepFocus={true} loading={authenticating} onClick={() => null} icon={login} type="submit" disabled={!(formik.dirty && formik.isValid)}>Register</Button>
                                 </Form>
                             )}
                         </Formik>
 
-                        <Link to="/account/login" className="block text-darkgray text-center my-4">Login insted</Link>
+                        <Link data-cy="register-login-link" to="/account/login" className="block text-darkgray text-center my-4">Login insted</Link>
                         <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
                         <Button keepFocus={false} to="#" icon={google} className="mb-4">Continue with Google</Button>
                     </div>

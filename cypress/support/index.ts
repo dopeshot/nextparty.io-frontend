@@ -23,6 +23,24 @@ declare global {
              * @getOneSet cy.overmind()
              */
             overmind(): Chainable
+
+            /**
+             * Custom command to intercept login
+             * @getOneSet cy.login()
+             */
+            login(): void
+
+            /**
+             * Custom command to intercept register
+             * @getOneSet cy.register()
+             */
+            register(): void
+
+            /**
+             * Custom command to intercept getSetsFromUser
+             * @getOneSet cy.getSetsFromUser()
+             */
+            getSetsFromUser(): void
         }
     }
 }

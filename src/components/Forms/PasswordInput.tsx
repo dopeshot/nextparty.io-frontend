@@ -9,6 +9,7 @@ type PasswordInputProps = {
     id: string
     autocomplete: AutocompleteTypes
     hasLabel?: boolean
+    dataCy?: string
 }
 
 export const PasswordInput: React.FC<PasswordInputProps> = (props) => {
@@ -22,7 +23,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = (props) => {
                 <button type="button" onClick={() => setShowPassword(!showPassword)}>
                     {showPassword ? <EyeIcon className="absolute top-3 left-auto right-5 w-6 h-6" /> : <EyeOffIcon className="absolute top-3 left-auto right-5 w-6 h-6" />}
                 </button>
-                <Field type={showPassword ? "text" : "password"} name="password" id={props.id} placeholder="Password" autoComplete={props.autocomplete} className={`rounded pl-4 py-3 mt-1 ${props.formik.errors.password && props.formik.touched.password ? "border-2 border-red-400 focus:outline-none mb-2" : ""}`} />
+                <Field data-cy={props.dataCy} type={showPassword ? "text" : "password"} name="password" id={props.id} placeholder="Password" autoComplete={props.autocomplete} className={`rounded pl-4 py-3 mt-1 ${props.formik.errors.password && props.formik.touched.password ? "border-2 border-red-400 focus:outline-none mb-2" : ""}`} />
                 <ErrorInput field="password" />
             </div>
         </>
