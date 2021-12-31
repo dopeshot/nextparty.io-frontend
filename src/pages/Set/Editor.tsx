@@ -1,5 +1,5 @@
 import { ChevronDownIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonModal, IonPage, IonRadio, IonRadioGroup, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useState } from "react";
@@ -39,22 +39,20 @@ export const Editor: React.FC = () => {
         visibility: Yup.string().oneOf(Object.values(Visibility)).required()
     })
 
-    const initialValuesTask: Task = {
+    const initialValuesTask = {
         message: "",
         type: TaskType.TRUTH,
         currentPlayerGender: TaskCurrentPlayerGender.ANYONE,
-        _id: ""
     }
 
-    const submitFormTask = (values: Task) => {
+    const submitFormTask = (values: typeof initialValuesTask) => {
         console.log(values)
     }
 
     const validationSchemaTask = Yup.object().shape({
-        message: Yup.string().min(3).max(280).required(),
+        message: Yup.string().min(10).max(280).required(),
         type: Yup.string().oneOf(Object.values(TaskType)).required(),
-        currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required(),
-        _id: Yup.string().required()
+        currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required()
     })
 
     const [showThemePicker, setShowThemePicker] = useState(false);
@@ -187,28 +185,6 @@ export const Editor: React.FC = () => {
                                 </div>)}
 
                             </div>
-
-                            {/** Task Editor Modal */}
-                            <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
-                                <IonHeader>
-                                    <IonToolbar>
-                                        <IonTitle>Create / Edit Task</IonTitle>
-                                        <IonButtons slot="end">
-                                            <IonButton onClick={() => setShowTaskEditor(false)}>Close</IonButton>
-                                        </IonButtons>
-                                    </IonToolbar>
-                                </IonHeader>
-
-                                <IonContent>
-                                    <Formik initialValues={initialValuesTask} validationSchema={validationSchemaTask} onSubmit={submitFormTask}>{(formik) =>
-                                        <Form className="container mt-4 mb-8">
-                                            <div>
-                                                <Input hasLabel={true} formik={formik} field="message" id="message" type="text" placeholder="Write message" autocomplete="on" />
-                                            </div>
-                                        </Form>
-                                    }</Formik>
-                                </IonContent>
-                            </IonModal>
                         </> : <>
                             <p>Start creating Tasks!</p>
                             <Button onClick={() => {
@@ -217,7 +193,54 @@ export const Editor: React.FC = () => {
                             }}>Create Task</Button>
                         </>
                     }
+                    {/** Task Editor Modal */}
+                    <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
+                        <IonHeader>
+                            <IonToolbar>
+                                <IonTitle>Create / Edit Task</IonTitle>
+                                <IonButtons slot="end">
+                                    <IonButton onClick={() => setShowTaskEditor(false)}>Close</IonButton>
+                                </IonButtons>
+                            </IonToolbar>
+                        </IonHeader>
 
+                        <IonContent>
+                            <Formik initialValues={initialValuesTask} validationSchema={validationSchemaTask} onSubmit={submitFormTask}>{(formik) =>
+                                <Form className="container mt-4 mb-8">
+                                    <div>
+                                        <Input hasLabel={true} formik={formik} field="message" id="message" type="text" placeholder="Write message" autocomplete="on" />
+                                        <IonToggle mode="ios" checked={formik.values.type === TaskType.TRUTH} onIonChange={(e) => formik.setFieldValue('type', e.detail.checked ? TaskType.TRUTH : TaskType.DARE)} />
+                                        <span>{formik.values.type}</span>
+                                        <IonList>
+                                            <IonRadioGroup value={formik.values.currentPlayerGender} onIonChange={(e) => formik.setFieldValue('currentPlayerGender', e.detail.value)}>
+                                                <IonListHeader>
+                                                    <IonLabel>Name</IonLabel>
+                                                </IonListHeader>
+
+                                                <IonItem>
+                                                    <IonLabel>Anyone</IonLabel>
+                                                    <IonRadio slot="start" value="@ca" />
+                                                </IonItem>
+
+                                                <IonItem>
+                                                    <IonLabel>Male</IonLabel>
+                                                    <IonRadio slot="start" value="@cm" />
+                                                </IonItem>
+
+                                                <IonItem>
+                                                    <IonLabel>Female</IonLabel>
+                                                    <IonRadio slot="start" value="@cf" />
+                                                </IonItem>
+                                            </IonRadioGroup>
+                                        </IonList>
+                                        <Button type="submit" onClick={() => {
+
+                                        }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
+                                    </div>
+                                </Form>
+                            }</Formik>
+                        </IonContent>
+                    </IonModal>
                 </div>
             </main>
         </IonContent>

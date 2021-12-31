@@ -8,7 +8,7 @@ import { Visibility } from '../../shared/enums/Visibility';
 import { SetCategory } from '../../shared/types/SetCategory';
 import { Set } from '../explore/state';
 import { playerRequiredToPlay } from "../players/state";
-import { GameStatus, PlayTask, StartGameErrors, TaskType } from "./state";
+import { GameStatus, PlayTask, StartGameErrors, TaskCurrentPlayerGender, TaskType } from "./state";
 
 export const launchGame = ({ actions }: Context, history: History) => {
     const isPossibleToPlay = actions.game.isPossibleToPlay()
@@ -232,7 +232,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "name": "Only Truths",
         "tasks": [
             {
-                "currentPlayerGender": "@ca",
+                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
                 "_id": "61a7bd4c08c2192fcff614d0",
                 "type": TaskType.TRUTH,
                 "message": "Wann hattest du das letzte mal Sex?",
@@ -244,7 +244,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
                 "playedBy": []
             },
             {
-                "currentPlayerGender": "@ca",
+                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
                 "_id": "61a7bd4c08c2192fcff614d1",
                 "type": TaskType.TRUTH,
                 "message": "Wie viele Partner*innen hattest du bis jetzt?",
@@ -273,7 +273,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "name": "Only Dares",
         "tasks": [
             {
-                "currentPlayerGender": "@ca",
+                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
                 "_id": "61a7bd4c08c2192fcff614d0",
                 "type": TaskType.DARE,
                 "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @a's Pobacke",
@@ -285,7 +285,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
                 "playedBy": []
             },
             {
-                "currentPlayerGender": "@cf",
+                "currentPlayerGender": TaskCurrentPlayerGender.FEMALE,
                 "_id": "61a7bd4c08c2192fcff614d1",
                 "type": TaskType.DARE,
                 "message": "Präsentiere, wie du eine einen Mann anmachen würdest",
@@ -314,7 +314,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "name": "Versaut",
         "tasks": [
             {
-                "currentPlayerGender": "@ca",
+                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
                 "_id": "61a7bd4c08c2192fcff614d0",
                 "type": TaskType.DARE,
                 "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @a's Pobacke",
@@ -326,7 +326,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
                 "playedBy": []
             },
             {
-                "currentPlayerGender": "@ca",
+                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
                 "_id": "61a7bd4c08c2192fcff614d1",
                 "type": TaskType.TRUTH,
                 "message": "Wie viele Partner*innen hattest du bis jetzt?",
@@ -355,7 +355,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "name": "Long Message",
         "tasks": [
             {
-                "currentPlayerGender": "@ca",
+                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
                 "_id": "61a7bd4c08c2192fcff614d0",
                 "type": TaskType.DARE,
                 "message": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,",
@@ -367,7 +367,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
                 "playedBy": []
             },
             {
-                "currentPlayerGender": "@ca",
+                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
                 "_id": "61a7bd4c08c2192fcff614d1",
                 "type": TaskType.TRUTH,
                 "message": "Wie viele Partner*innen hattest du bis jetzt?",
