@@ -18,7 +18,7 @@ import { languagePickerOptions, languages } from "../../shared/types/Language";
 import { categories, categoriesList, ForegroundColor, SetCategory } from "../../shared/types/SetCategory";
 
 export const Editor: React.FC = () => {
-    const { submitSet, addTask } = useActions().creative
+    const { submitSet, addTask, updateTask } = useActions().creative
     const { isLoading, isEdit, isNew, set } = useAppState().creative
 
     const initialValuesSet = {
@@ -50,7 +50,14 @@ export const Editor: React.FC = () => {
             console.error("There is no id for this set created yet.")
             return
         }
-        addTask({ setId: set._id, task: values })
+        if (editData && editData._id) {
+            updateTask({ setId: set._id, taskId: editData._id, task: values })
+            setEditData(null)
+        }
+        else
+            addTask({ setId: set._id, task: values })
+
+        setShowTaskEditor(false)
     }
 
     const validationSchemaTask = Yup.object().shape({
@@ -210,7 +217,11 @@ export const Editor: React.FC = () => {
                         </IonHeader>
 
                         <IonContent>
-                            <Formik initialValues={initialValuesTask} validationSchema={validationSchemaTask} onSubmit={submitFormTask}>{(formik) =>
+                            <Formik initialValues={editData ? {
+                                message: editData.message,
+                                type: editData.type,
+                                currentPlayerGender: editData.currentPlayerGender,
+                            } : initialValuesTask} validationSchema={validationSchemaTask} onSubmit={submitFormTask}>{(formik) =>
                                 <Form className="container mt-4 mb-8">
                                     <div>
                                         <Input hasLabel={true} formik={formik} field="message" id="message" type="text" placeholder="Write message" autocomplete="on" />
@@ -237,7 +248,7 @@ export const Editor: React.FC = () => {
                                         }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
                                     </div>
                                 </Form>
-                            }</Formik>
+                                }</Formik>
                         </IonContent>
                     </IonModal>
                 </div>

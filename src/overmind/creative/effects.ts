@@ -19,3 +19,4 @@ export type TaskDto = {
 export const createSet = (set: SetDto) => request.post<any>('/set', set)
 export const updateSet = (setId: string, set: SetDto) => request.patch<any>(`/set/${setId}`, set)
 export const addTask = (setId: string, task: TaskDto) => request.post<Task>(`/set/${setId}/task`, task)
+export const updateTask = (setId: string, taskId: string, task: TaskDto) => request.put<any>(`/set/${setId}/task/${taskId}`, task)

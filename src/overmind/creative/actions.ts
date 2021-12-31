@@ -64,3 +64,26 @@ export const addTask = async ({ state, effects }: Context, {
         console.error(error)
     }
 }
+
+export const updateTask = async ({ state, effects }: Context, {
+    setId,
+    taskId,
+    task
+}: { setId: string, taskId: string, task: TaskDto }) => {
+    if (!state.creative.set) {
+        console.error("set is not set")
+        return
+    }
+
+    try {
+        const response = await effects.creative.updateTask(setId, taskId, task)
+        console.log(response)
+        let updatedTaskIndex = state.creative.set.tasks.findIndex(task => task._id === taskId)
+        state.creative.set.tasks[updatedTaskIndex] = {
+            ...state.creative.set.tasks[updatedTaskIndex],
+            ...task
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}
