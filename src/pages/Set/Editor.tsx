@@ -18,7 +18,7 @@ import { languagePickerOptions, languages } from "../../shared/types/Language";
 import { categories, categoriesList, ForegroundColor, SetCategory } from "../../shared/types/SetCategory";
 
 export const Editor: React.FC = () => {
-    const { submitSet } = useActions().creative
+    const { submitSet, addTask } = useActions().creative
     const { isLoading, isEdit, isNew, set } = useAppState().creative
 
     const initialValuesSet = {
@@ -46,7 +46,11 @@ export const Editor: React.FC = () => {
     }
 
     const submitFormTask = (values: typeof initialValuesTask) => {
-        console.log(values)
+        if (!set || !set._id) {
+            console.error("There is no id for this set created yet.")
+            return
+        }
+        addTask({ setId: set._id, task: values })
     }
 
     const validationSchemaTask = Yup.object().shape({
@@ -187,12 +191,13 @@ export const Editor: React.FC = () => {
                             </div>
                         </> : <>
                             <p>Start creating Tasks!</p>
-                            <Button onClick={() => {
-                                console.log("clicked")
-                                setShowTaskEditor(true)
-                            }}>Create Task</Button>
                         </>
                     }
+                    <Button onClick={() => {
+                        console.log("clicked")
+                        setShowTaskEditor(true)
+                    }}>Create Task</Button>
+
                     {/** Task Editor Modal */}
                     <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
                         <IonHeader>

@@ -1,5 +1,5 @@
 import { Context } from ".."
-import { SetDto } from "./effects"
+import { SetDto, TaskDto } from "./effects"
 
 export const createNewSet = async ({ state }: Context) => {
     state.creative.isLoading = true
@@ -50,4 +50,17 @@ export const submitSet = async ({ state, effects }: Context, set: SetDto) => {
     }
 
     state.creative.isLoading = false
+}
+
+
+export const addTask = async ({ state, effects }: Context, {
+    setId,
+    task
+}: { setId: string, task: TaskDto }) => {
+    try {
+        const response = await effects.creative.addTask(setId, task)
+        state.creative.set?.tasks.push(response.data)
+    } catch (error) {
+        console.error(error)
+    }
 }
