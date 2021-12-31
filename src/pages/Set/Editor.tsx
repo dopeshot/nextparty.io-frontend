@@ -141,43 +141,50 @@ export const Editor: React.FC = () => {
                     }
                     </Formik>
                     {/** Tasks */}
-                    <h2 className="text-2xl">Tasks</h2>
-                    <p className="text-itemactivegrey">12 Truth - 23 Dare</p>
-                    <div>
-                        {set?.tasks.map(set => <div key={set._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
-                            <button onClick={() => setShowTaskEditor(true)} className="flex items-center flex-grow min-w-0">
-                                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                    <span className="text-xl">{set.type}</span>
-                                </div>
-                                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                    <span className="text-xl">{replaceCurrentPlayerStringWithIcon(set.currentPlayerGender)}</span>
-                                </div>
-                                <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{set.message}</p>
-                            </button>
-                            <button onClick={() => console.log("delete item")} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
-                                <XIcon className="w-6 h-6" />
-                            </button>
-                        </div>)}
+                    {
+                        set?.tasks && set.tasks.length !== 0 ? <>
+                            <h2 className="text-2xl">Tasks</h2>
+                            <p className="text-itemactivegrey">12 Truth - 23 Dare</p>
+                            <div>
+                                {set.tasks.map(set => <div key={set._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
+                                    <button onClick={() => setShowTaskEditor(true)} className="flex items-center flex-grow min-w-0">
+                                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                            <span className="text-xl">{set.type}</span>
+                                        </div>
+                                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                            <span className="text-xl">{replaceCurrentPlayerStringWithIcon(set.currentPlayerGender)}</span>
+                                        </div>
+                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{set.message}</p>
+                                    </button>
+                                    <button onClick={() => console.log("delete item")} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
+                                        <XIcon className="w-6 h-6" />
+                                    </button>
+                                </div>)}
 
-                    </div>
-
-                    {/** Task Editor Modal */}
-                    <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
-                        <IonHeader>
-                            <IonToolbar>
-                                <IonTitle>Create / Edit Task</IonTitle>
-                                <IonButtons slot="end">
-                                    <IonButton onClick={() => setShowTaskEditor(false)}>Close</IonButton>
-                                </IonButtons>
-                            </IonToolbar>
-                        </IonHeader>
-
-                        <IonContent>
-                            <div className="container mt-4">
-                                <p>Task edit</p>
                             </div>
-                        </IonContent>
-                    </IonModal>
+
+                            {/** Task Editor Modal */}
+                            <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
+                                <IonHeader>
+                                    <IonToolbar>
+                                        <IonTitle>Create / Edit Task</IonTitle>
+                                        <IonButtons slot="end">
+                                            <IonButton onClick={() => setShowTaskEditor(false)}>Close</IonButton>
+                                        </IonButtons>
+                                    </IonToolbar>
+                                </IonHeader>
+
+                                <IonContent>
+                                    <div className="container mt-4">
+                                        <p>Task edit</p>
+                                    </div>
+                                </IonContent>
+                            </IonModal>
+                        </> : <>
+                            <p>Start creating Tasks!</p>
+                        </>
+                    }
+
                 </div>
             </main>
         </IonContent>

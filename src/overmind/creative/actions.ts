@@ -35,7 +35,10 @@ export const submitSet = async ({ state, effects }: Context, set: SetDto) => {
                 return
             }
             const response = await effects.creative.updateSet(state.creative.set._id, set)
-            state.creative.set = response.data
+            state.creative.set = {
+                ...state.creative.set,
+                ...response.data
+            }
         }
         else {
             const response = await effects.creative.createSet(set)
