@@ -106,7 +106,7 @@ export const Editor: React.FC = () => {
                             </button>
                         </div>
                         {/** Visibility Picker */}
-                        <div>
+                        <div className="mb-4">
                             <label className="mb-1" htmlFor="language">Visibility</label>
                             <div className="flex items-center mb-1">
                                 <IonToggle mode="ios" checked={formik.values.visibility === Visibility.PUBLIC} onIonChange={(e) => formik.setFieldValue('visibility', e.detail.checked ? Visibility.PUBLIC : Visibility.PRIVATE)} />
@@ -114,7 +114,11 @@ export const Editor: React.FC = () => {
                             </div>
                             <p className="text-itemactivegrey">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</p>
                         </div>
+
+                        <Button keepFocus={true} onClick={() => null} type="submit" disabled={!(formik.dirty && formik.isValid)}>Create</Button>
+
                         {/** Tasks */}
+                        <h2 className="mt-8 text-2xl">Tasks</h2>
                         <IonList>
                             <IonItem>
                                 <IonButtons slot="start">
@@ -132,7 +136,6 @@ export const Editor: React.FC = () => {
                             </IonItem>
                         </IonList>
 
-                        <Button keepFocus={true} onClick={() => null} type="submit" disabled={!(formik.dirty && formik.isValid)}>Create</Button>
                     </Form>
                 }
                 </Formik>
