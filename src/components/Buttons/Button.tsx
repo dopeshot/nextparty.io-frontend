@@ -16,7 +16,7 @@ type LinkButtonProps = {
 type ButtonButtonProps = {
     type?: "button" | "reset" | "submit"
     onClick: (values: any) => void
-    keepFocus: boolean
+    keepFocus?: boolean
     loading?: boolean
 } & BaseButtonProps
 
@@ -24,7 +24,7 @@ type ButtonProps = LinkButtonProps | ButtonButtonProps
 
 export const Button: React.FC<ButtonProps> = (props) => {
     const handleMouseDown = (event: React.MouseEvent) => {
-        if ('to' in props)
+        if ('to' in props || !props.keepFocus)
             return
 
         if (props.keepFocus) {

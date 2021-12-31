@@ -1,5 +1,5 @@
 import { ChevronDownIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonModal, IonPage, IonRadio, IonRadioGroup, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
 import { Task } from "../../overmind/explore/state";
+import { TaskCurrentPlayerGender, TaskType } from "../../overmind/game/state";
 import { replaceCurrentPlayerStringWithIcon } from "../../services/utilities/utilities";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
@@ -20,22 +21,38 @@ export const Editor: React.FC = () => {
     const { submitSet } = useActions().creative
     const { isLoading, isEdit, isNew, set } = useAppState().creative
 
-    const initialValues = {
+    const initialValuesSet = {
         name: set?.name ?? "",
         category: set?.category ?? SetCategory.CLASSIC,
         language: set?.language ?? Language.EN,
         visibility: set?.visibility ?? Visibility.PUBLIC
     }
 
-    const submitForm = (values: typeof initialValues) => {
+    const submitFormSet = (values: typeof initialValuesSet) => {
         submitSet(values)
     }
 
-    const validationSchema = Yup.object().shape({
+    const validationSchemaSet = Yup.object().shape({
         name: Yup.string().min(3, "Your creative name must be at least 3 characters").max(32, "Your creative name must be at most 32 characters").required("Name is a required field"),
         category: Yup.string().oneOf(Object.values(SetCategory)).required(),
         language: Yup.string().oneOf(Object.values(Language)).required(),
         visibility: Yup.string().oneOf(Object.values(Visibility)).required()
+    })
+
+    const initialValuesTask = {
+        message: "",
+        type: TaskType.TRUTH,
+        currentPlayerGender: TaskCurrentPlayerGender.ANYONE,
+    }
+
+    const submitFormTask = (values: typeof initialValuesTask) => {
+        console.log(values)
+    }
+
+    const validationSchemaTask = Yup.object().shape({
+        message: Yup.string().min(10).max(280).required(),
+        type: Yup.string().oneOf(Object.values(TaskType)).required(),
+        currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required()
     })
 
     const [showThemePicker, setShowThemePicker] = useState(false);
@@ -61,7 +78,7 @@ export const Editor: React.FC = () => {
             </div>
             <main className="bg-background-black">
                 <div className="container">
-                    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
+                    <Formik initialValues={initialValuesSet} validationSchema={validationSchemaSet} onSubmit={submitFormSet}>{(formik) =>
                         <Form className="mb-8">
                             {/** Title input */}
                             <div>
@@ -168,29 +185,56 @@ export const Editor: React.FC = () => {
                                 </div>)}
 
                             </div>
-
-                            {/** Task Editor Modal */}
-                            <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
-                                <IonHeader>
-                                    <IonToolbar>
-                                        <IonTitle>Create / Edit Task</IonTitle>
-                                        <IonButtons slot="end">
-                                            <IonButton onClick={() => setShowTaskEditor(false)}>Close</IonButton>
-                                        </IonButtons>
-                                    </IonToolbar>
-                                </IonHeader>
-
-                                <IonContent>
-                                    <div className="container mt-4">
-                                        <p>{JSON.stringify(editData)}</p>
-                                    </div>
-                                </IonContent>
-                            </IonModal>
                         </> : <>
                             <p>Start creating Tasks!</p>
+                            <Button onClick={() => {
+                                console.log("clicked")
+                                setShowTaskEditor(true)
+                            }}>Create Task</Button>
                         </>
                     }
+                    {/** Task Editor Modal */}
+                    <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
+                        <IonHeader>
+                            <IonToolbar>
+                                <IonTitle>Create / Edit Task</IonTitle>
+                                <IonButtons slot="end">
+                                    <IonButton onClick={() => setShowTaskEditor(false)}>Close</IonButton>
+                                </IonButtons>
+                            </IonToolbar>
+                        </IonHeader>
 
+                        <IonContent>
+                            <Formik initialValues={initialValuesTask} validationSchema={validationSchemaTask} onSubmit={submitFormTask}>{(formik) =>
+                                <Form className="container mt-4 mb-8">
+                                    <div>
+                                        <Input hasLabel={true} formik={formik} field="message" id="message" type="text" placeholder="Write message" autocomplete="on" />
+                                        <IonToggle mode="ios" checked={formik.values.type === TaskType.TRUTH} onIonChange={(e) => formik.setFieldValue('type', e.detail.checked ? TaskType.TRUTH : TaskType.DARE)} />
+                                        <span>{formik.values.type}</span>
+                                        <IonList>
+                                            <IonRadioGroup value={formik.values.currentPlayerGender} onIonChange={(e) => formik.setFieldValue('currentPlayerGender', e.detail.value)}>
+                                                <IonItem>
+                                                    <IonLabel>Anyone</IonLabel>
+                                                    <IonRadio slot="start" value="@ca" />
+                                                </IonItem>
+                                                <IonItem>
+                                                    <IonLabel>Male</IonLabel>
+                                                    <IonRadio slot="start" value="@cm" />
+                                                </IonItem>
+                                                <IonItem>
+                                                    <IonLabel>Female</IonLabel>
+                                                    <IonRadio slot="start" value="@cf" />
+                                                </IonItem>
+                                            </IonRadioGroup>
+                                        </IonList>
+                                        <Button type="submit" onClick={() => {
+
+                                        }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
+                                    </div>
+                                </Form>
+                            }</Formik>
+                        </IonContent>
+                    </IonModal>
                 </div>
             </main>
         </IonContent>
