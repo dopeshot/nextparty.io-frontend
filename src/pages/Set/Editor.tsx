@@ -26,7 +26,9 @@ export const Editor: React.FC = () => {
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().min(3).max(32).required(),
-        category: Yup.string().required()
+        category: Yup.string().required(),
+        language: Yup.string().required(),
+        visibility: Yup.string().required()
     })
 
     const [showThemePicker, setShowThemePicker] = useState(false);
