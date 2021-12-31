@@ -37,7 +37,7 @@ export const Editor: React.FC = () => {
         <IonContent>
             <div className="container">
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
-                    <Form>
+                    <Form className="mb-8">
                         {/** Title input */}
                         <div>
                             <label className="mb-1" htmlFor="name">Name</label>
@@ -116,29 +116,28 @@ export const Editor: React.FC = () => {
                         </div>
 
                         <Button keepFocus={true} onClick={() => null} type="submit" disabled={!(formik.dirty && formik.isValid)}>Create</Button>
-
-                        {/** Tasks */}
-                        <h2 className="mt-8 text-2xl">Tasks</h2>
-                        <IonList>
-                            <IonItem>
-                                <IonButtons slot="start">
-                                    <IconButton icon={female} onClick={() => console.log("Hello world!")} className="bg-red-500" />
-                                    <IconButton icon={female} onClick={() => console.log("Hello world!")} className="bg-green-500" />
-                                </IonButtons>
-                                <IonInput />
-
-                                <IonButtons slot="end">
-                                    <IonButton onClick={() => console.log("delete")}>
-                                        <IonIcon icon={closeOutline} slot="icon-only"></IonIcon>
-                                    </IonButton>
-                                </IonButtons>
-
-                            </IonItem>
-                        </IonList>
-
                     </Form>
                 }
                 </Formik>
+                {/** Tasks */}
+                <h2 className="text-2xl">Tasks</h2>
+                <IonList>
+                    <IonItem>
+                        <IonButtons slot="start">
+                            <IconButton icon={female} onClick={() => console.log("Hello world!")} className="bg-red-500" />
+                            <IconButton icon={female} onClick={() => console.log("Hello world!")} className="bg-green-500" />
+                        </IonButtons>
+                        <IonInput />
+
+                        <IonButtons slot="end">
+                            <IonButton onClick={() => console.log("delete")}>
+                                <IonIcon icon={closeOutline} slot="icon-only"></IonIcon>
+                            </IonButton>
+                        </IonButtons>
+
+                    </IonItem>
+                </IonList>
+
             </div>
         </IonContent>
     </IonPage>
