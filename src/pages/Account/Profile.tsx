@@ -74,7 +74,7 @@ export const Profile: React.FC = () => {
                                         {sets.data?.length !== 0 &&
                                             <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                                 <h2 className="text-lg font-semibold">Your Sets</h2>
-                                                <Button keepFocus={false} type="button" to="#" icon={plus} className="px-7">New</Button>
+                                                <Button keepFocus={false} type="button" to="/account/creative" icon={plus} className="px-7">New</Button>
                                             </div>}
                                         {sets.data?.length === 0 ? <NoData dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." to="#" /> :
                                             <IonList>
