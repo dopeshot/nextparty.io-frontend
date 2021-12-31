@@ -47,10 +47,8 @@ export const logout = ({ actions }: Context) => {
 
 export const getSetsByUser = async ({ state, effects }: Context) => {
     if (!state.profile.currentUser) {
-        console.warn("There is an issue.")
         return
     }
-
 
     state.profile.isLoadingSets = true
     try {
