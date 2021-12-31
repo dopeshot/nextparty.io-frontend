@@ -43,6 +43,18 @@ declare global {
             register(): void
 
             /**
+             * Custom command to intercept register when email is duplicated
+             * @getOneSet cy.registerDuplicateEmail()
+             */
+            registerDuplicateEmail(): void
+
+            /**
+             * Custom command to intercept register when username is duplicated
+             * @getOneSet cy.registerDuplicateUsername()
+             */
+            registerDuplicateUsername(): void
+
+            /**
              * Custom command to intercept getSetsFromUser
              * @getOneSet cy.getSetsFromUser()
              */
