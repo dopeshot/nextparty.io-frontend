@@ -1,5 +1,6 @@
 import { Context } from '..'
 import { request } from '../../services/axios'
+import { checkAxiosErrorType } from '../../services/error'
 import { Language } from '../../shared/enums/Language'
 import { Visibility } from '../../shared/enums/Visibility'
 import { SetCategory } from '../../shared/types/SetCategory'
@@ -23,8 +24,10 @@ export const login = async ({ state, effects, actions }: Context, credentials: {
         const { access_token } = responseToken.data
 
         actions.profile.setToken(access_token)
+        state.profile.error = null
     } catch (error) {
         console.error(error)
+        state.profile.error = checkAxiosErrorType(error)
         actions.profile.setToken()
     }
     state.profile.authenticating = false
@@ -37,11 +40,17 @@ export const register = async ({ state, effects, actions }: Context, credentials
         const { access_token } = responseToken.data
 
         actions.profile.setToken(access_token)
+        state.profile.error = null
     } catch (error) {
         console.error(error)
+        state.profile.error = checkAxiosErrorType(error)
         actions.profile.setToken()
     }
     state.profile.authenticating = false
+}
+
+export const resetError = ({ state }: Context) => {
+    state.profile.error = null
 }
 
 export const logout = ({ actions }: Context) => {
@@ -61,6 +70,7 @@ export const getSetsByUser = async ({ state, effects }: Context) => {
         state.profile.sets.data = data
     } catch (error) {
         console.error(error)
+        state.profile.error = checkAxiosErrorType(error)
     }
     state.profile.isLoadingSets = false
 }

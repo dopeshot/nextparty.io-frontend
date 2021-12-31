@@ -24,6 +24,7 @@ import './theme/variables.css';
 
 export const App: React.FC = () => {
     const hideTabBar = useAppState().game.hideTabBar
+    const { isLoggedIn } = useAppState().profile
 
     return <IonApp className="font-rubik">
         <IonReactRouter>
@@ -56,12 +57,12 @@ export const App: React.FC = () => {
                         <UsersIcon className='h-6 w-6' />
                         <IonLabel>Player</IonLabel>
                     </IonTabButton>
-                    <IonTabButton data-cy="app-nav-profile" tab="account" href="/account" className="bg-black">
+                    <IonTabButton data-cy="app-nav-profile" tab="account" href={isLoggedIn ? "/account/profile" : "/account"} className="bg-black">
                         <UserIcon className='h-6 w-6' />
                         <IonLabel>Profil</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>
         </IonReactRouter>
-    </IonApp>
+    </IonApp >
 }

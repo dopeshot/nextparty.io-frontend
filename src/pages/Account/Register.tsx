@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonToolbar, useIonViewWillEnter } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import { Form, Formik } from "formik";
 import { Link } from 'react-router-dom';
 import * as Yup from "yup";
@@ -7,14 +7,15 @@ import arrowBack from "../../assets/icons/arrowback.svg";
 import google from '../../assets/icons/google.svg';
 import login from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
+import { ErrorBanner } from '../../components/Errors/ErrorBanner';
 import { Input } from '../../components/Forms/Input';
 import { PasswordInput } from '../../components/Forms/PasswordInput';
 import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Register: React.FC = () => {
-    const { register } = useActions().profile
-    const { authenticating } = useAppState().profile
+    const { register, resetError } = useActions().profile
+    const { authenticating, error } = useAppState().profile
 
     const initialValues = {
         email: "",
@@ -36,6 +37,10 @@ export const Register: React.FC = () => {
         setSeoTitle('Register')
     }, [])
 
+    useIonViewWillLeave(() => {
+        resetError()
+    }, [])
+
     return (
         <IonPage className="bg-center bg-no-repeat bg-background-black " style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 172px', backgroundPosition: 'top' }}>
             <IonHeader className="container ion-no-border my-1">
@@ -54,6 +59,7 @@ export const Register: React.FC = () => {
                 </div>
                 <div className='bg-background-black'>
                     <div className='container '>
+                        {error && <ErrorBanner message={error} />}
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
                             {(formik) => (
                                 <Form>
