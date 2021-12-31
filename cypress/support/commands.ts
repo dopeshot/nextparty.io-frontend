@@ -1,4 +1,3 @@
-
 const api = `${Cypress.env('apiUrl')}`
 
 Cypress.Commands.add('getSets', () => {
@@ -26,62 +25,10 @@ Cypress.Commands.add('register', () => {
 })
 
 Cypress.Commands.add('getSetsFromUser', () => {
-    cy.intercept('GET', `${api}/set/user/**`, [
-        {
-            "_id": "61cccfdd5094a2d623bfc749",
-            "played": 0,
-            "dareCount": 21,
-            "truthCount": 0,
-            "language": "de",
-            "createdBy": {
-                "_id": "61a7f1045d991051b395a595",
-                "username": "Hello"
-            },
-            "category": "classic",
-            "name": "Klassisch"
-        },
-        {
-            "_id": "61cccfdd5094a2d623bfc74a",
-            "played": 0,
-            "dareCount": 22,
-            "truthCount": 0,
-            "language": "de",
-            "createdBy": {
-                "_id": "61a7f1045d991051b395a595",
-                "username": "Hello"
-            },
-            "category": "hot",
-            "name": "Versaut"
-        },
-        {
-            "_id": "61cccfdd5094a2d623bfc74b",
-            "played": 0,
-            "dareCount": 1,
-            "truthCount": 3,
-            "language": "de",
-            "createdBy": {
-                "_id": "61a7f1045d991051b395a595",
-                "username": "Hello"
-            },
-            "category": "classic",
-            "name": "HdM Stuttgart Edition"
-        },
-        {
-            "_id": "61cccfdd5094a2d623bfc74c",
-            "played": 0,
-            "dareCount": 4,
-            "truthCount": 4,
-            "language": "de",
-            "createdBy": {
-                "_id": "61a7f1045d991051b395a595",
-                "username": "Hello"
-            },
-            "category": "sexy",
-            "name": "Sex"
-        }
-    ]).as('getSetsFromUser')
+    cy.intercept('GET', `${api}/set/user/**`, {
+        fixture: 'setsfromuser.json'
+    }).as('getSetsFromUser')
 })
-
 
 Cypress.Commands.add('overmind', () => {
     let overmind: any
