@@ -1,5 +1,5 @@
 import axios from "axios";
-import { HttpStatus } from "../enums/http-status";
+import { HttpStatus } from "../shared/enums/http-status";
 
 export const formatErrors = (data: string | string[]): string[] => {
     if (typeof data === 'string') {
