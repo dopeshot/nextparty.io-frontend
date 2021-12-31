@@ -1,6 +1,5 @@
 import axios from "axios";
-import { config } from "../global.config";
 
 export const request = axios.create({
-    baseURL: config.baseApiUrl
+    baseURL: process.env.REACT_APP_BASEAPIURL
 })

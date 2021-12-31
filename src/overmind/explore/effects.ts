@@ -1,4 +1,3 @@
-import { config } from "../../global.config"
 import { request } from "../../services/axios"
 import { Set, SetWithTasks } from "./state"
 
@@ -62,7 +61,7 @@ export const mock = {
 				},
 				"name": "Sex"
 			}
-		]), config.fakeLoadingTime))
+		]), parseInt(process.env.REACT_APP_FAKELOADINGTIME || "0")))
 	},
 	getSetById: async (id: string): Promise<SetWithTasks> => {
 		let response: any = ''
@@ -459,7 +458,7 @@ export const mock = {
 				break;
 		}
 		return new Promise((resolve) => {
-			setTimeout(() => resolve(response), config.fakeLoadingTime)
+			setTimeout(() => resolve(response), parseInt(process.env.REACT_APP_FAKELOADINGTIME || "0"))
 		})
 
 		// getSetById: async (id: string): Promise<SetWithTasks> => {
