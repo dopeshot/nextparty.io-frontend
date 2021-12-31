@@ -9,9 +9,7 @@ describe('Register', () => {
     })
 
     it('should have a disabled state button when no input/one input is filled', () => {
-        cy.get('[data-cy="register-email-input"]').clear()
         cy.get('[data-cy="register-username-input"]').clear()
-        cy.get('[data-cy="register-password-input"]').clear()
         cy.get('[data-cy="register-button"]').should('have.class', 'bg-dare-green opacity-30')
 
         cy.get('[data-cy="register-username-input"]').type("hee")
