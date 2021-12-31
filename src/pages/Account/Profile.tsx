@@ -27,6 +27,7 @@ export const Profile: React.FC = () => {
         animateValue(document.querySelector("#sets.count-number"), 0, sets.setCount, 800)
         animateValue(document.querySelector("#total-played.count-number"), 0, sets.playedCount, 800)
 
+        // istanbul ignore next // not testable with cypress
         if (event) event.detail.complete()
     }
 
@@ -35,6 +36,7 @@ export const Profile: React.FC = () => {
         getSets()
     }, [])
 
+    // istanbul ignore next // not testable with cypress
     const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
         getSets(event)
     }
@@ -70,11 +72,11 @@ export const Profile: React.FC = () => {
                                 {isLoadingSets ? <IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" /> :
                                     <>
                                         {sets.data?.length !== 0 &&
-                                            <div className="flex justify-between items-center">
+                                            <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                                 <h2 className="text-lg font-semibold">Your Sets</h2>
                                                 <Button keepFocus={false} type="button" to="#" icon={plus} className="px-7">New</Button>
                                             </div>}
-                                        {sets.data?.length === 0 ? <NoData headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." to="#" /> :
+                                        {sets.data?.length === 0 ? <NoData dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." to="#" /> :
                                             <IonList>
                                                 {sets.data?.map((set: Set) => (
                                                     <SetItem dataCy="profile-set-item" key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} link="#" />

@@ -41,7 +41,7 @@ describe('Profile', () => {
         })
     })
 
-    it('should display loading bar when load sets from user and should disapear when finished loading', () => {
+    it('should display loading bar when load sets from user and should disapear and show sets when finished loading', () => {
         cy.visit('/account/login')
         cy.login()
 
@@ -55,8 +55,10 @@ describe('Profile', () => {
         cy.get('h1').should('be.visible').contains("Hello")
 
         cy.get('[data-cy="profile-progress-bar"]').should('be.visible').then(() => {
+            cy.get('[data-cy="profile-sets-container"]').should('not.exist')
             interception.sendResponse()
             cy.get('[data-cy="profile-progress-bar"]').should('not.exist')
+            cy.get('[data-cy="profile-sets-container"]').should('be.visible')
             cy.get('[data-cy="profile-set-item"]').should('have.length', setsfromuser.length)
         })
     })
@@ -68,6 +70,25 @@ describe('Profile', () => {
         cy.get('ion-action-sheet .action-sheet-button').contains('Logout').should('be.visible').click({ force: true })
 
         cy.get('h1').should('be.visible').contains('Welcome back!')
+    })
+
+    it.only('should show no data component when user has no sets', () => {
+        cy.visit('/account/login')
+        cy.login()
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
+
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+
+        cy.getEmptySetsFromUser()
+        cy.wait('@getEmptySetsFromUser')
+
+        cy.get('[data-cy="profile-no-data"]').should('be.visible')
+        cy.get('[data-cy="profile-set-item"]').should('not.exist')
+        cy.get('[data-cy="profile-sets-container"]').should('not.exist')
     })
 })
 

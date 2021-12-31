@@ -30,6 +30,10 @@ Cypress.Commands.add('getSetsFromUser', () => {
     }).as('getSetsFromUser')
 })
 
+Cypress.Commands.add('getEmptySetsFromUser', () => {
+    cy.intercept('GET', `${api}/set/user/**`, []).as('getEmptySetsFromUser')
+})
+
 Cypress.Commands.add('overmind', () => {
     let overmind: any
 
