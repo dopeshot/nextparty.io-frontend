@@ -79,7 +79,7 @@ export const Profile: React.FC = () => {
                                                 <Button keepFocus={false} type="button" onClick={() => {
                                                     createNewSet()
                                                     history.push("/account/creative")
-                                                }} icon={plus} className="px-7">New</Button>
+                                                }} icon={plus} className="w-34 px-7">New</Button>
                                             </div>}
                                         {sets.data?.length === 0 ? <NoData onClick={() => {
                                             createNewSet()

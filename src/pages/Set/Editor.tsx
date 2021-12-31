@@ -167,7 +167,7 @@ export const Editor: React.FC = () => {
                                 </div>
                                 <p className="text-itemactivegrey">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</p>
                             </div>
-                            <Button keepFocus={true} onClick={() => null} icon={save} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Save' : 'Create'}</Button>
+                            <Button className="w-full" keepFocus={true} onClick={() => null} icon={save} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Save' : 'Create'}</Button>
                         </Form>
                     }
                     </Formik>
@@ -200,7 +200,7 @@ export const Editor: React.FC = () => {
                             <p>Start creating Tasks!</p>
                         </>
                     }
-                    <Button onClick={() => {
+                    <Button className="w-full" onClick={() => {
                         console.log("clicked")
                         setShowTaskEditor(true)
                     }}>Create Task</Button>
@@ -243,7 +243,7 @@ export const Editor: React.FC = () => {
                                                 </IonItem>
                                             </IonRadioGroup>
                                         </IonList>
-                                        <Button type="submit" onClick={() => {
+                                        <Button className="w-full" type="submit" onClick={() => {
 
                                         }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
                                     </div>

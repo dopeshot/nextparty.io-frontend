@@ -64,14 +64,14 @@ export const Login: React.FC = () => {
                                     <Input dataCy="login-email-input" formik={formik} field="email" hasLabel autocomplete="email" id="login-email" type="email" placeholder="E-Mail" />
                                     <PasswordInput dataCy="login-password-input" formik={formik} hasLabel autocomplete="current-password" id="login-password" />
 
-                                    <Button dataCy="login-button" keepFocus={true} loading={authenticating} onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
+                                    <Button dataCy="login-button" className="w-full" keepFocus={true} loading={authenticating} onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
                                 </Form>
                             )}
                         </Formik>
 
                         <Link to="#" className="block text-darkgray text-center my-4">Forgot your Password?</Link>
                         <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
-                        <Button keepFocus={true} to="#" icon={google} className="mb-4">Continue with Google</Button>
+                        <Button keepFocus={true} to="#" icon={google} className="w-full mb-4">Continue with Google</Button>
                     </div>
                 </div>
             </IonContent>
