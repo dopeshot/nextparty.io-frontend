@@ -1,5 +1,5 @@
 import { ChevronDownIcon, PencilIcon } from "@heroicons/react/outline";
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonTitle, IonToolbar, useIonPicker } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { closeOutline } from "ionicons/icons";
 import { useState } from "react";
@@ -77,7 +77,7 @@ export const Editor: React.FC = () => {
 
 
                         {/** Lanuage Picker */}
-                        <div>
+                        <div className="mb-4">
                             <label className="mb-1" htmlFor="language">Language</label>
                             <button onClick={() => {
                                 languagePicker({
@@ -104,6 +104,15 @@ export const Editor: React.FC = () => {
                                 </div>
                                 <ChevronDownIcon className="h-6" />
                             </button>
+                        </div>
+                        {/** Visibility Picker */}
+                        <div>
+                            <label className="mb-1" htmlFor="language">Visibility</label>
+                            <div className="flex items-center mb-1">
+                                <IonToggle mode="ios" checked={formik.values.visibility === Visibility.PUBLIC} onIonChange={(e) => formik.setFieldValue('visibility', e.detail.checked ? Visibility.PUBLIC : Visibility.PRIVATE)} />
+                                <span className="ml-3">{formik.values.visibility}</span>
+                            </div>
+                            <p className="text-itemactivegrey">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</p>
                         </div>
                         {/** Tasks */}
                         <IonList>
