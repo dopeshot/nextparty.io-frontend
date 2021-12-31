@@ -41,6 +41,29 @@ Cypress.Commands.add('register', () => {
     }).as('register')
 })
 
+Cypress.Commands.add('registerDuplicateEmail', () => {
+    cy.intercept('POST', `${api}/auth/register`, {
+        statusCode: 409,
+        body: {
+            statusCode: 409,
+            message: "Email is already taken.",
+            error: "Conflict"
+        },
+    }).as('registerDuplicateEmail')
+})
+
+Cypress.Commands.add('registerDuplicateUsername', () => {
+    cy.intercept('POST', `${api}/auth/register`, {
+        statusCode: 409,
+        body: {
+            statusCode: 409,
+            message: "Username is already taken.",
+            error: "Conflict"
+        },
+    }).as('registerDuplicateUsername')
+})
+
+
 Cypress.Commands.add('getSetsFromUser', () => {
     cy.intercept('GET', `${api}/set/user/**`, {
         fixture: 'setsfromuser.json'

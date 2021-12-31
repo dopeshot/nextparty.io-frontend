@@ -106,6 +106,44 @@ describe('Register', () => {
             cy.get('[data-cy="error-message"]').should('not.exist')
         })
     })
+
+    describe('Error Handling', () => {
+        it('should show error banner with text "Email is already taken." when email is wrong', () => {
+            cy.registerDuplicateEmail()
+
+            cy.get('[data-cy="register-email-input"]').type('joy@gmail.com')
+            cy.get('[data-cy="register-username-input"]').type('Hello')
+            cy.get('[data-cy="register-password-input"]').type('123456789')
+
+            cy.get('[data-cy="register-button"]').click()
+
+            cy.get('[data-cy="register-error-banner"]').contains('Email is already taken.')
+        })
+
+        it('should show error banner with text "Username is already taken." when password is wrong', () => {
+            cy.registerDuplicateUsername()
+
+            cy.get('[data-cy="register-email-input"]').type('hello@gmail.com')
+            cy.get('[data-cy="register-username-input"]').type('Hello')
+            cy.get('[data-cy="register-password-input"]').type('123456789')
+
+            cy.get('[data-cy="register-button"]').click()
+
+            cy.get('[data-cy="register-error-banner"]').contains('Username is already taken.')
+        })
+
+        it('should show error banner with text "408 - Request Timeout" when database is down', () => {
+            cy.databasedown()
+
+            cy.get('[data-cy="register-email-input"]').type('hello@gmail.com')
+            cy.get('[data-cy="register-username-input"]').type('Hello')
+            cy.get('[data-cy="register-password-input"]').type('12345678')
+
+            cy.get('[data-cy="register-button"]').click()
+
+            cy.get('[data-cy="register-error-banner"]').contains('408 - Request Timeout')
+        })
+    })
 })
 
 export { }
