@@ -25,10 +25,10 @@ export const Editor: React.FC = () => {
     }
 
     const validationSchema = Yup.object().shape({
-        name: Yup.string().min(3).max(32).required(),
-        category: Yup.string().required(),
-        language: Yup.string().required(),
-        visibility: Yup.string().required()
+        name: Yup.string().min(3, "Your creative name must be at least 3 characters").max(32, "Your creative name must be at most 32 characters").required("Name is a required field"),
+        category: Yup.string().oneOf(Object.values(SetCategory)).required(),
+        language: Yup.string().oneOf(Object.values(Language)).required(),
+        visibility: Yup.string().oneOf(Object.values(Visibility)).required()
     })
 
     const [showThemePicker, setShowThemePicker] = useState(false);
