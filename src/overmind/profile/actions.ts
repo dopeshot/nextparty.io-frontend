@@ -134,11 +134,3 @@ export const setTestUser = ({ state }: Context) => {
             }
         ]
 }
-
-/*
-* Only Testing
-*/
-export const resetTestUser = ({ state }: Context) => {
-    state.profile.currentUser = null
-    state.profile.sets.data = null
-}
