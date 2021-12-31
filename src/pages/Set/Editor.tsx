@@ -11,7 +11,7 @@ import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
 import { Task } from "../../overmind/explore/state";
 import { TaskCurrentPlayerGender, TaskType } from "../../overmind/game/state";
-import { replaceCurrentPlayerStringWithIcon } from "../../services/utilities/utilities";
+import { replaceCurrentPlayerStringWithIcon, replaceStringWithIcon } from "../../services/utilities/utilities";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
 import { languagePickerOptions, languages } from "../../shared/types/Language";
@@ -188,7 +188,7 @@ export const Editor: React.FC = () => {
                                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
                                             <span className="text-xl">{replaceCurrentPlayerStringWithIcon(set.currentPlayerGender)}</span>
                                         </div>
-                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{set.message}</p>
+                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{replaceStringWithIcon(set.message)}</p>
                                     </button>
                                     <button onClick={() => console.log("delete item")} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
                                         <XIcon className="w-6 h-6" />
