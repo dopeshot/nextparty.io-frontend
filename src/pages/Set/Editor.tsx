@@ -1,5 +1,5 @@
-import { ChevronDownIcon, FlagIcon, PencilIcon } from "@heroicons/react/outline";
-import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { ChevronDownIcon, PencilIcon } from "@heroicons/react/outline";
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonTitle, IonToolbar, useIonPicker } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { closeOutline } from "ionicons/icons";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import { IconButton } from "../../components/Buttons/IconButton";
 import { Input } from "../../components/Forms/Input";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
+import { languagePickerOptions, languages } from "../../shared/types/Language";
 import { categories, categoriesList, ForegroundColor, SetCategory } from "../../shared/types/SetCategory";
 
 export const Editor: React.FC = () => {
@@ -28,7 +29,9 @@ export const Editor: React.FC = () => {
         name: Yup.string().min(3).max(32).required(),
         category: Yup.string().required()
     })
+
     const [showThemePicker, setShowThemePicker] = useState(false);
+    const [languagePicker] = useIonPicker()
 
     return <IonPage className="bg-background-black">
         <IonContent>
@@ -75,11 +78,29 @@ export const Editor: React.FC = () => {
 
                         {/** Lanuage Picker */}
                         <div>
-                            <label className="mb-1">Language</label>
-                            <button type="button" className={`rounded-lg h-12 w-full bg-itemgrey flex justify-between items-center px-4`}>
+                            <label className="mb-1" htmlFor="language">Language</label>
+                            <button onClick={() => {
+                                languagePicker({
+                                    buttons: [
+                                        {
+                                            text: 'Confirm',
+                                            handler: (selected) => {
+                                                formik.setFieldValue('language', selected.language.value)
+                                            },
+                                        },
+                                    ],
+                                    columns: [
+                                        {
+                                            name: 'language',
+                                            options: languagePickerOptions,
+                                        },
+                                    ],
+
+                                })
+                            }} type="button" name="language" className={`rounded-lg h-12 w-full bg-itemgrey flex justify-between items-center px-4`}>
                                 <div className="flex flex-row">
-                                    <FlagIcon className="h-6 mr-3" />
-                                    <span>German</span>
+                                    <IonIcon icon={languages[formik.values.language].icon} className="h-6 mr-3" />
+                                    <span>{languages[formik.values.language].text}</span>
                                 </div>
                                 <ChevronDownIcon className="h-6" />
                             </button>
