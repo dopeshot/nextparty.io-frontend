@@ -1,4 +1,4 @@
-import { PencilIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, FlagIcon, PencilIcon } from "@heroicons/react/outline";
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { closeOutline } from "ionicons/icons";
@@ -35,39 +35,55 @@ export const Editor: React.FC = () => {
             <div className="container">
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
                     <Form>
-                        {/** Background picker */}
-                        <button type="button" onClick={() => setShowThemePicker(true)}
-                            className={`${categories[formik.values.category as SetCategory]?.background} rounded-lg h-24 w-full flex justify-center items-center`}>
-                            <PencilIcon className={`${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-black` : `text-white`} h-6`} />
-                        </button>
-
-                        <IonModal onWillDismiss={() => setShowThemePicker(false)} isOpen={showThemePicker} cssClass="my-custom-class">
-                            <IonHeader>
-                                <IonToolbar>
-                                    <IonTitle>Choose Theme</IonTitle>
-                                    <IonButtons slot="end">
-                                        <IonButton onClick={() => setShowThemePicker(false)}>Close</IonButton>
-                                    </IonButtons>
-                                </IonToolbar>
-                            </IonHeader>
-
-                            <IonContent>
-                                <div className="container mt-4">
-                                    {
-                                        categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.background} ${category.foreground === ForegroundColor.LIGHT ? 'text-white' : 'text-black'} ${formik.values.category === category.name ? `border-4 border-green-500 box-border` : ``}`}>
-                                            <Field type="radio" name="category" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
-                                            {category.name}
-                                        </label>
-                                        )
-                                    }
-                                </div>
-                            </IonContent>
-                        </IonModal>
-
-
                         {/** Title input */}
-                        <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
+                        <div>
+                            <label className="mb-1" htmlFor="name">Name</label>
+                            <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
+                        </div>
+                        {/** Background picker */}
+                        <div className="mb-4">
+                            <label className="mb-1" htmlFor="name">Choose your theme</label>
+                            <button id="category" type="button" onClick={() => setShowThemePicker(true)}
+                                className={`${categories[formik.values.category as SetCategory]?.background} rounded-lg h-12 w-full flex justify-between px-4 items-center ${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-black` : `text-white`}`}>
+                                <span>{formik.values.category}</span>
+                                <PencilIcon className={`h-6`} />
+                            </button>
+                            <IonModal onWillDismiss={() => setShowThemePicker(false)} isOpen={showThemePicker} cssClass="my-custom-class">
+                                <IonHeader>
+                                    <IonToolbar>
+                                        <IonTitle>Choose Theme</IonTitle>
+                                        <IonButtons slot="end">
+                                            <IonButton onClick={() => setShowThemePicker(false)}>Close</IonButton>
+                                        </IonButtons>
+                                    </IonToolbar>
+                                </IonHeader>
 
+                                <IonContent>
+                                    <div className="container mt-4">
+                                        {
+                                            categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.background} ${category.foreground === ForegroundColor.LIGHT ? 'text-white' : 'text-black'} ${formik.values.category === category.name ? `border-4 border-green-500 box-border` : ``}`}>
+                                                <Field type="radio" name="category" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
+                                                {category.name}
+                                            </label>
+                                            )
+                                        }
+                                    </div>
+                                </IonContent>
+                            </IonModal>
+                        </div>
+
+
+                        {/** Lanuage Picker */}
+                        <div>
+                            <label className="mb-1">Language</label>
+                            <button type="button" className={`rounded-lg h-12 w-full bg-itemgrey flex justify-between items-center px-4`}>
+                                <div className="flex flex-row">
+                                    <FlagIcon className="h-6 mr-3" />
+                                    <span>German</span>
+                                </div>
+                                <ChevronDownIcon className="h-6" />
+                            </button>
+                        </div>
                         {/** Tasks */}
                         <IonList>
                             <IonItem>
