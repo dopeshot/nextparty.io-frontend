@@ -59,6 +59,8 @@ export const addTask = async ({ state, effects }: Context, {
 }: { setId: string, task: TaskDto }) => {
     try {
         const response = await effects.creative.addTask(setId, task)
+        if (!state.creative.set?.tasks)
+            state.creative.set!.tasks = []
         state.creative.set?.tasks.push(response.data)
     } catch (error) {
         console.error(error)
