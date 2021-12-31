@@ -81,7 +81,10 @@ export const Profile: React.FC = () => {
                                                     history.push("/account/creative")
                                                 }} icon={plus} className="px-7">New</Button>
                                             </div>}
-                                        {sets.data?.length === 0 ? <NoData dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." to="#" /> :
+                                        {sets.data?.length === 0 ? <NoData onClick={() => {
+                                            createNewSet()
+                                            history.push("/account/creative")
+                                        }} dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." /> :
                                             <IonList>
                                                 {sets.data?.map((set: Set) => (
                                                     <SetItem dataCy="profile-set-item" onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
