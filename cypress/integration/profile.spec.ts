@@ -72,7 +72,7 @@ describe('Profile', () => {
         cy.get('h1').should('be.visible').contains('Welcome back!')
     })
 
-    it.only('should show no data component when user has no sets', () => {
+    it('should show no data component when user has no sets', () => {
         cy.visit('/account/login')
         cy.login()
 
