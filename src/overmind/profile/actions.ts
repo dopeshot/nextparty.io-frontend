@@ -1,6 +1,9 @@
 import { Context } from '..'
 import { request } from '../../services/axios'
 import { checkAxiosErrorType } from '../../services/error'
+import { Language } from '../../shared/enums/Language'
+import { Visibility } from '../../shared/enums/Visibility'
+import { SetCategory } from '../../shared/types/SetCategory'
 
 export const setToken = ({ state }: Context, token?: string) => {
     if (!token) {
@@ -93,12 +96,13 @@ export const setTestUser = ({ state }: Context) => {
                 "played": 0,
                 "dareCount": 21,
                 "truthCount": 0,
-                "language": "de",
+                "language": Language.DE,
                 "createdBy": {
                     "_id": "61a7f1045d991051b395a595",
                     "username": "Hello"
                 },
-                "category": "classic",
+                "category": SetCategory.CLASSIC,
+                "visibility": Visibility.PUBLIC,
                 "name": "Klassisch"
             },
             {
@@ -106,12 +110,13 @@ export const setTestUser = ({ state }: Context) => {
                 "played": 0,
                 "dareCount": 22,
                 "truthCount": 0,
-                "language": "de",
+                "language": Language.DE,
                 "createdBy": {
                     "_id": "61a7f1045d991051b395a595",
                     "username": "Hello"
                 },
-                "category": "hot",
+                "category": SetCategory.HOT,
+                "visibility": Visibility.PUBLIC,
                 "name": "Versaut"
             },
             {
@@ -119,12 +124,13 @@ export const setTestUser = ({ state }: Context) => {
                 "played": 0,
                 "dareCount": 1,
                 "truthCount": 3,
-                "language": "de",
+                "language": Language.DE,
                 "createdBy": {
                     "_id": "61a7f1045d991051b395a595",
                     "username": "Hello"
                 },
-                "category": "classic",
+                "category": SetCategory.CLASSIC,
+                "visibility": Visibility.PUBLIC,
                 "name": "HdM Stuttgart Edition"
             },
             {
@@ -132,12 +138,13 @@ export const setTestUser = ({ state }: Context) => {
                 "played": 0,
                 "dareCount": 4,
                 "truthCount": 4,
-                "language": "de",
+                "language": Language.DE,
                 "createdBy": {
                     "_id": "61a7f1045d991051b395a595",
                     "username": "Hello"
                 },
-                "category": "sexy",
+                "category": SetCategory.SEXY,
+                "visibility": Visibility.PUBLIC,
                 "name": "Sex"
             }
         ]
