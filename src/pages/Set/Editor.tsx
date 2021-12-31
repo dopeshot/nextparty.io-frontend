@@ -1,5 +1,5 @@
 import { ChevronDownIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonModal, IonPage, IonRadio, IonRadioGroup, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonModal, IonPage, IonRadio, IonRadioGroup, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useState } from "react";
@@ -213,20 +213,14 @@ export const Editor: React.FC = () => {
                                         <span>{formik.values.type}</span>
                                         <IonList>
                                             <IonRadioGroup value={formik.values.currentPlayerGender} onIonChange={(e) => formik.setFieldValue('currentPlayerGender', e.detail.value)}>
-                                                <IonListHeader>
-                                                    <IonLabel>Name</IonLabel>
-                                                </IonListHeader>
-
                                                 <IonItem>
                                                     <IonLabel>Anyone</IonLabel>
                                                     <IonRadio slot="start" value="@ca" />
                                                 </IonItem>
-
                                                 <IonItem>
                                                     <IonLabel>Male</IonLabel>
                                                     <IonRadio slot="start" value="@cm" />
                                                 </IonItem>
-
                                                 <IonItem>
                                                     <IonLabel>Female</IonLabel>
                                                     <IonRadio slot="start" value="@cf" />
