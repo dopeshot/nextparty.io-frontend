@@ -6,6 +6,7 @@ import signout from '../../assets/icons/logout.svg';
 import plus from '../../assets/icons/plus.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
+import { NoData } from "../../components/Errors/NoData";
 import { CountItem } from "../../components/Profile/CountItem";
 import { SetItem } from "../../components/SetItem/SetItem";
 import { useActions, useAppState } from "../../overmind";
@@ -66,19 +67,21 @@ export const Profile: React.FC = () => {
                             </div>
 
                             <div>
-                                <div className="flex justify-between items-center">
-                                    <h2 className="text-lg font-semibold">Your Sets</h2>
-                                    <Button keepFocus={false} type="button" to="/account/creative" icon={plus} className="px-7">New</Button>
-                                </div>
-                                {isLoadingSets ? (<IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" />) : (
-                                    <div>
-                                        <IonList>
-                                            {sets.data?.length !== 0 && sets.data?.map((set: Set) => (
-                                                <SetItem dataCy="profile-set-item" key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} link="#" />
-                                            ))}
-                                        </IonList>
-                                    </div>
-                                )}
+                                {isLoadingSets ? <IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" /> :
+                                    <>
+                                        {sets.data?.length !== 0 &&
+                                            <div className="flex justify-between items-center">
+                                                <h2 className="text-lg font-semibold">Your Sets</h2>
+                                                <Button keepFocus={false} type="button" to="/account/creative" icon={plus} className="px-7">New</Button>
+                                            </div>}
+                                        {sets.data?.length === 0 ? <NoData headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." to="#" /> :
+                                            <IonList>
+                                                {sets.data?.map((set: Set) => (
+                                                    <SetItem dataCy="profile-set-item" key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} link="#" />
+                                                ))}
+                                            </IonList>}
+                                    </>
+                                }
                             </div>
                         </div>
                     </div>
