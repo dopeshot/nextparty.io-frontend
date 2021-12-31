@@ -171,7 +171,7 @@ export const Editor: React.FC = () => {
                         </Form>
                     }
                     </Formik>
-                    {/** Tasks */}
+                    {/** Tasks  */}
                     {
                         set?.tasks && set.tasks.length !== 0 && <>
                             <h2 className="text-2xl">Tasks</h2>
