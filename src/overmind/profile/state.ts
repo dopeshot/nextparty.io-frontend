@@ -29,6 +29,7 @@ export type State = {
         setCount: number
         playedCount: number
     }
+    error: string | null
 }
 
 export const state: State = {
@@ -43,5 +44,6 @@ export const state: State = {
         dareCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.dareCount, 0)),
         setCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.length),
         playedCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.played, 0))
-    }
+    },
+    error: null
 }
