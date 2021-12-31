@@ -1,6 +1,7 @@
 import { CogIcon } from "@heroicons/react/outline";
 import { RefresherEventDetail } from "@ionic/core";
 import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonViewWillEnter } from "@ionic/react";
+import { useHistory } from "react-router";
 import example from '../../assets/example.png';
 import signout from '../../assets/icons/logout.svg';
 import plus from '../../assets/icons/plus.svg';
@@ -16,8 +17,9 @@ import { animateValue } from "../../services/utilities/utilities";
 
 export const Profile: React.FC = () => {
     const { currentUser, isLoadingSets, sets } = useAppState().profile
-    const { getSetsByUser, logout } = useActions().profile
+    const { profile: { getSetsByUser, logout }, creative: { createNewSet, editSet } } = useActions()
     const [present, dismiss] = useIonActionSheet()
+    const history = useHistory()
 
     const getSets = async (event?: CustomEvent<RefresherEventDetail>) => {
         await getSetsByUser()
@@ -72,12 +74,15 @@ export const Profile: React.FC = () => {
                                         {sets.data?.length !== 0 &&
                                             <div className="flex justify-between items-center">
                                                 <h2 className="text-lg font-semibold">Your Sets</h2>
-                                                <Button keepFocus={false} type="button" to="/account/creative" icon={plus} className="px-7">New</Button>
+                                                <Button keepFocus={false} type="button" onClick={() => {
+                                                    createNewSet()
+                                                    history.push("/account/creative")
+                                                }} icon={plus} className="px-7">New</Button>
                                             </div>}
                                         {sets.data?.length === 0 ? <NoData headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." to="#" /> :
                                             <IonList>
                                                 {sets.data?.map((set: Set) => (
-                                                    <SetItem dataCy="profile-set-item" key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} link="#" />
+                                                    <SetItem dataCy="profile-set-item" onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
                                                 ))}
                                             </IonList>}
                                     </>

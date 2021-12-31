@@ -3,6 +3,9 @@ import { Context } from "..";
 import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
 import { countGenderOccurrences } from "../../services/utilities/utilities";
+import { Language } from '../../shared/enums/Language';
+import { Visibility } from '../../shared/enums/Visibility';
+import { SetCategory } from '../../shared/types/SetCategory';
 import { Set } from '../explore/state';
 import { playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, StartGameErrors, TaskType } from "./state";
@@ -218,9 +221,10 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "_id": "61a7bd4c08c2192fcff61461",
         "dareCount": 0,
         "truthCount": 2,
-        "language": "de",
+        "language": Language.DE,
         "played": 0,
-        "category": "classic",
+        "category": SetCategory.CLASSIC,
+        "visibility": Visibility.PUBLIC,
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
             "username": "Zoe"
@@ -230,7 +234,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             {
                 "currentPlayerGender": "@ca",
                 "_id": "61a7bd4c08c2192fcff614d0",
-                "type": "truth",
+                "type": TaskType.TRUTH,
                 "message": "Wann hattest du das letzte mal Sex?",
                 "requires": {
                     "male": 0,
@@ -242,7 +246,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             {
                 "currentPlayerGender": "@ca",
                 "_id": "61a7bd4c08c2192fcff614d1",
-                "type": "truth",
+                "type": TaskType.TRUTH,
                 "message": "Wie viele Partner*innen hattest du bis jetzt?",
                 "requires": {
                     "male": 0,
@@ -259,8 +263,9 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "dareCount": 2,
         "played": 0,
         "truthCount": 0,
-        "language": "de",
-        "category": "classic",
+        "language": Language.DE,
+        "category": SetCategory.CLASSIC,
+        "visibility": Visibility.PUBLIC,
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
             "username": "Zoe"
@@ -270,7 +275,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             {
                 "currentPlayerGender": "@ca",
                 "_id": "61a7bd4c08c2192fcff614d0",
-                "type": "dare",
+                "type": TaskType.DARE,
                 "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @a's Pobacke",
                 "requires": {
                     "male": 0,
@@ -282,7 +287,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             {
                 "currentPlayerGender": "@cf",
                 "_id": "61a7bd4c08c2192fcff614d1",
-                "type": "dare",
+                "type": TaskType.DARE,
                 "message": "Präsentiere, wie du eine einen Mann anmachen würdest",
                 "requires": {
                     "male": 0,
@@ -299,8 +304,9 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "dareCount": 1,
         "played": 0,
         "truthCount": 1,
-        "language": "de",
-        "category": "classic",
+        "language": Language.DE,
+        "category": SetCategory.CLASSIC,
+        "visibility": Visibility.PUBLIC,
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
             "username": "Zoe"
@@ -310,7 +316,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             {
                 "currentPlayerGender": "@ca",
                 "_id": "61a7bd4c08c2192fcff614d0",
-                "type": "dare",
+                "type": TaskType.DARE,
                 "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @a's Pobacke",
                 "requires": {
                     "male": 0,
@@ -322,7 +328,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             {
                 "currentPlayerGender": "@ca",
                 "_id": "61a7bd4c08c2192fcff614d1",
-                "type": "truth",
+                "type": TaskType.TRUTH,
                 "message": "Wie viele Partner*innen hattest du bis jetzt?",
                 "requires": {
                     "male": 0,
@@ -339,8 +345,9 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "dareCount": 1,
         "truthCount": 1,
         "played": 0,
-        "category": "classic",
-        "language": "de",
+        "visibility": Visibility.PUBLIC,
+        "category": SetCategory.CLASSIC,
+        "language": Language.DE,
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
             "username": "Zoe"
@@ -350,7 +357,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             {
                 "currentPlayerGender": "@ca",
                 "_id": "61a7bd4c08c2192fcff614d0",
-                "type": "dare",
+                "type": TaskType.DARE,
                 "message": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,",
                 "requires": {
                     "male": 0,
@@ -362,7 +369,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             {
                 "currentPlayerGender": "@ca",
                 "_id": "61a7bd4c08c2192fcff614d1",
-                "type": "truth",
+                "type": TaskType.TRUTH,
                 "message": "Wie viele Partner*innen hattest du bis jetzt?",
                 "requires": {
                     "male": 0,

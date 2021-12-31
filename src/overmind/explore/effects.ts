@@ -1,4 +1,7 @@
 import { request } from "../../services/axios"
+import { Language } from "../../shared/enums/Language"
+import { Visibility } from "../../shared/enums/Visibility"
+import { SetCategory } from "../../shared/types/SetCategory"
 import { Set, SetWithTasks } from "./state"
 
 export const getSets = () => request.get<Set[]>('/set')
@@ -14,8 +17,9 @@ export const mock = {
 				"dareCount": 0,
 				"truthCount": 0,
 				"played": 0,
-				"language": "de",
-				"category": "classic",
+				"language": Language.DE,
+				"category": SetCategory.CLASSIC,
+				"visibility": Visibility.PUBLIC,
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
 					"username": "Michael"
@@ -26,9 +30,10 @@ export const mock = {
 				"_id": "618be342577d8c493e1012ee",
 				"dareCount": 0,
 				"played": 0,
-				"category": "classic",
+				"language": Language.DE,
+				"category": SetCategory.CLASSIC,
+				"visibility": Visibility.PUBLIC,
 				"truthCount": 0,
-				"language": "de",
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
 					"username": "Michael"
@@ -39,9 +44,10 @@ export const mock = {
 				"_id": "618be342577d8c493e1012ef",
 				"dareCount": 0,
 				"truthCount": 0,
-				"category": "classic",
 				"played": 0,
-				"language": "de",
+				"language": Language.DE,
+				"category": SetCategory.CLASSIC,
+				"visibility": Visibility.PUBLIC,
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
 					"username": "Michael"
@@ -52,9 +58,10 @@ export const mock = {
 				"_id": "618be342577d8c493e1012f0",
 				"dareCount": 0,
 				"truthCount": 0,
-				"category": "classic",
 				"played": 0,
-				"language": "de",
+				"language": Language.DE,
+				"category": SetCategory.CLASSIC,
+				"visibility": Visibility.PUBLIC,
 				"createdBy": {
 					"_id": "618bda75ab1028126ec0b779",
 					"username": "Michael"
