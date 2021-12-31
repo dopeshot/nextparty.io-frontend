@@ -41,6 +41,12 @@ declare global {
              * @getOneSet cy.getSetsFromUser()
              */
             getSetsFromUser(): void
+
+            /**
+             * Custom command to intercept getSetsFromUser with empty array return
+             * @getOneSet cy.getEmptySetsFromUser()
+             */
+            getEmptySetsFromUser(): void
         }
     }
 }
