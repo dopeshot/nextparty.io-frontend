@@ -173,7 +173,7 @@ export const Editor: React.FC = () => {
                     </Formik>
                     {/** Tasks */}
                     {
-                        set?.tasks && set.tasks.length !== 0 ? <>
+                        set?.tasks && set.tasks.length !== 0 && <>
                             <h2 className="text-2xl">Tasks</h2>
                             <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
                             <div>
@@ -196,15 +196,14 @@ export const Editor: React.FC = () => {
                                 </div>)}
 
                             </div>
-                        </> : <>
-                            <p>Start creating Tasks!</p>
                         </>
                     }
-                    <Button onClick={() => {
-                        console.log("clicked")
-                        setShowTaskEditor(true)
-                    }}>Create Task</Button>
+                    {
+                        isEdit && <Button onClick={() => {
+                            setShowTaskEditor(true)
+                        }}>Create Task</Button>
 
+                    }
                     {/** Task Editor Modal */}
                     <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
                         <IonHeader>
