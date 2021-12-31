@@ -9,6 +9,7 @@ import save from "../../assets/icons/save.svg";
 import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
+import { Task } from "../../overmind/explore/state";
 import { replaceCurrentPlayerStringWithIcon } from "../../services/utilities/utilities";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
@@ -40,6 +41,8 @@ export const Editor: React.FC = () => {
     const [showThemePicker, setShowThemePicker] = useState(false);
     const [showTaskEditor, setShowTaskEditor] = useState(false)
     const [languagePicker] = useIonPicker()
+
+    const [editData, setEditData] = useState<Task | null>(null)
 
     return <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 134px', backgroundPosition: 'top' }}>
         <IonHeader className="container ion-no-border my-1">
@@ -147,7 +150,10 @@ export const Editor: React.FC = () => {
                             <p className="text-itemactivegrey">12 Truth - 23 Dare</p>
                             <div>
                                 {set.tasks.map(set => <div key={set._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
-                                    <button onClick={() => setShowTaskEditor(true)} className="flex items-center flex-grow min-w-0">
+                                    <button onClick={() => {
+                                        setEditData(set)
+                                        setShowTaskEditor(true)
+                                    }} className="flex items-center flex-grow min-w-0">
                                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
                                             <span className="text-xl">{set.type}</span>
                                         </div>
@@ -176,7 +182,7 @@ export const Editor: React.FC = () => {
 
                                 <IonContent>
                                     <div className="container mt-4">
-                                        <p>Task edit</p>
+                                        <p>{JSON.stringify(editData)}</p>
                                     </div>
                                 </IonContent>
                             </IonModal>
