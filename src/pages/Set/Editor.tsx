@@ -1,13 +1,11 @@
-import { ChevronDownIcon, PencilIcon } from "@heroicons/react/outline";
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonModal, IonPage, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
+import { ChevronDownIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
-import { arrowBack, closeOutline } from "ionicons/icons";
+import { arrowBack } from "ionicons/icons";
 import { useState } from "react";
 import * as Yup from "yup";
 import example from '../../assets/example.png';
-import female from '../../assets/icons/female.svg';
 import { Button } from "../../components/Buttons/Button";
-import { IconButton } from "../../components/Buttons/IconButton";
 import { Input } from "../../components/Forms/Input";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
@@ -136,23 +134,23 @@ export const Editor: React.FC = () => {
                     </Formik>
                     {/** Tasks */}
                     <h2 className="text-2xl">Tasks</h2>
-                    <IonList>
-                        <IonItem>
-                            <IonButtons slot="start">
-                                <IconButton icon={female} onClick={() => console.log("Hello world!")} className="bg-red-500" />
-                                <IconButton icon={female} onClick={() => console.log("Hello world!")} className="bg-green-500" />
-                            </IonButtons>
-                            <IonInput />
-
-                            <IonButtons slot="end">
-                                <IonButton onClick={() => console.log("delete")}>
-                                    <IonIcon icon={closeOutline} slot="icon-only"></IonIcon>
-                                </IonButton>
-                            </IonButtons>
-
-                        </IonItem>
-                    </IonList>
-
+                    <p className="text-itemactivegrey">12 Truth - 23 Dare</p>
+                    <div>
+                        <div className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center">
+                            <button onClick={() => console.log("modal")} className="flex items-center flex-grow min-w-0">
+                                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                    <span className="text-xl">D</span>
+                                </div>
+                                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                    <span className="text-xl">👦</span>
+                                </div>
+                                <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">Lorem Ipsum is simply dummy text  ins been the industry's standard dummy text ever since the 1500s</p>
+                            </button>
+                            <button onClick={() => console.log("delete item")} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
+                                <XIcon className="w-6 h-6" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </main>
         </IonContent>
