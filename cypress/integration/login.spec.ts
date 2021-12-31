@@ -69,6 +69,41 @@ describe('Login', () => {
             cy.get('[data-cy="error-message"]').should('not.exist')
         })
     })
+
+    describe('Error Handling', () => {
+        it('should show error banner with text "Email or password is wrong" when email is wrong', () => {
+            cy.loginWrongCredentials()
+
+            cy.get('[data-cy="login-email-input"]').type('joy@gmail.com')
+            cy.get('[data-cy="login-password-input"]').type('123456789')
+
+            cy.get('[data-cy="login-button"]').click()
+
+            cy.get('[data-cy="login-error-banner"]').contains('Email or password is wrong')
+        })
+
+        it('should show error banner with text "Email or password is wrong" when password is wrong', () => {
+            cy.loginWrongCredentials()
+
+            cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+            cy.get('[data-cy="login-password-input"]').type('333')
+
+            cy.get('[data-cy="login-button"]').click()
+
+            cy.get('[data-cy="login-error-banner"]').contains('Email or password is wrong')
+        })
+
+        it('should show error banner with text "408 - Request Timeout" when database is down', () => {
+            cy.databasedown()
+
+            cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+            cy.get('[data-cy="login-password-input"]').type('12345678')
+
+            cy.get('[data-cy="login-button"]').click()
+
+            cy.get('[data-cy="login-error-banner"]').contains('408 - Request Timeout')
+        })
+    })
 })
 
 export { }

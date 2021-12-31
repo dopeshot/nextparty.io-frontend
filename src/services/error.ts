@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const checkAxiosErrorType = (error: any): string => {
     if (axios.isAxiosError(error) && error.response) {
-        console.log(error)
         return errorType(error)
     } else if (axios.isAxiosError(error)) {
         return "408 - Request Timeout"

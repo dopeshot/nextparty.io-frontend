@@ -18,6 +18,23 @@ Cypress.Commands.add('login', () => {
     }).as('login')
 })
 
+Cypress.Commands.add('loginWrongCredentials', () => {
+    cy.intercept('POST', `${api}/auth/login`, {
+        statusCode: 401,
+        body: {
+            statusCode: 401,
+            message: "Login Failed due to invalid credentials",
+            error: "Unauthorized"
+        },
+    }).as('loginWrongCredentials')
+})
+
+Cypress.Commands.add('databasedown', () => {
+    cy.intercept('POST', `${api}/**`, {
+        forceNetworkError: true
+    }).as('databasedown')
+})
+
 Cypress.Commands.add('register', () => {
     cy.intercept('POST', `${api}/auth/register`, {
         "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwic3ViIjoiNjFhN2YxMDQ1ZDk5MTA1MWIzOTVhNTk1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjQwODY5NzE3LCJleHAiOjE2NDA5MDU3MTd9.kiRFpaXTTXUuTjUFISm-lH5WLsQOBPEsDLzEBiC7B_Y"
