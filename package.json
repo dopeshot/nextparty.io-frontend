@@ -22,6 +22,7 @@
         "@types/react-router": "^5.1.11",
         "@types/react-router-dom": "^5.1.7",
         "axios": "^0.24.0",
+        "formik": "^2.2.9",
         "ionicons": "^5.4.0",
         "overmind": "^28.0.1",
         "overmind-react": "^29.0.1",
@@ -43,7 +44,8 @@
         "workbox-range-requests": "^5.1.4",
         "workbox-routing": "^5.1.4",
         "workbox-strategies": "^5.1.4",
-        "workbox-streams": "^5.1.4"
+        "workbox-streams": "^5.1.4",
+        "yup": "^0.32.11"
     },
     "scripts": {
         "start": "craco start",

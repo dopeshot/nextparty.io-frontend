@@ -1,19 +1,27 @@
+import { Language } from "../../shared/enums/Language"
+import { Visibility } from "../../shared/enums/Visibility"
+import { SetCategory } from "../../shared/types/SetCategory"
+import { TaskCurrentPlayerGender, TaskType } from "../game/state"
+
 export type Set = {
     _id: string
     dareCount: number
     truthCount: number
+    played: number
     createdBy: {
         _id: string
         username: string
     }
-    language: string
+    category: SetCategory
+    language: Language
     name: string
+    visibility: Visibility
 }
 
 export type Task = {
-    currentPlayerGender: string
+    currentPlayerGender: TaskCurrentPlayerGender
     _id: string
-    type: "truth" | "dare"
+    type: TaskType
     message: string
 }
 

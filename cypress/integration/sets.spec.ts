@@ -35,7 +35,6 @@ describe('Sets', () => {
         })
     })
 
-
     describe('Detail Set', () => {
         beforeEach(() => {
             cy.getSets()
