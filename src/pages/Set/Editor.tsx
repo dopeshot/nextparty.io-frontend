@@ -224,7 +224,8 @@ export const Editor: React.FC = () => {
                                 <Form className="container mt-4 mb-8">
                                     <div>
                                         <Input hasLabel={true} formik={formik} field="message" id="message" type="text" placeholder="Write message" autocomplete="on" />
-                                        <IonToggle mode="ios" checked={formik.values.type === TaskType.TRUTH} onIonChange={(e) => formik.setFieldValue('type', e.detail.checked ? TaskType.TRUTH : TaskType.DARE)} />
+                                        <p className="text-itemactivegrey"><code>@a</code> for any player | <code>@m</code> for male | <code>@f</code> for female</p>
+                                        <IonToggle className="mt-4" mode="ios" checked={formik.values.type === TaskType.TRUTH} onIonChange={(e) => formik.setFieldValue('type', e.detail.checked ? TaskType.TRUTH : TaskType.DARE)} />
                                         <span>{formik.values.type}</span>
                                         <IonList>
                                             <IonRadioGroup value={formik.values.currentPlayerGender} onIonChange={(e) => formik.setFieldValue('currentPlayerGender', e.detail.value)}>
