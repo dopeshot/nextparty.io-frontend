@@ -77,7 +77,6 @@ export const updateTask = async ({ state, effects }: Context, {
 
     try {
         const response = await effects.creative.updateTask(setId, taskId, task)
-        console.log(response)
         let updatedTaskIndex = state.creative.set.tasks.findIndex(task => task._id === taskId)
         state.creative.set.tasks[updatedTaskIndex] = {
             ...state.creative.set.tasks[updatedTaskIndex],
