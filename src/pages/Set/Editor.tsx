@@ -10,6 +10,7 @@ import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
 import { Task } from "../../overmind/explore/state";
+import { TaskCurrentPlayerGender, TaskType } from "../../overmind/game/state";
 import { replaceCurrentPlayerStringWithIcon } from "../../services/utilities/utilities";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
@@ -20,22 +21,40 @@ export const Editor: React.FC = () => {
     const { submitSet } = useActions().creative
     const { isLoading, isEdit, isNew, set } = useAppState().creative
 
-    const initialValues = {
+    const initialValuesSet = {
         name: set?.name ?? "",
         category: set?.category ?? SetCategory.CLASSIC,
         language: set?.language ?? Language.EN,
         visibility: set?.visibility ?? Visibility.PUBLIC
     }
 
-    const submitForm = (values: typeof initialValues) => {
+    const submitFormSet = (values: typeof initialValuesSet) => {
         submitSet(values)
     }
 
-    const validationSchema = Yup.object().shape({
+    const validationSchemaSet = Yup.object().shape({
         name: Yup.string().min(3, "Your creative name must be at least 3 characters").max(32, "Your creative name must be at most 32 characters").required("Name is a required field"),
         category: Yup.string().oneOf(Object.values(SetCategory)).required(),
         language: Yup.string().oneOf(Object.values(Language)).required(),
         visibility: Yup.string().oneOf(Object.values(Visibility)).required()
+    })
+
+    const initialValuesTask: Task = {
+        message: "",
+        type: TaskType.TRUTH,
+        currentPlayerGender: TaskCurrentPlayerGender.ANYONE,
+        _id: ""
+    }
+
+    const submitFormTask = (values: Task) => {
+        console.log(values)
+    }
+
+    const validationSchemaTask = Yup.object().shape({
+        message: Yup.string().min(3).max(280).required(),
+        type: Yup.string().oneOf(Object.values(TaskType)).required(),
+        currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required(),
+        _id: Yup.string().required()
     })
 
     const [showThemePicker, setShowThemePicker] = useState(false);
@@ -61,7 +80,7 @@ export const Editor: React.FC = () => {
             </div>
             <main className="bg-background-black">
                 <div className="container">
-                    <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
+                    <Formik initialValues={initialValuesSet} validationSchema={validationSchemaSet} onSubmit={submitFormSet}>{(formik) =>
                         <Form className="mb-8">
                             {/** Title input */}
                             <div>
@@ -181,13 +200,21 @@ export const Editor: React.FC = () => {
                                 </IonHeader>
 
                                 <IonContent>
-                                    <div className="container mt-4">
-                                        <p>{JSON.stringify(editData)}</p>
-                                    </div>
+                                    <Formik initialValues={initialValuesTask} validationSchema={validationSchemaTask} onSubmit={submitFormTask}>{(formik) =>
+                                        <Form className="container mt-4 mb-8">
+                                            <div>
+                                                <Input hasLabel={true} formik={formik} field="message" id="message" type="text" placeholder="Write message" autocomplete="on" />
+                                            </div>
+                                        </Form>
+                                    }</Formik>
                                 </IonContent>
                             </IonModal>
                         </> : <>
                             <p>Start creating Tasks!</p>
+                            <Button onClick={() => {
+                                console.log("clicked")
+                                setShowTaskEditor(true)
+                            }}>Create Task</Button>
                         </>
                     }
 
