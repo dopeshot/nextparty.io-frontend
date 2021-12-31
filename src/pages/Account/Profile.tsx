@@ -68,7 +68,7 @@ export const Profile: React.FC = () => {
                             <div>
                                 <div className="flex justify-between items-center">
                                     <h2 className="text-lg font-semibold">Your Sets</h2>
-                                    <Button keepFocus={false} type="button" to="#" icon={plus} className="px-7">New</Button>
+                                    <Button keepFocus={false} type="button" to="/account/creative" icon={plus} className="px-7">New</Button>
                                 </div>
                                 {isLoadingSets ? (<IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" />) : (
                                     <div>
