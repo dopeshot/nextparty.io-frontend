@@ -400,8 +400,6 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             break
     }
 
-    console.log(onlyTaskType)
-
     // Reset game status
     state.game.gameStatus = GameStatus.START
 } 

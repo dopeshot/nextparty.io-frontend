@@ -31,6 +31,12 @@ declare global {
             login(): void
 
             /**
+             * Custom command to intercept login when credentials are wrong
+             * @getOneSet cy.login()
+             */
+            loginWrongCredentials(): void
+
+            /**
              * Custom command to intercept register
              * @getOneSet cy.register()
              */
@@ -47,6 +53,12 @@ declare global {
              * @getOneSet cy.getEmptySetsFromUser()
              */
             getEmptySetsFromUser(): void
+
+            /**
+             * Custom command to intercept all request to database and simulate timeout
+             * @getOneSet cy.databasedown()
+             */
+            databasedown(): void
         }
     }
 }
