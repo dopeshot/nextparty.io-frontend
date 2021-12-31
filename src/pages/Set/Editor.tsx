@@ -35,10 +35,16 @@ export const Editor: React.FC = () => {
             <div className="container">
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
                     <Form>
+                        {/** Title input */}
+                        <label className="mb-1" htmlFor="name">Name</label>
+                        <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
+
                         {/** Background picker */}
-                        <button type="button" onClick={() => setShowThemePicker(true)}
-                            className={`${categories[formik.values.category as SetCategory]?.background} rounded-lg h-24 w-full flex justify-center items-center`}>
-                            <PencilIcon className={`${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-black` : `text-white`} h-6`} />
+                        <label className="mb-1" htmlFor="name">Choose your theme</label>
+                        <button id="category" type="button" onClick={() => setShowThemePicker(true)}
+                            className={`${categories[formik.values.category as SetCategory]?.background} rounded-lg h-12 w-full flex justify-between px-4 items-center ${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-black` : `text-white`}`}>
+                            <span>{formik.values.category}</span>
+                            <PencilIcon className={`h-6`} />
                         </button>
 
                         <IonModal onWillDismiss={() => setShowThemePicker(false)} isOpen={showThemePicker} cssClass="my-custom-class">
@@ -63,10 +69,6 @@ export const Editor: React.FC = () => {
                                 </div>
                             </IonContent>
                         </IonModal>
-
-
-                        {/** Title input */}
-                        <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
 
                         {/** Tasks */}
                         <IonList>
