@@ -53,7 +53,7 @@ export const Profile: React.FC = () => {
                                     <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `url(${example})`, minWidth: "100px" }}></div>
                                     <h1 className="text-2xl text-white font-bold break-all px-4 pb-4">{currentUser?.username}</h1>
                                 </div>
-                                <button onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => logout() }], header: 'Settings' })}>
+                                <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => logout() }], header: 'Settings' })}>
                                     <CogIcon className="w-6 h-6" />
                                 </button>
                             </div>
@@ -70,11 +70,11 @@ export const Profile: React.FC = () => {
                                     <h2 className="text-lg font-semibold">Your Sets</h2>
                                     <Button keepFocus={false} type="button" to="#" icon={plus} className="px-7">New</Button>
                                 </div>
-                                {isLoadingSets ? (<IonProgressBar type="indeterminate" className="mt-5" />) : (
+                                {isLoadingSets ? (<IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" />) : (
                                     <div>
                                         <IonList>
                                             {sets.data?.length !== 0 && sets.data?.map((set: Set) => (
-                                                <SetItem key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} link="#" />
+                                                <SetItem dataCy="profile-set-item" key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} link="#" />
                                             ))}
                                         </IonList>
                                     </div>

@@ -27,7 +27,7 @@ describe('Register', () => {
         cy.get('[data-cy="register-button"]').click()
 
         cy.overmind().its('state.profile.currentUser.username').then((name: string) => {
-            cy.get('h1').contains(name)
+            cy.get('h1').contains(name).should('be.visible')
         })
     })
 
