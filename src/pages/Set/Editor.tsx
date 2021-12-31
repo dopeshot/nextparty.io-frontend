@@ -32,6 +32,7 @@ export const Editor: React.FC = () => {
     })
 
     const [showThemePicker, setShowThemePicker] = useState(false);
+    const [showTaskEditor, setShowTaskEditor] = useState(false)
     const [languagePicker] = useIonPicker()
 
     return <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 134px', backgroundPosition: 'top' }}>
@@ -139,7 +140,7 @@ export const Editor: React.FC = () => {
                     <p className="text-itemactivegrey">12 Truth - 23 Dare</p>
                     <div>
                         <div className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center">
-                            <button onClick={() => console.log("modal")} className="flex items-center flex-grow min-w-0">
+                            <button onClick={() => setShowTaskEditor(true)} className="flex items-center flex-grow min-w-0">
                                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
                                     <span className="text-xl">D</span>
                                 </div>
@@ -153,6 +154,24 @@ export const Editor: React.FC = () => {
                             </button>
                         </div>
                     </div>
+
+                    {/** Task Editor Modal */}
+                    <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
+                        <IonHeader>
+                            <IonToolbar>
+                                <IonTitle>Create / Edit Task</IonTitle>
+                                <IonButtons slot="end">
+                                    <IonButton onClick={() => setShowTaskEditor(false)}>Close</IonButton>
+                                </IonButtons>
+                            </IonToolbar>
+                        </IonHeader>
+
+                        <IonContent>
+                            <div className="container mt-4">
+                                <p>Task edit</p>
+                            </div>
+                        </IonContent>
+                    </IonModal>
                 </div>
             </main>
         </IonContent>
