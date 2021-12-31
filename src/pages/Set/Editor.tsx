@@ -183,7 +183,7 @@ export const Editor: React.FC = () => {
                                         setShowTaskEditor(true)
                                     }} className="flex items-center flex-grow min-w-0">
                                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                            <span className="text-xl">{set.type}</span>
+                                            <span className="text-xl">{set.type === TaskType.DARE ? 'D' : 'T'}</span>
                                         </div>
                                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
                                             <span className="text-xl">{replaceCurrentPlayerStringWithIcon(set.currentPlayerGender)}</span>
