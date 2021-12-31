@@ -168,7 +168,7 @@ export const Editor: React.FC = () => {
                     {
                         set?.tasks && set.tasks.length !== 0 ? <>
                             <h2 className="text-2xl">Tasks</h2>
-                            <p className="text-itemactivegrey">12 Truth - 23 Dare</p>
+                            <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
                             <div>
                                 {set.tasks.map(set => <div key={set._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
                                     <button onClick={() => {
