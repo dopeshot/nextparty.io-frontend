@@ -16,7 +16,7 @@ type LinkButtonProps = {
 type ButtonButtonProps = {
     type?: "button" | "reset" | "submit"
     onClick: (values: any) => void
-    keepFocus: boolean
+    keepFocus?: boolean
     loading?: boolean
 } & BaseButtonProps
 
