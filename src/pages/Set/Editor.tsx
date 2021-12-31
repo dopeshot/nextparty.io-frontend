@@ -18,7 +18,7 @@ import { languagePickerOptions, languages } from "../../shared/types/Language";
 import { categories, categoriesList, ForegroundColor, SetCategory } from "../../shared/types/SetCategory";
 
 export const Editor: React.FC = () => {
-    const { submitSet } = useActions().creative
+    const { submitSet, addTask } = useActions().creative
     const { isLoading, isEdit, isNew, set } = useAppState().creative
 
     const initialValuesSet = {
@@ -46,7 +46,11 @@ export const Editor: React.FC = () => {
     }
 
     const submitFormTask = (values: typeof initialValuesTask) => {
-        console.log(values)
+        if (!set || !set._id) {
+            console.error("There is no id for this set created yet.")
+            return
+        }
+        addTask({ setId: set._id, task: values })
     }
 
     const validationSchemaTask = Yup.object().shape({
@@ -164,7 +168,7 @@ export const Editor: React.FC = () => {
                     {
                         set?.tasks && set.tasks.length !== 0 ? <>
                             <h2 className="text-2xl">Tasks</h2>
-                            <p className="text-itemactivegrey">12 Truth - 23 Dare</p>
+                            <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
                             <div>
                                 {set.tasks.map(set => <div key={set._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
                                     <button onClick={() => {
@@ -187,12 +191,13 @@ export const Editor: React.FC = () => {
                             </div>
                         </> : <>
                             <p>Start creating Tasks!</p>
-                            <Button onClick={() => {
-                                console.log("clicked")
-                                setShowTaskEditor(true)
-                            }}>Create Task</Button>
                         </>
                     }
+                    <Button onClick={() => {
+                        console.log("clicked")
+                        setShowTaskEditor(true)
+                    }}>Create Task</Button>
+
                     {/** Task Editor Modal */}
                     <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
                         <IonHeader>
