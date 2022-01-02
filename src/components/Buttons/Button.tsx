@@ -31,7 +31,6 @@ export const Button: React.FC<ButtonProps> = (props) => {
             event.preventDefault()
             event.stopPropagation()
         }
-        props.onClick(event)
     }
 
     return (
