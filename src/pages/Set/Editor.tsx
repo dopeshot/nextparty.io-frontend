@@ -210,7 +210,10 @@ export const Editor: React.FC = () => {
                             <IonToolbar>
                                 <IonTitle>Create / Edit Task</IonTitle>
                                 <IonButtons slot="end">
-                                    <IonButton onClick={() => setShowTaskEditor(false)}>Close</IonButton>
+                                    <IonButton onClick={() => {
+                                        setEditData(null)
+                                        setShowTaskEditor(false)
+                                    }}>Close</IonButton>
                                 </IonButtons>
                             </IonToolbar>
                         </IonHeader>
