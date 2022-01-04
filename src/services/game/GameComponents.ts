@@ -1,6 +1,8 @@
-import { PlayerGenderCount, PlayTask, TaskPlayerGender, TaskType } from "../../overmind/game/state"
+import { PlayerGenderCount, PlayTask } from "../../overmind/game/state"
 import { Gender, Player } from "../../overmind/players/state"
 import { TaskCurrentPlayerGender } from "../../shared/types/TaskCurrentPlayerGender"
+import { TaskPlayerGender } from "../../shared/types/TaskPlayerGender"
+import { TaskType } from "../../shared/types/TaskType"
 import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "./GameUtilities"
 
 export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType) => {
