@@ -13,7 +13,6 @@ import { SetItem } from "../../components/SetItem/SetItem";
 import { useActions, useAppState } from "../../overmind";
 import { Set } from "../../overmind/explore/state";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
-import { animateValue } from "../../services/utilities/utilities";
 
 export const Profile: React.FC = () => {
     const { currentUser, isLoadingSets, sets } = useAppState().profile
@@ -23,11 +22,6 @@ export const Profile: React.FC = () => {
 
     const getSets = async (event?: CustomEvent<RefresherEventDetail>) => {
         await getSetsByUser()
-
-        animateValue(document.querySelector("#truths"), 0, sets.truthCount, 800)
-        animateValue(document.querySelector("#dares.count-number"), 0, sets.dareCount, 800)
-        animateValue(document.querySelector("#sets.count-number"), 0, sets.setCount, 800)
-        animateValue(document.querySelector("#total-played.count-number"), 0, sets.playedCount, 800)
 
         // istanbul ignore next // not testable with cypress
         if (event) event.detail.complete()
