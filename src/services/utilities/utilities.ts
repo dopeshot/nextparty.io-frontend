@@ -31,16 +31,3 @@ export function countGenderOccurrences(string: string): {
     }
 }
 
-export function animateValue(obj: HTMLElement | null, start: number, end: number, duration: number) {
-    let startTimestamp: number | null = null;
-    const step = (timestamp: number) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        obj!.innerHTML = Math.floor(progress * (end - start) + start).toString()
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-}
-
