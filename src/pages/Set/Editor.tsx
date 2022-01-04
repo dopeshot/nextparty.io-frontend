@@ -69,11 +69,10 @@ export const Editor: React.FC = () => {
     }
 
     const closeTaskEditorModal = () => {
-        // Reset edit data field
-        setEditData(null)
-
         // Hide modal
         setShowTaskEditor(false)
+
+        // The editData is getting reset in the onDidDismiss hook (we have to wait for the animation)
     }
 
     const validationSchemaTask = Yup.object().shape({
@@ -221,7 +220,7 @@ export const Editor: React.FC = () => {
 
                     }
                     {/** Task Editor Modal */}
-                    <IonModal onWillDismiss={closeTaskEditorModal} isOpen={showTaskEditor} cssClass="my-custom-class">
+                    <IonModal onWillDismiss={closeTaskEditorModal} onDidDismiss={() => setEditData(null)} isOpen={showTaskEditor} cssClass="my-custom-class">
                         <IonHeader>
                             <IonToolbar>
                                 <IonTitle>{editData ? 'Edit task' : 'Create task'}</IonTitle>
@@ -269,10 +268,10 @@ export const Editor: React.FC = () => {
                                         <div className="mb-4">
                                             <p className="text-itemactivegrey mb-1">Is the task a truth or dare?</p>
                                             <div className="flex">
-                                                <div className="flex gap-4 bg-itemactivegrey p-1 rounded-full">
+                                                <div className="flex gap-2 bg-itemactivegrey p-1 rounded-full">
                                                     {
                                                         Object.values(taskTypes).map(taskType =>
-                                                            <label key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-dare-green' : ''} hover:bg-dare-green text-xl rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
+                                                            <label key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-dare-green' : ''} hover:bg-dare-green rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
                                                                 {taskType.name}
                                                                 <Field className="appearance-none" type="radio" name="type" value={taskType.name} />
                                                             </label>)
