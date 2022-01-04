@@ -5,6 +5,7 @@ import { arrowBack } from "ionicons/icons";
 import { useState } from "react";
 import * as Yup from "yup";
 import example from '../../assets/example.png';
+import plus from '../../assets/icons/plus.svg';
 import save from "../../assets/icons/save.svg";
 import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
@@ -189,7 +190,12 @@ export const Editor: React.FC = () => {
                     {/** Tasks  */}
                     {
                         set?.tasks && set.tasks.length !== 0 && <>
-                            <h2 className="text-2xl">Tasks</h2>
+                            <div className="flex justify-between items-center">
+                                <h2 className="text-lg font-semibold">Tasks</h2>
+                                <Button keepFocus={false} type="button" onClick={() => {
+                                    setShowTaskEditor(true)
+                                }} icon={plus} className="w-34 px-7">Task</Button>
+                            </div>
                             <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
                             <div>
                                 {set.tasks.map(set => <div key={set._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
@@ -214,9 +220,9 @@ export const Editor: React.FC = () => {
                         </>
                     }
                     {
-                        isEdit && <Button className="w-full" onClick={() => {
+                        isEdit && <Button icon={plus} className="w-full" onClick={() => {
                             setShowTaskEditor(true)
-                        }}>Create Task</Button>
+                        }}>Task</Button>
 
                     }
                     {/** Task Editor Modal */}
