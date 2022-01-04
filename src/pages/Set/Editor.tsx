@@ -68,6 +68,14 @@ export const Editor: React.FC = () => {
         setShowTaskEditor(false)
     }
 
+    const closeTaskEditorModal = () => {
+        // Reset edit data field
+        setEditData(null)
+
+        // Hide modal
+        setShowTaskEditor(false)
+    }
+
     const validationSchemaTask = Yup.object().shape({
         message: Yup.string().min(10).max(280).required(),
         type: Yup.string().oneOf(Object.values(TaskType)).required(),
@@ -213,15 +221,12 @@ export const Editor: React.FC = () => {
 
                     }
                     {/** Task Editor Modal */}
-                    <IonModal onWillDismiss={() => setShowTaskEditor(false)} isOpen={showTaskEditor} cssClass="my-custom-class">
+                    <IonModal onWillDismiss={closeTaskEditorModal} isOpen={showTaskEditor} cssClass="my-custom-class">
                         <IonHeader>
                             <IonToolbar>
-                                <IonTitle>Create / Edit Task</IonTitle>
+                                <IonTitle>{editData ? 'Edit task' : 'Create task'}</IonTitle>
                                 <IonButtons slot="end">
-                                    <IonButton onClick={() => {
-                                        setEditData(null)
-                                        setShowTaskEditor(false)
-                                    }}>Close</IonButton>
+                                    <IonButton onClick={closeTaskEditorModal}>Close</IonButton>
                                 </IonButtons>
                             </IonToolbar>
                         </IonHeader>
