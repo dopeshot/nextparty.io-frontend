@@ -58,10 +58,10 @@ export const Profile: React.FC = () => {
                             </div>
 
                             <div className="flex justify-around mb-12 md:mb-20">
-                                <CountItem id="truths" number={sets.truthCount} name="Truths" />
-                                <CountItem id="dares" number={sets.dareCount} name="Dares" />
-                                <CountItem id="sets" number={sets.setCount} name="Sets" />
-                                <CountItem id="total-played" number={sets.playedCount} name="Total played" />
+                                <CountItem number={sets.truthCount} name="Truths" />
+                                <CountItem number={sets.dareCount} name="Dares" />
+                                <CountItem number={sets.setCount} name="Sets" />
+                                <CountItem number={sets.playedCount} name="Total played" />
                             </div>
 
                             <div>
