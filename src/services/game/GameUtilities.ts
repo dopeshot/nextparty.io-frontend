@@ -1,5 +1,5 @@
-import { TaskCurrentPlayerGender } from "../../overmind/game/state"
 import { Gender, Player } from "../../overmind/players/state"
+import { TaskCurrentPlayerGender } from "../../shared/types/TaskCurrentPlayerGender"
 
 // Used the Fisher-Yates (aka Knuth) Shuffle algo. Nice animation: https://bost.ocks.org/mike/shuffle/
 export const shuffleArray = <T>(array: Array<T>) => {

@@ -8,11 +8,6 @@ export enum TaskType {
     DARE = "dare"
 }
 
-export enum TaskCurrentPlayerGender {
-    ANYONE = "@ca",
-    FEMALE = "@cf",
-    MALE = "@cm"
-}
 
 export enum TaskPlayerGender {
     ANYONE = "@a",

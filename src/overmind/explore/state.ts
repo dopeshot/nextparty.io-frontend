@@ -1,7 +1,8 @@
 import { Language } from "../../shared/enums/Language"
 import { Visibility } from "../../shared/enums/Visibility"
 import { SetCategory } from "../../shared/types/SetCategory"
-import { TaskCurrentPlayerGender, TaskType } from "../game/state"
+import { TaskCurrentPlayerGender } from "../../shared/types/TaskCurrentPlayerGender"
+import { TaskType } from "../game/state"
 
 export type Set = {
     _id: string
