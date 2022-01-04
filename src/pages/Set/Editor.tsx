@@ -252,7 +252,7 @@ export const Editor: React.FC = () => {
                                         </div>
                                         <div className="mb-4">
                                             <p className="text-itemactivegrey mb-1">Write task</p>
-                                            <IonTextarea className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => formik.setFieldValue('message', e.detail.value)}></IonTextarea>
+                                            <IonTextarea className="m-0" cols={2} placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => formik.setFieldValue('message', e.detail.value)}></IonTextarea>
                                             <div className="flex gap-4">{Object.values(taskPlayerGenders).map(taskPlayerGenders =>
                                                 <label onClick={() => {
                                                     formik.setFieldValue('message', formik.values.message + taskPlayerGenders.name)
@@ -275,7 +275,6 @@ export const Editor: React.FC = () => {
                                                     }
                                                 </div>
                                             </div>
-                                            <span>{formik.values.type}</span>
                                         </div>
                                         <Button className="w-full" type="submit" onClick={() => {
 
