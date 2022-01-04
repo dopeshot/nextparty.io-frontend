@@ -8,13 +8,6 @@ export enum TaskType {
     DARE = "dare"
 }
 
-
-export enum TaskPlayerGender {
-    ANYONE = "@a",
-    FEMALE = "@f",
-    MALE = "@m"
-}
-
 export enum GameStatus {
     START = "start",
     PLAYER_PICKED = "player_picked",

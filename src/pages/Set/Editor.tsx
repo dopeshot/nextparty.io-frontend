@@ -1,5 +1,5 @@
 import { ChevronDownIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useState } from "react";
@@ -11,12 +11,13 @@ import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
 import { Task } from "../../overmind/explore/state";
 import { TaskType } from "../../overmind/game/state";
-import { replaceCurrentPlayerStringWithIcon, replaceStringWithIcon } from "../../services/utilities/utilities";
+import { replaceCurrentPlayerStringWithIcon, replaceIconWithString, replaceStringWithIcon } from "../../services/utilities/utilities";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
 import { languagePickerOptions, languages } from "../../shared/types/Language";
 import { categories, categoriesList, ForegroundColor, SetCategory } from "../../shared/types/SetCategory";
 import { TaskCurrentPlayerGender, taskCurrentPlayerGenders } from "../../shared/types/TaskCurrentPlayerGender";
+import { taskPlayerGenders } from "../../shared/types/TaskPlayerGender";
 
 export const Editor: React.FC = () => {
     const { submitSet, addTask, updateTask } = useActions().creative
@@ -47,6 +48,12 @@ export const Editor: React.FC = () => {
     }
 
     const submitFormTask = (values: typeof initialValuesTask) => {
+        // Removes whitespaces from task
+        values.message = values.message.replace(/(\r\n|\n|\r)/gm, "")
+
+        // Replace icons with strings (👩 => @f)
+        values.message = replaceIconWithString(values.message)
+
         if (!set || !set._id) {
             console.error("There is no id for this set created yet.")
             return
@@ -227,24 +234,38 @@ export const Editor: React.FC = () => {
                             } : initialValuesTask} validationSchema={validationSchemaTask} onSubmit={submitFormTask}>{(formik) =>
                                 <Form className="container mt-4 mb-8">
                                     <div>
-                                        <p className="text-itemactivegrey mb-1">Which gender can play the task?</p>
-                                        <div className="flex items-center gap-4">
-                                            <div className="flex gap-4 bg-itemactivegrey p-1 rounded-full">
-                                                {
-                                                    Object.values(taskCurrentPlayerGenders).map(taskCurrentPlayerGender =>
-                                                        <label key={taskCurrentPlayerGender.name} className={`${formik.values.currentPlayerGender === taskCurrentPlayerGender.name ? 'bg-dare-green' : ''} hover:bg-dare-green text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
-                                                            {taskCurrentPlayerGender.icon}
-                                                            <Field className="appearance-none" type="radio" name="currentPlayerGender" value={taskCurrentPlayerGender.name} />
-                                                        </label>
-                                                    )
-                                                }
+                                        <div className="mb-4">
+                                            <p className="text-itemactivegrey mb-1">Which gender can play the task?</p>
+                                            <div className="flex items-center gap-4">
+                                                <div className="flex gap-4 bg-itemactivegrey p-1 rounded-full">
+                                                    {
+                                                        Object.values(taskCurrentPlayerGenders).map(taskCurrentPlayerGender =>
+                                                            <label key={taskCurrentPlayerGender.name} className={`${formik.values.currentPlayerGender === taskCurrentPlayerGender.name ? 'bg-dare-green' : ''} hover:bg-dare-green text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
+                                                                {taskCurrentPlayerGender.icon}
+                                                                <Field className="appearance-none" type="radio" name="currentPlayerGender" value={taskCurrentPlayerGender.name} />
+                                                            </label>
+                                                        )
+                                                    }
+                                                </div>
+                                                <span>{taskCurrentPlayerGenders[formik.values.currentPlayerGender].text}</span>
                                             </div>
-                                            <span>{taskCurrentPlayerGenders[formik.values.currentPlayerGender].text}</span>
                                         </div>
-                                        <Input hasLabel={true} formik={formik} field="message" id="message" type="text" placeholder="Write message" autocomplete="on" />
-                                        <p className="text-itemactivegrey"><code>@a</code> for any player | <code>@m</code> for male | <code>@f</code> for female</p>
-                                        <IonToggle className="mt-4" mode="ios" checked={formik.values.type === TaskType.TRUTH} onIonChange={(e) => formik.setFieldValue('type', e.detail.checked ? TaskType.TRUTH : TaskType.DARE)} />
-                                        <span>{formik.values.type}</span>
+                                        <div className="mb-4">
+                                            <p className="text-itemactivegrey mb-1">Write task</p>
+                                            <IonTextarea className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => formik.setFieldValue('message', e.detail.value)}></IonTextarea>
+                                            <div className="flex gap-4">{Object.values(taskPlayerGenders).map(taskPlayerGenders =>
+                                                <label onClick={() => {
+                                                    formik.setFieldValue('message', formik.values.message + taskPlayerGenders.name)
+                                                }} key={taskPlayerGenders.name} className={`hover:bg-dare-green text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
+                                                    {taskPlayerGenders.icon}
+                                                </label>
+                                            )}</div>
+                                        </div>
+                                        <div className="mb-4">
+                                            <p className="text-itemactivegrey mb-1">Is the task a truth or dare?</p>
+                                            <IonToggle className="" mode="ios" checked={formik.values.type === TaskType.TRUTH} onIonChange={(e) => formik.setFieldValue('type', e.detail.checked ? TaskType.TRUTH : TaskType.DARE)} />
+                                            <span>{formik.values.type}</span>
+                                        </div>
                                         <Button className="w-full" type="submit" onClick={() => {
 
                                         }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
