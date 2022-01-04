@@ -6,9 +6,11 @@ import { countGenderOccurrences } from "../../services/utilities/utilities";
 import { Language } from '../../shared/enums/Language';
 import { Visibility } from '../../shared/enums/Visibility';
 import { SetCategory } from '../../shared/types/SetCategory';
+import { TaskCurrentPlayerGender } from '../../shared/types/TaskCurrentPlayerGender';
+import { TaskType } from '../../shared/types/TaskType';
 import { Set } from '../explore/state';
 import { playerRequiredToPlay } from "../players/state";
-import { GameStatus, PlayTask, StartGameErrors, TaskCurrentPlayerGender, TaskType } from "./state";
+import { GameStatus, PlayTask, StartGameErrors } from "./state";
 
 export const launchGame = ({ actions }: Context, history: History) => {
     const isPossibleToPlay = actions.game.isPossibleToPlay()

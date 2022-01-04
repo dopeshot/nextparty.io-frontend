@@ -27,8 +27,7 @@ export const login = async ({ state, effects, actions }: Context, credentials: {
         state.profile.error = null
     } catch (error) {
         console.error(error)
-        state.profile.error = checkAxiosErrorType(error)
-        actions.profile.setToken()
+        state.profile.error = checkAxiosErrorType(error, actions)
     }
     state.profile.authenticating = false
 }
@@ -43,8 +42,7 @@ export const register = async ({ state, effects, actions }: Context, credentials
         state.profile.error = null
     } catch (error) {
         console.error(error)
-        state.profile.error = checkAxiosErrorType(error)
-        actions.profile.setToken()
+        state.profile.error = checkAxiosErrorType(error, actions)
     }
     state.profile.authenticating = false
 }
@@ -57,7 +55,7 @@ export const logout = ({ actions }: Context) => {
     actions.profile.setToken()
 }
 
-export const getSetsByUser = async ({ state, effects }: Context) => {
+export const getSetsByUser = async ({ state, actions, effects }: Context) => {
     if (!state.profile.currentUser) {
         return
     }
@@ -70,7 +68,7 @@ export const getSetsByUser = async ({ state, effects }: Context) => {
         state.profile.sets.data = data
     } catch (error) {
         console.error(error)
-        state.profile.error = checkAxiosErrorType(error)
+        state.profile.error = checkAxiosErrorType(error, actions)
     }
     state.profile.isLoadingSets = false
 }

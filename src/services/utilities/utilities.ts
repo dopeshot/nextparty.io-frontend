@@ -5,6 +5,13 @@ export function replaceStringWithIcon(string: string): string {
         .replaceAll('@f', '👩')
 }
 
+export function replaceIconWithString(string: string): string {
+    return string
+        .replaceAll('👤', '@a')
+        .replaceAll('👨', '@m')
+        .replaceAll('👩', '@f')
+}
+
 export function replaceCurrentPlayerStringWithIcon(string: string): string {
     return string
         .replaceAll('@ca', '👤')
@@ -22,18 +29,5 @@ export function countGenderOccurrences(string: string): {
         female: string.split('@f').length - 1,
         any: string.split('@a').length - 1
     }
-}
-
-export function animateValue(obj: HTMLElement | null, start: number, end: number, duration: number) {
-    let startTimestamp: number | null = null;
-    const step = (timestamp: number) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        obj!.innerHTML = Math.floor(progress * (end - start) + start).toString()
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
 }
 
