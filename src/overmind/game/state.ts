@@ -3,11 +3,6 @@ import { config } from ".."
 import { Set, Task } from "../explore/state"
 import { Gender, Player } from "../players/state"
 
-export enum TaskType {
-    TRUTH = "truth",
-    DARE = "dare"
-}
-
 export enum GameStatus {
     START = "start",
     PLAYER_PICKED = "player_picked",

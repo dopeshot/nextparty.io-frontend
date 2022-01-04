@@ -3,8 +3,8 @@ import { Language } from "../../shared/enums/Language"
 import { Visibility } from "../../shared/enums/Visibility"
 import { SetCategory } from "../../shared/types/SetCategory"
 import { TaskCurrentPlayerGender } from "../../shared/types/TaskCurrentPlayerGender"
+import { TaskType } from "../../shared/types/TaskType"
 import { Task } from "../explore/state"
-import { TaskType } from "../game/state"
 
 export type SetDto = {
     name: string

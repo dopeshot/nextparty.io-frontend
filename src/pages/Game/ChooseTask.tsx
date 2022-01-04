@@ -1,5 +1,5 @@
 import { useActions } from "../../overmind"
-import { TaskType } from "../../overmind/game/state"
+import { TaskType } from "../../shared/types/TaskType"
 
 type ChooseTaskType = {
     playerName: string

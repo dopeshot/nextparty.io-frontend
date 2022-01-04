@@ -4,8 +4,9 @@ import { useHistory } from "react-router"
 // import dareBackgroundImage from '../../assets/backgrounds/dare@2x.jpg'
 import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
 import { useActions, useAppState } from "../../overmind"
-import { GameStatus, TaskType } from "../../overmind/game/state"
+import { GameStatus } from "../../overmind/game/state"
 import { setSeoTitle } from "../../services/utilities/setSeoTitle"
+import { TaskType } from "../../shared/types/TaskType"
 import { ChooseTask } from "./ChooseTask"
 import { DisplayTask } from "./DisplayTask"
 

@@ -10,7 +10,6 @@ import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
 import { Task } from "../../overmind/explore/state";
-import { TaskType } from "../../overmind/game/state";
 import { replaceCurrentPlayerStringWithIcon, replaceIconWithString, replaceStringWithIcon } from "../../services/utilities/utilities";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
@@ -18,6 +17,7 @@ import { languagePickerOptions, languages } from "../../shared/types/Language";
 import { categories, categoriesList, ForegroundColor, SetCategory } from "../../shared/types/SetCategory";
 import { TaskCurrentPlayerGender, taskCurrentPlayerGenders } from "../../shared/types/TaskCurrentPlayerGender";
 import { taskPlayerGenders } from "../../shared/types/TaskPlayerGender";
+import { TaskType, taskTypes } from "../../shared/types/TaskType";
 
 export const Editor: React.FC = () => {
     const { submitSet, addTask, updateTask } = useActions().creative
@@ -263,7 +263,18 @@ export const Editor: React.FC = () => {
                                         </div>
                                         <div className="mb-4">
                                             <p className="text-itemactivegrey mb-1">Is the task a truth or dare?</p>
-                                            <IonToggle className="" mode="ios" checked={formik.values.type === TaskType.TRUTH} onIonChange={(e) => formik.setFieldValue('type', e.detail.checked ? TaskType.TRUTH : TaskType.DARE)} />
+                                            <div className="flex">
+                                                <div className="flex gap-4 bg-itemactivegrey p-1 rounded-full">
+                                                    {
+                                                        Object.values(taskTypes).map(taskType =>
+                                                            <label key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-dare-green' : ''} hover:bg-dare-green text-xl rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
+                                                                {taskType.name}
+                                                                <Field className="appearance-none" type="radio" name="type" value={taskType.name} />
+                                                            </label>)
+
+                                                    }
+                                                </div>
+                                            </div>
                                             <span>{formik.values.type}</span>
                                         </div>
                                         <Button className="w-full" type="submit" onClick={() => {
