@@ -296,7 +296,7 @@ export const Editor: React.FC = () => {
                         </>
                     }
                     {
-                        isEdit && <Button icon={plus} className="w-full" onClick={() => {
+                        true && <Button icon={plus} className="w-full" onClick={() => {
                             setShowTaskEditor(true)
                         }}>Task</Button>
 
@@ -328,7 +328,7 @@ export const Editor: React.FC = () => {
                                                         Object.values(taskCurrentPlayerGenders).map(taskCurrentPlayerGender =>
                                                             <label key={taskCurrentPlayerGender.name} className={`${formik.values.currentPlayerGender === taskCurrentPlayerGender.name ? 'bg-dare-green' : ''} hover:bg-dare-green text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
                                                                 {taskCurrentPlayerGender.icon}
-                                                                <Field className="appearance-none" type="radio" name="currentPlayerGender" value={taskCurrentPlayerGender.name} />
+                                                                <Field className="appearance-none hidden" type="radio" name="currentPlayerGender" value={taskCurrentPlayerGender.name} />
                                                             </label>
                                                         )
                                                     }
@@ -356,7 +356,7 @@ export const Editor: React.FC = () => {
                                                         Object.values(taskTypes).map(taskType =>
                                                             <label key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-dare-green' : ''} hover:bg-dare-green rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
                                                                 {taskType.name}
-                                                                <Field className="appearance-none" type="radio" name="type" value={taskType.name} />
+                                                                <Field className="appearance-none hidden" type="radio" name="type" value={taskType.name} />
                                                             </label>)
 
                                                     }
