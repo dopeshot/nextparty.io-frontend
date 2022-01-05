@@ -15,3 +15,4 @@ export const taskTypes: { [key in TaskType]: {
         name: TaskType.DARE
     }
 }
+
