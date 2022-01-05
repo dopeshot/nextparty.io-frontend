@@ -21,7 +21,7 @@ import { taskPlayerGenders } from "../../shared/types/TaskPlayerGender";
 import { TaskType, taskTypes } from "../../shared/types/TaskType";
 
 export const Editor: React.FC = () => {
-    const { submitSet, addTask, updateTask } = useActions().creative
+    const { submitSet, addTask, updateTask, deleteTask } = useActions().creative
     const { isLoading, isEdit, isNew, set } = useAppState().creative
 
     const initialValuesSet = {
@@ -81,6 +81,20 @@ export const Editor: React.FC = () => {
         type: Yup.string().oneOf(Object.values(TaskType)).required(),
         currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required()
     })
+
+    const onDeleteTask = (taskId: string) => {
+        if (!set || !set._id) {
+            console.error("There is no id for this set created yet.")
+            return
+        }
+
+        deleteTask({ setId: set._id, taskId })
+
+        if (showTaskEditor) {
+            setEditData(null)
+            setShowTaskEditor(false)
+        }
+    }
 
     const [showThemePicker, setShowThemePicker] = useState(false);
     const [showTaskEditor, setShowTaskEditor] = useState(false)
@@ -198,20 +212,20 @@ export const Editor: React.FC = () => {
                             </div>
                             <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
                             <div>
-                                {set.tasks.map(set => <div key={set._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
+                                {set.tasks.map(task => <div key={task._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
                                     <button onClick={() => {
-                                        setEditData(set)
+                                        setEditData(task)
                                         setShowTaskEditor(true)
                                     }} className="flex items-center flex-grow min-w-0">
                                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                            <span className="text-xl">{set.type === TaskType.DARE ? 'D' : 'T'}</span>
+                                            <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
                                         </div>
                                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                            <span className="text-xl">{replaceCurrentPlayerStringWithIcon(set.currentPlayerGender)}</span>
+                                            <span className="text-xl">{replaceCurrentPlayerStringWithIcon(task.currentPlayerGender)}</span>
                                         </div>
-                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{replaceStringWithIcon(set.message)}</p>
+                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{replaceStringWithIcon(task.message)}</p>
                                     </button>
-                                    <button onClick={() => console.log("delete item")} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
+                                    <button onClick={() => onDeleteTask(task._id)} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
                                         <XIcon className="w-6 h-6" />
                                     </button>
                                 </div>)}
@@ -286,9 +300,10 @@ export const Editor: React.FC = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <Button className="w-full" type="submit" onClick={() => {
+                                        <Button className="w-full mb-4" type="submit" onClick={() => {
 
                                         }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
+                                        <Button className="w-full" type="button" onClick={() => editData && onDeleteTask(editData._id)}>Delete</Button>
                                     </div>
                                 </Form>
                                 }</Formik>
