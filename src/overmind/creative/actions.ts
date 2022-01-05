@@ -106,3 +106,24 @@ export const deleteTask = async ({ state, effects }: Context, {
         console.error(error)
     }
 }
+
+export const deleteSet = async ({ state, effects }: Context) => {
+    // Check if set is valid
+    if (!state.creative.set?._id) {
+        console.error("set is not set")
+        return
+    }
+
+    state.creative.isLoading = true
+
+    try {
+        await effects.creative.deleteSet(state.creative.set._id)
+        state.creative.isEdit = false
+        state.creative.set = null
+    } catch (error) {
+        console.error(error)
+    }
+
+
+    state.creative.isLoading = false
+}

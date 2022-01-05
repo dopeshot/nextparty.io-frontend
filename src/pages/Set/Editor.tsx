@@ -1,5 +1,5 @@
-import { ChevronDownIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonAlert, useIonPicker } from "@ionic/react";
+import { ChevronDownIcon, DotsHorizontalIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonActionSheet, useIonAlert, useIonPicker, useIonRouter } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import example from '../../assets/example.png';
 import plus from '../../assets/icons/plus.svg';
 import save from "../../assets/icons/save.svg";
+import trash from "../../assets/icons/trash.svg";
 import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
@@ -21,8 +22,9 @@ import { taskPlayerGenders } from "../../shared/types/TaskPlayerGender";
 import { TaskType, taskTypes } from "../../shared/types/TaskType";
 
 export const Editor: React.FC = () => {
-    const { submitSet, addTask, updateTask, deleteTask } = useActions().creative
+    const { submitSet, addTask, updateTask, deleteTask, deleteSet } = useActions().creative
     const { isLoading, isEdit, isNew, set } = useAppState().creative
+    const ionRouter = useIonRouter()
 
     const initialValuesSet = {
         name: set?.name ?? "",
@@ -103,12 +105,25 @@ export const Editor: React.FC = () => {
                         }
                     }
                 },
-            ],
-            onDidDismiss: (e) => console.log('did dismiss'),
+            ]
         })
     }
 
-
+    const onDeleteSet = () => {
+        showDeleteAlert({
+            header: "Delete this Set?",
+            message: "It will be gone forever",
+            buttons: [
+                { text: 'Cancel', role: 'cancel' },
+                {
+                    text: 'Yes, delete it', role: 'destructive', handler: (d) => {
+                        deleteSet()
+                        ionRouter.push('/account/profile')
+                    }
+                },
+            ]
+        })
+    }
 
     const [showThemePicker, setShowThemePicker] = useState(false);
     const [showTaskEditor, setShowTaskEditor] = useState(false)
@@ -117,6 +132,7 @@ export const Editor: React.FC = () => {
     const [editData, setEditData] = useState<Task | null>(null)
 
     const [showDeleteAlert] = useIonAlert()
+    const [showSetOptions] = useIonActionSheet()
 
     return <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 134px', backgroundPosition: 'top' }}>
         <IonHeader className="container ion-no-border my-1">
@@ -124,6 +140,22 @@ export const Editor: React.FC = () => {
                 <IonButtons>
                     <IonBackButton className="text-white" icon={arrowBack} defaultHref="/account" />
                 </IonButtons>
+                {isEdit && <IonButtons slot="end">
+                    <IonButton data-cy="set-details-threedot-icon" onClick={() => showSetOptions({
+                        buttons: [{
+                            text: 'Delete this Set',
+                            role: 'destructive',
+                            icon: trash,
+                            handler: () => {
+                                onDeleteSet()
+                            }
+                        }],
+                        header: "Edit set"
+                    })}>
+                        <DotsHorizontalIcon className="h-6 w-6" />
+                    </IonButton>
+                </IonButtons>
+                }
             </IonToolbar>
         </IonHeader>
 
@@ -319,7 +351,7 @@ export const Editor: React.FC = () => {
                                         <Button className="w-full mb-4" type="submit" onClick={() => {
 
                                         }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
-                                        <Button className="w-full" type="button" onClick={() => editData && onDeleteTask(editData._id)}>Delete</Button>
+                                        {editData && <Button className="w-full" type="button" onClick={() => onDeleteTask(editData._id)}>Delete</Button>}
                                     </div>
                                 </Form>
                                 }</Formik>
@@ -328,5 +360,5 @@ export const Editor: React.FC = () => {
                 </div>
             </main>
         </IonContent>
-    </IonPage>
+    </IonPage >
 }
