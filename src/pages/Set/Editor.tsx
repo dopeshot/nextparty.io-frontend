@@ -1,5 +1,5 @@
 import { ChevronDownIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonAlert, useIonPicker } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useState } from "react";
@@ -83,24 +83,40 @@ export const Editor: React.FC = () => {
     })
 
     const onDeleteTask = (taskId: string) => {
-        if (!set || !set._id) {
-            console.error("There is no id for this set created yet.")
-            return
-        }
+        showDeleteAlert({
+            header: "Delete this task?",
+            message: "It will be gone forever",
+            buttons: [
+                { text: 'Cancel', role: 'cancel' },
+                {
+                    text: 'Yes, delete it', role: 'destructive', handler: (d) => {
+                        if (!set || !set._id) {
+                            console.error("There is no id for this set created yet.")
+                            return
+                        }
 
-        deleteTask({ setId: set._id, taskId })
+                        deleteTask({ setId: set._id, taskId })
 
-        if (showTaskEditor) {
-            setEditData(null)
-            setShowTaskEditor(false)
-        }
+                        if (showTaskEditor) {
+                            // There is no need to reset editData since this is done by the task editor on dismiss did
+                            setShowTaskEditor(false)
+                        }
+                    }
+                },
+            ],
+            onDidDismiss: (e) => console.log('did dismiss'),
+        })
     }
+
+
 
     const [showThemePicker, setShowThemePicker] = useState(false);
     const [showTaskEditor, setShowTaskEditor] = useState(false)
     const [languagePicker] = useIonPicker()
 
     const [editData, setEditData] = useState<Task | null>(null)
+
+    const [showDeleteAlert] = useIonAlert()
 
     return <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 134px', backgroundPosition: 'top' }}>
         <IonHeader className="container ion-no-border my-1">
