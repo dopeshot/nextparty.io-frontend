@@ -138,13 +138,10 @@ export const Editor: React.FC = () => {
     }
 
     const [taskMessage, setTaskMessageFocus] = useFocus()
-
     const [showThemePicker, setShowThemePicker] = useState(false);
     const [showTaskEditor, setShowTaskEditor] = useState(false)
-    const [languagePicker] = useIonPicker()
-
     const [editData, setEditData] = useState<Task | null>(null)
-
+    const [languagePicker] = useIonPicker()
     const [showDeleteAlert] = useIonAlert()
     const [showSetOptions] = useIonActionSheet()
 
