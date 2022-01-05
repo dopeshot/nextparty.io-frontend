@@ -293,7 +293,7 @@ export const Editor: React.FC = () => {
                         </>
                     }
                     {
-                        true && <Button icon={plus} className="w-full" onClick={() => {
+                        isEdit && <Button icon={plus} className="w-full" onClick={() => {
                             setShowTaskEditor(true)
                         }}>Task</Button>
 
