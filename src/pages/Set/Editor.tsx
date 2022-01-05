@@ -179,7 +179,7 @@ export const Editor: React.FC = () => {
                     <h1 className="text-3xl text-white font-bold">{isNew ? 'Create Set' : 'Edit Set'}</h1>
                 </div>
             </div>
-            <main className="bg-background-black">
+            <main className="bg-background-black mb-12">
                 <div className="container">
                     <Formik initialValues={initialValuesSet} validationSchema={validationSchemaSet} onSubmit={submitFormSet}>{(formik) =>
                         <Form className="mb-8">
