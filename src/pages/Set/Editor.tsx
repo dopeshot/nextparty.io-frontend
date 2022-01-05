@@ -1,6 +1,6 @@
 import { ChevronDownIcon, DotsHorizontalIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonActionSheet, useIonAlert, useIonPicker, useIonRouter } from "@ionic/react";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useRef, useState } from "react";
 import * as Yup from "yup";
@@ -338,7 +338,13 @@ export const Editor: React.FC = () => {
                                         </div>
                                         <div className="mb-4">
                                             <p className="text-itemactivegrey mb-1">Write task</p>
-                                            <IonTextarea ref={taskMessage} className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => formik.setFieldValue('message', e.detail.value)}></IonTextarea>
+                                            <IonTextarea ref={taskMessage} className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => {
+                                                formik.setFieldValue('message', e.detail.value)
+                                            }} onIonBlur={() => {
+                                                // This is required since of the custom field of IonTextarea....
+                                                formik.setFieldTouched('message')
+                                            }}></IonTextarea>
+                                            <ErrorMessage name="message" className="text-red-500" component="span" />
                                             <div className="flex gap-4">{Object.values(taskPlayerGenders).map(taskPlayerGenders =>
                                                 <label onClick={() => {
                                                     formik.setFieldValue('message', generateTaskMessage(formik.values.message, taskPlayerGenders.name))
