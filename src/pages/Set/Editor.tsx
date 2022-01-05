@@ -2,7 +2,7 @@ import { ChevronDownIcon, DotsHorizontalIcon, PencilIcon, XIcon } from "@heroico
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonActionSheet, useIonAlert, useIonPicker, useIonRouter } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import * as Yup from "yup";
 import example from '../../assets/example.png';
 import plus from '../../assets/icons/plus.svg';
@@ -125,6 +125,20 @@ export const Editor: React.FC = () => {
         })
     }
 
+    const generateTaskMessage = (string: string, addString: string): string => {
+        return string + addString
+    }
+
+    // The return type is required (for some reason)
+    const useFocus = (): [React.RefObject<HTMLIonTextareaElement>, () => void] => {
+        const htmlElementReference = useRef<HTMLIonTextareaElement>(null)
+        const setFocus = () => { htmlElementReference.current && htmlElementReference.current.setFocus() }
+
+        return [htmlElementReference, setFocus]
+    }
+
+    const [taskMessage, setTaskMessageFocus] = useFocus()
+
     const [showThemePicker, setShowThemePicker] = useState(false);
     const [showTaskEditor, setShowTaskEditor] = useState(false)
     const [languagePicker] = useIonPicker()
@@ -245,7 +259,7 @@ export const Editor: React.FC = () => {
                                 </div>
                                 <p className="text-itemactivegrey">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</p>
                             </div>
-                            <Button className="w-full" keepFocus={true} onClick={() => null} icon={save} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Save' : 'Create'}</Button>
+                            <Button className="w-full" keepFocus={true} onClick={() => null} icon={save} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Update Set Details' : 'Create Set'}</Button>
                         </Form>
                     }
                     </Formik>
@@ -324,10 +338,11 @@ export const Editor: React.FC = () => {
                                         </div>
                                         <div className="mb-4">
                                             <p className="text-itemactivegrey mb-1">Write task</p>
-                                            <IonTextarea className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => formik.setFieldValue('message', e.detail.value)}></IonTextarea>
+                                            <IonTextarea ref={taskMessage} className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => formik.setFieldValue('message', e.detail.value)}></IonTextarea>
                                             <div className="flex gap-4">{Object.values(taskPlayerGenders).map(taskPlayerGenders =>
                                                 <label onClick={() => {
-                                                    formik.setFieldValue('message', formik.values.message + taskPlayerGenders.name)
+                                                    formik.setFieldValue('message', generateTaskMessage(formik.values.message, taskPlayerGenders.name))
+                                                    setTaskMessageFocus()
                                                 }} key={taskPlayerGenders.name} className={`hover:bg-dare-green text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
                                                     {taskPlayerGenders.icon}
                                                 </label>
