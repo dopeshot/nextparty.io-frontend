@@ -1,12 +1,13 @@
-import { ChevronDownIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonPicker } from "@ionic/react";
-import { Field, Form, Formik } from "formik";
+import { ChevronDownIcon, DotsHorizontalIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonActionSheet, useIonAlert, useIonPicker, useIonRouter } from "@ionic/react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import * as Yup from "yup";
 import example from '../../assets/example.png';
 import plus from '../../assets/icons/plus.svg';
 import save from "../../assets/icons/save.svg";
+import trash from "../../assets/icons/trash.svg";
 import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
@@ -21,8 +22,9 @@ import { taskPlayerGenders } from "../../shared/types/TaskPlayerGender";
 import { TaskType, taskTypes } from "../../shared/types/TaskType";
 
 export const Editor: React.FC = () => {
-    const { submitSet, addTask, updateTask } = useActions().creative
+    const { submitSet, addTask, updateTask, deleteTask, deleteSet } = useActions().creative
     const { isLoading, isEdit, isNew, set } = useAppState().creative
+    const ionRouter = useIonRouter()
 
     const initialValuesSet = {
         name: set?.name ?? "",
@@ -82,11 +84,69 @@ export const Editor: React.FC = () => {
         currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required()
     })
 
+    const onDeleteTask = (taskId: string) => {
+        showDeleteAlert({
+            header: "Delete this task?",
+            message: "It will be gone forever",
+            buttons: [
+                { text: 'Cancel', role: 'cancel' },
+                {
+                    text: 'Yes, delete it', role: 'destructive', handler: (d) => {
+                        if (!set || !set._id) {
+                            console.error("There is no id for this set created yet.")
+                            return
+                        }
+
+                        deleteTask({ setId: set._id, taskId })
+
+                        if (showTaskEditor) {
+                            // There is no need to reset editData since this is done by the task editor on dismiss did
+                            setShowTaskEditor(false)
+                        }
+                    }
+                },
+            ]
+        })
+    }
+
+    const onDeleteSet = () => {
+        showDeleteAlert({
+            header: "Delete this Set?",
+            message: "It will be gone forever",
+            buttons: [
+                { text: 'Cancel', role: 'cancel' },
+                {
+                    text: 'Yes, delete it', role: 'destructive', handler: (d) => {
+                        deleteSet()
+                        ionRouter.push('/account/profile')
+                    }
+                },
+            ]
+        })
+    }
+
+    const generateTaskMessage = (string: string, addString: string): string => {
+        return string + addString
+    }
+
+    // The return type is required (for some reason)
+    const useFocus = (): [React.RefObject<HTMLIonTextareaElement>, () => void] => {
+        const htmlElementReference = useRef<HTMLIonTextareaElement>(null)
+        const setFocus = () => { htmlElementReference.current && htmlElementReference.current.setFocus() }
+
+        return [htmlElementReference, setFocus]
+    }
+
+    const [taskMessage, setTaskMessageFocus] = useFocus()
+
     const [showThemePicker, setShowThemePicker] = useState(false);
     const [showTaskEditor, setShowTaskEditor] = useState(false)
     const [languagePicker] = useIonPicker()
 
     const [editData, setEditData] = useState<Task | null>(null)
+
+    const [showDeleteAlert] = useIonAlert()
+    const [showSetOptions] = useIonActionSheet()
 
     return <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 134px', backgroundPosition: 'top' }}>
         <IonHeader className="container ion-no-border my-1">
@@ -94,6 +154,22 @@ export const Editor: React.FC = () => {
                 <IonButtons>
                     <IonBackButton className="text-white" icon={arrowBack} defaultHref="/account" />
                 </IonButtons>
+                {isEdit && <IonButtons slot="end">
+                    <IonButton data-cy="set-details-threedot-icon" onClick={() => showSetOptions({
+                        buttons: [{
+                            text: 'Delete this Set',
+                            role: 'destructive',
+                            icon: trash,
+                            handler: () => {
+                                onDeleteSet()
+                            }
+                        }],
+                        header: "Edit set"
+                    })}>
+                        <DotsHorizontalIcon className="h-6 w-6" />
+                    </IonButton>
+                </IonButtons>
+                }
             </IonToolbar>
         </IonHeader>
 
@@ -103,7 +179,7 @@ export const Editor: React.FC = () => {
                     <h1 className="text-3xl text-white font-bold">{isNew ? 'Create Set' : 'Edit Set'}</h1>
                 </div>
             </div>
-            <main className="bg-background-black">
+            <main className="bg-background-black mb-12">
                 <div className="container">
                     <Formik initialValues={initialValuesSet} validationSchema={validationSchemaSet} onSubmit={submitFormSet}>{(formik) =>
                         <Form className="mb-8">
@@ -183,7 +259,7 @@ export const Editor: React.FC = () => {
                                 </div>
                                 <p className="text-itemactivegrey">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</p>
                             </div>
-                            <Button className="w-full" keepFocus={true} onClick={() => null} icon={save} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Save' : 'Create'}</Button>
+                            <Button className="w-full" keepFocus={true} onClick={() => null} icon={save} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Update Set Details' : 'Create Set'}</Button>
                         </Form>
                     }
                     </Formik>
@@ -198,20 +274,20 @@ export const Editor: React.FC = () => {
                             </div>
                             <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
                             <div>
-                                {set.tasks.map(set => <div key={set._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
+                                {set.tasks.map(task => <div key={task._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
                                     <button onClick={() => {
-                                        setEditData(set)
+                                        setEditData(task)
                                         setShowTaskEditor(true)
                                     }} className="flex items-center flex-grow min-w-0">
                                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                            <span className="text-xl">{set.type === TaskType.DARE ? 'D' : 'T'}</span>
+                                            <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
                                         </div>
                                         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                            <span className="text-xl">{replaceCurrentPlayerStringWithIcon(set.currentPlayerGender)}</span>
+                                            <span className="text-xl">{replaceCurrentPlayerStringWithIcon(task.currentPlayerGender)}</span>
                                         </div>
-                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{replaceStringWithIcon(set.message)}</p>
+                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{replaceStringWithIcon(task.message)}</p>
                                     </button>
-                                    <button onClick={() => console.log("delete item")} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
+                                    <button onClick={() => onDeleteTask(task._id)} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
                                         <XIcon className="w-6 h-6" />
                                     </button>
                                 </div>)}
@@ -220,7 +296,7 @@ export const Editor: React.FC = () => {
                         </>
                     }
                     {
-                        isEdit && <Button icon={plus} className="w-full" onClick={() => {
+                        true && <Button icon={plus} className="w-full" onClick={() => {
                             setShowTaskEditor(true)
                         }}>Task</Button>
 
@@ -252,7 +328,7 @@ export const Editor: React.FC = () => {
                                                         Object.values(taskCurrentPlayerGenders).map(taskCurrentPlayerGender =>
                                                             <label key={taskCurrentPlayerGender.name} className={`${formik.values.currentPlayerGender === taskCurrentPlayerGender.name ? 'bg-dare-green' : ''} hover:bg-dare-green text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
                                                                 {taskCurrentPlayerGender.icon}
-                                                                <Field className="appearance-none" type="radio" name="currentPlayerGender" value={taskCurrentPlayerGender.name} />
+                                                                <Field className="appearance-none hidden" type="radio" name="currentPlayerGender" value={taskCurrentPlayerGender.name} />
                                                             </label>
                                                         )
                                                     }
@@ -262,10 +338,17 @@ export const Editor: React.FC = () => {
                                         </div>
                                         <div className="mb-4">
                                             <p className="text-itemactivegrey mb-1">Write task</p>
-                                            <IonTextarea className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => formik.setFieldValue('message', e.detail.value)}></IonTextarea>
+                                            <IonTextarea ref={taskMessage} className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => {
+                                                formik.setFieldValue('message', e.detail.value)
+                                            }} onIonBlur={() => {
+                                                // This is required since of the custom field of IonTextarea....
+                                                formik.setFieldTouched('message')
+                                            }}></IonTextarea>
+                                            <ErrorMessage name="message" className="text-red-500" component="span" />
                                             <div className="flex gap-4">{Object.values(taskPlayerGenders).map(taskPlayerGenders =>
                                                 <label onClick={() => {
-                                                    formik.setFieldValue('message', formik.values.message + taskPlayerGenders.name)
+                                                    formik.setFieldValue('message', generateTaskMessage(formik.values.message, taskPlayerGenders.name))
+                                                    setTaskMessageFocus()
                                                 }} key={taskPlayerGenders.name} className={`hover:bg-dare-green text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
                                                     {taskPlayerGenders.icon}
                                                 </label>
@@ -279,16 +362,17 @@ export const Editor: React.FC = () => {
                                                         Object.values(taskTypes).map(taskType =>
                                                             <label key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-dare-green' : ''} hover:bg-dare-green rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
                                                                 {taskType.name}
-                                                                <Field className="appearance-none" type="radio" name="type" value={taskType.name} />
+                                                                <Field className="appearance-none hidden" type="radio" name="type" value={taskType.name} />
                                                             </label>)
 
                                                     }
                                                 </div>
                                             </div>
                                         </div>
-                                        <Button className="w-full" type="submit" onClick={() => {
+                                        <Button className="w-full mb-4" type="submit" onClick={() => {
 
                                         }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
+                                        {editData && <Button className="w-full" type="button" onClick={() => onDeleteTask(editData._id)}>Delete</Button>}
                                     </div>
                                 </Form>
                                 }</Formik>
@@ -297,5 +381,5 @@ export const Editor: React.FC = () => {
                 </div>
             </main>
         </IonContent>
-    </IonPage>
+    </IonPage >
 }

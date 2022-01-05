@@ -88,3 +88,42 @@ export const updateTask = async ({ state, effects }: Context, {
         console.error(error)
     }
 }
+
+export const deleteTask = async ({ state, effects }: Context, {
+    setId,
+    taskId
+}: { setId: string, taskId: string }) => {
+    // Check if set is valid
+    if (!state.creative.set) {
+        console.error("set is not set")
+        return
+    }
+
+    try {
+        await effects.creative.deleteTask(setId, taskId)
+        state.creative.set.tasks = state.creative.set.tasks.filter(task => task._id !== taskId)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export const deleteSet = async ({ state, effects }: Context) => {
+    // Check if set is valid
+    if (!state.creative.set?._id) {
+        console.error("set is not set")
+        return
+    }
+
+    state.creative.isLoading = true
+
+    try {
+        await effects.creative.deleteSet(state.creative.set._id)
+        state.creative.isEdit = false
+        state.creative.set = null
+    } catch (error) {
+        console.error(error)
+    }
+
+
+    state.creative.isLoading = false
+}
