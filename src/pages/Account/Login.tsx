@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import * as Yup from "yup";
 import example from '../../assets/example.png';
 import arrowBack from "../../assets/icons/arrowback.svg";
-import google from '../../assets/icons/google.svg';
 import loginicon from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
 import { ErrorBanner } from '../../components/Errors/ErrorBanner';
@@ -70,8 +69,8 @@ export const Login: React.FC = () => {
                         </Formik>
 
                         <Link to="#" className="block text-darkgray text-center my-4">Forgot your Password?</Link>
-                        <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
-                        <Button keepFocus={true} to="#" icon={google} className="w-full mb-4">Continue with Google</Button>
+                        {/* { <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
+                        <Button keepFocus={true} to="#" icon={google} className="w-full mb-4">Continue with Google</Button> } */}
                     </div>
                 </div>
             </IonContent>
