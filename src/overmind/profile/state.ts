@@ -21,9 +21,9 @@ export type State = {
     authenticating: boolean
     isLoadingSets: boolean
     isLoggedIn: boolean
-    accessToken: string | null,
+    accessToken: string | null
     sets: {
-        data: Set[] | null,
+        data: Set[] | null
         truthCount: number
         dareCount: number
         setCount: number
