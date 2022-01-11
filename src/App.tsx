@@ -9,6 +9,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { GuestRoute } from './components/Routes/GuestRoute';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
 import { useAppState } from './overmind';
+import { EmailVerify } from './pages/Account/EmailVerify';
 import { GuestLanding } from './pages/Account/GuestLanding';
 import { Login } from './pages/Account/Login';
 import { Profile } from './pages/Account/Profile';
@@ -36,6 +37,7 @@ export const App: React.FC = () => {
                     <Route exact path="/explore" component={Explore} />
                     <Route exact path="/explore/:setId" component={SetDetails} />
                     <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={GuestLanding} />
+                    <Route exact path="/account/verify-account/:code" component={EmailVerify} />
                     <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
                     <GuestRoute exact path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
                     <PrivateRoute exact path="/account/profile" component={Profile} />

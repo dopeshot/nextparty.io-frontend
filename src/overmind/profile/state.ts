@@ -29,12 +29,15 @@ export type State = {
         setCount: number
         playedCount: number
     }
+    emailVerified: boolean | null
+    isEmailVerifying: boolean
     error: string | null
 }
 
 export const state: State = {
     authenticating: false,
     isLoadingSets: false,
+    isEmailVerifying: false,
     isLoggedIn: derived((state: State) => Boolean(state.currentUser)),
     accessToken: null,
     currentUser: derived((state: State) => state.accessToken ? parseJwt(state.accessToken) : null),
@@ -45,5 +48,6 @@ export const state: State = {
         setCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.length),
         playedCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.played, 0))
     },
+    emailVerified: null,
     error: null
 }

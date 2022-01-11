@@ -14,3 +14,5 @@ export const getProfile = () => request.get<{
 }>('/user/profile')
 
 export const getSetsFromUser = (id: string) => request.get(`/set/user/${id}`)
+
+export const verifyMail = (code: string) => request.get(`/user/verify-account?code=${code}`)
