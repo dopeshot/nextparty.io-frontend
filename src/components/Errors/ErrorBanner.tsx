@@ -4,6 +4,8 @@ type ErrorBannerProps = {
     message: string
     dataCy?: string
     color: "danger" | "warning"
+    buttonText?: string
+    onClick?: (values: any) => void
 }
 
 export const ErrorBanner: React.FC<ErrorBannerProps> = (props) => {
@@ -14,6 +16,7 @@ export const ErrorBanner: React.FC<ErrorBannerProps> = (props) => {
         py-4 mb-5`}>
             <ExclamationCircleIcon className="h-6 w-6 ml-4 mr-2" />
             <p>{props.message}</p>
+            {props.onClick && <button className="underline ml-2" type="button" onClick={props.onClick}>{props.buttonText}</button>}
         </div>
     )
 }

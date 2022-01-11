@@ -10,6 +10,15 @@ export type CurrentUser = {
     exp: number
 }
 
+export type User = {
+    _id: string,
+    username: string,
+    email: string,
+    role: "user" | "admin",
+    status: "active" | "reported" | "banned" | "unverified",
+    provider: string
+}
+
 export type ResponseUser = {
     userId: string
     username: string
@@ -29,6 +38,7 @@ export type State = {
         setCount: number
         playedCount: number
     }
+    userDetailed: User | null
     emailVerified: boolean | null
     isEmailVerifying: boolean
     error: string | null
@@ -48,6 +58,7 @@ export const state: State = {
         setCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.length),
         playedCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.played, 0))
     },
+    userDetailed: null,
     emailVerified: null,
     error: null
 }

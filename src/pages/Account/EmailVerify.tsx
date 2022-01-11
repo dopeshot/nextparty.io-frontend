@@ -11,7 +11,7 @@ export const EmailVerify: React.FC = () => {
     const { code } = useParams<EmailVerifyParams>()
 
     const { verifyMail } = useActions().profile
-    const { error, emailVerified, isEmailVerifying } = useAppState().profile
+    const { emailVerified, isEmailVerifying } = useAppState().profile
 
     useIonViewWillEnter(() => {
         verifyMail(code)
@@ -28,7 +28,7 @@ export const EmailVerify: React.FC = () => {
                     <>
                         {emailVerified ?
                             <Error to="/" buttonContent="Start" errorType="Success" titleContent="Email Verified!" paragraphContent="Your Email was successfull verified login to start creating awesome sets." /> :
-                            <Error onClick={() => console.log("Here we should send mail again")} buttonContent="Send again" errorType="Failed" titleContent="Email verification link has expired." paragraphContent="Try to send email again." />}
+                            <Error to="/account/login" buttonContent="Login" errorType="Failed" titleContent="Email verification link has expired." paragraphContent="Try to login and send email again." />}
                     </>
                 }
             </IonContent>

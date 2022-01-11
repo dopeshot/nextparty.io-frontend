@@ -75,10 +75,41 @@ export const getSetsByUser = async ({ state, actions, effects }: Context) => {
     state.profile.isLoadingSets = false
 }
 
+export const getUserDetailed = async ({ state, actions, effects }: Context) => {
+    try {
+        const response = await effects.profile.getProfile()
+        const data = response.data
+
+        state.profile.userDetailed = data
+        state.profile.error = null
+    } catch (error) {
+        console.error(error)
+        state.profile.error = checkAxiosErrorType(error, actions)
+    }
+}
+
 export const verifyMail = async ({ state, effects, actions }: Context, code: string) => {
     state.profile.isEmailVerifying = true
     try {
         await effects.profile.verifyMail(code)
+        state.profile.emailVerified = true
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            console.error(error.response)
+        } else if (axios.isAxiosError(error)) {
+            console.error("isAxiosError", error)
+        } else {
+            console.error(error)
+        }
+        state.profile.emailVerified = false
+    }
+    state.profile.isEmailVerifying = false
+}
+
+export const resendMail = async ({ state, effects, actions }: Context) => {
+    state.profile.isEmailVerifying = true
+    try {
+        await effects.profile.resendMail()
         state.profile.emailVerified = true
     } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
