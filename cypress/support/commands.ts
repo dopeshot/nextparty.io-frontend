@@ -75,15 +75,18 @@ Cypress.Commands.add('getEmptySetsFromUser', () => {
 })
 
 Cypress.Commands.add('getMail', (response: "fail" | "success") => {
-    cy.intercept('GET', `${api}/users/verify-account?code=*`, () => (response === "fail" ? {
-        statusCode: 401,
-        body: {
-            "statusCode": 401,
-            "message": "Unauthorized"
+    cy.intercept('GET', `${api}/users/verify-account?code=*`, (req) => {
+        const replyWith = response === "success" ? {
+            statusCode: 200
+        } : {
+            statusCode: 401,
+            body: {
+                "statusCode": 401,
+                "message": "Unauthorized"
+            }
         }
-    } : {
-        statusCode: 200
-    })).as('getMail')
+        req.reply(replyWith)
+    }).as('getMail')
 })
 
 
