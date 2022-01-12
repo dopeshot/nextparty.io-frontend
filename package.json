@@ -96,7 +96,7 @@
         "@cypress/code-coverage": "^3.9.12",
         "@cypress/instrument-cra": "^1.4.0",
         "autoprefixer": "^9.8.8",
-        "cypress": "^9.1.1",
+        "cypress": "^9.2.1",
         "postcss": "^7.0.39",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
     },

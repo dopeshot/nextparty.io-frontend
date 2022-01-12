@@ -1,13 +1,13 @@
 const api = `${Cypress.env('apiUrl')}`
 
 Cypress.Commands.add('getSets', () => {
-    cy.intercept('GET', `${api}/set`, {
+    cy.intercept('GET', `${api}/sets`, {
         fixture: 'sets.json'
     }).as('getSets')
 })
 
 Cypress.Commands.add('getOneSet', () => {
-    cy.intercept('GET', `${api}/set/**`, {
+    cy.intercept('GET', `${api}/sets/**`, {
         fixture: 'set.json'
     }).as('getOneSet')
 })
@@ -65,13 +65,13 @@ Cypress.Commands.add('registerDuplicateUsername', () => {
 
 
 Cypress.Commands.add('getSetsFromUser', () => {
-    cy.intercept('GET', `${api}/set/user/**`, {
+    cy.intercept('GET', `${api}/sets/users/**`, {
         fixture: 'setsfromuser.json'
     }).as('getSetsFromUser')
 })
 
 Cypress.Commands.add('getEmptySetsFromUser', () => {
-    cy.intercept('GET', `${api}/set/user/**`, []).as('getEmptySetsFromUser')
+    cy.intercept('GET', `${api}/sets/users/**`, []).as('getEmptySetsFromUser')
 })
 
 Cypress.Commands.add('overmind', () => {

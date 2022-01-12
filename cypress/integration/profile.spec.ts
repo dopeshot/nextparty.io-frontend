@@ -48,7 +48,7 @@ describe('Profile', () => {
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
 
-        const interception = interceptIndefinitely('GET', `${api}/set/user/**`, { fixture: 'setsfromuser.json' })
+        const interception = interceptIndefinitely('GET', `${api}/sets/user/**`, { fixture: 'setsfromuser.json' })
 
         cy.get('[data-cy="login-button"]').click()
         cy.wait('@login')
