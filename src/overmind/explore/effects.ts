@@ -4,9 +4,9 @@ import { Visibility } from "../../shared/enums/Visibility"
 import { SetCategory } from "../../shared/types/SetCategory"
 import { Set, SetWithTasks } from "./state"
 
-export const getSets = () => request.get<Set[]>('/set')
+export const getSets = () => request.get<Set[]>('/sets')
 
-export const getSetById = (id: string) => request.get<SetWithTasks>(`/set/${id}`)
+export const getSetById = (id: string) => request.get<SetWithTasks>(`/sets/${id}`)
 
 /* istanbul ignore next */
 export const mock = {
