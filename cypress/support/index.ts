@@ -71,6 +71,8 @@ declare global {
              * @getOneSet cy.databasedown()
              */
             databasedown(): void
+
+            getMail(response: "fail" | "success"): void
         }
     }
 }
