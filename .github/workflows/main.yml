@@ -12,6 +12,9 @@ jobs:
       - name: install dependencies
         run: npm i
         
+      - name: instrument
+        run: npm run cc:instrument
+        
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
@@ -19,10 +22,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           
       - name: run cli tests
-        run: npm run cypress:run
-        
-      - name: generate report
-        run: npm run cc:report
+        run: npm run cypress:run       
         
       - name: Archive report
         uses: actions/upload-artifact@v2
