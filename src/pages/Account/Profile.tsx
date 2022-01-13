@@ -76,7 +76,7 @@ export const Profile: React.FC = () => {
                                     {sets.data?.length !== 0 &&
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                             <h2 className="text-lg font-semibold">Your Sets</h2>
-                                            <Button keepFocus={false} type="button" onClick={() => {
+                                            <Button type="button" onClick={() => {
                                                 createNewSet()
                                                 history.push("/account/creative")
                                             }} icon={plus} className="w-34 px-7">New</Button>

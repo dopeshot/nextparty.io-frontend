@@ -42,8 +42,8 @@ export const GuestLanding: React.FC = () => {
                         </IonItem>
                     </IonList>
 
-                    {/* {<Button keepFocus={false} to="#" icon={google} className="mb-4">Continue with Google</Button>} */}
-                    <Button dataCy="guestlanding-signup-button" keepFocus={true} to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
+                    {/* {<Button to="#" icon={google} className="mb-4">Continue with Google</Button>} */}
+                    <Button dataCy="guestlanding-signup-button" to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
 
                     <Link data-cy="guestlanding-login-link" className="block text-darkgray text-center" to="/account/login">Login instead</Link>
                 </div>

@@ -261,43 +261,37 @@ export const Editor: React.FC = () => {
                     }
                     </Formik>
                     {/** Tasks  */}
-                    {
-                        set?.tasks && set.tasks.length !== 0 && <>
-                            <div className="flex justify-between items-center">
-                                <h2 className="text-lg font-semibold">Tasks</h2>
-                                <Button keepFocus={false} type="button" onClick={() => {
+                    {set?.tasks && set.tasks.length !== 0 && <>
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-lg font-semibold">Tasks</h2>
+                            <Button keepFocus={false} type="button" onClick={() => { setShowTaskEditor(true) }} icon={plus} className="w-34 px-7">Task</Button>
+                        </div>
+                        <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
+                        <div>
+                            {set.tasks.map(task => <div key={task._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
+                                <button onClick={() => {
+                                    setEditData(task)
                                     setShowTaskEditor(true)
-                                }} icon={plus} className="w-34 px-7">Task</Button>
-                            </div>
-                            <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
-                            <div>
-                                {set.tasks.map(task => <div key={task._id} className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4">
-                                    <button onClick={() => {
-                                        setEditData(task)
-                                        setShowTaskEditor(true)
-                                    }} className="flex items-center flex-grow min-w-0">
-                                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                            <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
-                                        </div>
-                                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
-                                            <span className="text-xl">{replaceCurrentPlayerStringWithIcon(task.currentPlayerGender)}</span>
-                                        </div>
-                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{replaceStringWithIcon(task.message)}</p>
-                                    </button>
-                                    <button onClick={() => onDeleteTask(task._id)} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
-                                        <XIcon className="w-6 h-6" />
-                                    </button>
-                                </div>)}
+                                }} className="flex items-center flex-grow min-w-0">
+                                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                        <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
+                                    </div>
+                                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                        <span className="text-xl">{replaceCurrentPlayerStringWithIcon(task.currentPlayerGender)}</span>
+                                    </div>
+                                    <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">{replaceStringWithIcon(task.message)}</p>
+                                </button>
+                                <button onClick={() => onDeleteTask(task._id)} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
+                                    <XIcon className="w-6 h-6" />
+                                </button>
+                            </div>)}
+                        </div>
+                    </>}
 
-                            </div>
-                        </>
-                    }
-                    {
-                        isEdit && <Button icon={plus} className="w-full" onClick={() => {
-                            setShowTaskEditor(true)
-                        }}>Task</Button>
+                    {isEdit && <Button icon={plus} className="w-full" onClick={() => {
+                        setShowTaskEditor(true)
+                    }}>Task</Button>}
 
-                    }
                     {/** Task Editor Modal */}
                     <IonModal onWillDismiss={closeTaskEditorModal} onDidDismiss={() => setEditData(null)} isOpen={showTaskEditor} cssClass="my-custom-class">
                         <IonHeader>
@@ -355,20 +349,15 @@ export const Editor: React.FC = () => {
                                             <p className="text-itemactivegrey mb-1">Is the task a truth or dare?</p>
                                             <div className="flex">
                                                 <div className="flex gap-2 bg-itemactivegrey p-1 rounded-full">
-                                                    {
-                                                        Object.values(taskTypes).map(taskType =>
-                                                            <label key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-dare-green' : ''} hover:bg-dare-green rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
-                                                                {taskType.name}
-                                                                <Field className="appearance-none hidden" type="radio" name="type" value={taskType.name} />
-                                                            </label>)
-
-                                                    }
+                                                    {Object.values(taskTypes).map(taskType =>
+                                                        <label key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-dare-green' : ''} hover:bg-dare-green rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
+                                                            {taskType.name}
+                                                            <Field className="appearance-none hidden" type="radio" name="type" value={taskType.name} />
+                                                        </label>)}
                                                 </div>
                                             </div>
                                         </div>
-                                        <Button className="w-full mb-4" type="submit" onClick={() => {
-
-                                        }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
+                                        <Button className="w-full mb-4" type="submit" onClick={() => { }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
                                         {editData && <Button className="w-full" type="button" onClick={() => onDeleteTask(editData._id)}>Delete</Button>}
                                     </div>
                                 </Form>
