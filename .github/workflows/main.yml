@@ -1,0 +1,40 @@
+name: Tests
+
+on: [push]
+
+jobs:        
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
+      - name: create env
+        run: 'echo "$ENV_VALUES" > .env'
+        shell: bash
+        env:
+          ENV_VALUES: ${{secrets.PIPELINE_DOCKER_ENV}}
+      
+      - name: install dependencies
+        run: npm i
+        
+      - name: instrument code
+        run: npm run instrument:cc
+
+      # run unit tests with docker container (includes real MongoDB instead of mock)
+      - name: start app
+        run: npm start:cc
+        
+      - name: run cli tests
+        run: npm run cypress:run
+        
+      - name: Archive report
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: /coverage/Icov-report/index.html
+        
+      
+  
+
