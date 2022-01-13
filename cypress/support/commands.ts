@@ -65,13 +65,17 @@ Cypress.Commands.add('registerDuplicateUsername', () => {
 
 
 Cypress.Commands.add('getSetsFromUser', () => {
-    cy.intercept('GET', `${api}/sets/users/**`, {
+    cy.intercept('GET', `${api}/sets/user/**`, {
         fixture: 'setsfromuser.json'
     }).as('getSetsFromUser')
 })
 
 Cypress.Commands.add('getEmptySetsFromUser', () => {
-    cy.intercept('GET', `${api}/sets/users/**`, []).as('getEmptySetsFromUser')
+    cy.intercept('GET', `${api}/sets/user/**`, []).as('getEmptySetsFromUser')
+})
+
+Cypress.Commands.add('getProfile', () => {
+    cy.intercept('GET', `${api}/users/profile`,).as('getProfile')
 })
 
 Cypress.Commands.add('getMail', (response: "fail" | "success") => {

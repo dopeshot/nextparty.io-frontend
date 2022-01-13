@@ -16,7 +16,9 @@ describe('Profile', () => {
 
         cy.wait('@login')
 
+        cy.getProfile()
         cy.getSetsFromUser()
+        cy.wait('@getProfile')
         cy.wait('@getSetsFromUser')
     })
 
@@ -34,10 +36,10 @@ describe('Profile', () => {
             setCount: number
             playedCount: number
         }) => {
-            cy.get('#truths').contains(sets.truthCount).should('be.visible')
-            cy.get('#dares').contains(sets.dareCount).should('be.visible')
-            cy.get('#sets').contains(sets.setCount).should('be.visible')
-            cy.get('#total-played').contains(sets.playedCount).should('be.visible')
+            cy.contains(sets.truthCount).should('be.visible')
+            cy.contains(sets.dareCount).should('be.visible')
+            cy.contains(sets.setCount).should('be.visible')
+            cy.contains(sets.playedCount).should('be.visible')
         })
     })
 
