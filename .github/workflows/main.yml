@@ -19,7 +19,7 @@ jobs:
 
       # run unit tests with docker container (includes real MongoDB instead of mock)
       - name: start app
-        run: npm start:cc
+        run: npm run start:cc
         
       - name: run cli tests
         run: npm run cypress:run
