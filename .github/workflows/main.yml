@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: test-report
-          path: /coverage/Icov-report/index.html
+          path: coverage/Icov-report
       
         
       
