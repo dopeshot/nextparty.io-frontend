@@ -83,6 +83,10 @@ declare global {
              */
             databasedown(): void
 
+            /**
+             * Custom command to intercept all rmail verification requests with response fail and success
+             * @getOneSet cy.getMail("success")
+             */
             getMail(response: "fail" | "success"): void
         }
     }
