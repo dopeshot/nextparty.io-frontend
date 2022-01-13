@@ -2,7 +2,9 @@ import { interceptIndefinitely } from "../support/utils"
 
 describe('Mail Verify', () => {
     it('should display loading while waiting for mail verification', () => {
-        const interception = interceptIndefinitely('GET', `${Cypress.env('apiUrl')}/users/verify-account?code=*`)
+        const interception = interceptIndefinitely('GET', `${Cypress.env('apiUrl')}/users/verify-account?code=*`, {
+            statusCode: 200
+        })
         cy.visit('/account/verify-account/1234')
         cy.get('[data-cy="email-verify-progress-bar"]').should('be.visible').then(() => {
             interception.sendResponse()
