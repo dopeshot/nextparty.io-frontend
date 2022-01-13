@@ -37,6 +37,11 @@ declare global {
             loginWrongCredentials(): void
 
             /**
+             * Custom command to intercept login when user is banned
+             * @getOneSet cy.login()
+             */
+            loginBannedUser(): void
+            /**
              * Custom command to intercept register
              * @getOneSet cy.register()
              */

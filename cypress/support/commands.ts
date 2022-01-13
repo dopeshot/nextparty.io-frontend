@@ -29,6 +29,18 @@ Cypress.Commands.add('loginWrongCredentials', () => {
     }).as('loginWrongCredentials')
 })
 
+Cypress.Commands.add('loginBannedUser', () => {
+    cy.intercept('POST', `${api}/auth/login`,
+        {
+            statusCode: 401,
+            body: {
+                "statusCode": 401,
+                "message": "This user is banned. Please contact the administrator",
+                "error": "Unauthorized"
+            },
+        }).as('loginBannedUser')
+})
+
 Cypress.Commands.add('databasedown', () => {
     cy.intercept('POST', `${api}/**`, {
         forceNetworkError: true
@@ -75,7 +87,9 @@ Cypress.Commands.add('getEmptySetsFromUser', () => {
 })
 
 Cypress.Commands.add('getProfile', () => {
-    cy.intercept('GET', `${api}/users/profile`,).as('getProfile')
+    cy.intercept('GET', `${api}/users/profile`, {
+        fixture: 'profile.json'
+    }).as('getProfile')
 })
 
 Cypress.Commands.add('getMail', (response: "fail" | "success") => {

@@ -16,10 +16,10 @@ describe('Profile', () => {
 
         cy.wait('@login')
 
-        cy.getProfile()
         cy.getSetsFromUser()
-        cy.wait('@getProfile')
+        cy.getProfile()
         cy.wait('@getSetsFromUser')
+        cy.wait('@getProfile')
     })
 
     it('should display correct name', () => {

@@ -93,6 +93,17 @@ describe('Login', () => {
             cy.get('[data-cy="login-error-banner"]').contains('Email or password is wrong')
         })
 
+        it('should show error banner with text "This user is banned. Please contact the administrator" when user is banned', () => {
+            cy.loginBannedUser()
+
+            cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+            cy.get('[data-cy="login-password-input"]').type('12345678')
+
+            cy.get('[data-cy="login-button"]').click()
+
+            cy.get('[data-cy="login-error-banner"]').contains('This user is banned. Please contact the administrator')
+        })
+
         it('should show error banner with text "408 - Request Timeout" when database is down', () => {
             cy.databasedown()
 
