@@ -28,6 +28,9 @@ jobs:
       - name: run cli tests
         run: npm run cypress:run       
         
+      - name: ls
+        run: tree .
+        
       - name: Archive report
         uses: actions/upload-artifact@v2
         with:
