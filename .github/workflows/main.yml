@@ -2,25 +2,21 @@ name: Tests
 
 on: [push]
 
-jobs:        
-  test:
-    runs-on: ubuntu-latest
+jobs:
+  cypress-run:
+    runs-on: ubuntu-20.04
     steps:
-      
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v2
-        
-      
+    
       - name: install dependencies
         run: npm i
         
-      - name: instrument code
-        run: npm run cc:instrument
-
-      # run unit tests with docker container (includes real MongoDB instead of mock)
-      - name: start app
-        run: npm run start:cc
-        
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm start:cc
+          
       - name: run cli tests
         run: npm run cypress:run
         
@@ -32,6 +28,7 @@ jobs:
         with:
           name: test-report
           path: /coverage/Icov-report/index.html
+      
         
       
   
