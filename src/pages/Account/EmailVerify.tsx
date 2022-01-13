@@ -24,7 +24,7 @@ export const EmailVerify: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                {isEmailVerifying ? <IonProgressBar type="indeterminate"></IonProgressBar> :
+                {isEmailVerifying ? <IonProgressBar data-cy="email-verify-progress-bar" type="indeterminate" /> :
                     <>
                         {emailVerified ?
                             <Error to="/" buttonContent="Start" errorType="Success" titleContent="Email Verified!" paragraphContent="Your Email was successfull verified login to start creating awesome sets." /> :
