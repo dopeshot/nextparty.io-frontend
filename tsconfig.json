@@ -22,7 +22,6 @@
 	},
 	"include": [
 		"src",
-		"craco.config.js",
-		"cypress"
+		"craco.config.js"
 	]
 }
