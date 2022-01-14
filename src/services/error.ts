@@ -1,19 +1,32 @@
 import axios from "axios";
-import { HttpStatus } from "../enums/http-status";
+import { Context } from "../overmind";
 
-export const formatErrors = (data: string | string[]): string[] => {
-    if (typeof data === 'string') {
-        return [data];
-    }
-    return data
-};
-
-export const generateErrorMessage = (error: any, setErrorStatusCode: (value: HttpStatus) => void): void => {
+export const checkAxiosErrorType = (error: any, actions: Context["actions"]): string => {
     if (axios.isAxiosError(error) && error.response) {
-        setErrorStatusCode(error.response.status)
+        return errorType(error, actions)
     } else if (axios.isAxiosError(error)) {
-        setErrorStatusCode(HttpStatus.REQUEST_TIMEOUT)
+        return "408 - Request Timeout"
     } else {
-        console.error(error)
+        return "Unknown error occured"
     }
 }
+
+export const errorType = (error: any, actions: Context["actions"]): string => {
+    console.log(error.response.data.message)
+    if (error.response.status === 401 && error.response.data.message === "Login Failed due to invalid credentials")
+        return "Email or password is wrong"
+    if (error.response.status === 401 && error.response.data.message === "This user is banned. Please contact the administrator") {
+        actions.profile.logout()
+        return error.response.data.message
+    }
+    if (error.response.status === 401) {
+        actions.profile.logout()
+        return "Session expired"
+    }
+    if (error.response.status === 409 && error.response.data.message === 'Username is already taken.')
+        return error.response.data.message
+    if (error.response.status === 409 && error.response.data.message === 'Email is already taken.')
+        return error.response.data.message
+    return "Unknown Error occured"
+}
+

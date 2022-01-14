@@ -21,7 +21,9 @@
         "@types/react-dom": "^16.9.10",
         "@types/react-router": "^5.1.11",
         "@types/react-router-dom": "^5.1.7",
+        "animated-number-react": "^0.1.2",
         "axios": "^0.24.0",
+        "formik": "^2.2.9",
         "ionicons": "^5.4.0",
         "overmind": "^28.0.1",
         "overmind-react": "^29.0.1",
@@ -43,7 +45,8 @@
         "workbox-range-requests": "^5.1.4",
         "workbox-routing": "^5.1.4",
         "workbox-strategies": "^5.1.4",
-        "workbox-streams": "^5.1.4"
+        "workbox-streams": "^5.1.4",
+        "yup": "^0.32.11"
     },
     "scripts": {
         "start": "craco start",
@@ -93,7 +96,7 @@
         "@cypress/code-coverage": "^3.9.12",
         "@cypress/instrument-cra": "^1.4.0",
         "autoprefixer": "^9.8.8",
-        "cypress": "^9.1.1",
+        "cypress": "^9.2.1",
         "postcss": "^7.0.39",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
     },

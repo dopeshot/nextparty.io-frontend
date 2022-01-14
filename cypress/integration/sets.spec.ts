@@ -3,7 +3,7 @@ import set from '../fixtures/set.json'
 import sets from '../fixtures/sets.json'
 import { interceptIndefinitely } from '../support/utils'
 
-const api = `${Cypress.env('apiUrl')}/set`
+const api = `${Cypress.env('apiUrl')}/sets`
 
 describe('Sets', () => {
     describe('All sets', () => {
@@ -34,7 +34,6 @@ describe('Sets', () => {
             })
         })
     })
-
 
     describe('Detail Set', () => {
         beforeEach(() => {
