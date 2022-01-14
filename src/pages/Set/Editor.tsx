@@ -288,9 +288,19 @@ export const Editor: React.FC = () => {
                         </div>
                     </>}
 
-                    {isEdit && <Button icon={plus} className="w-full" onClick={() => {
-                        setShowTaskEditor(true)
-                    }}>Task</Button>}
+                    {isEdit &&
+                        <button className="rounded-lg h-12 w-full px-4 flex bg-itemgrey items-center mb-4 cursor-pointer" onClick={() => {
+                            setShowTaskEditor(true)
+                        }}>
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                <span className="text-xl">T</span>
+                            </div>
+                            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                <span className="text-xl">👤</span>
+                            </div>
+                            <p className="text-itemactivegrey">Create new task...</p>
+                        </button>
+                    }
 
                     {/** Task Editor Modal */}
                     <IonModal onWillDismiss={closeTaskEditorModal} onDidDismiss={() => setEditData(null)} isOpen={showTaskEditor} cssClass="my-custom-class">
