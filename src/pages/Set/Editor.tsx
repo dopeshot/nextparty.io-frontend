@@ -339,7 +339,7 @@ export const Editor: React.FC = () => {
                                         </div>
                                         <div className="mb-4">
                                             <p className="text-itemactivegrey mb-1">Write task</p>
-                                            <IonTextarea ref={taskMessage} className="m-0" placeholder="Tell your favorite Truth or Dare App?" autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => {
+                                            <IonTextarea ref={taskMessage} className="m-0" placeholder={formik.values.type === TaskType.DARE ? `Show your last photo in your smartphone gallery.` : `What is the most attractive thing about 👤?`} autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => {
                                                 formik.setFieldValue('message', e.detail.value)
                                             }} onIonBlur={() => {
                                                 // This is required since of the custom field of IonTextarea....
