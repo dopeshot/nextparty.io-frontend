@@ -17,7 +17,9 @@ describe('Profile', () => {
         cy.wait('@login')
 
         cy.getSetsFromUser()
+        cy.getProfile()
         cy.wait('@getSetsFromUser')
+        cy.wait('@getProfile')
     })
 
     it('should display correct name', () => {
@@ -34,10 +36,10 @@ describe('Profile', () => {
             setCount: number
             playedCount: number
         }) => {
-            cy.get('#truths').contains(sets.truthCount).should('be.visible')
-            cy.get('#dares').contains(sets.dareCount).should('be.visible')
-            cy.get('#sets').contains(sets.setCount).should('be.visible')
-            cy.get('#total-played').contains(sets.playedCount).should('be.visible')
+            cy.contains(sets.truthCount).should('be.visible')
+            cy.contains(sets.dareCount).should('be.visible')
+            cy.contains(sets.setCount).should('be.visible')
+            cy.contains(sets.playedCount).should('be.visible')
         })
     })
 
@@ -48,7 +50,7 @@ describe('Profile', () => {
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
 
-        const interception = interceptIndefinitely('GET', `${api}/set/user/**`, { fixture: 'setsfromuser.json' })
+        const interception = interceptIndefinitely('GET', `${api}/sets/user/**`, { fixture: 'setsfromuser.json' })
 
         cy.get('[data-cy="login-button"]').click()
         cy.wait('@login')

@@ -7,6 +7,7 @@ import signout from '../../assets/icons/logout.svg';
 import plus from '../../assets/icons/plus.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
+import { ErrorBanner } from "../../components/Errors/ErrorBanner";
 import { NoData } from "../../components/Errors/NoData";
 import { CountItem } from "../../components/Profile/CountItem";
 import { SetItem } from "../../components/SetItem/SetItem";
@@ -15,13 +16,14 @@ import { Set } from "../../overmind/explore/state";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const Profile: React.FC = () => {
-    const { currentUser, isLoadingSets, sets } = useAppState().profile
-    const { profile: { getSetsByUser, logout }, creative: { createNewSet, editSet } } = useActions()
+    const { currentUser, isLoadingSets, sets, emailVerified, userDetailed } = useAppState().profile
+    const { profile: { getSetsByUser, logout, resendMail, getUserDetailed }, creative: { createNewSet, editSet } } = useActions()
     const [present, dismiss] = useIonActionSheet()
     const history = useHistory()
 
-    const getSets = async (event?: CustomEvent<RefresherEventDetail>) => {
+    const getProfile = async (event?: CustomEvent<RefresherEventDetail>) => {
         await getSetsByUser()
+        await getUserDetailed()
 
         // istanbul ignore next // not testable with cypress
         if (event) event.detail.complete()
@@ -29,12 +31,12 @@ export const Profile: React.FC = () => {
 
     useIonViewWillEnter(() => {
         setSeoTitle('Profile')
-        getSets()
+        getProfile()
     }, [])
 
     // istanbul ignore next // not testable with cypress
     const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
-        getSets(event)
+        getProfile(event)
     }
 
     return (
@@ -66,13 +68,15 @@ export const Profile: React.FC = () => {
                 </div>
                 <div className="bg-background-black">
                     <div className="container">
+                        {userDetailed?.status === "unverified" && <ErrorBanner color="warning" message={`Verification Email has been send to ${userDetailed.email}. Check your inbox.`} buttonText="Resend Mail" onClick={() => resendMail()} />}
+
                         <div>
                             {isLoadingSets ? <IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" /> :
                                 <>
                                     {sets.data?.length !== 0 &&
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                             <h2 className="text-lg font-semibold">Your Sets</h2>
-                                            <Button keepFocus={false} type="button" onClick={() => {
+                                            <Button type="button" onClick={() => {
                                                 createNewSet()
                                                 history.push("/account/creative")
                                             }} icon={plus} className="w-34 px-7">New</Button>

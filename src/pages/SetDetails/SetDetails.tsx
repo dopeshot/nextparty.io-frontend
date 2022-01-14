@@ -60,7 +60,7 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-black">
                         <div className="container h-full flex flex-col justify-center">
-                            <Button keepFocus={false} dataCy='setdetails-play-button' type="button" onClick={(event: any) => {
+                            <Button dataCy='setdetails-play-button' type="button" onClick={(event: any) => {
                                 event.preventDefault()
                                 addSetToGame()
                                 history.push('/game')

@@ -46,7 +46,7 @@ export const Game: React.FC = () => {
 
 					{/* Play button */}
 					<div className='container pb-12'>
-						<Button keepFocus={false} dataCy="game-play-button" disabled={!isPossibleToPlay().status} icon={play} to='/game/ingame'>Play</Button>
+						<Button dataCy="game-play-button" disabled={!isPossibleToPlay().status} icon={play} to='/game/ingame'>Play</Button>
 					</div>
 				</div>
 			</IonContent>

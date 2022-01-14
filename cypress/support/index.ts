@@ -37,6 +37,11 @@ declare global {
             loginWrongCredentials(): void
 
             /**
+             * Custom command to intercept login when user is banned
+             * @getOneSet cy.login()
+             */
+            loginBannedUser(): void
+            /**
              * Custom command to intercept register
              * @getOneSet cy.register()
              */
@@ -67,10 +72,22 @@ declare global {
             getEmptySetsFromUser(): void
 
             /**
+             * Custom command to intercept getProfile 
+             * @getOneSet cy.getProfile()
+             */
+            getProfile(): void
+
+            /**
              * Custom command to intercept all request to database and simulate timeout
              * @getOneSet cy.databasedown()
              */
             databasedown(): void
+
+            /**
+             * Custom command to intercept all rmail verification requests with response fail and success
+             * @getOneSet cy.getMail("success")
+             */
+            getMail(response: "fail" | "success"): void
         }
     }
 }

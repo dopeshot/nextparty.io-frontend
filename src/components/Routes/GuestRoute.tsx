@@ -5,8 +5,6 @@ export const GuestRoute = ({ component: Component, redirectWhenLoggedIn, ...prop
     const { isLoggedIn } = useAppState().profile
 
     return (
-        // restricted = false meaning guest route
-        // restricted = true meaning restricted route
         <Route {...props} render={(props) => (isLoggedIn && redirectWhenLoggedIn) ? <Redirect to={redirectWhenLoggedIn} /> : <Component {...props} />} />
     );
 }

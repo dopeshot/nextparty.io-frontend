@@ -1,13 +1,13 @@
 const api = `${Cypress.env('apiUrl')}`
 
 Cypress.Commands.add('getSets', () => {
-    cy.intercept('GET', `${api}/set`, {
+    cy.intercept('GET', `${api}/sets`, {
         fixture: 'sets.json'
     }).as('getSets')
 })
 
 Cypress.Commands.add('getOneSet', () => {
-    cy.intercept('GET', `${api}/set/**`, {
+    cy.intercept('GET', `${api}/sets/**`, {
         fixture: 'set.json'
     }).as('getOneSet')
 })
@@ -27,6 +27,18 @@ Cypress.Commands.add('loginWrongCredentials', () => {
             error: "Unauthorized"
         },
     }).as('loginWrongCredentials')
+})
+
+Cypress.Commands.add('loginBannedUser', () => {
+    cy.intercept('POST', `${api}/auth/login`,
+        {
+            statusCode: 401,
+            body: {
+                "statusCode": 401,
+                "message": "This user is banned. Please contact the administrator",
+                "error": "Unauthorized"
+            },
+        }).as('loginBannedUser')
 })
 
 Cypress.Commands.add('databasedown', () => {
@@ -65,14 +77,36 @@ Cypress.Commands.add('registerDuplicateUsername', () => {
 
 
 Cypress.Commands.add('getSetsFromUser', () => {
-    cy.intercept('GET', `${api}/set/user/**`, {
+    cy.intercept('GET', `${api}/sets/user/**`, {
         fixture: 'setsfromuser.json'
     }).as('getSetsFromUser')
 })
 
 Cypress.Commands.add('getEmptySetsFromUser', () => {
-    cy.intercept('GET', `${api}/set/user/**`, []).as('getEmptySetsFromUser')
+    cy.intercept('GET', `${api}/sets/user/**`, []).as('getEmptySetsFromUser')
 })
+
+Cypress.Commands.add('getProfile', () => {
+    cy.intercept('GET', `${api}/users/profile`, {
+        fixture: 'profile.json'
+    }).as('getProfile')
+})
+
+Cypress.Commands.add('getMail', (response: "fail" | "success") => {
+    cy.intercept('GET', `${api}/users/verify-account?code=*`, (req) => {
+        const replyWith = response === "success" ? {
+            statusCode: 200
+        } : {
+            statusCode: 401,
+            body: {
+                "statusCode": 401,
+                "message": "Unauthorized"
+            }
+        }
+        req.reply(replyWith)
+    }).as('getMail')
+})
+
 
 Cypress.Commands.add('overmind', () => {
     let overmind: any
