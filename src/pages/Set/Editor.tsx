@@ -272,16 +272,16 @@ export const Editor: React.FC = () => {
                                 <button onClick={() => {
                                     setEditData(task)
                                     setShowTaskEditor(true)
-                                }} className="flex items-center flex-grow min-w-0">
-                                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                }} className="flex items-center grow min-w-0">
+                                    <div className="shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
                                         <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
                                     </div>
-                                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
+                                    <div className="shrink-0 w-8 h-8 rounded-full bg-itemactivegrey flex items-center justify-center mr-3">
                                         <span className="text-xl">{replaceCurrentPlayerStringWithIcon(task.currentPlayerGender)}</span>
                                     </div>
                                     <p className="overflow-hidden text-ellipsis whitespace-nowrap">{replaceStringWithIcon(task.message)}</p>
                                 </button>
-                                <button onClick={() => onDeleteTask(task._id)} className="ml-3 flex-shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
+                                <button onClick={() => onDeleteTask(task._id)} className="ml-3 shrink-0 w-8 h-8 rounded-full hover:bg-itemactivegrey flex justify-center items-center">
                                     <XIcon className="w-6 h-6" />
                                 </button>
                             </div>)}
