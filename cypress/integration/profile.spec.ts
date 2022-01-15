@@ -72,7 +72,7 @@ describe('Profile', () => {
         })
     })
 
-    it.only('should display loading bar when load sets from user and should disapear and show sets when finished loading', () => {
+    it('should display loading bar when load sets from user and should disapear and show sets when finished loading', () => {
         cy.visit('/account/login')
         cy.login()
 
