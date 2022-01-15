@@ -30,12 +30,12 @@ export const categories: { [key in SetCategory]: {
     },
     [SetCategory.CLASSIC]: {
         name: SetCategory.CLASSIC,
-        background: "bg-yellow-800",
+        background: "bg-amber-800",
         foreground: ForegroundColor.LIGHT
     },
     [SetCategory.FRIENDSHIP]: {
         name: SetCategory.FRIENDSHIP,
-        background: "bg-green-800",
+        background: "bg-emerald-800",
         foreground: ForegroundColor.LIGHT
     },
     [SetCategory.COUPLES]: {
@@ -55,7 +55,7 @@ export const categories: { [key in SetCategory]: {
     },
     [SetCategory.HOT]: {
         name: SetCategory.HOT,
-        background: "bg-purple-800",
+        background: "bg-violet-800",
         foreground: ForegroundColor.LIGHT
     },
     [SetCategory.SEXY]: {
@@ -70,7 +70,7 @@ export const categories: { [key in SetCategory]: {
     },
     [SetCategory.ONLYDARES]: {
         name: SetCategory.ONLYDARES,
-        background: "bg-yellow-200",
+        background: "bg-amber-200",
         foreground: ForegroundColor.DARK
     },
     [SetCategory.ONLYTRUTHS]: {
