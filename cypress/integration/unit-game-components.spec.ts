@@ -270,17 +270,51 @@ describe('Game gomponents Unit tests', () => {
     before(() => {
       expect(getUnplayedByMe).to.be.a('function')
     })
+
+    it('should be undefined if parameter is null ', () => {
+      expect(getUnplayedByMe(null, malePlayer)).to.be.undefined
+    })
+
+    it('should be undefined if parameter is undefined ', () => {
+      expect(getUnplayedByMe(undefined, malePlayer)).to.be.undefined
+    })
+
+    it('should be all if playedBy is empty ', () => {
+      expect(getUnplayedByMe(soloTasks, malePlayer)).to.have.length(soloTasks.length)
+    })
+
+    it('should be empty if playedBy filled ', () => {
+      soloTasks[0].playedBy.push(malePlayer.id)
+      expect(getUnplayedByMe([soloTasks[0]], malePlayer)).to.have.length(0)
+    })
+
   })
 
   describe('getLeastPlayedByMe', () => {
     before(() => {
       expect(getLeastPlayedByMe).to.be.a('function')
     })
+
+    it('should be undefined if parameter is null ', () => {
+      expect(getLeastPlayedByMe(null, malePlayer)).to.be.undefined
+    })
+
+    it('should be undefined if parameter is undefined ', () => {
+      expect(getLeastPlayedByMe(undefined, malePlayer)).to.be.undefined
+    })
+
   })
 
   describe('getLeastPlayedOverall', () => {
     before(() => {
       expect(getLeastPlayedOverall).to.be.a('function')
+    })
+    it('should be undefined if parameter is null ', () => {
+      expect(getLeastPlayedOverall(null)).to.be.undefined
+    })
+
+    it('should be undefined if parameter is undefined ', () => {
+      expect(getLeastPlayedOverall(undefined)).to.be.undefined
     })
   })
 
