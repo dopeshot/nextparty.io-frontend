@@ -44,7 +44,10 @@ describe('Profile', () => {
 
     it('should not display numbers when sets are empty', () => {
         cy.visit('/account/login')
+        cy.getProfileVerified()
+        cy.getEmptySetsFromUser()
         cy.login()
+
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
@@ -52,9 +55,8 @@ describe('Profile', () => {
         cy.get('[data-cy="login-button"]').click()
 
         cy.wait('@login')
-
-        cy.getEmptySetsFromUser()
         cy.wait('@getEmptySetsFromUser')
+        cy.wait('@getProfileVerified')
 
         cy.overmind().its('state.profile.sets').then((sets: {
             data: Set[] | null,
@@ -70,17 +72,16 @@ describe('Profile', () => {
         })
     })
 
-    it('should display loading bar when load sets from user and should disapear and show sets when finished loading', () => {
+    it.only('should display loading bar when load sets from user and should disapear and show sets when finished loading', () => {
         cy.visit('/account/login')
         cy.login()
+
+        const interception = interceptIndefinitely('GET', `${api}/sets/user/**`, "getSetsFromUserIndefinitely", { fixture: 'setsfromuser.json' })
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
 
-        const interception = interceptIndefinitely('GET', `${api}/sets/user/**`, "getSetsFromUserIndefinitely", { fixture: 'setsfromuser.json' })
-
         cy.get('[data-cy="login-button"]').click()
-
         cy.wait('@login')
 
         cy.get('h1').contains("Hello").should('be.visible')
