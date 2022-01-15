@@ -163,8 +163,8 @@ ion-content {
 
 ion-toast {
     --background: #09bb88;
-    --color: #fff;
-    --button-color: #fff;
+    --color: #0c0c0c;
+    --button-color: #0c0c0c;
 }
 
 .no-ripple {
