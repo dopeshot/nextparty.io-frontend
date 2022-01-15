@@ -18,12 +18,15 @@ export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGender
     reducedGenders[player.gender]--
 
     const fillableTasks = tasks.filter((task) => {
+        // Check if there are enough people to play the task at all
         if (Object.values(reducedGenders).reduce((a, b) => a + b) - Object.values(task.requires).reduce((a, b) => a + b) < 0) {
             return false
         }
+        // Check if there is no need to fill in divers people
         if ((task.requires["male"] <= reducedGenders["male"] && task.requires["female"] <= reducedGenders["female"])) {
             return true
         }
+        // Fill in divers players
         else {
             let divers = reducedGenders["divers"]
             if (task.requires["male"] > reducedGenders["male"]) {
