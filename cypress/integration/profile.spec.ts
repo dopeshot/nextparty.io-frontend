@@ -42,6 +42,34 @@ describe('Profile', () => {
         })
     })
 
+    it('should not display numbers when sets are empty', () => {
+        cy.visit('/account/login')
+        cy.login()
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
+
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+
+        cy.getEmptySetsFromUser()
+        cy.wait('@getEmptySetsFromUser')
+
+        cy.overmind().its('state.profile.sets').then((sets: {
+            data: Set[] | null,
+            truthCount: number
+            dareCount: number
+            setCount: number
+            playedCount: number
+        }) => {
+            cy.contains(sets.truthCount).should('not.exist')
+            cy.contains(sets.dareCount).should('not.exist')
+            cy.contains(sets.setCount).should('not.exist')
+            cy.contains(sets.playedCount).should('not.exist')
+        })
+    })
+
     it('should display loading bar when load sets from user and should disapear and show sets when finished loading', () => {
         cy.visit('/account/login')
         cy.login()
