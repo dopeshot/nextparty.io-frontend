@@ -9,7 +9,7 @@ describe('Profile', () => {
         cy.visit('/account/login')
         cy.login()
         cy.getSetsFromUser()
-        cy.getProfile()
+        cy.getProfileVerified()
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
@@ -18,7 +18,7 @@ describe('Profile', () => {
 
         cy.wait('@login')
         cy.wait('@getSetsFromUser')
-        cy.wait('@getProfile')
+        cy.wait('@getProfileVerified')
     })
 
     it('should display correct name', () => {
@@ -74,25 +74,6 @@ describe('Profile', () => {
         cy.get('ion-action-sheet .action-sheet-button').contains('Logout').should('be.visible').click({ force: true })
 
         cy.get('h1').should('be.visible').contains('Welcome back!')
-    })
-
-    it('should show no data component when user has no sets', () => {
-        cy.visit('/account/login')
-        cy.login()
-
-        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
-        cy.get('[data-cy="login-password-input"]').type('12345678')
-
-        cy.get('[data-cy="login-button"]').click()
-
-        cy.wait('@login')
-
-        cy.getEmptySetsFromUser()
-        cy.wait('@getEmptySetsFromUser')
-
-        cy.get('[data-cy="profile-no-data"]').should('be.visible')
-        cy.get('[data-cy="profile-set-item"]').should('not.exist')
-        cy.get('[data-cy="profile-sets-container"]').should('not.exist')
     })
 })
 

@@ -14,11 +14,15 @@ describe('Login', () => {
     it('should open profile page when fill all inputs and click register', () => {
         cy.login()
         cy.getSetsFromUser()
+        cy.getProfileVerified()
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
 
         cy.get('[data-cy="login-button"]').click()
+        cy.wait('@login')
+        cy.wait('@getSetsFromUser')
+        cy.wait('@getProfileVerified')
 
         cy.overmind().its('state.profile.currentUser.username').then((name: string) => {
             cy.get('h1').contains(name).should('be.visible')

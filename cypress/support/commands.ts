@@ -86,10 +86,16 @@ Cypress.Commands.add('getEmptySetsFromUser', () => {
     cy.intercept('GET', `${api}/sets/user/**`, []).as('getEmptySetsFromUser')
 })
 
-Cypress.Commands.add('getProfile', () => {
+Cypress.Commands.add('getProfileVerified', () => {
     cy.intercept('GET', `${api}/users/profile`, {
-        fixture: 'profile.json'
-    }).as('getProfile')
+        fixture: 'profile-verified.json'
+    }).as('getProfileVerified')
+})
+
+Cypress.Commands.add('getProfileUnverified', () => {
+    cy.intercept('GET', `${api}/users/profile`, {
+        fixture: 'profile-verified.json'
+    }).as('getProfileUnverified')
 })
 
 Cypress.Commands.add('getMail', (response: "fail" | "success") => {

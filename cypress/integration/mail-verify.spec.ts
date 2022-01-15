@@ -24,6 +24,29 @@ describe('Mail Verify', () => {
         cy.visit('/account/verify-account/1234')
         cy.contains("Failed").should("be.visible")
     })
+
+    it('should display email verify text instead of no data component when email isnt verified', () => {
+
+    })
+
+    it('should display no data component when email is verified', () => {
+        cy.visit('/account/login')
+        cy.login()
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
+
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+
+        cy.getEmptySetsFromUser()
+        cy.wait('@getEmptySetsFromUser')
+
+        cy.get('[data-cy="profile-no-data-verified"]').should('be.visible')
+        cy.get('[data-cy="profile-set-item"]').should('not.exist')
+        cy.get('[data-cy="profile-sets-container"]').should('not.exist')
+    })
 })
 
 
