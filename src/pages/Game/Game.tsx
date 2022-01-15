@@ -11,15 +11,12 @@ import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Game: React.FC = () => {
 	const { game: {
-		set,
-		debug: {
-			isDeveloper
-		}
+		set
 	}, players: {
 		players
 	} } = useAppState()
 
-	const { toggleDeveloper, isPossibleToPlay } = useActions().game
+	const { isPossibleToPlay } = useActions().game
 
 	useIonViewWillEnter(() => {
 		setSeoTitle('Truth or Dare - Next Party', false)

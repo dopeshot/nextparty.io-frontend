@@ -15,7 +15,7 @@ export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dare
 	return (
 		<IonItem data-cy={dataCy} lines="none" routerLink={link ?? '#'} onClick={onClick} className="mb-5 rounded-lg">
 			<div className="flex items-center">
-				<img src={gradient} className={`object-cover rounded-lg ${author ? "w-24 h-24" : "w-20 h-20"} mr-2`} />
+				<img src={gradient} alt={`${name} by ${author}`} className={`object-cover rounded-lg ${author ? "w-24 h-24" : "w-20 h-20"} mr-2`} />
 				<div className="flex flex-col">
 					<h3 className={`text-white font-bold ${author ? "text-xl" : "text-lg mb-2"}`}>{name}</h3>
 					{author && <p className="text-lightgrey mb-3">by {author}</p>}

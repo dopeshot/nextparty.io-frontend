@@ -16,9 +16,9 @@ import { Set } from "../../overmind/explore/state";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const Profile: React.FC = () => {
-    const { currentUser, isLoadingSets, sets, emailVerified, userDetailed } = useAppState().profile
+    const { currentUser, isLoadingSets, sets, userDetailed } = useAppState().profile
     const { profile: { getSetsByUser, logout, resendMail, getUserDetailed }, creative: { createNewSet, editSet } } = useActions()
-    const [present, dismiss] = useIonActionSheet()
+    const [present] = useIonActionSheet()
     const history = useHistory()
 
     const getProfile = async (event?: CustomEvent<RefresherEventDetail>) => {
