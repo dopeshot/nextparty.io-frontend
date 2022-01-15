@@ -30,6 +30,7 @@ describe('Game gomponents Unit tests', () => {
   let genders
   const soloTasksPerGender = []
   const multiTasksPerGender = []
+
   beforeEach(() => {
     players = getMockPlayers()
     malePlayer = getMockPlayers()[0]
