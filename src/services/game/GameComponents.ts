@@ -51,12 +51,12 @@ export const getUnplayedByMe = (tasks: PlayTask[], player: Player) => {
 
 
 export const getLeastPlayedByMe = (tasks: PlayTask[], player: Player) => {
-    const sortedTasks = tasks.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player)) // MC: This could be replaced with Math.min in combination with map.
-    return sortedTasks.filter(task => countPlayedByPlayer(task.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
+    const sortedTasks = tasks?.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player)) // MC: This could be replaced with Math.min in combination with map.
+    return sortedTasks?.filter(task => countPlayedByPlayer(task.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
 }
 
 export const getLeastPlayedOverall = (tasks: PlayTask[]) => {
-    return tasks.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0] // MC: Math min as well?
+    return tasks?.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0] // MC: Math min as well?
 }
 
 export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, currentPlayer: Player) => {
