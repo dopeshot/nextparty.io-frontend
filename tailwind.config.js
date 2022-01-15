@@ -1,6 +1,7 @@
 module.exports = {
-    purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-    darkMode: false, // or 'media' or 'class'
+    content: [
+        "./src/**/*.{js,jsx,ts,tsx}",
+    ],
     theme: {
         container: {
             center: true,
@@ -44,13 +45,17 @@ module.exports = {
                 'darkgray': '#3E4851',
                 'truth-yellow': '#F6BF22',
                 'dare-green': '#09BB88',
+                'dare-green-darker': '#034532',
                 'hover-green': "#EEFFFA",
-                'background-black': '#0C0C0C'
+                'background-black': '#0C0C0C',
+                'danger-red': "#FB5454",
+                "background-danger-red": "#371818"
             },
+            screens: {
+                'xxs': '375px',
+                'xs': '560px'
+            }
         },
-    },
-    variants: {
-        extend: {},
     },
     plugins: [],
 }

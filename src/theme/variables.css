@@ -1,6 +1,7 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+
 /*
    * Dark Colors
    * -------------------------------------------
@@ -74,6 +75,7 @@ body {
     --ion-color-light-tint: #383a3e;
 }
 
+
 /*
    * iOS Dark Theme
    * -------------------------------------------
@@ -112,6 +114,7 @@ body {
     --ion-toolbar-background: var(--ion-color-step-150);
     --ion-toolbar-border-color: var(--ion-color-step-250);
 }
+
 
 /*
    * Material Design Dark Theme
@@ -164,4 +167,31 @@ ion-content {
 .no-ripple {
     --ripple-color: transparent;
     --color-hover: transparent;
+}
+
+.text-lines::before,
+.text-lines::after {
+    content: "";
+    display: inline-block;
+    width: 50%;
+    margin: 0 0.5em 0 -55%;
+    vertical-align: middle;
+    border-bottom: 1px solid #3e4851;
+}
+
+.text-lines::after {
+    margin: 0 -55% 0 0.5em;
+}
+
+
+/** 
+IF WE UPDATE TO 6 we can remove this!
+Fix bug from ionic https://stackoverflow.com/questions/57336796/ion-textarea-autogrow-true-on-modal-work-only-the-first-time **/
+
+ion-textarea {
+    min-height: 60px;
+}
+
+ion-textarea textarea {
+    min-height: 60px;
 }

@@ -11,5 +11,5 @@ const data = {
 }
 
 export const NotFoundError: React.FC<NotFoundErrorProps> = (props) => {
-    return <Error errorType={404} titleContent={data.title} paragraphContent={data.content} buttonContent={data.button} icon="fa" link={props.link} />
+    return <Error errorType={404} titleContent={data.title} paragraphContent={data.content} buttonContent={data.button} icon="fa" to={props.link} />
 }

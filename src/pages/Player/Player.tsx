@@ -5,7 +5,7 @@ import female from '../../assets/icons/female.svg';
 import male from '../../assets/icons/male.svg';
 import useradd from '../../assets/icons/useradd.svg';
 import { Button } from '../../components/Buttons/Button';
-import { PlayerInput } from '../../components/PlayerInput/PlayerInput';
+import { PlayerInput } from '../../components/Forms/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
@@ -39,7 +39,7 @@ export const Player: React.FC = () => {
                             <PlayerInput dataCy={`player-input-${index}`} key={player.id} player={player} isAllowedToDelete={isAllowedToDelete} />
                         ))}
                     </IonList>
-                    <Button type="button" dataCy='player-add-button' onClick={() => addPlayer()} icon={useradd}>Add player</Button>
+                    <Button className="w-full" keepFocus={true} type="button" dataCy='player-add-button' onClick={() => addPlayer()} icon={useradd}>Add player</Button>
                 </div>
                 <div className="container">
                     <IonList lines="none">

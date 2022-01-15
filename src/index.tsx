@@ -1,4 +1,4 @@
-import { setupConfig } from '@ionic/core';
+import { setupIonicReact } from '@ionic/react';
 import { createOvermind } from 'overmind';
 import { Provider } from 'overmind-react';
 import React from 'react';
@@ -13,7 +13,7 @@ const overmind = createOvermind(config, {
   // devEnv: "production"
 })
 
-setupConfig({
+setupIonicReact({
   mode: 'md'
 })
 

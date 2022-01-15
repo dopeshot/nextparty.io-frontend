@@ -23,7 +23,7 @@ describe('Game', () => {
             cy.get('[data-cy="displaytask-container"]').contains('Dare')
         })
 
-        it('should only display dare when in set are only dares', () => {
+        it('should only display dare when in set are only dares and clickarea should be the whole screen', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "dare")
@@ -34,10 +34,13 @@ describe('Game', () => {
 
                 cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
                 cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+
+                cy.get('[data-cy="choosetask-dare-button"]').click('left')
+                cy.get('[data-cy="displaytask-container"]').should('be.visible')
             })
         })
 
-        it('should only display truth when in set are only truths', () => {
+        it('should only display truth when in set are only truths and clickarea should be the whole screen', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "truth")
@@ -48,6 +51,9 @@ describe('Game', () => {
 
                 cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
                 cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
+
+                cy.get('[data-cy="choosetask-truth-button"]').click('right')
+                cy.get('[data-cy="displaytask-container"]').should('be.visible')
             })
         })
 
@@ -67,24 +73,25 @@ describe('Game', () => {
             cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
         })
 
-        it('container should have height: 250px when message shorter than 100 letters when longer than height: 450px', () => {
-            cy.visit('/game')
-            cy.overmind().its('actions').invoke('game.resetSet')
-            cy.overmind().its('actions').invoke('game.addTestSet', "longmessage")
+        // Buggy with cypress issue: https://github.com/cypress-io/cypress/issues/14722
+        // it('container should have height: 250px when message shorter than 100 letters when longer than height: 450px', () => {
+        //     cy.visit('/game')
+        //     cy.overmind().its('actions').invoke('game.resetSet')
+        //     cy.overmind().its('actions').invoke('game.addTestSet', "longmessage")
 
-            cy.overmind().its('state.game.set.name').then((name: string) => {
-                cy.get('[data-cy="game-set-actionblock"]').contains(name)
-                cy.get('[data-cy="game-play-button"]').click()
+        //     cy.overmind().its('state.game.set.name').then((name: string) => {
+        //         cy.get('[data-cy="game-set-actionblock"]').contains(name)
+        //         cy.get('[data-cy="game-play-button"]').click()
 
-                // Short Message
-                cy.get('[data-cy="choosetask-truth-button"]').click()
-                cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "250px").click()
+        //         // Short Message
+        //         cy.get('[data-cy="choosetask-truth-button"]').click()
+        //         cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "250px").click()
 
-                // Long Message
-                cy.get('[data-cy="choosetask-dare-button"]').click()
-                cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "450px").click()
-            })
-        })
+        //         // Long Message
+        //         cy.get('[data-cy="choosetask-dare-button"]').click()
+        //         cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "450px").click()
+        //     })
+        // })
 
         it('should hide tabbar when you are ingame and display again when you leave screen', () => {
             cy.get('[data-cy="app-tabbar"]').should('not.be.visible')

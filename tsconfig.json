@@ -13,7 +13,6 @@
 		"strict": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
-		"module": "esnext",
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
@@ -22,6 +21,8 @@
 	},
 	"include": [
 		"src",
-		"craco.config.js"
+		"craco.config.js",
+		"cypress",
+		"assets"
 	]
 }
