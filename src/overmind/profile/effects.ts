@@ -3,7 +3,7 @@ import { User } from "./state";
 
 export const login = (credentials: { email: string, password: string }) => request.post<{ access_token: string }>('/auth/login', credentials)
 
-export const loginViaThirdParty = (data: { token: string }) => request.post<{ access_token: string }>('auth/google', data)
+export const loginViaThirdParty = (data: { token: string }) => request.post<{ access_token: string }>('/auth/google', data)
 
 export const register = (credentials: { email: string, username: string, password: string }) => request.post<{ access_token: string }>('/auth/register', credentials)
 
