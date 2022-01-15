@@ -73,32 +73,29 @@ export const Profile: React.FC = () => {
                         {/* {userDetailed?.status === "unverified" && <ErrorBanner color="warning" message={`Verification Email has been send to ${userDetailed.email}. Check your inbox.`} buttonText="Resend Mail" onClick={() => resendMail()} />} */}
                         <div>
                             {!isLoadingSets &&
+                                sets.data?.length === 0 ?
+                                userDetailed?.status === "unverified" ?
+                                    <NoData onClick={() => {
+                                        resendMail()
+                                    }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
+                                    : <NoData onClick={() => {
+                                        createNewSet()
+                                        history.push("/account/creative")
+                                    }} dataCy="profile-no-data-verified" icon={plus} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
+                                :
                                 <>
-                                    {sets.data?.length !== 0 &&
-                                        <div data-cy="profile-sets-container" className="flex justify-between items-center">
-                                            <h2 className="text-lg font-semibold">Your Sets</h2>
-                                            <Button type="button" onClick={() => {
-                                                createNewSet()
-                                                history.push("/account/creative")
-                                            }} icon={plus} className="w-34 px-7">New</Button>
-                                        </div>}
-                                    {sets.data?.length === 0 ?
-                                        <>{
-                                            userDetailed?.status === "unverified" ?
-                                                <NoData onClick={() => {
-                                                    resendMail()
-                                                }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
-                                                : <NoData onClick={() => {
-                                                    createNewSet()
-                                                    history.push("/account/creative")
-                                                }} dataCy="profile-no-data-verified" icon={plus} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
-                                        }</>
-                                        :
-                                        <IonList>
-                                            {sets.data?.map((set: Set) => (
-                                                <SetItem dataCy="profile-set-item" onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
-                                            ))}
-                                        </IonList>}
+                                    <div data-cy="profile-sets-container" className="flex justify-between items-center">
+                                        <h2 className="text-lg font-semibold">Your Sets</h2>
+                                        <Button type="button" onClick={() => {
+                                            createNewSet()
+                                            history.push("/account/creative")
+                                        }} icon={plus} className="w-34 px-7">New</Button>
+                                    </div>
+                                    <IonList>
+                                        {sets.data?.map((set: Set) => (
+                                            <SetItem dataCy="profile-set-item" onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
+                                        ))}
+                                    </IonList>
                                 </>
                             }
                         </div>
