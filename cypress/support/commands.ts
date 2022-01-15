@@ -94,7 +94,7 @@ Cypress.Commands.add('getProfileVerified', () => {
 
 Cypress.Commands.add('getProfileUnverified', () => {
     cy.intercept('GET', `${api}/users/profile`, {
-        fixture: 'profile-verified.json'
+        fixture: 'profile-unverified.json'
     }).as('getProfileUnverified')
 })
 
