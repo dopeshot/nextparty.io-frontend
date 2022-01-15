@@ -8,6 +8,8 @@ describe('Profile', () => {
     beforeEach(() => {
         cy.visit('/account/login')
         cy.login()
+        cy.getSetsFromUser()
+        cy.getProfile()
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
@@ -15,9 +17,6 @@ describe('Profile', () => {
         cy.get('[data-cy="login-button"]').click()
 
         cy.wait('@login')
-
-        cy.getSetsFromUser()
-        cy.getProfile()
         cy.wait('@getSetsFromUser')
         cy.wait('@getProfile')
     })
@@ -50,15 +49,18 @@ describe('Profile', () => {
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
 
-        const interception = interceptIndefinitely('GET', `${api}/sets/user/**`, { fixture: 'setsfromuser.json' })
+        const interception = interceptIndefinitely('GET', `${api}/sets/user/**`, "getSetsFromUserIndefinitely", { fixture: 'setsfromuser.json' })
 
         cy.get('[data-cy="login-button"]').click()
+
         cy.wait('@login')
-        cy.get('h1').should('be.visible').contains("Hello")
+
+        cy.get('h1').contains("Hello").should('be.visible')
 
         cy.get('[data-cy="profile-progress-bar"]').should('be.visible').then(() => {
             cy.get('[data-cy="profile-sets-container"]').should('not.exist')
             interception.sendResponse()
+            cy.wait('@getSetsFromUserIndefinitely')
             cy.get('[data-cy="profile-progress-bar"]').should('not.exist')
             cy.get('[data-cy="profile-sets-container"]').should('be.visible')
             cy.get('[data-cy="profile-set-item"]').should('have.length', setsfromuser.length)
