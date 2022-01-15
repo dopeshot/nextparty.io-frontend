@@ -24,11 +24,12 @@ describe('Sets', () => {
         })
 
         it('should show loading bar when load sets and hide when loading finished on explore page', () => {
-            const interception = interceptIndefinitely('GET', api, { fixture: 'sets.json' })
+            const interception = interceptIndefinitely('GET', api, "getSetsIndefinitely", { fixture: 'sets.json' })
             cy.visit('/')
 
             cy.get('[data-cy="explore-progress-bar"]').should('be.visible').then(() => {
                 interception.sendResponse()
+                cy.wait('@getSetsIndefinitely')
                 cy.get('[data-cy="explore-progress-bar"]').should('not.exist')
                 cy.get('[data-cy="explore-set-item"]').should('have.length', sets.length)
             })
@@ -56,12 +57,13 @@ describe('Sets', () => {
         })
 
         it('should show loading bar when load tasks and hide when loading finished', () => {
-            const interception = interceptIndefinitely('GET', `${api}/**`, { fixture: 'set.json' })
+            const interception = interceptIndefinitely('GET', `${api}/**`, "getTasksIndefinitely", { fixture: 'set.json' })
             cy.visit('/')
             cy.get('[data-cy="explore-set-item"]').contains(sets[1].name).click()
 
             cy.get('[data-cy="detail-set-progress-bar"]').should('be.visible').then(() => {
                 interception.sendResponse()
+                cy.wait('@getTasksIndefinitely')
                 cy.get('[data-cy="detail-set-progress-bar"]').should('not.exist')
                 cy.get('[data-cy="set-detail-task"]').should('have.length', set.tasks.length)
             })
