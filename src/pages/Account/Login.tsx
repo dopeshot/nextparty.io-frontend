@@ -1,10 +1,10 @@
+import { LoginIcon } from '@heroicons/react/outline';
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import { Form, Formik } from "formik";
 import { Link } from 'react-router-dom';
 import * as Yup from "yup";
 import example from '../../assets/example.png';
 import arrowBack from "../../assets/icons/arrowback.svg";
-import loginicon from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
 import { ErrorBanner } from '../../components/Errors/ErrorBanner';
 import { Input } from '../../components/Forms/Input';
@@ -63,7 +63,7 @@ export const Login: React.FC = () => {
                                     <Input dataCy="login-email-input" formik={formik} field="email" hasLabel autocomplete="email" id="login-email" type="email" placeholder="E-Mail" />
                                     <PasswordInput dataCy="login-password-input" formik={formik} hasLabel autocomplete="current-password" id="login-password" />
 
-                                    <Button dataCy="login-button" className="w-full" loading={authenticating} onClick={() => null} icon={loginicon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
+                                    <Button dataCy="login-button" className="w-full" loading={authenticating} onClick={() => null} Icon={LoginIcon} type="submit" disabled={!(formik.dirty && formik.isValid)}>Login</Button>
                                 </Form>
                             )}
                         </Formik>

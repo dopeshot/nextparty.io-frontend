@@ -1,10 +1,9 @@
-import { CogIcon } from "@heroicons/react/outline";
+import { CogIcon, PlusIcon } from "@heroicons/react/outline";
 import { RefresherEventDetail } from "@ionic/core";
 import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonViewWillEnter } from "@ionic/react";
 import { useHistory } from "react-router";
 import example from '../../assets/example.png';
 import signout from '../../assets/icons/logout.svg';
-import plus from '../../assets/icons/plus.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
 import { ErrorBanner } from "../../components/Errors/ErrorBanner";
@@ -79,7 +78,7 @@ export const Profile: React.FC = () => {
                                             <Button type="button" onClick={() => {
                                                 createNewSet()
                                                 history.push("/account/creative")
-                                            }} icon={plus} className="w-34 px-7">New</Button>
+                                            }} Icon={PlusIcon} className="w-34 px-7">New</Button>
                                         </div>}
                                     {sets.data?.length === 0 ? <NoData onClick={() => {
                                         createNewSet()

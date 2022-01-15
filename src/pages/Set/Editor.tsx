@@ -1,12 +1,10 @@
-import { ChevronDownIcon, DotsHorizontalIcon, PencilIcon, XIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, DotsHorizontalIcon, PencilIcon, PlusIcon, SaveIcon, XIcon } from "@heroicons/react/outline";
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonPage, IonTextarea, IonTitle, IonToggle, IonToolbar, useIonActionSheet, useIonAlert, useIonPicker, useIonRouter } from "@ionic/react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useRef, useState } from "react";
 import * as Yup from "yup";
 import example from '../../assets/example.png';
-import plus from '../../assets/icons/plus.svg';
-import save from "../../assets/icons/save.svg";
 import trash from "../../assets/icons/trash.svg";
 import { Button } from "../../components/Buttons/Button";
 import { Input } from "../../components/Forms/Input";
@@ -256,7 +254,7 @@ export const Editor: React.FC = () => {
                                 </div>
                                 <p className="text-itemactivegrey">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</p>
                             </div>
-                            <Button className="w-full" keepFocus={true} onClick={() => null} icon={save} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Update Set Details' : 'Create Set'}</Button>
+                            <Button className="w-full" keepFocus={true} onClick={() => null} Icon={SaveIcon} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Update Set Details' : 'Create Set'}</Button>
                         </Form>
                     }
                     </Formik>
@@ -264,7 +262,7 @@ export const Editor: React.FC = () => {
                     {set?.tasks && set.tasks.length !== 0 && <>
                         <div className="flex justify-between items-center">
                             <h2 className="text-lg font-semibold">Tasks</h2>
-                            <Button keepFocus={false} type="button" onClick={() => { setShowTaskEditor(true) }} icon={plus} className="w-34 px-7">Task</Button>
+                            <Button keepFocus={false} type="button" onClick={() => { setShowTaskEditor(true) }} Icon={PlusIcon} className="w-34 px-7">Task</Button>
                         </div>
                         <p className="text-itemactivegrey">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
                         <div>
@@ -367,7 +365,7 @@ export const Editor: React.FC = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <Button className="w-full mb-4" type="submit" onClick={() => { }} disabled={!(formik.dirty && formik.isValid)} icon={save}>Save</Button>
+                                        <Button className="w-full mb-4" type="submit" onClick={() => { }} disabled={!(formik.dirty && formik.isValid)} Icon={SaveIcon}>Save</Button>
                                         {editData && <Button className="w-full" type="button" onClick={() => onDeleteTask(editData._id)}>Delete</Button>}
                                     </div>
                                 </Form>

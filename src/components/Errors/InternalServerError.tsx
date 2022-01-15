@@ -1,3 +1,4 @@
+import { RefreshIcon } from '@heroicons/react/outline';
 import { Error } from './Error';
 
 type InternalServerErrorProps = {
@@ -11,5 +12,5 @@ const data = {
 }
 
 export const InternalServerError: React.FC<InternalServerErrorProps> = (props) => {
-    return <Error errorType={500} titleContent={data.title} paragraphContent={data.content} icon="test" buttonContent={data.button} onClick={props.onClick} />
+    return <Error errorType={500} titleContent={data.title} paragraphContent={data.content} Icon={RefreshIcon} buttonContent={data.button} onClick={props.onClick} />
 }
