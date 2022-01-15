@@ -83,10 +83,16 @@ export const Profile: React.FC = () => {
                                             }} icon={plus} className="w-34 px-7">New</Button>
                                         </div>}
                                     {sets.data?.length === 0 ?
-                                        <NoData onClick={() => {
-                                            createNewSet()
-                                            history.push("/account/creative")
-                                        }} dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
+                                        <>{
+                                            userDetailed?.status === "unverified" ?
+                                                <NoData onClick={() => {
+                                                    resendMail()
+                                                }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
+                                                : <NoData onClick={() => {
+                                                    createNewSet()
+                                                    history.push("/account/creative")
+                                                }} dataCy="profile-no-data-verified" icon={plus} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
+                                        }</>
                                         :
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
