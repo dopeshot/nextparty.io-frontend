@@ -8,6 +8,8 @@ describe('Profile', () => {
     beforeEach(() => {
         cy.visit('/account/login')
         cy.login()
+        cy.getSetsFromUser()
+        cy.getProfile()
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
@@ -15,9 +17,6 @@ describe('Profile', () => {
         cy.get('[data-cy="login-button"]').click()
 
         cy.wait('@login')
-
-        cy.getSetsFromUser()
-        cy.getProfile()
         cy.wait('@getSetsFromUser')
         cy.wait('@getProfile')
     })
