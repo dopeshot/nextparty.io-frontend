@@ -193,7 +193,7 @@ export const Editor: React.FC = () => {
                                     <span>{formik.values.category}</span>
                                     <PencilIcon className={`h-6`} />
                                 </button>
-                                <IonModal onWillDismiss={() => setShowThemePicker(false)} isOpen={showThemePicker} cssClass="my-custom-class">
+                                <IonModal onWillDismiss={() => setShowThemePicker(false)} isOpen={showThemePicker}>
                                     <IonHeader>
                                         <IonToolbar>
                                             <IonTitle>Choose Theme</IonTitle>
@@ -293,7 +293,7 @@ export const Editor: React.FC = () => {
                     }}>Task</Button>}
 
                     {/** Task Editor Modal */}
-                    <IonModal onWillDismiss={closeTaskEditorModal} onDidDismiss={() => setEditData(null)} isOpen={showTaskEditor} cssClass="my-custom-class">
+                    <IonModal onWillDismiss={closeTaskEditorModal} onDidDismiss={() => setEditData(null)} isOpen={showTaskEditor}>
                         <IonHeader>
                             <IonToolbar>
                                 <IonTitle>{editData ? 'Edit task' : 'Create task'}</IonTitle>
