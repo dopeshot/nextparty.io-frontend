@@ -7,12 +7,12 @@ import {
   getLeastPlayedOverall,
   getPossibleTasks,
   getUnplayedByMe,
-  getUnplayedOverall,
+  getUnplayedOverall
 } from '../../src/services/game/GameComponents'
 import { getGenders, getMockPlayers } from '../game-mock-data.ts/players'
 import {
   getMockMultiPlayerSet,
-  getMockSoloPlayerSet,
+  getMockSoloPlayerSet
 } from '../game-mock-data.ts/set'
 
 // Docs here: https://docs.cypress.io/guides/references/assertions#BDD-Assertions
@@ -247,6 +247,23 @@ describe('Game gomponents Unit tests', () => {
     before(() => {
       expect(getUnplayedOverall).to.be.a('function')
     })
+
+    it('should be undefined if parameter is null ', () => {
+      expect(getUnplayedOverall(null)).to.be.undefined
+    })
+
+    it('should be undefined if parameter is undefined ', () => {
+      expect(getUnplayedOverall(undefined)).to.be.undefined
+    })
+
+    it('should be all if playedBy is empty ', () => {
+      expect(getUnplayedOverall(soloTasks)).to.have.length(soloTasks.length)
+    })
+
+    it('should be empty if playedBy filled ', () => {
+      soloTasks[0].playedBy.push('a')
+      expect(getUnplayedOverall([soloTasks[0]])).to.have.length(0)
+    })
   })
 
   describe('getUnplayedByMe', () => {
@@ -279,4 +296,5 @@ describe('Game gomponents Unit tests', () => {
     })
   })
 })
-export {}
+export { }
+
