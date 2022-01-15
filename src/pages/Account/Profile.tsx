@@ -7,7 +7,6 @@ import signout from '../../assets/icons/logout.svg';
 import plus from '../../assets/icons/plus.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
-import { ErrorBanner } from "../../components/Errors/ErrorBanner";
 import { NoData } from "../../components/Errors/NoData";
 import { CountItem } from "../../components/Profile/CountItem";
 import { SetItem } from "../../components/SetItem/SetItem";
@@ -58,20 +57,22 @@ export const Profile: React.FC = () => {
                             </button>
                         </div>
 
-                        <div className="flex justify-around">
-                            <CountItem number={sets.truthCount} name="Truths" />
-                            <CountItem number={sets.dareCount} name="Dares" />
-                            <CountItem number={sets.setCount} name="Sets" />
-                            <CountItem number={sets.playedCount} name="Total played" />
-                        </div>
+                        {isLoadingSets ? <IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" /> :
+                            <>
+                                {sets.data?.length !== 0 && <div className="flex justify-around">
+                                    <CountItem number={sets.truthCount} name="Truths" />
+                                    <CountItem number={sets.dareCount} name="Dares" />
+                                    <CountItem number={sets.setCount} name="Sets" />
+                                    <CountItem number={sets.playedCount} name="Total played" />
+                                </div>}
+                            </>}
                     </div>
                 </div>
                 <div className="bg-background-black">
                     <div className="container">
-                        {userDetailed?.status === "unverified" && <ErrorBanner color="warning" message={`Verification Email has been send to ${userDetailed.email}. Check your inbox.`} buttonText="Resend Mail" onClick={() => resendMail()} />}
-
+                        {/* {userDetailed?.status === "unverified" && <ErrorBanner color="warning" message={`Verification Email has been send to ${userDetailed.email}. Check your inbox.`} buttonText="Resend Mail" onClick={() => resendMail()} />} */}
                         <div>
-                            {isLoadingSets ? <IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" /> :
+                            {!isLoadingSets &&
                                 <>
                                     {sets.data?.length !== 0 &&
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
@@ -81,10 +82,12 @@ export const Profile: React.FC = () => {
                                                 history.push("/account/creative")
                                             }} icon={plus} className="w-34 px-7">New</Button>
                                         </div>}
-                                    {sets.data?.length === 0 ? <NoData onClick={() => {
-                                        createNewSet()
-                                        history.push("/account/creative")
-                                    }} dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." /> :
+                                    {sets.data?.length === 0 ?
+                                        <NoData onClick={() => {
+                                            createNewSet()
+                                            history.push("/account/creative")
+                                        }} dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
+                                        :
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
                                                 <SetItem dataCy="profile-set-item" onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
