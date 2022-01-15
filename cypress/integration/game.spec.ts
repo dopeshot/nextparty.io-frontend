@@ -23,7 +23,7 @@ describe('Game', () => {
             cy.get('[data-cy="displaytask-container"]').contains('Dare')
         })
 
-        it('should only display dare when in set are only dares', () => {
+        it('should only display dare when in set are only dares and clickarea should be the whole screen', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "dare")
@@ -34,10 +34,13 @@ describe('Game', () => {
 
                 cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
                 cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+
+                cy.get('[data-cy="choosetask-dare-button"]').click('left')
+                cy.get('[data-cy="displaytask-container"]').should('be.visible')
             })
         })
 
-        it('should only display truth when in set are only truths', () => {
+        it('should only display truth when in set are only truths and clickarea should be the whole screen', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "truth")
@@ -48,6 +51,9 @@ describe('Game', () => {
 
                 cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
                 cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
+
+                cy.get('[data-cy="choosetask-truth-button"]').click('right')
+                cy.get('[data-cy="displaytask-container"]').should('be.visible')
             })
         })
 
