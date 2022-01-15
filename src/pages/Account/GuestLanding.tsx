@@ -1,9 +1,12 @@
 import { CheckCircleIcon } from "@heroicons/react/outline";
 import { IonContent, IonItem, IonLabel, IonList, IonPage, useIonViewWillEnter } from "@ionic/react";
+import GoogleLogin from 'react-google-login';
 import { Link } from "react-router-dom";
 import example from '../../assets/example.png';
 import email from '../../assets/icons/email.svg';
+import google from '../../assets/icons/google.svg';
 import { Button } from "../../components/Buttons/Button";
+import { useActions } from "../../overmind";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const GuestLanding: React.FC = () => {
@@ -11,6 +14,8 @@ export const GuestLanding: React.FC = () => {
         setSeoTitle('Account')
     }, [])
 
+
+    const { loginWithGoogle } = useActions().profile
     return (
         <IonPage className="bg-background-black">
             <IonContent>
@@ -42,11 +47,20 @@ export const GuestLanding: React.FC = () => {
                         </IonItem>
                     </IonList>
 
-                    {/* {<Button to="#" icon={google} className="mb-4">Continue with Google</Button>} */}
+                    <GoogleLogin
+                        clientId={process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID}
+                        buttonText="Log in with Google"
+                        onSuccess={loginWithGoogle}
+                        onFailure={loginWithGoogle}
+                        cookiePolicy={'single_host_origin'}
+                        render={renderProps => <Button icon={google} onClick={renderProps.onClick} disabled={renderProps.disabled} className="mb-4 w-full">Continue with Google</Button>}
+                    />
+
                     <Button dataCy="guestlanding-signup-button" to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
 
                     <Link data-cy="guestlanding-login-link" className="block text-darkgray text-center" to="/account/login">Login instead</Link>
                 </div>
+
             </IonContent>
         </IonPage>
     )
