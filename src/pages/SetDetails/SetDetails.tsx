@@ -14,6 +14,7 @@ import { TaskType } from '../../shared/types/TaskType'
 
 type SetDetailsParams = {
     setId: string
+    slug?: string
 }
 
 export const SetDetails: React.FC = () => {
@@ -28,11 +29,8 @@ export const SetDetails: React.FC = () => {
 
     const componentMounted = useRef(true)
 
-    console.log(history)
-
     useEffect(() => {
-        loadSetDetails({ setId, componentMounted })
-        history.replace(`/explore/${setId}/nice`)
+        loadSetDetails({ setId, componentMounted, history })
         return () => {
             componentMounted.current = false
         }
