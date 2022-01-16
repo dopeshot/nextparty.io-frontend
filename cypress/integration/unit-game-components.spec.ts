@@ -551,10 +551,38 @@ describe('Game gomponents Unit tests', () => {
 
   })
 
-  describe('countPossibleTasksForPlayer', () => {
+  describe('countPossibleTasksForPlayer, this function has no own logic and thus no functionality tests', () => {
     before(() => {
       expect(countPossibleTasksForPlayer).to.be.a('function')
     })
+
+    describe('null/undefined tests', () => {
+      it('should be undefined if tasks is null', () => {
+        expect(countPossibleTasksForPlayer(null, malePlayer, genders)).to.be.undefined
+      })
+
+      it('should be undefined if tasks is undefined', () => {
+        expect(countPossibleTasksForPlayer(undefined, malePlayer, genders)).to.be.undefined
+      })
+
+      it('should be 2 if player is null', () => {
+        expect(countPossibleTasksForPlayer(soloTasks, null, genders)).to.equal(2)
+      })
+
+      it('should be 2 if player is undefined', () => {
+        expect(countPossibleTasksForPlayer(soloTasks, undefined, genders)).to.equal(2)
+      })
+
+      it('should be 0 if genders is null', () => {
+        expect(countPossibleTasksForPlayer(soloTasks, malePlayer, null)).to.equal(0)
+      })
+
+      it('should be 0 if genders is undefined', () => {
+        expect(countPossibleTasksForPlayer(soloTasks, malePlayer, undefined)).to.equal(0)
+      })
+
+    })
+
   })
 })
 export { }

@@ -5,7 +5,7 @@ import { TaskPlayerGender } from "../../shared/types/TaskPlayerGender"
 import { TaskType } from "../../shared/types/TaskType"
 import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "./GameUtilities"
 
-export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType) => {
+export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType | null) => {
     return tasks?.filter(task =>
         (task.type === pickedTaskType || !pickedTaskType) &&
         (
@@ -129,12 +129,7 @@ export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, cu
 }
 
 export const countPossibleTasksForPlayer = (tasks: PlayTask[], player: Player, playerGenderCount: PlayerGenderCount): number => {
-    // This is duplicate code but if we want to change something we don't want to have dependencies
-    const getPossibleTasks = tasks.filter(task =>
-        task.currentPlayerGender === TaskCurrentPlayerGender.ANYONE ||
-        task.currentPlayerGender === genderToTaskCurrentPlayerGender(player.gender) ||
-        player.gender === Gender.DIVERS
-    )
-    return getFillableTasks(getPossibleTasks, player, playerGenderCount).length
+    const possibleTasks = getPossibleTasks(tasks, player, null)
+    return getFillableTasks(possibleTasks, player, playerGenderCount)?.length
 }
 
