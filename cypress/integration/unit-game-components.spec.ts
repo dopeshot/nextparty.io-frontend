@@ -373,6 +373,25 @@ describe('Game gomponents Unit tests', () => {
       })
     })
 
+    it('should be all if none are played yet', () => {
+      expect(getLeastPlayedByMe(soloTasks, malePlayer)).to.have.length(soloTasks.length)
+    })
+
+    it('should be all-1 if one has been played', () => {
+      soloTasks[0].playedBy.push(malePlayer.id)
+      expect(getLeastPlayedByMe(soloTasks, malePlayer)).to.have.length(soloTasks.length - 1)
+    })
+
+    it('should be 1 if all but one have been played ', () => {
+      soloTasks.forEach((task) => { task.playedBy.push(malePlayer.id) })
+      soloTasks[0].playedBy.pop()
+      expect(getLeastPlayedByMe(soloTasks, malePlayer)).to.have.length(1)
+    })
+
+    it('should be all if all have been played', () => {
+      soloTasks.forEach((task) => { task.playedBy.push(malePlayer.id) })
+      expect(getLeastPlayedByMe(soloTasks, malePlayer)).to.have.length(soloTasks.length)
+    })
 
   })
 
@@ -380,11 +399,11 @@ describe('Game gomponents Unit tests', () => {
     before(() => {
       expect(getLeastPlayedOverall).to.be.a('function')
     })
-    it('should be undefined if parameter is null ', () => {
+    it('should be undefined if tasks is null ', () => {
       expect(getLeastPlayedOverall(null)).to.be.undefined
     })
 
-    it('should be undefined if parameter is undefined ', () => {
+    it('should be undefined if tasks is undefined ', () => {
       expect(getLeastPlayedOverall(undefined)).to.be.undefined
     })
   })
