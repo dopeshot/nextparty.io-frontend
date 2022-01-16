@@ -1,7 +1,5 @@
-import {
-  TaskCurrentPlayerGender,
-  TaskType,
-} from '../../src/overmind/game/state'
+import { TaskCurrentPlayerGender } from "../../src/shared/types/TaskCurrentPlayerGender"
+import { TaskType } from "../../src/shared/types/TaskType"
 
 export const getMockSoloPlayerSet = () => ({
   _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',

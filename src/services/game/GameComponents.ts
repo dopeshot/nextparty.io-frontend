@@ -6,21 +6,22 @@ import { TaskType } from "../../shared/types/TaskType"
 import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "./GameUtilities"
 
 export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType) => {
-    return tasks.filter(task =>
-        (task.type === pickedTaskType) &&
+    return tasks?.filter(task =>
+        (task.type === pickedTaskType || !pickedTaskType) &&
         (
             task.currentPlayerGender === TaskCurrentPlayerGender.ANYONE ||
-            task.currentPlayerGender === genderToTaskCurrentPlayerGender(player.gender) ||
-            player.gender === Gender.DIVERS
+            task.currentPlayerGender === genderToTaskCurrentPlayerGender(player?.gender) ||
+            player?.gender === Gender.DIVERS
         )
     )
 }
 // MC: Rename variables to get clean code!
 export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGenderCount: PlayerGenderCount) => {
     const reducedGenders = { ...playerGenderCount }
-    reducedGenders[player.gender]--
+    if (!reducedGenders) return []
+    reducedGenders[player?.gender]--
 
-    const fillableTasks = tasks.filter((task) => {
+    const fillableTasks = tasks?.filter((task) => {
         // Check if there are enough people to play the task at all
         if (Object.values(reducedGenders).reduce((a, b) => a + b) - Object.values(task.requires).reduce((a, b) => a + b) < 0) {
             return false
@@ -49,9 +50,8 @@ export const getUnplayedOverall = (tasks: PlayTask[]) => {
 }
 
 export const getUnplayedByMe = (tasks: PlayTask[], player: Player) => {
-    return tasks?.filter(task => !task.playedBy.includes(player.id))
+    return tasks?.filter(task => !task.playedBy.includes(player?.id))
 }
-
 
 export const getLeastPlayedByMe = (tasks: PlayTask[], player: Player) => {
     const sortedTasks = tasks?.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player)) // MC: This could be replaced with Math.min in combination with map.

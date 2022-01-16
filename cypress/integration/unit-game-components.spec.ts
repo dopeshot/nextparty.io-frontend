@@ -1,4 +1,3 @@
-import { TaskType } from '../../src/overmind/game/state'
 import {
   countPossibleTasksForPlayer,
   fillPlayersIntoMessage,
@@ -9,6 +8,7 @@ import {
   getUnplayedByMe,
   getUnplayedOverall
 } from '../../src/services/game/GameComponents'
+import { TaskType } from '../../src/shared/types/TaskType'
 import { getGenders, getMockPlayers } from '../game-mock-data.ts/players'
 import {
   getMockMultiPlayerSet,
@@ -21,24 +21,20 @@ import {
 // Basic test structure: it('should ',()=> {})
 
 describe('Game gomponents Unit tests', () => {
-  let players
-  let malePlayer
-  let femalePlayer
-  let diversPlayer
-  let soloTasks
-  let multiTasks
-  let genders
+  const players = getMockPlayers()
+  const malePlayer = getMockPlayers()[0]
+  const femalePlayer = getMockPlayers()[1]
+  const diversPlayer = getMockPlayers()[2]
+  const genders = getGenders()
   const soloTasksPerGender = []
   const multiTasksPerGender = []
 
+  let soloTasks
+  let multiTasks
+
   beforeEach(() => {
-    players = getMockPlayers()
-    malePlayer = getMockPlayers()[0]
-    femalePlayer = getMockPlayers()[1]
-    diversPlayer = getMockPlayers()[2]
     soloTasks = getMockSoloPlayerSet().tasks
     multiTasks = getMockMultiPlayerSet().tasks
-    genders = getGenders()
 
     soloTasksPerGender.push([0, 2].map((index) => soloTasks[index]))
     soloTasksPerGender.push([0, 4].map((index) => soloTasks[index]))
@@ -52,6 +48,32 @@ describe('Game gomponents Unit tests', () => {
   describe('getPossibleTasks', () => {
     before(() => {
       expect(getPossibleTasks).to.be.a('function')
+    })
+
+    describe('null/undefined tests', () => {
+      it('should be undefined if tasks is null ', () => {
+        expect(getPossibleTasks(null, malePlayer, TaskType.TRUTH)).to.be.undefined
+      })
+
+      it('should be undefined if tasks is undefined ', () => {
+        expect(getPossibleTasks(undefined, malePlayer, TaskType.TRUTH)).to.be.undefined
+      })
+
+      it('should be only the @ca tasks if player is null ', () => {
+        expect(getPossibleTasks(soloTasks, null, TaskType.TRUTH)).to.have.length(1)
+      })
+
+      it('should be only the @ca tasks if player is undefined ', () => {
+        expect(getPossibleTasks(soloTasks, undefined, TaskType.TRUTH)).to.have.length(1)
+      })
+
+      it('should be all @cm if tasktype is null ', () => {
+        expect(getPossibleTasks(soloTasks, malePlayer, null)).to.have.length(4)
+      })
+
+      it('should be all @cm if tasktype is undefined ', () => {
+        expect(getPossibleTasks(soloTasks, malePlayer, undefined)).to.have.length(4)
+      })
     })
 
     it('should be empty if tasks are empty', () => {
@@ -89,6 +111,32 @@ describe('Game gomponents Unit tests', () => {
   describe('getFillableTasks', () => {
     before(() => {
       expect(getFillableTasks).to.be.a('function')
+    })
+
+    describe('null/undefined tests', () => {
+      it('should be undefined if tasks is null ', () => {
+        expect(getFillableTasks(null, malePlayer, genders)).to.be.undefined
+      })
+
+      it('should be undefined if tasks is undefined ', () => {
+        expect(getFillableTasks(undefined, malePlayer, genders)).to.be.undefined
+      })
+
+      it('should be all if player is null ', () => {
+        expect(getFillableTasks(soloTasks, null, genders)).to.have.length(soloTasks.length)
+      })
+
+      it('should be all if player is undefined ', () => {
+        expect(getFillableTasks(soloTasks, undefined, genders)).to.have.length(soloTasks.length)
+      })
+
+      it('should be empty if genders is null ', () => {
+        expect(getFillableTasks(soloTasks, malePlayer, null)).to.have.length(0)
+      })
+
+      it('should be empty if genders is undefined ', () => {
+        expect(getFillableTasks(soloTasks, malePlayer, undefined)).to.have.length(0)
+      })
     })
 
     it('should be empty if tasks are empty', () => {
@@ -248,12 +296,14 @@ describe('Game gomponents Unit tests', () => {
       expect(getUnplayedOverall).to.be.a('function')
     })
 
-    it('should be undefined if parameter is null ', () => {
-      expect(getUnplayedOverall(null)).to.be.undefined
-    })
+    describe('null/undefined tests', () => {
+      it('should be undefined if tasks is null ', () => {
+        expect(getUnplayedOverall(null)).to.be.undefined
+      })
 
-    it('should be undefined if parameter is undefined ', () => {
-      expect(getUnplayedOverall(undefined)).to.be.undefined
+      it('should be undefined if tasks is undefined ', () => {
+        expect(getUnplayedOverall(undefined)).to.be.undefined
+      })
     })
 
     it('should be all if playedBy is empty ', () => {
@@ -271,12 +321,22 @@ describe('Game gomponents Unit tests', () => {
       expect(getUnplayedByMe).to.be.a('function')
     })
 
-    it('should be undefined if parameter is null ', () => {
-      expect(getUnplayedByMe(null, malePlayer)).to.be.undefined
-    })
+    describe('null/undefined tests', () => {
+      it('should be undefined if tasks is null ', () => {
+        expect(getUnplayedByMe(null, malePlayer)).to.be.undefined
+      })
 
-    it('should be undefined if parameter is undefined ', () => {
-      expect(getUnplayedByMe(undefined, malePlayer)).to.be.undefined
+      it('should be undefined if tasks is undefined ', () => {
+        expect(getUnplayedByMe(undefined, malePlayer)).to.be.undefined
+      })
+
+      it('should be all if player is null ', () => {
+        expect(getUnplayedByMe(soloTasks, null)).to.have.length(soloTasks.length)
+      })
+
+      it('should be all if player is undefined ', () => {
+        expect(getUnplayedByMe(soloTasks, undefined)).to.have.length(soloTasks.length)
+      })
     })
 
     it('should be all if playedBy is empty ', () => {
@@ -295,13 +355,24 @@ describe('Game gomponents Unit tests', () => {
       expect(getLeastPlayedByMe).to.be.a('function')
     })
 
-    it('should be undefined if parameter is null ', () => {
-      expect(getLeastPlayedByMe(null, malePlayer)).to.be.undefined
+    describe('null/undefined tests', () => {
+      it('should be undefined if tasks is null ', () => {
+        expect(getLeastPlayedByMe(null, malePlayer)).to.be.undefined
+      })
+
+      it('should be undefined if tasks is undefined ', () => {
+        expect(getLeastPlayedByMe(undefined, malePlayer)).to.be.undefined
+      })
+
+      it('should be all if player is null ', () => {
+        expect(getLeastPlayedByMe(soloTasks, null)).to.have.length(soloTasks.length)
+      })
+
+      it('should be all if player is undefined ', () => {
+        expect(getLeastPlayedByMe(soloTasks, undefined)).to.have.length(soloTasks.length)
+      })
     })
 
-    it('should be undefined if parameter is undefined ', () => {
-      expect(getLeastPlayedByMe(undefined, malePlayer)).to.be.undefined
-    })
 
   })
 
