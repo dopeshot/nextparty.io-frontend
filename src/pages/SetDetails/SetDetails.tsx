@@ -51,7 +51,7 @@ export const SetDetails: React.FC = () => {
                             onDidDismiss: () => console.log('dismissed'),
                             onWillDismiss: () => console.log('will dismiss'),
                         })}>
-                            <DotsHorizontalIcon className="h-6 w-6" />
+                            <DotsHorizontalIcon className="text-white h-6 w-6" />
                         </IonButton>
                     </IonButtons>
                 </ IonToolbar>
