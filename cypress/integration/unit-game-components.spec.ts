@@ -29,8 +29,9 @@ describe('Game gomponents Unit tests', () => {
   const soloTasksPerGender = []
   const multiTasksPerGender = []
 
-  let soloTasks
-  let multiTasks
+  // Set once here to have the types
+  let soloTasks = getMockSoloPlayerSet().tasks
+  let multiTasks = getMockMultiPlayerSet().tasks
 
   beforeEach(() => {
     soloTasks = getMockSoloPlayerSet().tasks
@@ -73,6 +74,10 @@ describe('Game gomponents Unit tests', () => {
 
       it('should be all @cm if tasktype is undefined ', () => {
         expect(getPossibleTasks(soloTasks, malePlayer, undefined)).to.have.length(4)
+      })
+
+      it('should be empty if tasks is empty ', () => {
+        expect(getPossibleTasks([], malePlayer, TaskType.TRUTH)).to.have.length(0)
       })
     })
 
@@ -136,6 +141,10 @@ describe('Game gomponents Unit tests', () => {
 
       it('should be empty if genders is undefined ', () => {
         expect(getFillableTasks(soloTasks, malePlayer, undefined)).to.have.length(0)
+      })
+
+      it('should be empty if tasks is empty ', () => {
+        expect(getFillableTasks([], malePlayer, genders)).to.have.length(0)
       })
     })
 
@@ -304,6 +313,10 @@ describe('Game gomponents Unit tests', () => {
       it('should be undefined if tasks is undefined ', () => {
         expect(getUnplayedOverall(undefined)).to.be.undefined
       })
+
+      it('should be empty if tasks is empty ', () => {
+        expect(getUnplayedOverall([])).to.have.length(0)
+      })
     })
 
     it('should be all if playedBy is empty ', () => {
@@ -336,6 +349,10 @@ describe('Game gomponents Unit tests', () => {
 
       it('should be all if player is undefined ', () => {
         expect(getUnplayedByMe(soloTasks, undefined)).to.have.length(soloTasks.length)
+      })
+
+      it('should be empty if tasks is empty ', () => {
+        expect(getUnplayedByMe([], malePlayer)).to.have.length(0)
       })
     })
 
@@ -371,6 +388,10 @@ describe('Game gomponents Unit tests', () => {
       it('should be all if player is undefined ', () => {
         expect(getLeastPlayedByMe(soloTasks, undefined)).to.have.length(soloTasks.length)
       })
+
+      it('should be empty if tasks is empty ', () => {
+        expect(getLeastPlayedByMe([], malePlayer)).to.have.length(0)
+      })
     })
 
     it('should be all if none are played yet', () => {
@@ -399,12 +420,39 @@ describe('Game gomponents Unit tests', () => {
     before(() => {
       expect(getLeastPlayedOverall).to.be.a('function')
     })
-    it('should be undefined if tasks is null ', () => {
-      expect(getLeastPlayedOverall(null)).to.be.undefined
+
+    describe('null/undefined tests', () => {
+      it('should be undefined if tasks is null ', () => {
+        expect(getLeastPlayedOverall(null)).to.be.undefined
+      })
+
+      it('should be undefined if tasks is undefined ', () => {
+        expect(getLeastPlayedOverall(undefined)).to.be.undefined
+      })
+
+      it('should be the undefined if tasks is empty', () => {
+        // This assumes that the array.sort() function is a stable sort
+        expect(getLeastPlayedOverall([])).to.be.undefined
+      })
     })
 
-    it('should be undefined if tasks is undefined ', () => {
-      expect(getLeastPlayedOverall(undefined)).to.be.undefined
+
+
+    it('should be the first if none are played', () => {
+      // This assumes that the array.sort() function is a stable sort
+      expect(getLeastPlayedOverall(soloTasks)).to.eql(soloTasks[0])
+    })
+
+    it('should be the first if the other has been played', () => {
+      // Note that soloTasks is being changed upon the function call
+      soloTasks[0].playedBy.push(malePlayer.id)
+      const cachedSoloTask = soloTasks[0]
+
+      // This is always true since the [0] is hard coded
+      expect(getLeastPlayedOverall(soloTasks)).to.eql(soloTasks[0])
+
+      // This tests if the position 0 has changed due to it being the most played
+      expect(soloTasks[0]).to.not.eql(cachedSoloTask)
     })
   })
 
