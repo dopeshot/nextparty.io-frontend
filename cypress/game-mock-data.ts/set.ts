@@ -102,7 +102,7 @@ export const getMockMultiPlayerSet = () => ({
       currentPlayerGender: TaskCurrentPlayerGender.ANYONE,
       _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
       type: TaskType.TRUTH,
-      message: 'Ist @a',
+      message: '@a',
       requires: {
         male: 0,
         female: 0,

@@ -21,7 +21,6 @@ import {
 // Basic test structure: it('should ',()=> {})
 
 describe('Game gomponents Unit tests', () => {
-  const players = getMockPlayers()
   const malePlayer = getMockPlayers()[0]
   const femalePlayer = getMockPlayers()[1]
   const diversPlayer = getMockPlayers()[2]
@@ -30,12 +29,14 @@ describe('Game gomponents Unit tests', () => {
   const multiTasksPerGender = []
 
   // Set once here to have the types
+  let players = getMockPlayers()
   let soloTasks = getMockSoloPlayerSet().tasks
   let multiTasks = getMockMultiPlayerSet().tasks
 
   beforeEach(() => {
     soloTasks = getMockSoloPlayerSet().tasks
     multiTasks = getMockMultiPlayerSet().tasks
+    players = getMockPlayers()
 
     soloTasksPerGender.push([0, 2].map((index) => soloTasks[index]))
     soloTasksPerGender.push([0, 4].map((index) => soloTasks[index]))
@@ -431,7 +432,6 @@ describe('Game gomponents Unit tests', () => {
       })
 
       it('should be the undefined if tasks is empty', () => {
-        // This assumes that the array.sort() function is a stable sort
         expect(getLeastPlayedOverall([])).to.be.undefined
       })
     })
@@ -460,6 +460,95 @@ describe('Game gomponents Unit tests', () => {
     before(() => {
       expect(fillPlayersIntoMessage).to.be.a('function')
     })
+
+    describe('null/undefined tests', () => {
+      it('should be null if player is null ', () => {
+        expect(fillPlayersIntoMessage(null, soloTasks[0], malePlayer)).to.be.null
+      })
+
+      it('should be null if player is undefined ', () => {
+        expect(fillPlayersIntoMessage(undefined, soloTasks[0], malePlayer)).to.be.null
+      })
+
+      it('should be null if playTask is null ', () => {
+        expect(fillPlayersIntoMessage(players, null, malePlayer)).to.be.null
+      })
+
+      it('should be null if playTask is undefined ', () => {
+        expect(fillPlayersIntoMessage(players, undefined, malePlayer)).to.be.null
+      })
+
+      it('should be null if currentPlayer is null ', () => {
+        expect(fillPlayersIntoMessage(players, soloTasks[0], null)).to.be.null
+      })
+
+      it('should be null if currentPlayer is undefined ', () => {
+        expect(fillPlayersIntoMessage(players, soloTasks[0], undefined)).to.be.null
+      })
+
+      it('should be null if players is empty ', () => {
+        expect(fillPlayersIntoMessage([], soloTasks[0], malePlayer)).to.be.null
+      })
+    })
+
+    it('should return the message unchanged if it does not need players', () => {
+      const message = fillPlayersIntoMessage(players, soloTasks[0], malePlayer).message
+      expect(message).to.equal(soloTasks[0].message)
+    })
+
+    it('should change the message with anyone if it needs @a', () => {
+      const message = fillPlayersIntoMessage(players, multiTasks[0], malePlayer).message
+      expect(message).to.not.equal(soloTasks[0].message)
+    })
+
+    it('should fill the message with anyone but the currentPlayer if it needs @a', () => {
+      players.pop()
+      const message = fillPlayersIntoMessage(players, multiTasks[0], malePlayer).message
+      expect(message).to.not.equal(malePlayer.name)
+      expect(message).to.equal(femalePlayer.name)
+    })
+
+    it('should fill undefined when task needs more people than it has', () => {
+      players.pop()
+      multiTasks[0].message = '@a @a'
+      multiTasks[0].requires = { male: 0, female: 0, any: 2 }
+      const message = fillPlayersIntoMessage(players, multiTasks[0], malePlayer).message
+      expect(message).to.not.equal(`${malePlayer.name} undefined`)
+      expect(message).to.equal(`${femalePlayer.name} undefined`)
+    })
+
+    it('should fill @m with male if no divers', () => {
+      players = [0, 1].map(index => players[index])
+      multiTasks[0].message = '@m'
+      multiTasks[0].requires = { male: 1, female: 0, any: 0 }
+      const message = fillPlayersIntoMessage(players, multiTasks[0], femalePlayer).message
+      expect(message).to.equal(malePlayer.name)
+    })
+
+    it('should fill @f with female if no divers', () => {
+      players = [0, 1].map(index => players[index])
+      multiTasks[0].message = '@f'
+      multiTasks[0].requires = { male: 0, female: 1, any: 0 }
+      const message = fillPlayersIntoMessage(players, multiTasks[0], malePlayer).message
+      expect(message).to.equal(femalePlayer.name)
+    })
+
+    it('should fill @f with divers if no female', () => {
+      players = [0, 2].map(index => players[index])
+      multiTasks[0].message = '@f'
+      multiTasks[0].requires = { male: 0, female: 1, any: 0 }
+      const message = fillPlayersIntoMessage(players, multiTasks[0], malePlayer).message
+      expect(message).to.equal(diversPlayer.name)
+    })
+
+    it('should fill @m with divers if no male', () => {
+      players = [1, 2].map(index => players[index])
+      multiTasks[0].message = '@m'
+      multiTasks[0].requires = { male: 1, female: 0, any: 0 }
+      const message = fillPlayersIntoMessage(players, multiTasks[0], femalePlayer).message
+      expect(message).to.equal(diversPlayer.name)
+    })
+
   })
 
   describe('countPossibleTasksForPlayer', () => {
