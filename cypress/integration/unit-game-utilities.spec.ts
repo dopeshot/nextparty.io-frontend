@@ -1,6 +1,11 @@
-import { shuffleArray } from "../../src/services/game/GameUtilities"
+import { Gender } from "../../src/overmind/players/state"
+import { genderToTaskCurrentPlayerGender, shuffleArray } from "../../src/services/game/GameUtilities"
+import { TaskCurrentPlayerGender } from "../../src/shared/types/TaskCurrentPlayerGender"
+import { getMockPlayers } from "../game-mock-data.ts/players"
 
+const malePlayer = getMockPlayers()[0]
 describe('Game gomponents Unit tests', () => {
+
     describe('shuffleArray', () => {
         before(() => {
             expect(shuffleArray).to.be.a("function")
@@ -46,4 +51,34 @@ describe('Game gomponents Unit tests', () => {
             expect(shuffleArray(array)).to.not.be.equals(array)
         })
     })
+
+    describe('genderToTaskCurrentPlayerGender', () => {
+        before(() => {
+            expect(genderToTaskCurrentPlayerGender).to.be.a("function")
+        })
+
+        describe('null/undefined tests', () => {
+            it('should be undefined if gender is null', () => {
+                expect(genderToTaskCurrentPlayerGender(null)).to.be.undefined
+            })
+
+            it('should be undefined if gender is undefined', () => {
+                expect(genderToTaskCurrentPlayerGender(undefined)).to.be.undefined
+            })
+        })
+
+        it('should be TCPG.male if gender is Gender.male', () => {
+            expect(genderToTaskCurrentPlayerGender(Gender.MALE)).to.equal(TaskCurrentPlayerGender.MALE)
+        })
+
+        it('should be TCPG.female if gender is Gender.female', () => {
+            expect(genderToTaskCurrentPlayerGender(Gender.FEMALE)).to.equal(TaskCurrentPlayerGender.FEMALE)
+        })
+
+        it('should be TCPG.divers if gender is Gender.divers', () => {
+            expect(genderToTaskCurrentPlayerGender(Gender.DIVERS)).to.equal(TaskCurrentPlayerGender.ANYONE)
+        })
+    })
+
+
 })

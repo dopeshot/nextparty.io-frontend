@@ -19,19 +19,18 @@ import {
 // more here: https://github.com/chaijs/chai
 
 // Basic test structure: it('should ',()=> {})
+const malePlayer = getMockPlayers()[0]
+const femalePlayer = getMockPlayers()[1]
+const diversPlayer = getMockPlayers()[2]
+const genders = getGenders()
+const soloTasksPerGender = []
+const multiTasksPerGender = []
+// Set once here to have the types
+let players = getMockPlayers()
+let soloTasks = getMockSoloPlayerSet().tasks
+let multiTasks = getMockMultiPlayerSet().tasks
 
 describe('Game gomponents Unit tests', () => {
-  const malePlayer = getMockPlayers()[0]
-  const femalePlayer = getMockPlayers()[1]
-  const diversPlayer = getMockPlayers()[2]
-  const genders = getGenders()
-  const soloTasksPerGender = []
-  const multiTasksPerGender = []
-
-  // Set once here to have the types
-  let players = getMockPlayers()
-  let soloTasks = getMockSoloPlayerSet().tasks
-  let multiTasks = getMockMultiPlayerSet().tasks
 
   beforeEach(() => {
     soloTasks = getMockSoloPlayerSet().tasks
