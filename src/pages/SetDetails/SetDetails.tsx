@@ -14,6 +14,7 @@ import { TaskType } from '../../shared/types/TaskType'
 
 type SetDetailsParams = {
     setId: string
+    slug?: string
 }
 
 export const SetDetails: React.FC = () => {
@@ -29,8 +30,7 @@ export const SetDetails: React.FC = () => {
     const componentMounted = useRef(true)
 
     useEffect(() => {
-        loadSetDetails({ setId, componentMounted })
-
+        loadSetDetails({ setId, componentMounted, history })
         return () => {
             componentMounted.current = false
         }
@@ -51,7 +51,7 @@ export const SetDetails: React.FC = () => {
                             onDidDismiss: () => console.log('dismissed'),
                             onWillDismiss: () => console.log('will dismiss'),
                         })}>
-                            <DotsHorizontalIcon className="h-6 w-6" />
+                            <DotsHorizontalIcon className="text-white h-6 w-6" />
                         </IonButton>
                     </IonButtons>
                 </ IonToolbar>

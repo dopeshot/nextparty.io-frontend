@@ -1,7 +1,6 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
-
 /*
    * Dark Colors
    * -------------------------------------------
@@ -75,7 +74,6 @@ body {
     --ion-color-light-tint: #383a3e;
 }
 
-
 /*
    * iOS Dark Theme
    * -------------------------------------------
@@ -114,7 +112,6 @@ body {
     --ion-toolbar-background: var(--ion-color-step-150);
     --ion-toolbar-border-color: var(--ion-color-step-250);
 }
-
 
 /*
    * Material Design Dark Theme
@@ -164,6 +161,12 @@ ion-content {
     --background: transparent;
 }
 
+ion-toast {
+    --background: #09bb88;
+    --color: #0c0c0c;
+    --button-color: #0c0c0c;
+}
+
 .no-ripple {
     --ripple-color: transparent;
     --color-hover: transparent;
@@ -182,7 +185,6 @@ ion-content {
 .text-lines::after {
     margin: 0 -55% 0 0.5em;
 }
-
 
 /** 
 IF WE UPDATE TO 6 we can remove this!
