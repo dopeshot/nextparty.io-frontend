@@ -1,7 +1,6 @@
-import { LightningBoltIcon } from '@heroicons/react/outline';
+import { LightningBoltIcon, PlayIcon } from '@heroicons/react/outline';
 import { IonContent, IonPage, useIonViewWillEnter } from '@ionic/react';
 import example from '../../assets/example.png';
-import play from '../../assets/icons/play.svg';
 import { Button } from '../../components/Buttons/Button';
 import { ActionBlock } from '../../components/Game/ActionBlock';
 import { useActions, useAppState } from '../../overmind';
@@ -43,7 +42,7 @@ export const Game: React.FC = () => {
 
 					{/* Play button */}
 					<div className='container pb-12'>
-						<Button dataCy="game-play-button" disabled={!isPossibleToPlay().status} icon={play} to='/game/ingame'>Play</Button>
+						<Button dataCy="game-play-button" disabled={!isPossibleToPlay().status} Icon={PlayIcon} to='/game/ingame'>Play</Button>
 					</div>
 				</div>
 			</IonContent>

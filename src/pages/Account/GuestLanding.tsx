@@ -1,8 +1,7 @@
-import { CheckCircleIcon } from "@heroicons/react/outline";
+import { CheckCircleIcon, MailIcon } from "@heroicons/react/outline";
 import { IonContent, IonItem, IonLabel, IonList, IonPage, useIonViewWillEnter } from "@ionic/react";
 import { Link } from "react-router-dom";
 import example from '../../assets/example.png';
-import email from '../../assets/icons/email.svg';
 import { Button } from "../../components/Buttons/Button";
 import { GoogleLoginButton } from "../../components/Buttons/GoogleLoginButton";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
@@ -44,9 +43,7 @@ export const GuestLanding: React.FC = () => {
                     </IonList>
 
                     <GoogleLoginButton />
-
-                    <Button dataCy="guestlanding-signup-button" to="/account/register" icon={email} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
-
+                    <Button dataCy="guestlanding-signup-button" to="/account/register" Icon={MailIcon} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
                     <Link data-cy="guestlanding-login-link" className="block text-darkgray text-center" to="/account/login">Login instead</Link>
                 </div>
 

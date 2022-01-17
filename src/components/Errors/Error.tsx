@@ -5,7 +5,7 @@ type ErrorProps = {
     titleContent: string
     paragraphContent: string
     buttonContent: string
-    icon?: string
+    Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>
     to?: string
     onClick?: (values: any) => void
 }
@@ -19,11 +19,11 @@ export const Error: React.FC<ErrorProps> = (props) => {
                 <p className="text-lightgrey mb-4">{props.paragraphContent}</p>
                 <div className="md:w-44">
                     {props.to ?
-                        <Button to={props.to} icon={props.icon} className='bg-dare-green'>
+                        <Button to={props.to} Icon={props.Icon} className='bg-dare-green'>
                             {props.buttonContent}
                         </Button>
                         :
-                        <Button icon={props.icon} className='bg-truth-yellow w-full md:w-44' onClick={props.onClick ? props.onClick : () => ""}>
+                        <Button Icon={props.Icon} className='bg-truth-yellow w-full md:w-44' onClick={props.onClick ? props.onClick : () => ""}>
                             {props.buttonContent}
                         </Button>}
                 </div>
