@@ -185,7 +185,7 @@ export const Editor: React.FC = () => {
                                 <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
                             </div>
                             {/** Background picker */}
-                            <div className="mb-4">
+                            <div className="mb-5">
                                 <label className="text-light-600 mb-1" htmlFor="name">Choose your theme</label>
                                 <button id="category" type="button" onClick={() => setShowThemePicker(true)}
                                     className={`${categories[formik.values.category as SetCategory]?.background} rounded-lg h-12 w-full flex justify-between px-4 items-center ${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-dark-700` : `text-light-500`}`}>
@@ -218,7 +218,7 @@ export const Editor: React.FC = () => {
 
 
                             {/** Lanuage Picker */}
-                            <div className="mb-4">
+                            <div className="mb-5">
                                 <label className="text-light-600 mb-1" htmlFor="language">Language</label>
                                 <button onClick={() => {
                                     languagePicker({
@@ -238,7 +238,7 @@ export const Editor: React.FC = () => {
                                         ],
 
                                     })
-                                }} type="button" name="language" className={`rounded-lg h-12 w-full bg-dark-500 flex justify-between items-center px-4`}>
+                                }} type="button" name="language" className={`rounded h-12 w-full bg-dark-500 flex justify-between items-center px-4`}>
                                     <div className="flex flex-row">
                                         <IonIcon icon={languages[formik.values.language].icon} className="h-6 mr-3" />
                                         <span>{languages[formik.values.language].text}</span>
@@ -247,13 +247,13 @@ export const Editor: React.FC = () => {
                                 </button>
                             </div>
                             {/** Visibility Picker */}
-                            <div className="mb-4">
+                            <div className="mb-5">
                                 <label className="text-light-600 mb-1" htmlFor="language">Visibility</label>
                                 <div className="flex items-center mb-1">
-                                    <IonToggle mode="ios" checked={formik.values.visibility === Visibility.PUBLIC} onIonChange={(e) => formik.setFieldValue('visibility', e.detail.checked ? Visibility.PUBLIC : Visibility.PRIVATE)} />
+                                    <IonToggle color="medium" mode="ios" checked={formik.values.visibility === Visibility.PUBLIC} onIonChange={(e) => formik.setFieldValue('visibility', e.detail.checked ? Visibility.PUBLIC : Visibility.PRIVATE)} />
                                     <span className="ml-3">{formik.values.visibility}</span>
                                 </div>
-                                <p className="text-light-600">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</p>
+                                <small className="text-light-600 mt-1">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</small>
                             </div>
                             <Button className="w-full" keepFocus={true} onClick={() => null} Icon={SaveIcon} loading={isLoading} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Update Set Details' : 'Create Set'}</Button>
                         </Form>
