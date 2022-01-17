@@ -3,6 +3,7 @@ import { IonContent, IonItem, IonLabel, IonList, IonPage, useIonViewWillEnter } 
 import { Link } from "react-router-dom";
 import example from '../../assets/example.png';
 import { Button } from "../../components/Buttons/Button";
+import { GoogleLoginButton } from "../../components/Buttons/GoogleLoginButton";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const GuestLanding: React.FC = () => {
@@ -41,11 +42,11 @@ export const GuestLanding: React.FC = () => {
                         </IonItem>
                     </IonList>
 
-                    {/* {<Button to="#" icon={google} className="mb-4">Continue with Google</Button>} */}
+                    <GoogleLoginButton />
                     <Button dataCy="guestlanding-signup-button" to="/account/register" Icon={MailIcon} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
-
                     <Link data-cy="guestlanding-login-link" className="block text-darkgray text-center" to="/account/login">Login instead</Link>
                 </div>
+
             </IonContent>
         </IonPage>
     )
