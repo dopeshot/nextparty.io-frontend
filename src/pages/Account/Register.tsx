@@ -6,6 +6,7 @@ import example from '../../assets/example.png';
 import arrowBack from "../../assets/icons/arrowback.svg";
 import login from "../../assets/icons/login.svg";
 import { Button } from '../../components/Buttons/Button';
+import { GoogleLoginButton } from '../../components/Buttons/GoogleLoginButton';
 import { ErrorBanner } from '../../components/Errors/ErrorBanner';
 import { Input } from '../../components/Forms/Input';
 import { PasswordInput } from '../../components/Forms/PasswordInput';
@@ -72,8 +73,8 @@ export const Register: React.FC = () => {
                         </Formik>
 
                         <Link data-cy="register-login-link" to="/account/login" className="block text-darkgray text-center my-4">Login insted</Link>
-                        {/* {<small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
-                        <Button to="#" icon={google} className="mb-4">Continue with Google</Button>} */}
+                        <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
+                        <GoogleLoginButton />
                     </div>
                 </div>
             </IonContent>
