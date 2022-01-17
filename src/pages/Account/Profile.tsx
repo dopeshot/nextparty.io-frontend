@@ -1,6 +1,7 @@
 import { CogIcon } from "@heroicons/react/outline";
 import { RefresherEventDetail } from "@ionic/core";
 import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonToast, useIonViewWillEnter } from "@ionic/react";
+import { useState } from "react";
 import { useHistory } from "react-router";
 import example from '../../assets/example.png';
 import signout from '../../assets/icons/logout.svg';
@@ -33,6 +34,8 @@ export const Profile: React.FC = () => {
         setSeoTitle('Profile')
         getProfile()
     }, [])
+
+    const [resendClicked, setResendClicked] = useState<boolean>(false)
 
     // istanbul ignore next // not testable with cypress
     const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
@@ -82,7 +85,11 @@ export const Profile: React.FC = () => {
                                                 position: "top",
                                                 duration: 1000
                                             })
-                                            resendMail()
+                                            // Backoff strategy
+                                            if (!resendClicked) {
+                                                setResendClicked(true)
+                                                resendMail()
+                                            }
                                         }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
                                         : <NoData onClick={() => {
                                             createNewSet()
