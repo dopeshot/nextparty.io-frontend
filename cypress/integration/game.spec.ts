@@ -136,16 +136,16 @@ describe('Game', () => {
         })
 
         it('should have play button disabled when both set and players are not selected', () => {
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
         })
 
         it('should have play button disabled when set or players are not selected', () => {
             cy.overmind().its('actions').invoke('game.addTestSet')
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
 
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('players.addTestPlayer')
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
         })
 
         it('should change to Ingame Page when click play button and both set and players are selected', () => {

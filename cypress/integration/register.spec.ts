@@ -10,10 +10,10 @@ describe('Register', () => {
 
     it('should have a disabled state button when no input/one input is filled', () => {
         cy.get('[data-cy="register-username-input"]').clear()
-        cy.get('[data-cy="register-button"]').should('have.class', 'bg-dare-green opacity-30')
+        cy.get('[data-cy="register-button"]').should('have.class', 'bg-light-700')
 
         cy.get('[data-cy="register-username-input"]').type("hee")
-        cy.get('[data-cy="register-button"]').should('have.class', 'bg-dare-green opacity-30')
+        cy.get('[data-cy="register-button"]').should('have.class', 'bg-light-700')
     })
 
     it('should open profile page when fill all inputs and click register', () => {
