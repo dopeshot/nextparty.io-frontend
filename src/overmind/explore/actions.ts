@@ -1,6 +1,7 @@
-import React from "react"
-import { Context } from ".."
-import { setSeoTitle } from "../../services/utilities/setSeoTitle"
+import * as H from 'history';
+import React from "react";
+import { Context } from "..";
+import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const loadExplore = async ({ state, effects }: Context) => {
     if (state.explore.isLoadingSets)
@@ -16,7 +17,7 @@ export const loadExplore = async ({ state, effects }: Context) => {
     state.explore.isLoadingSets = false
 }
 
-export const loadSetDetails = async ({ state, effects }: Context, { setId, componentMounted }: { setId: string, componentMounted: React.MutableRefObject<boolean> }) => {
+export const loadSetDetails = async ({ state, effects }: Context, { setId, componentMounted, history }: { setId: string, componentMounted: React.MutableRefObject<boolean>, history: H.History<unknown> }) => {
     state.explore.isLoadingSetDetails = true
     state.explore.setDetails = null
 
@@ -29,6 +30,7 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
             state.explore.setDetails = set
             state.explore.isLoadingSetDetails = false
             setSeoTitle(`Play ${state.explore.setDetails.name}`)
+            history.replace(`/explore/${setId}/${set.slug}`)
         }
     } catch (error) {
         state.explore.isLoadingSetDetails = false

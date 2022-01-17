@@ -152,7 +152,8 @@ export const setTestUser = ({ state }: Context) => {
                 },
                 "category": SetCategory.CLASSIC,
                 "visibility": Visibility.PUBLIC,
-                "name": "Klassisch"
+                "name": "Klassisch",
+                "slug": "klassisch"
             },
             {
                 "_id": "61cccfdd5094a2d623bfc74a",
@@ -166,7 +167,8 @@ export const setTestUser = ({ state }: Context) => {
                 },
                 "category": SetCategory.HOT,
                 "visibility": Visibility.PUBLIC,
-                "name": "Versaut"
+                "name": "Versaut",
+                "slug": "versaut"
             },
             {
                 "_id": "61cccfdd5094a2d623bfc74b",
@@ -180,7 +182,8 @@ export const setTestUser = ({ state }: Context) => {
                 },
                 "category": SetCategory.CLASSIC,
                 "visibility": Visibility.PUBLIC,
-                "name": "HdM Stuttgart Edition"
+                "name": "HdM Stuttgart Edition",
+                "slug": "hdm-stuttgart-edition"
             },
             {
                 "_id": "61cccfdd5094a2d623bfc74c",
@@ -194,7 +197,8 @@ export const setTestUser = ({ state }: Context) => {
                 },
                 "category": SetCategory.SEXY,
                 "visibility": Visibility.PUBLIC,
-                "name": "Sex"
+                "name": "Sex",
+                "slug": "sex"
             }
         ]
 }
