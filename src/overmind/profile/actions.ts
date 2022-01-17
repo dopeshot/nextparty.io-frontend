@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
 import { Context } from '..'
 import { request } from '../../services/axios'
 import { checkAxiosErrorType } from '../../services/error'
@@ -31,6 +32,26 @@ export const login = async ({ state, effects, actions }: Context, credentials: {
         state.profile.error = checkAxiosErrorType(error, actions)
     }
     state.profile.authenticating = false
+}
+
+export const loginWithGoogle = async ({ state, effects, actions }: Context, googleData: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    if (!('accessToken' in googleData)) {
+        console.error("Google Login failed")
+        return
+    }
+
+    try {
+        const responseToken = await effects.profile.loginViaThirdParty({
+            token: googleData.accessToken
+        })
+        const { access_token } = responseToken.data
+
+        actions.profile.setToken(access_token)
+        state.profile.error = null
+    } catch (error) {
+        console.error(error)
+        state.profile.error = checkAxiosErrorType(error, actions)
+    }
 }
 
 export const register = async ({ state, effects, actions }: Context, credentials: { email: string, username: string, password: string }) => {

@@ -1,10 +1,9 @@
-import { DotsHorizontalIcon } from '@heroicons/react/outline'
+import { DotsHorizontalIcon, PlayIcon } from '@heroicons/react/outline'
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
 import { useEffect, useRef } from "react"
 import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
 import arrowBack from "../../assets/icons/arrowback.svg"
-import play from '../../assets/icons/play.svg'
 import { Button } from "../../components/Buttons/Button"
 import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
@@ -34,7 +33,7 @@ export const SetDetails: React.FC = () => {
         return () => {
             componentMounted.current = false
         }
-    }, [loadSetDetails, setId])
+    }, [loadSetDetails, setId, history])
 
     return (
         <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
@@ -64,7 +63,7 @@ export const SetDetails: React.FC = () => {
                                 event.preventDefault()
                                 addSetToGame()
                                 history.push('/game')
-                            }} icon={play}>Play</Button>
+                            }} Icon={PlayIcon}>Play</Button>
                         </div>
                     </div>
                 </div>

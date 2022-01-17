@@ -1,11 +1,10 @@
-import { CogIcon } from "@heroicons/react/outline";
+import { CogIcon, PlusIcon } from "@heroicons/react/outline";
 import { RefresherEventDetail } from "@ionic/core";
 import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonToast, useIonViewWillEnter } from "@ionic/react";
 import { useState } from "react";
 import { useHistory } from "react-router";
 import example from '../../assets/example.png';
 import signout from '../../assets/icons/logout.svg';
-import plus from '../../assets/icons/plus.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
 import { NoData } from "../../components/Errors/NoData";
@@ -94,7 +93,7 @@ export const Profile: React.FC = () => {
                                         : <NoData onClick={() => {
                                             createNewSet()
                                             history.push("/account/creative")
-                                        }} dataCy="profile-no-data-verified" icon={plus} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
+                                        }} dataCy="profile-no-data-verified" Icon={PlusIcon} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
                                     :
                                     <>
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
@@ -102,7 +101,7 @@ export const Profile: React.FC = () => {
                                             <Button type="button" onClick={() => {
                                                 createNewSet()
                                                 history.push("/account/creative")
-                                            }} icon={plus} className="w-34 px-7">New</Button>
+                                            }} Icon={PlusIcon} className="w-34 px-7">New</Button>
                                         </div>
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
