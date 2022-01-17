@@ -25,10 +25,10 @@ export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dare
 					{author && <p className="text-light-600 mb-3">by {author}</p>}
 					<div className="flex items-center">
 						{/* Truth Count */}
-						<TruthLabel category="default" />
+						<TruthLabel category={category} />
 						<p className="text-light-600 mr-3">{truthCount}</p>
 						{/* Dare Count */}
-						<DareLabel category='default' />
+						<DareLabel category={category} />
 						<p className="text-light-600">{dareCount}</p>
 					</div>
 				</div>
