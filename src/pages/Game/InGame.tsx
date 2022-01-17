@@ -31,13 +31,13 @@ export const InGame: React.FC = () => {
         hideTabBar(false)
     })
     return (
-        <IonPage className="bg-background-black bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${truthBackgroundImage})` }}>
+        <IonPage className="bg-dark-700 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${truthBackgroundImage})` }}>
             {!debug.isDeveloper && <>
                 <div className="fixed w-full z-50">
                     <IonHeader className="ion-no-border container">
                         <IonToolbar color="transparent">
                             <IonButtons slot="start">
-                                <IonBackButton data-cy="ingame-back-button" className="text-white" defaultHref="/game" />
+                                <IonBackButton data-cy="ingame-back-button" className="text-light-500" defaultHref="/game" />
                             </IonButtons>
                         </ IonToolbar>
                     </IonHeader>
@@ -56,7 +56,7 @@ export const InGame: React.FC = () => {
                 <IonHeader className="ion-no-border container">
                     <IonToolbar color="transparent">
                         <IonButtons slot="start">
-                            <IonBackButton className="text-white" defaultHref="/game" />
+                            <IonBackButton className="text-light-500" defaultHref="/game" />
                         </IonButtons>
                         <IonTitle>Ingame Dev</IonTitle>
                     </ IonToolbar>

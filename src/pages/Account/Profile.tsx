@@ -42,13 +42,13 @@ export const Profile: React.FC = () => {
     }
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 320px', backgroundPosition: 'top' }}>
+        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 320px', backgroundPosition: 'top' }}>
             <IonContent style={{ "--background": "transparent" }}>
                 <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
                     <IonRefresherContent pullingIcon={refresh}
                         refreshingSpinner="circles" />
                 </IonRefresher>
-                <div className="bg-gradient-to-t from-background-black w-full">
+                <div className="bg-gradient-to-t from-dark-700 w-full">
                     <div className="container pb-12 md:pb-20">
                         <div className="flex justify-between pt-14 pb-6 md:pb-10">
                             <div className="flex items-center">
@@ -56,7 +56,7 @@ export const Profile: React.FC = () => {
                                 <h1 className="text-2xl text-white font-bold break-all px-4 pb-4">{currentUser?.username}</h1>
                             </div>
                             <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => logout() }], header: 'Settings' })}>
-                                <CogIcon className="w-6 h-6" />
+                                <CogIcon className="text-light-500 w-6 h-6" />
                             </button>
                         </div>
 
@@ -71,7 +71,7 @@ export const Profile: React.FC = () => {
                             </>}
                     </div>
                 </div>
-                <div className="bg-background-black">
+                <div className="bg-dark-700">
                     <div className="container">
                         <div>
                             {!isLoadingSets &&

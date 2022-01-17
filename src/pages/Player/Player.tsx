@@ -23,13 +23,13 @@ export const Player: React.FC = () => {
     })
 
     return (
-        <IonPage className="bg-background-black">
+        <IonPage className="bg-dark-700">
             <IonContent>
                 <div className="ion-no-border bg-cover mb-8" style={{ backgroundImage: `url(${example})` }}>
-                    <div className="bg-gradient-to-t from-background-black w-full h-full">
+                    <div className="bg-gradient-to-t from-dark-700 w-full h-full">
                         <div className="container">
-                            <h1 className="text-3xl pt-14 pb-6 text-white font-bold">Players</h1>
-                            <p className="text-lightgrey">Add your friends and choose their gender.</p>
+                            <h1 className="text-3xl pt-14 pb-6 text-light-500 font-bold">Players</h1>
+                            <p className="text-light-600">Add your friends and choose their gender.</p>
                         </div>
                     </div>
                 </div>
@@ -44,20 +44,20 @@ export const Player: React.FC = () => {
                 <div className="container">
                     <IonList lines="none">
                         <IonItem>
-                            <span className="flex items-center justify-center bg-truth-yellow border-4 border-background-black rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
-                                <IonIcon icon={female} className="text-background-black text-xl" />
+                            <span className="flex items-center justify-center bg-theme-default-truth border-4 border-dark-700 rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
+                                <IonIcon icon={female} className="text-dark-700 text-xl" />
                             </span>
                             <p>Female</p>
                         </IonItem>
                         <IonItem>
-                            <span className="flex items-center justify-center bg-dare-green border-4 border-background-black rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
-                                <IonIcon icon={male} className="text-background-black text-xl" />
+                            <span className="flex items-center justify-center bg-theme-default-dare border-4 border-dark-700 rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
+                                <IonIcon icon={male} className="text-dark-700 text-xl" />
                             </span>
                             <p>Male</p>
                         </IonItem>
                         <IonItem>
-                            <span className="flex items-center justify-center bg-white border-4 border-background-black rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
-                                <IonIcon icon={divers} className="text-background-black text-xl" />
+                            <span className="flex items-center justify-center bg-light-500 border-4 border-dark-700 rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
+                                <IonIcon icon={divers} className="text-dark-700 text-xl" />
                             </span>
                             <p>Divers</p>
                         </IonItem>

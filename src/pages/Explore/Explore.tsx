@@ -14,10 +14,10 @@ export const Explore: React.FC = () => {
   }, [loadExplore])
 
   return (
-    <IonPage className="bg-background-black">
+    <IonPage className="bg-dark-700">
       <IonHeader className="container ion-no-border my-4">
         <IonToolbar color="transparent">
-          <h1 className="text-3xl font-bold text-white">Explore</h1>
+          <h1 className="text-3xl font-bold text-light-500">Explore</h1>
         </IonToolbar>
       </IonHeader>
       <IonContent>

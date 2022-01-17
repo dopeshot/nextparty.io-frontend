@@ -1,7 +1,6 @@
 import { LoginIcon } from '@heroicons/react/outline';
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import { Form, Formik } from "formik";
-import { Link } from 'react-router-dom';
 import * as Yup from "yup";
 import example from '../../assets/example.png';
 import arrowBack from "../../assets/icons/arrowback.svg";
@@ -40,22 +39,22 @@ export const Login: React.FC = () => {
     }, [])
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 172px', backgroundPosition: 'top' }}>
+        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 172px', backgroundPosition: 'top' }}>
             <IonHeader className="container ion-no-border my-1">
                 <IonToolbar color="transparent">
                     <IonButtons>
-                        <IonBackButton className="text-white" icon={arrowBack} defaultHref="/account" />
+                        <IonBackButton className="text-light-500" icon={arrowBack} defaultHref="/account" />
                     </IonButtons>
                 </IonToolbar>
             </IonHeader>
             <IonContent style={{ "--background": "transparent" }}>
-                <div className='pb-10 bg-gradient-to-t from-background-black'>
+                <div className='pb-10 bg-gradient-to-t from-dark-700'>
                     <div className="container flex flex-col items-center">
-                        <h1 className="text-3xl text-white font-bold pb-4">Welcome back!</h1>
-                        <p className="text-lightgrey">Enter your account details below</p>
+                        <h1 className="text-3xl text-light-500 font-bold pb-4">Welcome back!</h1>
+                        <p className="text-light-600">Enter your account details below</p>
                     </div>
                 </div>
-                <div className='bg-background-black'>
+                <div className='bg-dark-700'>
                     <div className='container '>
                         {error && <ErrorBanner color="danger" dataCy="login-error-banner" message={error} />}
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
@@ -69,8 +68,7 @@ export const Login: React.FC = () => {
                             )}
                         </Formik>
 
-                        <Link to="#" className="block text-darkgray text-center my-4">Forgot your Password?</Link>
-                        <small className="block text-darkgray text-lines text-center px-4 my-4">or</small>
+                        <small className="block text-light-600 text-lines text-center px-4 my-4">or</small>
                         <GoogleLoginButton />
                     </div>
                 </div>

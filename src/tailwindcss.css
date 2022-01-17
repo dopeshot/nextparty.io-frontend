@@ -19,6 +19,17 @@
     @apply text-theme-default-dare border-2 border-theme-default-dare border-opacity-50 rounded-sm text-center mr-2;
 }
 
+.text-lines::before,
+.text-lines::after {
+    content: "";
+    margin: 0 0.5em 0 -55%;
+    @apply inline-block w-1/2 align-middle border-b border-light-700;
+}
+
+.text-lines::after {
+    margin: 0 -55% 0 0.5em;
+}
+
 .height-450 {
     height: 450px;
 }

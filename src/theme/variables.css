@@ -172,20 +172,6 @@ ion-toast {
     --color-hover: transparent;
 }
 
-.text-lines::before,
-.text-lines::after {
-    content: "";
-    display: inline-block;
-    width: 50%;
-    margin: 0 0.5em 0 -55%;
-    vertical-align: middle;
-    border-bottom: 1px solid #3e4851;
-}
-
-.text-lines::after {
-    margin: 0 -55% 0 0.5em;
-}
-
 /** 
 IF WE UPDATE TO 6 we can remove this!
 Fix bug from ionic https://stackoverflow.com/questions/57336796/ion-textarea-autogrow-true-on-modal-work-only-the-first-time **/
