@@ -22,6 +22,7 @@ export const countPlayedByPlayer = (playedBy: number[], player: Player) => {
     return playedBy?.filter(item => item === player?.id).length
 }
 
+// For Api design, it makes the usage more intuitive
 export const shufflePlayers = (players: Player[]): Player[] => {
     return shuffleArray(players)
 }

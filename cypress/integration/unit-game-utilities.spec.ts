@@ -1,5 +1,5 @@
 import { Gender } from "../../src/overmind/players/state"
-import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "../../src/services/game/GameUtilities"
+import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray, shufflePlayers } from "../../src/services/game/GameUtilities"
 import { TaskCurrentPlayerGender } from "../../src/shared/types/TaskCurrentPlayerGender"
 import { getMockPlayers } from "../game-mock-data.ts/players"
 
@@ -113,6 +113,26 @@ describe('Game gomponents Unit tests', () => {
 
         it('should be 1 if playedBy contains malePlayer.id and other', () => {
             expect(countPlayedByPlayer([malePlayer.id, malePlayer.id + 1], malePlayer)).to.equal(1)
+        })
+    })
+
+    describe('shufflePlayers,  this function has no own logic and thus no functionality tests', () => {
+        before(() => {
+            expect(shufflePlayers).to.be.a("function")
+        })
+
+        describe('null/undefined tests', () => {
+            it('should be empty if array is null', () => {
+                expect(shufflePlayers(null)).to.eql([])
+            })
+
+            it('should be empty if array is undefined', () => {
+                expect(shufflePlayers(undefined)).to.eql([])
+            })
+
+            it('should be empty if array is empty', () => {
+                expect(shufflePlayers([])).to.eql([])
+            })
         })
     })
 })
