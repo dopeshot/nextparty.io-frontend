@@ -1,6 +1,6 @@
 import GoogleLogin from 'react-google-login';
 import { useActions } from '../../overmind';
-import { Button } from './Button';
+import { SecondaryButton } from './SecondaryButton';
 
 
 export const GoogleLoginButton: React.FC = () => {
@@ -13,7 +13,7 @@ export const GoogleLoginButton: React.FC = () => {
         onSuccess={loginWithGoogle}
         onFailure={loginWithGoogle}
         cookiePolicy={'single_host_origin'}
-        render={renderProps => <Button onClick={renderProps.onClick} disabled={renderProps.disabled} className="mb-4 w-full">Continue with Google</Button>}
+        render={renderProps => <SecondaryButton onClick={renderProps.onClick} disabled={renderProps.disabled} className="mb-4 w-full">Continue with Google</SecondaryButton>}
     />
 
 }
