@@ -27,7 +27,7 @@ export const EmailVerify: React.FC = () => {
                 {isEmailVerifying ? <IonProgressBar data-cy="email-verify-progress-bar" type="indeterminate" /> :
                     <>
                         {emailVerified ?
-                            <Error to="/" buttonContent="Start" errorType="Success" titleContent="Email Verified!" paragraphContent="Your Email was successfull verified login to start creating awesome sets." /> :
+                            <Error to="/account" buttonContent="Start" errorType="Success" titleContent="Email Verified!" paragraphContent="Your Email was successfull verified login to start creating awesome sets." /> :
                             <Error to="/account/login" buttonContent="Login" errorType="Failed" titleContent="Email verification link has expired." paragraphContent="Try to login and send email again." />}
                     </>
                 }

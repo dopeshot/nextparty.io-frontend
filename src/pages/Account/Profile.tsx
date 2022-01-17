@@ -1,12 +1,12 @@
 import { CogIcon, PlusIcon } from "@heroicons/react/outline";
 import { RefresherEventDetail } from "@ionic/core";
-import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonViewWillEnter } from "@ionic/react";
+import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonToast, useIonViewWillEnter } from "@ionic/react";
+import { useState } from "react";
 import { useHistory } from "react-router";
 import example from '../../assets/example.png';
 import signout from '../../assets/icons/logout.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
-import { ErrorBanner } from "../../components/Errors/ErrorBanner";
 import { NoData } from "../../components/Errors/NoData";
 import { CountItem } from "../../components/Profile/CountItem";
 import { SetItem } from "../../components/SetItem/SetItem";
@@ -18,6 +18,7 @@ export const Profile: React.FC = () => {
     const { currentUser, isLoadingSets, sets, userDetailed } = useAppState().profile
     const { profile: { getSetsByUser, logout, resendMail, getUserDetailed }, creative: { createNewSet, editSet } } = useActions()
     const [present] = useIonActionSheet()
+    const [presentToast, dismiss] = useIonToast()
     const history = useHistory()
 
     const getProfile = async (event?: CustomEvent<RefresherEventDetail>) => {
@@ -32,6 +33,8 @@ export const Profile: React.FC = () => {
         setSeoTitle('Profile')
         getProfile()
     }, [])
+
+    const [resendClicked, setResendClicked] = useState<boolean>(false)
 
     // istanbul ignore next // not testable with cypress
     const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
@@ -57,22 +60,42 @@ export const Profile: React.FC = () => {
                             </button>
                         </div>
 
-                        <div className="flex justify-around">
-                            <CountItem number={sets.truthCount} name="Truths" />
-                            <CountItem number={sets.dareCount} name="Dares" />
-                            <CountItem number={sets.setCount} name="Sets" />
-                            <CountItem number={sets.playedCount} name="Total played" />
-                        </div>
+                        {isLoadingSets ? <IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5 mb-20" /> :
+                            <>
+                                {sets.data?.length !== 0 && <div className="flex justify-around">
+                                    <CountItem number={sets.truthCount} name="Truths" />
+                                    <CountItem number={sets.dareCount} name="Dares" />
+                                    <CountItem number={sets.setCount} name="Sets" />
+                                    <CountItem number={sets.playedCount} name="Total played" />
+                                </div>}
+                            </>}
                     </div>
                 </div>
                 <div className="bg-background-black">
                     <div className="container">
-                        {userDetailed?.status === "unverified" && <ErrorBanner color="warning" message={`Verification Email has been send to ${userDetailed.email}. Check your inbox.`} buttonText="Resend Mail" onClick={() => resendMail()} />}
-
                         <div>
-                            {isLoadingSets ? <IonProgressBar data-cy="profile-progress-bar" type="indeterminate" className="mt-5" /> :
-                                <>
-                                    {sets.data?.length !== 0 &&
+                            {!isLoadingSets &&
+                                (sets.data?.length === 0 ?
+                                    userDetailed?.status === "unverified" ?
+                                        <NoData onClick={() => {
+                                            presentToast({
+                                                buttons: [{ text: 'hide', handler: () => dismiss() }],
+                                                message: 'E-Mail has been sent.',
+                                                position: "top",
+                                                duration: 1000
+                                            })
+                                            // Backoff strategy
+                                            if (!resendClicked) {
+                                                setResendClicked(true)
+                                                resendMail()
+                                            }
+                                        }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
+                                        : <NoData onClick={() => {
+                                            createNewSet()
+                                            history.push("/account/creative")
+                                        }} dataCy="profile-no-data-verified" icon={plus} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
+                                    :
+                                    <>
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                             <h2 className="text-lg font-semibold">Your Sets</h2>
                                             <Button type="button" onClick={() => {
@@ -84,13 +107,14 @@ export const Profile: React.FC = () => {
                                         createNewSet()
                                         history.push("/account/creative")
                                     }} dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." /> :
+
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
                                                 <SetItem dataCy="profile-set-item" onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
                                             ))}
-                                        </IonList>}
-                                </>
-                            }
+                                        </IonList>
+                                    </>
+                                )}
                         </div>
                     </div>
                 </div>

@@ -72,10 +72,16 @@ declare global {
             getEmptySetsFromUser(): void
 
             /**
-             * Custom command to intercept getProfile 
-             * @getOneSet cy.getProfile()
+             * Custom command to intercept getProfile verified user
+             * @getOneSet cy.getProfileVerified()
              */
-            getProfile(): void
+            getProfileVerified(): void
+
+            /**
+             * Custom command to intercept getProfile unverified user
+             * @getOneSet cy.getProfileVerified()
+             */
+            getProfileUnverified(): void
 
             /**
              * Custom command to intercept all request to database and simulate timeout

@@ -39,7 +39,7 @@ export const App: React.FC = () => {
                     <Route exact path="/game/ingame" component={InGame} />
                     <Route exact path="/game" component={Game} />
                     <Route exact path="/explore" component={Explore} />
-                    <Route exact path="/explore/:setId" component={SetDetails} />
+                    <Route exact path="/explore/:setId/:slug?" component={SetDetails} />
                     <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={GuestLanding} />
                     <Route exact path="/account/verify-account/:code" component={EmailVerify} />
                     <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />

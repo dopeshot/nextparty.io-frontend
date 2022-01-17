@@ -161,7 +161,7 @@ export const Editor: React.FC = () => {
                         }],
                         header: "Edit set"
                     })}>
-                        <DotsHorizontalIcon className="h-6 w-6" />
+                        <DotsHorizontalIcon className="h-6 w-6 text-white" />
                     </IonButton>
                 </IonButtons>
                 }

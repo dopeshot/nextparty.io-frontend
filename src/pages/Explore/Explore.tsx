@@ -17,7 +17,7 @@ export const Explore: React.FC = () => {
     <IonPage className="bg-background-black">
       <IonHeader className="container ion-no-border my-4">
         <IonToolbar color="transparent">
-          <h1 className="text-3xl font-bold">Explore</h1>
+          <h1 className="text-3xl font-bold text-white">Explore</h1>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -27,7 +27,7 @@ export const Explore: React.FC = () => {
             <div>
               <IonList>
                 {sets.length !== 0 && sets.map((set: Set, index) => (
-                  <SetItem dataCy="explore-set-item" key={set._id} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}`} />
+                  <SetItem dataCy="explore-set-item" key={set._id} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}/${set.slug}`} />
                 ))}
               </IonList>
             </div>
