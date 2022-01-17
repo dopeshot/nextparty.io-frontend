@@ -5,6 +5,8 @@ import { useHistory, useParams } from "react-router"
 import example from '../../assets/example.png'
 import arrowBack from "../../assets/icons/arrowback.svg"
 import { Button } from "../../components/Buttons/Button"
+import { DareLabel } from '../../components/SetItem/DareLabel'
+import { TruthLabel } from '../../components/SetItem/TruthLabel'
 import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
@@ -75,9 +77,9 @@ export const SetDetails: React.FC = () => {
                                 <h1 className="text-3xl mb-2 font-bold">{setDetails?.name}</h1>
                                 <p className="text-light-600 mb-5">{setDetails?.createdBy.username}</p>
                                 <div className="flex items-center">
-                                    <p className="truth-label">T</p>
+                                    <TruthLabel category={setDetails ? setDetails.category : 'default'} />
                                     <p className="text-light-600 mr-4">{setDetails?.truthCount} Truth</p>
-                                    <p className="dare-label">D</p>
+                                    <DareLabel category={setDetails ? setDetails.category : 'default'} />
                                     <p className="text-light-600">{setDetails?.dareCount} Dare</p>
                                 </div>
                             </div>
@@ -90,7 +92,7 @@ export const SetDetails: React.FC = () => {
                             <div>
                                 <IonList lines="none">
                                     {setDetails?.tasks.map((task: Task, index) => (
-                                        <TaskListItem dataCy="set-detail-task" key={task._id} type={task.type === "truth" ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
+                                        <TaskListItem dataCy="set-detail-task" category={setDetails.category} key={task._id} type={task.type === "truth" ? TaskType.TRUTH : TaskType.DARE} content={replaceStringWithIcon(task.message)} />
                                     ))}
                                 </IonList>
                             </div>
