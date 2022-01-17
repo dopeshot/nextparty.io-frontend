@@ -1,4 +1,3 @@
-import { PlusIcon } from '@heroicons/react/outline';
 import { Button } from "../Buttons/Button";
 
 type NoDataProps = {

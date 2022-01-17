@@ -33,7 +33,7 @@ export const SetDetails: React.FC = () => {
         return () => {
             componentMounted.current = false
         }
-    }, [loadSetDetails, setId])
+    }, [loadSetDetails, setId, history])
 
     return (
         <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}

@@ -93,7 +93,7 @@ export const Profile: React.FC = () => {
                                         : <NoData onClick={() => {
                                             createNewSet()
                                             history.push("/account/creative")
-                                        }} dataCy="profile-no-data-verified" icon={plus} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
+                                        }} dataCy="profile-no-data-verified" Icon={PlusIcon} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
                                     :
                                     <>
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
@@ -102,12 +102,7 @@ export const Profile: React.FC = () => {
                                                 createNewSet()
                                                 history.push("/account/creative")
                                             }} Icon={PlusIcon} className="w-34 px-7">New</Button>
-                                        </div>}
-                                    {sets.data?.length === 0 ? <NoData onClick={() => {
-                                        createNewSet()
-                                        history.push("/account/creative")
-                                    }} dataCy="profile-no-data" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." /> :
-
+                                        </div>
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
                                                 <SetItem dataCy="profile-set-item" onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
