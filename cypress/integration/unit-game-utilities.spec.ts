@@ -1,5 +1,5 @@
 import { Gender } from "../../src/overmind/players/state"
-import { genderToTaskCurrentPlayerGender, shuffleArray } from "../../src/services/game/GameUtilities"
+import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "../../src/services/game/GameUtilities"
 import { TaskCurrentPlayerGender } from "../../src/shared/types/TaskCurrentPlayerGender"
 import { getMockPlayers } from "../game-mock-data.ts/players"
 
@@ -80,5 +80,39 @@ describe('Game gomponents Unit tests', () => {
         })
     })
 
+    describe('countPlayedByPlayer', () => {
+        before(() => {
+            expect(countPlayedByPlayer).to.be.a("function")
+        })
 
+        describe('null/undefined tests', () => {
+            it('should be undefined if playedBy is null', () => {
+                expect(countPlayedByPlayer(null, malePlayer)).to.be.undefined
+            })
+
+            it('should be undefined if playedBy is undefined', () => {
+                expect(countPlayedByPlayer(undefined, malePlayer)).to.be.undefined
+            })
+
+            it('should be 0 if player is null', () => {
+                expect(countPlayedByPlayer([0, 1], null)).to.equal(0)
+            })
+
+            it('should be 0 if player is undefined', () => {
+                expect(countPlayedByPlayer([0, 1], undefined)).to.equal(0)
+            })
+
+            it('should be 0 if playedBy is empy', () => {
+                expect(countPlayedByPlayer([], malePlayer)).to.equal(0)
+            })
+        })
+
+        it('should be 1 if playedBy contains malePlayer.id', () => {
+            expect(countPlayedByPlayer([malePlayer.id], malePlayer)).to.equal(1)
+        })
+
+        it('should be 1 if playedBy contains malePlayer.id and other', () => {
+            expect(countPlayedByPlayer([malePlayer.id, malePlayer.id + 1], malePlayer)).to.equal(1)
+        })
+    })
 })
