@@ -35,7 +35,6 @@ export const login = async ({ state, effects, actions }: Context, credentials: {
 }
 
 export const loginWithGoogle = async ({ state, effects, actions }: Context, googleData: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    state.profile.authenticating = true
     if (!('accessToken' in googleData)) {
         console.error("Google Login failed")
         return
@@ -53,7 +52,6 @@ export const loginWithGoogle = async ({ state, effects, actions }: Context, goog
         console.error(error)
         state.profile.error = checkAxiosErrorType(error, actions)
     }
-    state.profile.authenticating = false
 }
 
 export const register = async ({ state, effects, actions }: Context, credentials: { email: string, username: string, password: string }) => {
