@@ -5,35 +5,39 @@ import { TaskPlayerGender } from "../../shared/types/TaskPlayerGender"
 import { TaskType } from "../../shared/types/TaskType"
 import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "./GameUtilities"
 
-export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType) => {
-    return tasks.filter(task =>
-        (task.type === pickedTaskType) &&
+export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType | null) => {
+    return tasks?.filter(task =>
+        (task.type === pickedTaskType || !pickedTaskType) &&
         (
             task.currentPlayerGender === TaskCurrentPlayerGender.ANYONE ||
-            task.currentPlayerGender === genderToTaskCurrentPlayerGender(player.gender) ||
-            player.gender === Gender.DIVERS
+            task.currentPlayerGender === genderToTaskCurrentPlayerGender(player?.gender) ||
+            player?.gender === Gender.DIVERS
         )
     )
 }
-// MC: Rename variables to get clean code!
+
 export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGenderCount: PlayerGenderCount) => {
     const reducedGenders = { ...playerGenderCount }
-    reducedGenders[player.gender]--
+    if (!reducedGenders) return []
+    reducedGenders[player?.gender]--
 
-    const fillableTasks = tasks.filter((task) => {
-        if (Object.values(reducedGenders).reduce((a, b) => a + b) - Object.values(task.requires).reduce((a, b) => a + b) < 0) {
+    const fillableTasks = tasks?.filter((task) => {
+        // Check if there are enough people to play the task at all
+        if (Object.values(reducedGenders).reduce((sum, value) => sum + value) - Object.values(task.requires).reduce((sum, value) => sum + value) < 0) {
             return false
         }
-        if ((task.requires["male"] <= reducedGenders["male"] && task.requires["female"] <= reducedGenders["female"])) {
+        // Check if there is no need to fill in divers people
+        if ((task.requires.male <= reducedGenders.male && task.requires.female <= reducedGenders.female)) {
             return true
         }
+        // Fill in divers players
         else {
-            let divers = reducedGenders["divers"]
-            if (task.requires["male"] > reducedGenders["male"]) {
-                divers -= task.requires["male"] - reducedGenders["male"]
+            let divers = reducedGenders.divers
+            if (task.requires.male > reducedGenders.male) {
+                divers -= task.requires.male - reducedGenders.male
             }
-            if (task.requires["female"] > reducedGenders["female"]) {
-                divers -= task.requires["female"] - reducedGenders["female"]
+            if (task.requires.female > reducedGenders.female) {
+                divers -= task.requires.female - reducedGenders.female
             }
             return divers >= 0
         }
@@ -42,25 +46,27 @@ export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGender
 }
 
 export const getUnplayedOverall = (tasks: PlayTask[]) => {
-    return tasks.filter(task => task.playedBy.length === 0)
+    return tasks?.filter(task => task.playedBy.length === 0)
 }
 
 export const getUnplayedByMe = (tasks: PlayTask[], player: Player) => {
-    return tasks.filter(task => !task.playedBy.includes(player.id))
+    return tasks?.filter(task => !task.playedBy.includes(player?.id))
 }
 
-
 export const getLeastPlayedByMe = (tasks: PlayTask[], player: Player) => {
-    const sortedTasks = tasks.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player)) // MC: This could be replaced with Math.min in combination with map.
-    return sortedTasks.filter(task => countPlayedByPlayer(task.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
+    const sortedTasks = tasks?.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player))
+    return sortedTasks?.filter(task => countPlayedByPlayer(task.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
 }
 
 export const getLeastPlayedOverall = (tasks: PlayTask[]) => {
-    return tasks.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0] // MC: Math min as well?
+    return tasks?.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0]
 }
 
 export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, currentPlayer: Player) => {
+    // This function can not work if the params are null/undefined
+    if (!players || players.length === 0 || !playTask || !currentPlayer) return null
     const playersWithoutCurrent = [...players].filter(player => player.id !== currentPlayer.id)
+    // This shuffle needs to be there to make sure that not all the same divers get merged later on
     const playerNamesByGender = shuffleArray(playersWithoutCurrent).reduce<{
         male: string[],
         female: string[],
@@ -84,7 +90,7 @@ export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, cu
         divers: []
     })
 
-    // Merge divers into male and female
+    // Merge divers into male and female where needed, then distribute the rest
     for (let i = 0; i < playTask.requires.male - playerNamesByGender.male.length; i++) {
         playerNamesByGender.male.push(playerNamesByGender.divers.pop()!)
     }
@@ -103,7 +109,6 @@ export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, cu
     // Shuffle again to have divers random 
     playerNamesByGender.male = shuffleArray(playerNamesByGender.male)
     playerNamesByGender.female = shuffleArray(playerNamesByGender.female)
-
     // Create message
     const message = playTask.message
         .replaceAll(TaskPlayerGender.MALE, () => playerNamesByGender.male.pop()!)
@@ -124,12 +129,7 @@ export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, cu
 }
 
 export const countPossibleTasksForPlayer = (tasks: PlayTask[], player: Player, playerGenderCount: PlayerGenderCount): number => {
-    // MC: This is the same as in getPossibleTasks but we have to get it without a type
-    const getPossibleTasks = tasks.filter(task =>
-        task.currentPlayerGender === TaskCurrentPlayerGender.ANYONE ||
-        task.currentPlayerGender === genderToTaskCurrentPlayerGender(player.gender) ||
-        player.gender === Gender.DIVERS
-    )
-    return getFillableTasks(getPossibleTasks, player, playerGenderCount).length
+    const possibleTasks = getPossibleTasks(tasks, player, null)
+    return getFillableTasks(possibleTasks, player, playerGenderCount)?.length
 }
 
