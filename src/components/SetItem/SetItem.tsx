@@ -1,17 +1,21 @@
 import { IonItem } from '@ionic/react';
 import gradient from '../../assets/example.png';
+import { SetCategory } from '../../shared/types/SetCategory';
+import { DareLabel } from './DareLabel';
+import { TruthLabel } from './TruthLabel';
 
 type SetItemProps = {
 	name: string
 	author?: string
 	truthCount: number
 	dareCount: number
+	category: SetCategory
 	link?: string
 	onClick?: () => void
 	dataCy?: string
 }
 
-export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dareCount, link, dataCy, onClick }) => {
+export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dareCount, link, dataCy, onClick, category }) => {
 	return (
 		<IonItem data-cy={dataCy} lines="none" routerLink={link ?? '#'} onClick={onClick} className="mb-5 rounded-lg">
 			<div className="flex items-center">
@@ -21,10 +25,10 @@ export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dare
 					{author && <p className="text-light-600 mb-3">by {author}</p>}
 					<div className="flex items-center">
 						{/* Truth Count */}
-						<span className="truth-label">T</span>
+						<TruthLabel category="default" />
 						<p className="text-light-600 mr-3">{truthCount}</p>
 						{/* Dare Count */}
-						<p className="dare-label">D</p>
+						<DareLabel category='default' />
 						<p className="text-light-600">{dareCount}</p>
 					</div>
 				</div>
