@@ -4,7 +4,6 @@ import { Field, Form, Formik } from "formik";
 import { arrowBack } from "ionicons/icons";
 import { useRef, useState } from "react";
 import * as Yup from "yup";
-import example from '../../assets/example.png';
 import trash from "../../assets/icons/trash.svg";
 import { Button } from "../../components/Buttons/Button";
 import { ErrorInput } from "../../components/Forms/ErrorMessage";
@@ -144,7 +143,7 @@ export const Editor: React.FC = () => {
     const [showDeleteAlert] = useIonAlert()
     const [showSetOptions] = useIonActionSheet()
 
-    return <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 134px', backgroundPosition: 'top' }}>
+    return <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 134px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
         <IonHeader className="container ion-no-border my-1">
             <IonToolbar color="transparent">
                 <IonButtons>

@@ -3,7 +3,6 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonToolbar, 
 import { Form, Formik } from "formik";
 import { Link } from 'react-router-dom';
 import * as Yup from "yup";
-import example from '../../assets/example.png';
 import arrowBack from "../../assets/icons/arrowback.svg";
 import { Button } from '../../components/Buttons/Button';
 import { GoogleLoginButton } from '../../components/Buttons/GoogleLoginButton';
@@ -14,8 +13,8 @@ import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/utilities/setSeoTitle';
 
 export const Register: React.FC = () => {
-    const { register, resetError } = useActions().profile
-    const { authenticating, error } = useAppState().profile
+    const { profile: { register, resetError } } = useActions()
+    const { profile: { authenticating, error }, game: { set } } = useAppState()
 
     const initialValues = {
         email: "",
@@ -42,7 +41,7 @@ export const Register: React.FC = () => {
     }, [])
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 172px', backgroundPosition: 'top' }}>
+        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 172px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
             <IonHeader className="container ion-no-border my-1">
                 <IonToolbar color="transparent">
                     <IonButtons>

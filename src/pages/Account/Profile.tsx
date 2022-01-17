@@ -15,7 +15,7 @@ import { Set } from "../../overmind/explore/state";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const Profile: React.FC = () => {
-    const { currentUser, isLoadingSets, sets, userDetailed } = useAppState().profile
+    const { profile: { currentUser, isLoadingSets, sets, userDetailed }, game: { set } } = useAppState()
     const { profile: { getSetsByUser, logout, resendMail, getUserDetailed }, creative: { createNewSet, editSet } } = useActions()
     const [present] = useIonActionSheet()
     const [presentToast, dismiss] = useIonToast()
@@ -42,7 +42,7 @@ export const Profile: React.FC = () => {
     }
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 320px', backgroundPosition: 'top' }}>
+        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 280px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
             <IonContent style={{ "--background": "transparent" }}>
                 <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
                     <IonRefresherContent pullingIcon={refresh}
