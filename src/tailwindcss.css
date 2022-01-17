@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap");
-
-.truth-label {
-    min-width: 20px;
-    height: 20px;
-    font-size: 11px;
-    line-height: 16px;
-    @apply text-theme-default-truth border-2 border-theme-default-truth border-opacity-50 rounded-sm text-center mr-2;
-}
-
-.dare-label {
-    min-width: 20px;
-    height: 20px;
-    font-size: 11px;
-    line-height: 16px;
-    @apply text-theme-default-dare border-2 border-theme-default-dare border-opacity-50 rounded-sm text-center mr-2;
-}
-
 .text-lines::before,
 .text-lines::after {
     content: "";
