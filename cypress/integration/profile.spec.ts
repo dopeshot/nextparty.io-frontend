@@ -8,6 +8,8 @@ describe('Profile', () => {
     beforeEach(() => {
         cy.visit('/account/login')
         cy.login()
+        cy.getSetsFromUser()
+        cy.getProfileVerified()
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
@@ -15,11 +17,8 @@ describe('Profile', () => {
         cy.get('[data-cy="login-button"]').click()
 
         cy.wait('@login')
-
-        cy.getSetsFromUser()
-        cy.getProfile()
         cy.wait('@getSetsFromUser')
-        cy.wait('@getProfile')
+        cy.wait('@getProfileVerified')
     })
 
     it('should display correct name', () => {
@@ -43,22 +42,54 @@ describe('Profile', () => {
         })
     })
 
-    it('should display loading bar when load sets from user and should disapear and show sets when finished loading', () => {
+    it('should not display numbers when sets are empty', () => {
         cy.visit('/account/login')
+        cy.getProfileVerified()
+        cy.getEmptySetsFromUser()
         cy.login()
+
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
 
-        const interception = interceptIndefinitely('GET', `${api}/sets/user/**`, { fixture: 'setsfromuser.json' })
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+        cy.wait('@getEmptySetsFromUser')
+        cy.wait('@getProfileVerified')
+
+        cy.overmind().its('state.profile.sets').then((sets: {
+            data: Set[] | null,
+            truthCount: number
+            dareCount: number
+            setCount: number
+            playedCount: number
+        }) => {
+            cy.contains(sets.truthCount).should('not.exist')
+            cy.contains(sets.dareCount).should('not.exist')
+            cy.contains(sets.setCount).should('not.exist')
+            cy.contains(sets.playedCount).should('not.exist')
+        })
+    })
+
+    it('should display loading bar when load sets from user and should disapear and show sets when finished loading', () => {
+        cy.visit('/account/login')
+        cy.login()
+
+        const interception = interceptIndefinitely('GET', `${api}/sets/user/**`, "getSetsFromUserIndefinitely", { fixture: 'setsfromuser.json' })
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
 
         cy.get('[data-cy="login-button"]').click()
         cy.wait('@login')
-        cy.get('h1').should('be.visible').contains("Hello")
+
+        cy.get('h1').contains("Hello").should('be.visible')
 
         cy.get('[data-cy="profile-progress-bar"]').should('be.visible').then(() => {
             cy.get('[data-cy="profile-sets-container"]').should('not.exist')
             interception.sendResponse()
+            cy.wait('@getSetsFromUserIndefinitely')
             cy.get('[data-cy="profile-progress-bar"]').should('not.exist')
             cy.get('[data-cy="profile-sets-container"]').should('be.visible')
             cy.get('[data-cy="profile-set-item"]').should('have.length', setsfromuser.length)
@@ -72,25 +103,6 @@ describe('Profile', () => {
         cy.get('ion-action-sheet .action-sheet-button').contains('Logout').should('be.visible').click({ force: true })
 
         cy.get('h1').should('be.visible').contains('Welcome back!')
-    })
-
-    it('should show no data component when user has no sets', () => {
-        cy.visit('/account/login')
-        cy.login()
-
-        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
-        cy.get('[data-cy="login-password-input"]').type('12345678')
-
-        cy.get('[data-cy="login-button"]').click()
-
-        cy.wait('@login')
-
-        cy.getEmptySetsFromUser()
-        cy.wait('@getEmptySetsFromUser')
-
-        cy.get('[data-cy="profile-no-data"]').should('be.visible')
-        cy.get('[data-cy="profile-set-item"]').should('not.exist')
-        cy.get('[data-cy="profile-sets-container"]').should('not.exist')
     })
 })
 

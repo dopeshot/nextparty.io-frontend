@@ -227,6 +227,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "played": 0,
         "category": SetCategory.CLASSIC,
         "visibility": Visibility.PUBLIC,
+        "slug": "only-truths",
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
             "username": "Zoe"
@@ -273,6 +274,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             "username": "Zoe"
         },
         "name": "Only Dares",
+        "slug": "only-dares",
         "tasks": [
             {
                 "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
@@ -314,6 +316,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             "username": "Zoe"
         },
         "name": "Versaut",
+        "slug": "versaut",
         "tasks": [
             {
                 "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
@@ -355,6 +358,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             "username": "Zoe"
         },
         "name": "Long Message",
+        "slug": "long-message",
         "tasks": [
             {
                 "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
