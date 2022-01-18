@@ -9,7 +9,8 @@
       "username": "Hello"
     },
     "slug": "versaut",
-    "name": "Versaut"
+    "name": "Versaut",
+    "category": "party"
   },
   {
     "dareCount": 0,
@@ -21,7 +22,8 @@
       "username": "Hello"
     },
     "slug": "sex",
-    "name": "Sex"
+    "name": "Sex",
+    "category": "party"
   },
   {
     "dareCount": 0,
@@ -33,7 +35,8 @@
       "username": "Hello"
     },
     "slug": "hdm-stuttgart-edition",
-    "name": "HdM Stuttgart Edition"
+    "name": "HdM Stuttgart Edition",
+    "category": "classic"
   },
   {
     "dareCount": 0,
@@ -45,6 +48,7 @@
       "username": "Hello"
     },
     "slug": "klassisch",
-    "name": "Klassisch"
+    "name": "Klassisch",
+    "category": "classic"
   }
 ]
