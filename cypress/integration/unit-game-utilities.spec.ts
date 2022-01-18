@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import { Gender } from "../../src/overmind/players/state"
 import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray, shufflePlayers } from "../../src/services/game/GameUtilities"
 import { TaskCurrentPlayerGender } from "../../src/shared/types/TaskCurrentPlayerGender"

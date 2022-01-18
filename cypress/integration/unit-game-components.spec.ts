@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import {
   countPossibleTasksForPlayer,
   fillPlayersIntoMessage,
