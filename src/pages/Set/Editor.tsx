@@ -187,7 +187,8 @@ export const Editor: React.FC = () => {
                             <div className="mb-5">
                                 <label className="text-light-600 mb-1" htmlFor="name">Choose your theme</label>
                                 <button id="category" type="button" onClick={() => setShowThemePicker(true)}
-                                    className={`${categories[formik.values.category as SetCategory]?.background} rounded-lg h-12 w-full flex justify-between px-4 items-center ${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-dark-700` : `text-light-500`}`}>
+                                    className={`rounded-lg h-12 w-full flex justify-between px-4 items-center ${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-dark-700` : `text-light-500`}`}
+                                    style={{ backgroundImage: `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${categories[formik.values.category as SetCategory].name}.svg')`, backgroundSize: "100% 48px" }}>
                                     <span>{formik.values.category}</span>
                                     <PencilIcon className={`h-6`} />
                                 </button>
@@ -204,7 +205,8 @@ export const Editor: React.FC = () => {
                                     <IonContent>
                                         <div className="container mt-4">
                                             {
-                                                categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.background} ${category.foreground === ForegroundColor.LIGHT ? 'text-light-500' : 'text-dark-700'} ${formik.values.category === category.name ? `border-4 border-theme-kids-dare box-border` : ``}`}>
+                                                categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.foreground === ForegroundColor.LIGHT ? 'text-light-500' : 'text-dark-700'} ${formik.values.category === category.name ? `border-4 border-theme-kids-dare box-border` : ``}`}
+                                                    style={{ backgroundImage: `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${category.name}.svg')`, backgroundSize: "100% 96px" }}>
                                                     <Field type="radio" name="category" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
                                                     {category.name}
                                                 </label>
