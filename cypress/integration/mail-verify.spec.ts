@@ -61,7 +61,7 @@ describe('Mail Verify', () => {
         cy.contains('Start creating awesome sets!').should('be.visible')
     })
 
-    it.only('should resend mail when click button resend mail on profile', () => {
+    it('should resend mail when click button resend mail on profile', () => {
         cy.visit('/account/login')
         cy.getProfileUnverified()
         cy.getEmptySetsFromUser()
