@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../../components/Buttons/Button";
 import { GoogleLoginButton } from "../../components/Buttons/GoogleLoginButton";
 import { useAppState } from "../../overmind";
-import { setSeoTitle } from "../../services/utilities/setSeoTitle";
+import { setSeoTitle } from "../../services/Utilities";
 
 export const GuestLanding: React.FC = () => {
     useIonViewWillEnter(() => {

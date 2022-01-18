@@ -9,7 +9,7 @@ import { ErrorBanner } from '../../components/Errors/ErrorBanner';
 import { Input } from '../../components/Forms/Input';
 import { PasswordInput } from '../../components/Forms/PasswordInput';
 import { useActions, useAppState } from '../../overmind';
-import { setSeoTitle } from '../../services/utilities/setSeoTitle';
+import { setSeoTitle } from '../../services/Utilities';
 
 export const Login: React.FC = () => {
     const { login, resetError } = useActions().profile

@@ -1,11 +1,19 @@
+import { SetWithPlayTasks } from "../../src/overmind/game/state"
+import { Language } from "../../src/shared/enums/Language"
+import { Visibility } from "../../src/shared/enums/Visibility"
+import { SetCategory } from "../../src/shared/types/SetCategory"
 import { TaskCurrentPlayerGender } from "../../src/shared/types/TaskCurrentPlayerGender"
 import { TaskType } from "../../src/shared/types/TaskType"
 
-export const getMockSoloPlayerSet = () => ({
+export const getMockSoloPlayerSet = (): SetWithPlayTasks => ({
   _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
   truthCount: 4,
   dareCount: 4,
-  language: 'de',
+  language: Language.DE,
+  visibility: Visibility.PUBLIC,
+  slug: "testset",
+  played: 0,
+  category: SetCategory.CLASSIC,
   createdBy: {
     _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
     username: 'Hello',
@@ -87,11 +95,15 @@ export const getMockSoloPlayerSet = () => ({
   ],
 })
 
-export const getMockMultiPlayerSet = () => ({
+export const getMockMultiPlayerSet = (): SetWithPlayTasks => ({
   _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
   truthCount: 4,
   dareCount: 4,
-  language: 'de',
+  language: Language.DE,
+  visibility: Visibility.PUBLIC,
+  slug: "testset",
+  played: 0,
+  category: SetCategory.CLASSIC,
   createdBy: {
     _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
     username: 'Hello',
