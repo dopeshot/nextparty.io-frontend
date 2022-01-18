@@ -18,7 +18,7 @@ export const EmailVerifyComponent: React.FC<EmailVerifyComponentProps> = (props)
                 <h1 className="text-light-500 text-3xl font-bold mb-2">{props.titleContent}</h1>
                 <p className="text-light-600 mb-4">{props.paragraphContent}</p>
                 <div className="md:w-44">
-                    <Button to={props.to} Icon={props.Icon} className='bg-theme-default-dare'>
+                    <Button to={props.to} Icon={props.Icon}>
                         {props.buttonContent}
                     </Button>
                 </div>

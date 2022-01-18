@@ -3,7 +3,6 @@ import { RefresherEventDetail } from "@ionic/core";
 import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonToast, useIonViewWillEnter } from "@ionic/react";
 import { useState } from "react";
 import { useHistory } from "react-router";
-import example from '../../assets/example.png';
 import signout from '../../assets/icons/logout.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
@@ -52,7 +51,7 @@ export const Profile: React.FC = () => {
                     <div className="container pb-12 md:pb-20">
                         <div className="flex justify-between pt-14 pb-6 md:pb-10">
                             <div className="flex items-center">
-                                <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `url(${example})`, minWidth: "100px" }}></div>
+                                <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `${set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')`}`, minWidth: "100px" }}></div>
                                 <h1 className="text-2xl text-white font-bold break-all px-4 pb-4">{currentUser?.username}</h1>
                             </div>
                             <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => logout() }], header: 'Settings' })}>
