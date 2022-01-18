@@ -1,8 +1,5 @@
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonProgressBar, IonText, IonTitle, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from "@ionic/react"
 import { useHistory } from "react-router"
-// import gameBackgroundImage from '../../assets/backgrounds/select@2x.jpg'
-// import dareBackgroundImage from '../../assets/backgrounds/dare@2x.jpg'
-import truthBackgroundImage from '../../assets/backgrounds/truth@2x.jpg'
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus } from "../../overmind/game/state"
 import { setSeoTitle } from "../../services/utilities/setSeoTitle"
@@ -31,7 +28,7 @@ export const InGame: React.FC = () => {
         hideTabBar(false)
     })
     return (
-        <IonPage className="bg-dark-700 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: `url(${truthBackgroundImage})` }}>
+        <IonPage className="bg-dark-700 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
             {!debug.isDeveloper && <>
                 <div className="fixed w-full z-50">
                     <IonHeader className="ion-no-border container">
