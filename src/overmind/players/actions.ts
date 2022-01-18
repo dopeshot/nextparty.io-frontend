@@ -31,6 +31,7 @@ export const addPlayer = ({ state }: Context, gender?: Gender) => {
 
 export const setPlayerGender = ({ state }: Context, { id, gender }: { id: number, gender: Gender }) => {
     const player = state.players.players.find(player => player.id === id)
+    // istanbul ignore if //should not happen
     if (!player) {
         console.error(`There is no player with ${id}.`)
         return
@@ -43,6 +44,7 @@ export const setPlayerGender = ({ state }: Context, { id, gender }: { id: number
 
 export const updatePlayerName = ({ state }: Context, { id, name }: { id: number, name: string }) => {
     const player = state.players.players.find(player => player.id === id)
+    // istanbul ignore if //should not happen
     if (!player) {
         console.error(`There is no player with ${id}.`)
         return
@@ -54,6 +56,7 @@ export const updatePlayerName = ({ state }: Context, { id, name }: { id: number,
 }
 
 export const deletePlayer = ({ state }: Context, id: number) => {
+    // istanbul ignore if //should not happen
     if (state.players.players.length - 1 < playerRequiredToPlay)
         return
 
@@ -86,6 +89,11 @@ export const addTestPlayer = ({ state }: Context) => {
         id: 1,
         name: "Joy",
         gender: Gender.FEMALE
+    },
+    {
+        id: 2,
+        name: "Max",
+        gender: Gender.DIVERS
     }]
 
     // Reset game status

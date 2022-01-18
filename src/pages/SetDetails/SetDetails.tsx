@@ -31,6 +31,8 @@ export const SetDetails: React.FC = () => {
 
     useEffect(() => {
         loadSetDetails({ setId, componentMounted, history })
+
+        // istanbul ignore next // will not reach in tests
         return () => {
             componentMounted.current = false
         }
@@ -47,9 +49,7 @@ export const SetDetails: React.FC = () => {
                         <IonButton data-cy="set-details-threedot-icon" onClick={() => present({
                             position: 'top',
                             buttons: [{ text: 'hide', handler: () => dismiss() }],
-                            message: 'Clicked options button',
-                            onDidDismiss: () => console.log('dismissed'),
-                            onWillDismiss: () => console.log('will dismiss'),
+                            message: 'Clicked options button'
                         })}>
                             <DotsHorizontalIcon className="text-white h-6 w-6" />
                         </IonButton>

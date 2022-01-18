@@ -8,6 +8,8 @@
         "username": "Hello"
     },
     "name": "Sex",
+    "slug": "sex",
+    "played": 0,
     "tasks": [
         {
             "currentPlayerGender": "@ca",
