@@ -13,7 +13,7 @@ export const GoogleLoginButton: React.FC = () => {
         onSuccess={loginWithGoogle}
         onFailure={loginWithGoogle}
         cookiePolicy={'single_host_origin'}
-        render={renderProps => <SecondaryButton onClick={renderProps.onClick} disabled={renderProps.disabled} className="mb-4 w-full">Continue with Google</SecondaryButton>}
+        render={renderProps => <SecondaryButton type="button" onClick={renderProps.onClick} disabled={renderProps.disabled} className="mb-4 w-full">Continue with Google</SecondaryButton>}
     />
 
 }

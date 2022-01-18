@@ -31,6 +31,8 @@ export const SetDetails: React.FC = () => {
 
     useEffect(() => {
         loadSetDetails({ setId, componentMounted, history })
+
+        // istanbul ignore next // cant reach
         return () => {
             componentMounted.current = false
         }

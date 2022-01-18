@@ -34,6 +34,7 @@ export const login = async ({ state, effects, actions }: Context, credentials: {
     state.profile.authenticating = false
 }
 
+// istanbul ignore next // too complicated to test
 export const loginWithGoogle = async ({ state, effects, actions }: Context, googleData: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     if (!('accessToken' in googleData)) {
         console.error("Google Login failed")

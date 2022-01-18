@@ -13,7 +13,7 @@ export type LinkButtonProps = {
 } & BaseButtonProps
 
 export type ButtonButtonProps = {
-    type?: "button" | "reset" | "submit"
+    type: "button" | "reset" | "submit"
     onClick: (values: any) => void
     keepFocus?: boolean
     loading?: boolean
@@ -39,7 +39,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
                     {props.Icon && <props.Icon className="w-5 h-5 mr-3" />}
                     <span className="font-bold">{props.children}</span>
                 </Link> :
-                <button data-cy={props.dataCy} type={props.type ?? "button"} disabled={props.disabled ? true : false} onClick={props.disabled ? () => null : props.onClick} onMouseDown={(event: React.MouseEvent) => handleMouseDown(event)} className={`flex justify-center items-center text-dark-800 ${props.disabled ? "cursor-default bg-light-700" : "bg-light-500 transition hover:-translate-y-1 cursor-pointer focus:shadow-focus"} rounded-lg py-3 ${props.className ? props.className : ""}`}>
+                <button data-cy={props.dataCy} type={props.type} disabled={props.disabled ? true : false} onClick={props.onClick} onMouseDown={(event: React.MouseEvent) => handleMouseDown(event)} className={`flex justify-center items-center text-dark-800 ${props.disabled ? "cursor-default bg-light-700" : "bg-light-500 transition hover:-translate-y-1 cursor-pointer focus:shadow-focus"} rounded-lg py-3 ${props.className ? props.className : ""}`}>
                     {props.Icon && (props.loading ? <RefreshIcon className="animate-spin w-5 h-5 mr-3" /> : <props.Icon className="w-5 h-5 mr-3" />)}
                     <span className="text-dark-800 font-bold">{props.children}</span>
                 </button>}

@@ -89,6 +89,11 @@ export const addTestPlayer = ({ state }: Context) => {
         id: 1,
         name: "Joy",
         gender: Gender.FEMALE
+    },
+    {
+        id: 2,
+        name: "Max",
+        gender: Gender.DIVERS
     }]
 
     // Reset game status

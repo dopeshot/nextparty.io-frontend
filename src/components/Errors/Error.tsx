@@ -23,7 +23,7 @@ export const Error: React.FC<ErrorProps> = (props) => {
                             {props.buttonContent}
                         </Button>
                         :
-                        <Button Icon={props.Icon} className='bg-theme-default-truth w-full md:w-44' onClick={props.onClick ? props.onClick : () => ""}>
+                        <Button type="button" Icon={props.Icon} className='bg-theme-default-truth w-full md:w-44' onClick={props.onClick ? props.onClick : () => ""}>
                             {props.buttonContent}
                         </Button>}
                 </div>
