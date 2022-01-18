@@ -63,8 +63,6 @@ export const getLeastPlayedOverall = (tasks: PlayTask[]) => {
 }
 
 export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, currentPlayer: Player) => {
-    // This function can not work if the params are null/undefined
-    if (!players || players.length === 0 || !playTask || !currentPlayer) return null
     const playersWithoutCurrent = [...players].filter(player => player.id !== currentPlayer.id)
     // This shuffle needs to be there to make sure that not all the same divers get merged later on
     const playerNamesByGender = shuffleArray(playersWithoutCurrent).reduce<{
@@ -130,6 +128,6 @@ export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, cu
 
 export const countPossibleTasksForPlayer = (tasks: PlayTask[], player: Player, playerGenderCount: PlayerGenderCount): number => {
     const possibleTasks = getPossibleTasks(tasks, player, null)
-    return getFillableTasks(possibleTasks, player, playerGenderCount)?.length
+    return getFillableTasks(possibleTasks, player, playerGenderCount).length
 }
 

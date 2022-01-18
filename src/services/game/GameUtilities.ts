@@ -18,8 +18,7 @@ export const genderToTaskCurrentPlayerGender = (gender: Gender) => {
 }
 
 export const countPlayedByPlayer = (playedBy: number[], player: Player) => {
-    console.log(playedBy?.filter(item => item === player?.id))
-    return playedBy?.filter(item => item === player?.id).length
+    return playedBy.filter(item => item === player.id).length
 }
 
 // For Api design, it makes the usage more intuitive
