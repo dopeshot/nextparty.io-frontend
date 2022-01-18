@@ -6,7 +6,7 @@ import male from '../../assets/icons/male.svg';
 import { Button } from '../../components/Buttons/Button';
 import { PlayerInput } from '../../components/Forms/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
-import { setSeoTitle } from '../../services/utilities/setSeoTitle';
+import { setSeoTitle } from '../../services/Utilities';
 
 export const Player: React.FC = () => {
     const { players: { players, isAllowedToDelete }, game: { set } } = useAppState()

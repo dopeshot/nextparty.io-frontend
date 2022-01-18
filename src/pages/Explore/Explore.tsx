@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar, us
 import { SetItem } from '../../components/SetItem/SetItem';
 import { useActions, useAppState } from '../../overmind';
 import { Set } from '../../overmind/explore/state';
-import { setSeoTitle } from '../../services/utilities/setSeoTitle';
+import { setSeoTitle } from '../../services/Utilities';
 
 export const Explore: React.FC = () => {
   const { isLoadingSets, sets } = useAppState().explore

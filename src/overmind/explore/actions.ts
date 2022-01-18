@@ -1,7 +1,7 @@
 import * as H from 'history';
 import React from "react";
 import { Context } from "..";
-import { setSeoTitle } from "../../services/utilities/setSeoTitle";
+import { setSeoTitle } from "../../services/Utilities";
 
 export const loadExplore = async ({ state, effects }: Context) => {
     /* istanbul ignore if // should not happen */

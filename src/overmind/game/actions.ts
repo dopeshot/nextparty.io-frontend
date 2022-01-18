@@ -2,7 +2,7 @@ import { History } from 'history';
 import { Context } from "..";
 import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
-import { countGenderOccurrences } from "../../services/utilities/utilities";
+import { countGenderOccurrences } from "../../services/Utilities";
 import { Language } from '../../shared/enums/Language';
 import { Visibility } from '../../shared/enums/Visibility';
 import { SetCategory } from '../../shared/types/SetCategory';
