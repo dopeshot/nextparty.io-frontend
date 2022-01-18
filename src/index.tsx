@@ -17,6 +17,7 @@ setupIonicReact({
   mode: 'md'
 })
 
+// istanbul ignore else
 if (window.Cypress) {
   window.overmind = overmind
 }
