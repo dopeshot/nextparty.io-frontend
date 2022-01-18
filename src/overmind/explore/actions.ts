@@ -4,6 +4,7 @@ import { Context } from "..";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const loadExplore = async ({ state, effects }: Context) => {
+    /* istanbul ignore if // should not happen */
     if (state.explore.isLoadingSets)
         return
 
@@ -11,7 +12,7 @@ export const loadExplore = async ({ state, effects }: Context) => {
     try {
         const response = await effects.explore.getSets()
         state.explore.sets = response.data
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         console.error(error)
     }
     state.explore.isLoadingSets = false
@@ -32,7 +33,7 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
             setSeoTitle(`Play ${state.explore.setDetails.name}`)
             history.replace(`/explore/${setId}/${set.slug}`)
         }
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         state.explore.isLoadingSetDetails = false
         console.error(error)
     }

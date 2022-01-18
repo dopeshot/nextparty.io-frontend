@@ -78,6 +78,7 @@ export const logout = ({ actions }: Context) => {
 }
 
 export const getSetsByUser = async ({ state, actions, effects }: Context) => {
+    /* istanbul ignore next // should not happen */
     if (!state.profile.currentUser) {
         return
     }
@@ -89,7 +90,7 @@ export const getSetsByUser = async ({ state, actions, effects }: Context) => {
 
         state.profile.sets.data = data
         state.profile.error = null
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         console.error(error)
         state.profile.error = checkAxiosErrorType(error, actions)
     }
@@ -109,12 +110,12 @@ export const getUserDetailed = async ({ state, actions, effects }: Context) => {
     }
 }
 
-export const verifyMail = async ({ state, effects, actions }: Context, code: string) => {
+export const verifyMail = async ({ state, effects }: Context, code: string) => {
     state.profile.isEmailVerifying = true
     try {
         await effects.profile.verifyMail(code)
         state.profile.emailVerified = true
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         if (axios.isAxiosError(error) && error.response) {
             console.error(error.response)
         } else if (axios.isAxiosError(error)) {
@@ -132,7 +133,7 @@ export const resendMail = async ({ state, effects, actions }: Context) => {
     try {
         await effects.profile.resendMail()
         state.profile.emailVerified = true
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         if (axios.isAxiosError(error) && error.response) {
             console.error(error.response)
         } else if (axios.isAxiosError(error)) {

@@ -41,10 +41,16 @@ Cypress.Commands.add('loginBannedUser', () => {
         }).as('loginBannedUser')
 })
 
-Cypress.Commands.add('databasedown', () => {
+Cypress.Commands.add('databasedownPost', () => {
     cy.intercept('POST', `${api}/**`, {
         forceNetworkError: true
-    }).as('databasedown')
+    }).as('databasedownPost')
+})
+
+Cypress.Commands.add('databasedownGet', () => {
+    cy.intercept('GET', `${api}/**`, {
+        forceNetworkError: true
+    }).as('databasedownGet')
 })
 
 Cypress.Commands.add('register', () => {
@@ -113,6 +119,11 @@ Cypress.Commands.add('getMail', (response: "fail" | "success") => {
     }).as('getMail')
 })
 
+Cypress.Commands.add('resendMail', () => {
+    cy.intercept('GET', `${api}/users/resend-account-verification`, {
+        statusCode: 200
+    }).as('resendMail')
+})
 
 Cypress.Commands.add('overmind', () => {
     let overmind: any

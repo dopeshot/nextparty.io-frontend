@@ -109,7 +109,7 @@ describe('Login', () => {
         })
 
         it('should show error banner with text "408 - Request Timeout" when database is down', () => {
-            cy.databasedown()
+            cy.databasedownPost()
 
             cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
             cy.get('[data-cy="login-password-input"]').type('12345678')
