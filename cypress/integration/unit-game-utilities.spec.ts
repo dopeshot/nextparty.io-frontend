@@ -1,7 +1,7 @@
 import { Gender } from "../../src/overmind/players/state"
 import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray, shufflePlayers } from "../../src/services/game/GameUtilities"
 import { TaskCurrentPlayerGender } from "../../src/shared/types/TaskCurrentPlayerGender"
-import { getMockPlayers } from "../game-mock-data.ts/players"
+import { getMockPlayers } from "../game-mock-data/players"
 
 const malePlayer = getMockPlayers()[0]
 describe('Game gomponents Unit tests', () => {
