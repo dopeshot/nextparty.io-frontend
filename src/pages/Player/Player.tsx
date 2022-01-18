@@ -43,13 +43,13 @@ export const Player: React.FC = () => {
                 <div className="container">
                     <IonList lines="none">
                         <IonItem>
-                            <span className="flex items-center justify-center bg-theme-default-truth border-4 border-dark-700 rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
+                            <span className={`flex items-center justify-center bg-theme-${set ? set.category : 'default'}-truth border-4 border-dark-700 rounded-full mr-3`} style={{ minWidth: "44px", minHeight: "44px" }}>
                                 <IonIcon icon={female} className="text-dark-700 text-xl" />
                             </span>
                             <p>Female</p>
                         </IonItem>
                         <IonItem>
-                            <span className="flex items-center justify-center bg-theme-default-dare border-4 border-dark-700 rounded-full mr-3" style={{ minWidth: "44px", minHeight: "44px" }}>
+                            <span className={`flex items-center justify-center bg-theme-${set ? set.category : 'default'}-dare border-4 border-dark-700 rounded-full mr-3`} style={{ minWidth: "44px", minHeight: "44px" }}>
                                 <IonIcon icon={male} className="text-dark-700 text-xl" />
                             </span>
                             <p>Male</p>
