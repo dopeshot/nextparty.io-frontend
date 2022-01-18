@@ -1,9 +1,12 @@
-import { IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar, useIonViewWillEnter } from '@ionic/react';
+import { RefresherEventDetail } from "@ionic/core";
+import { IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonViewWillEnter } from '@ionic/react';
+import refresh from '../../assets/icons/refresh.svg';
 import { SetItem } from '../../components/SetItem/SetItem';
 import { useActions, useAppState } from '../../overmind';
 import { Set } from '../../overmind/explore/state';
 import { setSeoTitle } from '../../services/Utilities';
 import { categoriesList } from "../../shared/types/SetCategory";
+
 
 export const Explore: React.FC = () => {
   const { isLoadingSets, sets } = useAppState().explore
@@ -14,6 +17,13 @@ export const Explore: React.FC = () => {
     setSeoTitle('Explore Sets')
   }, [loadExplore])
 
+  // istanbul ignore next // not testable with cypress
+  const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+    loadExplore()
+
+    if (event) event.detail.complete()
+  }
+
   return (
     <IonPage className="bg-dark-700">
       <IonHeader className="container ion-no-border my-4">
@@ -22,6 +32,10 @@ export const Explore: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+          <IonRefresherContent pullingIcon={refresh}
+            refreshingSpinner="circles" />
+        </IonRefresher>
         <div className="container">
           {isLoadingSets ? (<IonProgressBar data-cy="explore-progress-bar" type="indeterminate"></IonProgressBar>) : (
             <div>
