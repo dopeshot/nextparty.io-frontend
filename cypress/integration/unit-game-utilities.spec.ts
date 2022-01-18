@@ -13,15 +13,7 @@ describe('Game gomponents Unit tests', () => {
             expect(shuffleArray).to.be.a("function")
         })
 
-        describe('null/undefined tests', () => {
-            it('should be empty if array is null', () => {
-                expect(shuffleArray(null)).to.eql([])
-            })
-
-            it('should be empty if array is undefined', () => {
-                expect(shuffleArray(undefined)).to.eql([])
-            })
-
+        describe('empty tests', () => {
             it('should be empty if array is empty', () => {
                 expect(shuffleArray([])).to.eql([])
             })
@@ -59,16 +51,6 @@ describe('Game gomponents Unit tests', () => {
             expect(genderToTaskCurrentPlayerGender).to.be.a("function")
         })
 
-        describe('null/undefined tests', () => {
-            it('should be undefined if gender is null', () => {
-                expect(genderToTaskCurrentPlayerGender(null)).to.be.undefined
-            })
-
-            it('should be undefined if gender is undefined', () => {
-                expect(genderToTaskCurrentPlayerGender(undefined)).to.be.undefined
-            })
-        })
-
         it('should be TCPG.male if gender is Gender.male', () => {
             expect(genderToTaskCurrentPlayerGender(Gender.MALE)).to.equal(TaskCurrentPlayerGender.MALE)
         })
@@ -87,23 +69,7 @@ describe('Game gomponents Unit tests', () => {
             expect(countPlayedByPlayer).to.be.a("function")
         })
 
-        describe('null/undefined tests', () => {
-            it('should be undefined if playedBy is null', () => {
-                expect(countPlayedByPlayer(null, malePlayer)).to.be.undefined
-            })
-
-            it('should be undefined if playedBy is undefined', () => {
-                expect(countPlayedByPlayer(undefined, malePlayer)).to.be.undefined
-            })
-
-            it('should be 0 if player is null', () => {
-                expect(countPlayedByPlayer([0, 1], null)).to.equal(0)
-            })
-
-            it('should be 0 if player is undefined', () => {
-                expect(countPlayedByPlayer([0, 1], undefined)).to.equal(0)
-            })
-
+        describe('empty tests', () => {
             it('should be 0 if playedBy is empy', () => {
                 expect(countPlayedByPlayer([], malePlayer)).to.equal(0)
             })
@@ -123,15 +89,7 @@ describe('Game gomponents Unit tests', () => {
             expect(shufflePlayers).to.be.a("function")
         })
 
-        describe('null/undefined tests', () => {
-            it('should be empty if array is null', () => {
-                expect(shufflePlayers(null)).to.eql([])
-            })
-
-            it('should be empty if array is undefined', () => {
-                expect(shufflePlayers(undefined)).to.eql([])
-            })
-
+        describe('empty tests', () => {
             it('should be empty if array is empty', () => {
                 expect(shufflePlayers([])).to.eql([])
             })
