@@ -1,4 +1,4 @@
-import { replaceStringWithIcon } from '../../src/services/utilities/utilities'
+import { replaceStringWithIcon } from '../../src/services/Utilities'
 import set from '../fixtures/set.json'
 import sets from '../fixtures/sets.json'
 import { interceptIndefinitely } from '../support/utils'

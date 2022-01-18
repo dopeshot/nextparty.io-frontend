@@ -4,7 +4,7 @@ import { Button } from '../../components/Buttons/Button';
 import { ActionBlock } from '../../components/Game/ActionBlock';
 import { useActions, useAppState } from '../../overmind';
 import { StartGameErrors } from '../../overmind/game/state';
-import { setSeoTitle } from '../../services/utilities/setSeoTitle';
+import { setSeoTitle } from '../../services/Utilities';
 
 
 export const Game: React.FC = () => {

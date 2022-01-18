@@ -10,7 +10,7 @@ import { ErrorInput } from "../../components/Forms/ErrorMessage";
 import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
 import { Task } from "../../overmind/explore/state";
-import { replaceCurrentPlayerStringWithIcon, replaceIconWithString, replaceStringWithIcon } from "../../services/utilities/utilities";
+import { replaceCurrentPlayerStringWithIcon, replaceIconWithString, replaceStringWithIcon } from "../../services/Utilities";
 import { Language } from "../../shared/enums/Language";
 import { Visibility } from "../../shared/enums/Visibility";
 import { languagePickerOptions, languages } from "../../shared/types/Language";

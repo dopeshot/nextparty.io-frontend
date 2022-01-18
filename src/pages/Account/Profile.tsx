@@ -11,7 +11,7 @@ import { CountItem } from "../../components/Profile/CountItem";
 import { SetItem } from "../../components/SetItem/SetItem";
 import { useActions, useAppState } from "../../overmind";
 import { Set } from "../../overmind/explore/state";
-import { setSeoTitle } from "../../services/utilities/setSeoTitle";
+import { setSeoTitle } from "../../services/Utilities";
 
 export const Profile: React.FC = () => {
     const { profile: { currentUser, isLoadingSets, sets, userDetailed }, game: { set } } = useAppState()

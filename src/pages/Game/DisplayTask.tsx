@@ -1,6 +1,6 @@
 import { useActions } from "../../overmind"
 import { PlayTask } from "../../overmind/game/state"
-import { lowerCaseFirstLetter } from "../../services/utilities/lowerCaseFirstLetter"
+import { lowerCaseFirstLetter } from "../../services/Utilities"
 import { TaskType } from "../../shared/types/TaskType"
 
 type DisplayTaskType = {

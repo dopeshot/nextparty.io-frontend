@@ -2,7 +2,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonToolbar, 
 import { useHistory } from "react-router"
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus } from "../../overmind/game/state"
-import { setSeoTitle } from "../../services/utilities/setSeoTitle"
+import { setSeoTitle } from "../../services/Utilities"
 import { ChooseTask } from "./ChooseTask"
 import { DisplayTask } from "./DisplayTask"
 
