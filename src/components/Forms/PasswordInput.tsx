@@ -23,7 +23,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = (props) => {
                 <button data-cy="password-eye-button" type="button" onMouseDown={event => event.preventDefault()} onClick={() => setShowPassword(!showPassword)} className="absolute right-4">
                     {showPassword ? <EyeIcon data-cy="password-eye-open" className="w-6 h-6" /> : <EyeOffIcon data-cy="password-eye-close" className="w-6 h-6" />}
                 </button>
-                <Field data-cy={props.dataCy} type={showPassword ? "text" : "password"} name="password" id={props.id} placeholder="Password" autoComplete={props.autocomplete} className={`bg-dark-500 rounded pl-4 py-3 ${props.formik.errors.password && props.formik.touched.password ? "border-2 border-theme-sexy-truth focus:outline-none" : ""}`} />
+                <Field data-cy={props.dataCy} type={showPassword ? "text" : "password"} name="password" id={props.id} placeholder="Password" autoComplete={props.autocomplete} className={`bg-dark-500 rounded pl-4 py-3 ${props.formik.errors.password && props.formik.touched.password ? "border-2 border-red-500 focus:outline-none" : ""}`} />
             </div>
             <ErrorInput field="password" className="mt-2" />
         </div>
