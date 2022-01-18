@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonProgressBar, IonToolbar, useIonViewWillEnter } from '@ionic/react';
 import { useParams } from 'react-router';
-import { Error } from '../../components/Errors/Error';
+import { Error } from '../../components/Profile/EmailVerify';
 import { useActions, useAppState } from '../../overmind';
 
 type EmailVerifyParams = {

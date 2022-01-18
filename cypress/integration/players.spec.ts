@@ -99,8 +99,8 @@ describe('Players', () => {
     })
 
     it('should add new player input when press enter in input', () => {
-        cy.get('[data-cy="player-input-1"]').type('{enter}')
-        cy.get('[data-cy="player-input-2"]').should('be.visible')
+        cy.get('[data-cy="player-input-2"]').type('{enter}')
+        cy.get('[data-cy="player-input-3"]').should('be.visible')
     })
 
     it('should delete player input when press backspace in empty input', () => {
