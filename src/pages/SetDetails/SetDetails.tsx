@@ -32,7 +32,7 @@ export const SetDetails: React.FC = () => {
     useEffect(() => {
         loadSetDetails({ setId, componentMounted, history })
 
-        // istanbul ignore next // cant reach
+        // istanbul ignore next // will not reach in tests
         return () => {
             componentMounted.current = false
         }
