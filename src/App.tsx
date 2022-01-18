@@ -52,19 +52,19 @@ export const App: React.FC = () => {
                 </IonRouterOutlet>
                 <IonTabBar data-cy="app-tabbar" hidden={hideTabBar} slot="bottom" className="bg-black" onIonTabsDidChange={(event) => setActiveTab(event.detail.tab)}>
                     <IonTabButton data-cy="app-nav-explore" tab="explore" href="/explore" className="bg-black">
-                        {activeTab === 'explore' ? <HomeIconSolid className='h-6 w-6' /> : <HomeIcon className='h-6 w-6' />}
+                        {activeTab === 'explore' ? <HomeIconSolid data-cy="home-icon-solid" className='h-6 w-6' /> : <HomeIcon data-cy="home-icon" className='h-6 w-6' />}
                         <IonLabel>Explore</IonLabel>
                     </IonTabButton>
                     <IonTabButton data-cy="app-nav-game" tab="game" href="/game" className="bg-black">
-                        {activeTab === 'game' ? <PlayIconSolid className='h-6 w-6' /> : <PlayIcon className='h-6 w-6' />}
+                        {activeTab === 'game' ? <PlayIconSolid data-cy="play-icon-solid" className='h-6 w-6' /> : <PlayIcon data-cy="play-icon" className='h-6 w-6' />}
                         <IonLabel>Game</IonLabel>
                     </IonTabButton>
                     <IonTabButton data-cy="app-nav-player" tab="player" href="/player" className="bg-black">
-                        {activeTab === 'player' ? <UsersIconSolid className='h-6 w-6' /> : <UsersIcon className='h-6 w-6' />}
+                        {activeTab === 'player' ? <UsersIconSolid data-cy="player-icon-solid" className='h-6 w-6' /> : <UsersIcon data-cy="player-icon" className='h-6 w-6' />}
                         <IonLabel>Player</IonLabel>
                     </IonTabButton>
                     <IonTabButton data-cy="app-nav-profile" tab="account" href={isLoggedIn ? "/account/profile" : "/account"} className="bg-black">
-                        {activeTab === 'account' ? <UserIconSolid className='h-6 w-6' /> : <UserIcon className='h-6 w-6' />}
+                        {activeTab === 'account' ? <UserIconSolid data-cy="profile-icon-solid" className='h-6 w-6' /> : <UserIcon data-cy="profile-icon" className='h-6 w-6' />}
                         <IonLabel>Profil</IonLabel>
                     </IonTabButton>
                 </IonTabBar>

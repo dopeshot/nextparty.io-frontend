@@ -89,6 +89,53 @@ describe('Routes', () => {
             cy.get('h1').contains('Welcome back!')
         })
     })
+
+    describe('Routes Icons', () => {
+        beforeEach(() => {
+            cy.getSets()
+            cy.visit('/explore')
+
+            cy.wait('@getSets')
+        })
+
+        it('should show solid home icon when on explore tab', () => {
+            cy.visit('/player')
+            cy.get('[data-cy="app-nav-explore"]').click()
+            cy.wait('@getSets')
+
+            cy.get('[data-cy="home-icon-solid"]').should('be.visible')
+            cy.get('[data-cy="play-icon"]').should('be.visible')
+            cy.get('[data-cy="player-icon"]').should('be.visible')
+            cy.get('[data-cy="profile-icon"]').should('be.visible')
+        })
+
+        it('should show solid play icon when on game tab', () => {
+            cy.get('[data-cy="app-nav-game"]').click()
+
+            cy.get('[data-cy="home-icon"]').should('be.visible')
+            cy.get('[data-cy="play-icon-solid"]').should('be.visible')
+            cy.get('[data-cy="player-icon"]').should('be.visible')
+            cy.get('[data-cy="profile-icon"]').should('be.visible')
+        })
+
+        it('should show solid player icon when on explore tab', () => {
+            cy.get('[data-cy="app-nav-player"]').click()
+
+            cy.get('[data-cy="home-icon"]').should('be.visible')
+            cy.get('[data-cy="play-icon"]').should('be.visible')
+            cy.get('[data-cy="player-icon-solid"]').should('be.visible')
+            cy.get('[data-cy="profile-icon"]').should('be.visible')
+        })
+
+        it('should show solid profile icon when on explore tab', () => {
+            cy.get('[data-cy="app-nav-profile"]').click()
+
+            cy.get('[data-cy="home-icon"]').should('be.visible')
+            cy.get('[data-cy="play-icon"]').should('be.visible')
+            cy.get('[data-cy="player-icon"]').should('be.visible')
+            cy.get('[data-cy="profile-icon-solid"]').should('be.visible')
+        })
+    })
 })
 
 export { }
