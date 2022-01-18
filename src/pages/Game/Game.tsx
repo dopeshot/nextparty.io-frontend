@@ -1,6 +1,5 @@
 import { LightningBoltIcon, PlayIcon } from '@heroicons/react/outline';
 import { IonContent, IonPage, useIonViewWillEnter } from '@ionic/react';
-import example from '../../assets/example.png';
 import { Button } from '../../components/Buttons/Button';
 import { ActionBlock } from '../../components/Game/ActionBlock';
 import { useActions, useAppState } from '../../overmind';
@@ -20,16 +19,17 @@ export const Game: React.FC = () => {
 	useIonViewWillEnter(() => {
 		setSeoTitle('Truth or Dare - Next Party', false)
 	})
+
 	return (
-		<IonPage className="bg-background-black">
+		<IonPage className="bg-dark-700">
 			<IonContent>
 				<div className='flex flex-col justify-between h-full'>
-					<div className="ion-no-border bg-cover mb-8" style={{ backgroundImage: `url(${example})` }}>
-						<div className="bg-gradient-to-t from-background-black w-full h-full">
+					<div className="ion-no-border bg-cover mb-8" style={{ backgroundSize: "100% 204px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
+						<div className="bg-gradient-to-t from-dark-700 w-full h-full">
 							<div className="container text-center flex justify-center flex-col">
-								<LightningBoltIcon className="text-white mt-14 pb-6 h-20" />
-								<h1 className="text-3xl text-white font-bold mb-2">Truth or Dare</h1>
-								<p className="text-lightgrey">nextparty.io</p>
+								<LightningBoltIcon className="text-light-500 mt-14 pb-6 h-20" />
+								<h1 className="text-3xl text-light-500 font-bold mb-2">Truth or Dare</h1>
+								<p className="text-light-600">nextparty.io</p>
 							</div>
 						</div>
 					</div>
@@ -46,6 +46,6 @@ export const Game: React.FC = () => {
 					</div>
 				</div>
 			</IonContent>
-		</IonPage>
+		</IonPage >
 	)
 }

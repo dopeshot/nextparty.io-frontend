@@ -18,7 +18,7 @@ export const DisplayTask: React.FC<DisplayTaskType> = ({ currentTask, playerName
             <h2 className="text-5xl text-center font-semibold mb-10">{currentTask.type === TaskType.TRUTH ? "Truth" : "Dare"}</h2>
             <p className="text-2xl mb-5">{playerName}, {lowerCaseFirstLetter(currentTask.message)}</p>
         </div>}
-        <p className="text-center text-lg opacity-25">Tab to continue</p>
+        <p className="text-center text-lg text-light-700">Tab to continue</p>
     </div>
     )
 }

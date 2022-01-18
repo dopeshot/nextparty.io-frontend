@@ -18,7 +18,7 @@ export const EmailVerify: React.FC = () => {
     }, [])
 
     return (
-        <IonPage className="bg-background-black">
+        <IonPage className="bg-dark-700">
             <IonHeader className="container ion-no-border my-4">
                 <IonToolbar color="transparent">
                 </IonToolbar>

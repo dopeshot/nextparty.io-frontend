@@ -9,8 +9,8 @@ type IconButtonProps = {
 
 export const IconButton: React.FC<IconButtonProps> = (props) => {
     return (
-        <IonButton data-cy={props.dataCy} className={`border-4 border-background-black rounded-full no-ripple ${props.className}`} onClick={props.onClick} style={{ minWidth: "44px", minHeight: "44px" }}>
-            <IonIcon icon={props.icon} className="text-background-black text-xl" />
+        <IonButton data-cy={props.dataCy} className={`border-4 border-dark-800 rounded-full no-ripple ${props.className}`} onClick={props.onClick} style={{ minWidth: "44px", minHeight: "44px" }}>
+            <IonIcon icon={props.icon} className="text-dark-800 text-xl" />
         </IonButton>
     )
 }

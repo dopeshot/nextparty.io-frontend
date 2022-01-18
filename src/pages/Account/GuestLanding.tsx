@@ -1,9 +1,9 @@
 import { CheckCircleIcon, MailIcon } from "@heroicons/react/outline";
 import { IonContent, IonItem, IonLabel, IonList, IonPage, useIonViewWillEnter } from "@ionic/react";
 import { Link } from "react-router-dom";
-import example from '../../assets/example.png';
 import { Button } from "../../components/Buttons/Button";
 import { GoogleLoginButton } from "../../components/Buttons/GoogleLoginButton";
+import { useAppState } from "../../overmind";
 import { setSeoTitle } from "../../services/utilities/setSeoTitle";
 
 export const GuestLanding: React.FC = () => {
@@ -11,14 +11,16 @@ export const GuestLanding: React.FC = () => {
         setSeoTitle('Account')
     }, [])
 
+    const { set } = useAppState().game
+
     return (
-        <IonPage className="bg-background-black">
+        <IonPage className="bg-dark-700">
             <IonContent>
-                <div className="ion-no-border bg-cover mb-4" style={{ backgroundImage: `url(${example})` }}>
-                    <div className="bg-gradient-to-t from-background-black w-full h-full">
+                <div className="ion-no-border bg-cover mb-4" style={{ backgroundSize: "100% 204px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
+                    <div className="bg-gradient-to-t from-dark-700 w-full h-full">
                         <div className="container flex flex-col items-center text-center">
-                            <h1 className="text-xl text-white font-bold pt-20 pb-4">Create your own questions</h1>
-                            <p className="text-lightgrey">Make the next party with your friends <br /> for the evening of the evenings!</p>
+                            <h1 className="text-xl text-light-500 font-bold pt-20 pb-4">Create your own questions</h1>
+                            <p className="text-light-600">Make the next party with your friends <br /> for the evening of the evenings!</p>
                         </div>
                     </div>
                 </div>
@@ -43,8 +45,8 @@ export const GuestLanding: React.FC = () => {
                     </IonList>
 
                     <GoogleLoginButton />
-                    <Button dataCy="guestlanding-signup-button" to="/account/register" Icon={MailIcon} className="bg-dare-green mb-6">Sign up with E-Mail</Button>
-                    <Link data-cy="guestlanding-login-link" className="block text-darkgray text-center" to="/account/login">Login instead</Link>
+                    <Button dataCy="guestlanding-signup-button" to="/account/register" Icon={MailIcon} className="mb-6">Sign up with E-Mail</Button>
+                    <Link data-cy="guestlanding-login-link" className="block text-light-600 text-center" to="/account/login">Login instead</Link>
                 </div>
 
             </IonContent>
