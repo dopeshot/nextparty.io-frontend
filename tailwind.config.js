@@ -3,7 +3,7 @@ module.exports = {
         "./src/**/*.{js,jsx,ts,tsx}",
     ],
     safelist: [{
-        pattern: /(border|text)-theme-(default|kids|classic|friendship|couples|soft|party|hot|sexy|hardcore|onlydares|onlytruths|crazy)-(truth|dare)/,
+        pattern: /(border|text|bg)-theme-(default|kids|classic|friendship|couples|soft|party|hot|sexy|hardcore|onlydares|onlytruths|crazy)-(truth|dare)/,
     }],
     theme: {
         container: {
