@@ -58,7 +58,8 @@
         "cypress:open": "cypress open",
         "cypress:run": "cypress run",
         "cc:instrument": "nyc instrument --compact=false src instrumented",
-        "cc:report": "nyc report --reporter=text-summary"
+        "cc:report": "nyc report --reporter=text-summary",
+        "cypress:component": "npx cypress open-ct"
     },
     "nyc": {
         "include": [
@@ -96,6 +97,8 @@
         "@capacitor/cli": "^3.3.4",
         "@cypress/code-coverage": "^3.9.12",
         "@cypress/instrument-cra": "^1.4.0",
+        "@cypress/react": "^5.12.1",
+        "@cypress/webpack-dev-server": "^1.8.0",
         "autoprefixer": "^10.4.2",
         "cypress": "^9.2.1",
         "postcss": "^8.4.5",

@@ -79,7 +79,9 @@ export const SetDetails: React.FC = () => {
                                     <TruthLabel category={setDetails ? setDetails.category : 'default'} />
                                     <p className="text-light-600 mr-4">{setDetails?.truthCount} Truth</p>
                                     <DareLabel category={setDetails ? setDetails.category : 'default'} />
-                                    <p className="text-light-600">{setDetails?.dareCount} Dare</p>
+                                    <p className="text-light-600 mr-3">{setDetails?.dareCount} Dare</p>
+                                    <PlayIcon className="w-6 h-6" />
+                                    <p className="text-light-600 ml-1">{setDetails?.played} Played</p>
                                 </div>
                             </div>
                         </div>
