@@ -78,6 +78,25 @@ describe('Game', () => {
             cy.get('[data-cy="ingame-back-button"]').click()
             cy.get('[data-cy="app-tabbar"]').should('be.visible')
         })
+
+
+        it('should show hide truth/dare button when player has no task', () => {
+            cy.visit('/game')
+            cy.overmind().its('actions').invoke('game.resetSet')
+            cy.overmind().its('actions').invoke('game.addTestSet', "noPossibleTasks")
+
+            cy.overmind().its('state.game.set.name').then((name: string) => {
+                cy.get('[data-cy="game-set-actionblock"]').contains(name)
+                cy.get('[data-cy="game-play-button"]').click()
+
+                cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+                cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
+
+                cy.get('button').click()
+
+                cy.contains("It's your turn!").should('exist')
+            })
+        })
     })
 
     describe('Startscreen', () => {

@@ -26,6 +26,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
         if ('to' in props || !props.keepFocus)
             return
 
+        // istanbul ignore else
         if (props.keepFocus) {
             event.preventDefault()
             event.stopPropagation()

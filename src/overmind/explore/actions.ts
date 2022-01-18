@@ -27,6 +27,7 @@ export const loadSetDetails = async ({ state, effects }: Context, { setId, compo
         const set = response.data
 
         // Only update content when component is still mounted
+        // istanbul ignore else
         if (componentMounted.current) {
             state.explore.setDetails = set
             state.explore.isLoadingSetDetails = false
