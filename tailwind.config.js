@@ -54,7 +54,10 @@ module.exports = {
             "theme-onlytruths-truth": "#9B72FF",
             "theme-onlytruths-dare": "#49CADC",
             "theme-crazy-truth": "#EC41EF",
-            "theme-crazy-dare": "#70CF7E"
+            "theme-crazy-dare": "#70CF7E",
+            "red-500": "#FB5454",
+            "red-700": "#371818",
+            "green-500": "#03E07C"
         },
         fontFamily: {
             'rubik': ['Rubik', 'sans-serif']

@@ -58,7 +58,7 @@ export const Register: React.FC = () => {
                 </div>
                 <div className='bg-dark-700'>
                     <div className='container'>
-                        {error && <ErrorBanner color="danger" dataCy="register-error-banner" message={error} />}
+                        {error && <ErrorBanner dataCy="register-error-banner" message={error} />}
                         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>
                             {(formik) => (
                                 <Form>

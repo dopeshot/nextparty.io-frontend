@@ -205,7 +205,7 @@ export const Editor: React.FC = () => {
                                     <IonContent>
                                         <div className="container mt-4">
                                             {
-                                                categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.foreground === ForegroundColor.LIGHT ? 'text-light-500' : 'text-dark-700'} ${formik.values.category === category.name ? `border-4 border-theme-kids-dare box-border` : ``}`}
+                                                categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.foreground === ForegroundColor.LIGHT ? 'text-light-500' : 'text-dark-700'} ${formik.values.category === category.name ? `border-4 border-green-500 box-border` : ``}`}
                                                     style={{ backgroundImage: `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${category.name}.svg')`, backgroundSize: "100% 96px" }}>
                                                     <Field type="radio" name="category" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
                                                     {category.name}
