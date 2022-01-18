@@ -12,11 +12,11 @@ import {
   getUnplayedOverall
 } from '../../src/services/game/GameComponents'
 import { TaskType } from '../../src/shared/types/TaskType'
-import { getGenders, getMockPlayers } from '../game-mock-data.ts/players'
+import { getGenders, getMockPlayers } from '../mock/players'
 import {
   getMockMultiPlayerSet,
   getMockSoloPlayerSet
-} from '../game-mock-data.ts/set'
+} from '../mock/set'
 
 // Docs here: https://docs.cypress.io/guides/references/assertions#BDD-Assertions
 // more here: https://github.com/chaijs/chai
