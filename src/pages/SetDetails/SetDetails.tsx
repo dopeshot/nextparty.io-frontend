@@ -9,7 +9,7 @@ import { TruthLabel } from '../../components/SetItem/TruthLabel'
 import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
-import { replaceStringWithIcon } from "../../services/utilities/utilities"
+import { replaceStringWithIcon } from "../../services/Utilities"
 import { TaskType } from '../../shared/types/TaskType'
 
 type SetDetailsParams = {
