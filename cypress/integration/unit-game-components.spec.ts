@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import { PlayTask } from '../../src/overmind/game/state'
 import {
   countPossibleTasksForPlayer,
