@@ -1,3 +1,6 @@
+import set from '../fixtures/set.json'
+import sets from '../fixtures/sets.json'
+
 describe('Routes', () => {
     describe('Logged in', () => {
         it('should display profile when click on profile tab', () => {
@@ -134,6 +137,13 @@ describe('Routes', () => {
             cy.get('[data-cy="play-icon"]').should('be.visible')
             cy.get('[data-cy="player-icon"]').should('be.visible')
             cy.get('[data-cy="profile-icon-solid"]').should('be.visible')
+        })
+
+        it('should have slug in set details', () => {
+            cy.getOneSet()
+            cy.get('[data-cy="explore-set-item"]').contains(sets[1].name).click()
+
+            cy.url().should('include', `explore/${set._id}/${set.slug}`)
         })
     })
 })
