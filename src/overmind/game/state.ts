@@ -32,9 +32,9 @@ export type PlayerGenderCount = {
     female: number,
     divers: number
 }
-
+export type SetWithPlayTasks = (Set & { tasks: PlayTask[] })
 export type State = {
-    set: (Set & { tasks: PlayTask[] }) | null,
+    set: SetWithPlayTasks | null,
     hideTabBar: boolean,
     players: Player[],
     playersGenderCount: PlayerGenderCount,
