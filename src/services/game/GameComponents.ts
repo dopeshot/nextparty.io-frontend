@@ -6,12 +6,12 @@ import { TaskType } from "../../shared/types/TaskType"
 import { countPlayedByPlayer, genderToTaskCurrentPlayerGender, shuffleArray } from "./GameUtilities"
 
 export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskType: TaskType | null) => {
-    return tasks?.filter(task =>
+    return tasks.filter(task =>
         (task.type === pickedTaskType || !pickedTaskType) &&
         (
             task.currentPlayerGender === TaskCurrentPlayerGender.ANYONE ||
-            task.currentPlayerGender === genderToTaskCurrentPlayerGender(player?.gender) ||
-            player?.gender === Gender.DIVERS
+            task.currentPlayerGender === genderToTaskCurrentPlayerGender(player.gender) ||
+            player.gender === Gender.DIVERS
         )
     )
 }
@@ -19,9 +19,9 @@ export const getPossibleTasks = (tasks: PlayTask[], player: Player, pickedTaskTy
 export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGenderCount: PlayerGenderCount) => {
     const reducedGenders = { ...playerGenderCount }
     if (!reducedGenders) return []
-    reducedGenders[player?.gender]--
+    reducedGenders[player.gender]--
 
-    const fillableTasks = tasks?.filter((task) => {
+    const fillableTasks = tasks.filter((task) => {
         // Check if there are enough people to play the task at all
         if (Object.values(reducedGenders).reduce((sum, value) => sum + value) - Object.values(task.requires).reduce((sum, value) => sum + value) < 0) {
             return false
@@ -46,20 +46,20 @@ export const getFillableTasks = (tasks: PlayTask[], player: Player, playerGender
 }
 
 export const getUnplayedOverall = (tasks: PlayTask[]) => {
-    return tasks?.filter(task => task.playedBy.length === 0)
+    return tasks.filter(task => task.playedBy.length === 0)
 }
 
 export const getUnplayedByMe = (tasks: PlayTask[], player: Player) => {
-    return tasks?.filter(task => !task.playedBy.includes(player?.id))
+    return tasks.filter(task => !task.playedBy.includes(player.id))
 }
 
 export const getLeastPlayedByMe = (tasks: PlayTask[], player: Player) => {
-    const sortedTasks = tasks?.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player))
-    return sortedTasks?.filter(task => countPlayedByPlayer(task.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
+    const sortedTasks = tasks.sort((a, b) => countPlayedByPlayer(a.playedBy, player) - countPlayedByPlayer(b.playedBy, player))
+    return sortedTasks.filter(task => countPlayedByPlayer(task.playedBy, player) === countPlayedByPlayer(sortedTasks[0].playedBy, player))
 }
 
 export const getLeastPlayedOverall = (tasks: PlayTask[]) => {
-    return tasks?.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0]
+    return tasks.sort((a, b) => (a.playedBy.length - b.playedBy.length))[0]
 }
 
 export const fillPlayersIntoMessage = (players: Player[], playTask: PlayTask, currentPlayer: Player) => {
