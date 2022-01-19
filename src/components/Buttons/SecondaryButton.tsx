@@ -1,6 +1,6 @@
 
 type SecondaryButtonProps = {
-    disabled: boolean,
+    disabled?: boolean,
     onClick: (values: any) => void
     dataCy?: string
 }
