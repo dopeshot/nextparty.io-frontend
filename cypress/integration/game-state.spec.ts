@@ -354,9 +354,17 @@ describe('the pain you feel when writing tests', () => {
                 expect(OA().toggleDeveloper).to.be.a("function")
             })
 
-            it('should change the developer mode', () => {
+            it('should change the developer mode false to true', () => {
                 OA().toggleDeveloper()
                 expect(OS().debug.isDeveloper).to.be.true
+            })
+
+            it('should change the developer mode true to false', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.debug.isDeveloper = true
+                })
+                OA().toggleDeveloper()
+                expect(OS().debug.isDeveloper).to.be.false
             })
         })
 
