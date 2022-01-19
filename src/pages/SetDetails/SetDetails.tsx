@@ -1,7 +1,7 @@
 import { DotsHorizontalIcon, PlayIcon } from '@heroicons/react/outline'
 import { RefresherEventDetail } from "@ionic/core"
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast } from "@ionic/react"
-import { useEffect, useRef } from "react"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast, useIonViewWillEnter } from "@ionic/react"
+import { useRef } from "react"
 import { useHistory, useParams } from "react-router"
 import arrowBack from "../../assets/icons/arrowback.svg"
 import refresh from '../../assets/icons/refresh.svg'
@@ -31,7 +31,7 @@ export const SetDetails: React.FC = () => {
 
     const componentMounted = useRef(true)
 
-    useEffect(() => {
+    useIonViewWillEnter(() => {
         loadSetDetails({ setId, componentMounted, history })
 
         // istanbul ignore next // will not reach in tests
