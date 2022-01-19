@@ -1,10 +1,7 @@
-import { Redirect, Route } from 'react-router-dom';
-import { useAppState } from "../../overmind";
+import { Redirect, Route } from "react-router-dom"
+import { useAppState } from "../../overmind"
 
-export const GuestRoute = ({ component: Component, redirectWhenLoggedIn, ...props }: any) => {
+export const GuestRoute = ({ component, redirectWhenLoggedIn, path, ...rest }: any) => {
     const { isLoggedIn } = useAppState().profile
-
-    return (
-        <Route {...props} render={(props) => (isLoggedIn && redirectWhenLoggedIn) ? <Redirect to={redirectWhenLoggedIn} /> : <Component {...props} />} />
-    );
+    return isLoggedIn ? <Redirect from={path} to={redirectWhenLoggedIn || "/"} /> : <Route component={component} path={path} {...rest} />
 }

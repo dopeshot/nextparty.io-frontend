@@ -1,7 +1,7 @@
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonPage, IonProgressBar, IonToolbar, useIonActionSheet, useIonAlert, useIonRouter, useIonViewDidLeave, useIonViewWillEnter } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
-import { useHistory, useParams } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import trash from "../../assets/icons/trash.svg";
 import { SecondaryButton } from "../../components/Buttons/SecondaryButton";
 import { MetaEditor } from "../../components/Editor/MetaEditor";
@@ -9,15 +9,16 @@ import { TaskEditor } from "../../components/Editor/TaskEditor";
 import { useActions, useAppState } from "../../overmind";
 
 
-type EditorParams = {
-    setId: string
-}
-export const Editor: React.FC = () => {
+interface EditorParams extends RouteComponentProps<{
+    setId?: string
+}> { }
+
+
+export const Editor: React.FC<EditorParams> = ({ match: { params: { setId } } }) => {
 
     const { loadSet, deleteSet, resetSet } = useActions().creative
     const { isLoading, isEdit, set } = useAppState().creative
     const { addSetToGame } = useActions().game
-    const { setId } = useParams<EditorParams>()
     const history = useHistory()
     const ionRouter = useIonRouter()
     const [showDeleteAlert] = useIonAlert()

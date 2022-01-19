@@ -2,7 +2,7 @@ import { DotsHorizontalIcon, PlayIcon } from '@heroicons/react/outline'
 import { RefresherEventDetail } from "@ionic/core"
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast, useIonViewWillEnter } from "@ionic/react"
 import { useRef } from "react"
-import { useHistory, useParams } from "react-router"
+import { RouteComponentProps, useHistory } from "react-router"
 import arrowBack from "../../assets/icons/arrowback.svg"
 import refresh from '../../assets/icons/refresh.svg'
 import { Button } from "../../components/Buttons/Button"
@@ -14,17 +14,14 @@ import { Task } from "../../overmind/explore/state"
 import { replaceStringWithIcon } from "../../services/Utilities"
 import { TaskType } from '../../shared/types/TaskType'
 
-type SetDetailsParams = {
+interface SetDetailsParams extends RouteComponentProps<{
     setId: string
     slug?: string
-}
+}> { }
 
-export const SetDetails: React.FC = () => {
+export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setId } } }) => {
     const [present, dismiss] = useIonToast()
-
     const history = useHistory()
-    const { setId } = useParams<SetDetailsParams>()
-
     const { isLoadingSetDetails, setDetails } = useAppState().explore
     const { loadSetDetails } = useActions().explore
     const { addSetToGame } = useActions().game

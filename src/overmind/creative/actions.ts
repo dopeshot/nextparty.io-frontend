@@ -1,4 +1,3 @@
-import * as H from 'history';
 import { Context } from "..";
 import { SetDto, TaskDto } from "./effects";
 
@@ -15,9 +14,9 @@ export const loadSet = async ({ state, effects }: Context, setId: string) => {
     state.creative.isLoading = false
 }
 
-export const submitSet = async ({ state, effects }: Context, { set, history }: { set: SetDto, history: H.History }) => {
+export const submitSet = async ({ state, effects }: Context, set: SetDto) => {
     state.creative.isSubmitting = true
-
+    let responseOfNewCreation
     try {
         if (state.creative.isEdit) {
             if (!state.creative.set?._id) {
@@ -31,14 +30,15 @@ export const submitSet = async ({ state, effects }: Context, { set, history }: {
             }
         }
         else {
-            const response = await effects.creative.createSet(set)
-            history.replace(`/account/creative/${response.data._id}`)
+            responseOfNewCreation = await effects.creative.createSet(set)
         }
     } catch (error) {
         console.error(error)
     }
 
     state.creative.isSubmitting = false
+
+    return responseOfNewCreation
 }
 
 export const deleteSet = async ({ state, effects }: Context) => {

@@ -1,15 +1,14 @@
 import { IonContent, IonHeader, IonPage, IonProgressBar, IonToolbar, useIonViewWillEnter } from '@ionic/react';
-import { useParams } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 import { EmailVerifyComponent } from '../../components/Profile/EmailVerifyComponent';
 import { useActions, useAppState } from '../../overmind';
 
-type EmailVerifyParams = {
-    code: string
-}
 
-export const EmailVerify: React.FC = () => {
-    const { code } = useParams<EmailVerifyParams>()
+interface EmailVerifyParams extends RouteComponentProps<{
+    code: string;
+}> { }
 
+export const EmailVerify: React.FC<EmailVerifyParams> = ({ match: { params: { code } } }) => {
     const { verifyMail } = useActions().profile
     const { emailVerified, isEmailVerifying } = useAppState().profile
 

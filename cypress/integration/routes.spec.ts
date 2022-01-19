@@ -60,7 +60,7 @@ describe('Routes', () => {
             cy.get('[data-cy="app-nav-profile"]').click()
             cy.get('h1').contains('Create your own questions')
         })
-
+        
         it('should display login when visit /account/profile', () => {
             cy.visit('/account/profile')
             cy.get('h1').contains('Welcome back!')

@@ -32,8 +32,10 @@ export const MetaEditor: React.FC = () => {
         visibility: Yup.string().oneOf(Object.values(Visibility)).required()
     })
 
-    const submitForm = (values: typeof initialValues) => {
-        submitSet({ set: values, history })
+    const submitForm = async (values: typeof initialValues) => {
+        const response = await submitSet(values)
+        if (response)
+            history.replace(`/account/profile/creative/${response.data._id}`)
     }
 
     return <Formik enableReinitialize initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
