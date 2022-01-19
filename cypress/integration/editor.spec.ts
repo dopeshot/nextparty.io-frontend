@@ -1,6 +1,6 @@
 import set from '../fixtures/set.json'
 
-describe.only('Editor', () => {
+describe('Editor', () => {
     describe('Navigate', () => {
         beforeEach(() => {
             cy.visit('/account/login')

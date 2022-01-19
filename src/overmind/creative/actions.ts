@@ -19,7 +19,7 @@ export const submitSet = async ({ state, effects }: Context, set: SetDto) => {
     let responseOfNewCreation
     try {
         if (state.creative.isEdit) {
-            /* istanbul ignore if // should not happen */
+            /* istanbul ignore next // should not happen */
             if (!state.creative.set?._id) {
                 console.error("There is an error with the set id")
                 return
@@ -67,7 +67,7 @@ export const addTask = async ({ state, effects }: Context, {
 }: { setId: string, task: TaskDto }) => {
     try {
         const response = await effects.creative.addTask(setId, task)
-        /* istanbul ignore if // should not happen */
+        /* istanbul ignore next // should not happen */
         if (!state.creative.set?.tasks)
             state.creative.set!.tasks = []
         state.creative.set?.tasks.push(response.data)
