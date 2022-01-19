@@ -36,16 +36,20 @@ export const App: React.FC = () => {
             <IonTabs>
                 <IonRouterOutlet>
                     <Route exact path="/player" component={Player} />
-                    <Route exact path="/game/ingame" component={InGame} />
+
                     <Route exact path="/game" component={Game} />
+                    <Route path="/game/ingame" component={InGame} />
+
                     <Route exact path="/explore" component={Explore} />
-                    <Route exact path="/explore/:setId/:slug?" component={SetDetails} />
+                    <Route path="/explore/:setId/:slug?" component={SetDetails} />
+
                     <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={GuestLanding} />
-                    <Route exact path="/account/verify-account/:code" component={EmailVerify} />
-                    <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
-                    <GuestRoute exact path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
+                    <Route path="/account/verify-account/:code" component={EmailVerify} />
+                    <GuestRoute path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
+                    <GuestRoute path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
                     <PrivateRoute exact path="/account/profile" component={Profile} />
-                    <Route exact path="/account/creative/:setId?" component={Editor} />
+                    <Route path="/account/profile/creative/:setId?" component={Editor} />
+
                     <Route exact path="/">
                         <Redirect to="/explore" />
                     </Route>
