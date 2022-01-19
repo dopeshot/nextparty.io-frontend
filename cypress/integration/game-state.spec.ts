@@ -2,8 +2,8 @@ import { createOvermindMock } from "overmind"
 import { config } from "../../src/overmind"
 import { GameStatus, StartGameErrors } from "../../src/overmind/game/state"
 import { TaskType } from "../../src/shared/types/TaskType"
-import { getMockPlayers, getMockPlayersWithPossibleTaskCount } from "../game-mock-data.ts/players"
-import { getMockSoloPlayerSet } from "../game-mock-data.ts/set"
+import { getGenders, getMockPlayers, getMockPlayersWithPossibleTaskCount } from "../game-mock-data.ts/players"
+import { getMockSoloPlayerSet, getMockUnplayableSet } from "../game-mock-data.ts/set"
 let overmind = createOvermindMock(config)
 const OA = () => overmind.actions.game
 const OS = () => overmind.state.game
@@ -150,6 +150,42 @@ describe('the pain you feel when writing tests', () => {
                 OA().pickTaskType(TaskType.TRUTH)
                 cy.get('@consoleError').should('be.calledOnce')
                 expect(OS().gameStatus).to.equal(GameStatus.TYPE_PICKED)
+            })
+        })
+
+        describe('isPossibleTask', () => {
+            before(() => {
+                expect(OA().isPossibleTask).to.be.a("function")
+            })
+
+            it('should return false if there is no set', () => {
+                expect(OA().isPossibleTask(TaskType.TRUTH)).to.be.false
+            })
+
+            it('should return false if there is no task for this player', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.set = getMockUnplayableSet()
+                    state.game.currentPlayer = getMockPlayers()[0]
+                })
+                expect(OA().isPossibleTask(TaskType.TRUTH)).to.be.false
+            })
+
+            it('should return false if there are no FillableTasks this player', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.set = getMockUnplayableSet()
+                    state.game.currentPlayer = getMockPlayers()[1]
+                    state.game.playersGenderCount = getGenders()
+                })
+                expect(OA().isPossibleTask(TaskType.TRUTH)).to.be.false
+            })
+
+            it('should return true if there are tasks to play', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.set = getMockSoloPlayerSet()
+                    state.game.currentPlayer = getMockPlayers()[1]
+                    state.game.playersGenderCount = getGenders()
+                })
+                expect(OA().isPossibleTask(TaskType.TRUTH)).to.be.true
             })
         })
 
