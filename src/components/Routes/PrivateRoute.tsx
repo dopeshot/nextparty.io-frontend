@@ -12,5 +12,5 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ component, ...props 
         return isLoggedIn ? <Redirect to="/account/profile" /> : <Route {...props} component={component} />
     }
 
-    return !isLoggedIn ? <Redirect to="/account/profile" /> : <Route {...props} component={component} />
+    return !isLoggedIn ? <Redirect to="/account/login" /> : <Route {...props} component={component} />
 }
