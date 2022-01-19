@@ -110,5 +110,33 @@ describe('the pain you feel when writing tests', () => {
             })
         })
 
+        describe('nextPlayer', () => {
+            before(() => {
+                expect(OA().nextPlayer).to.be.a("function")
+            })
+
+            it('should set nextPlayerIndex to 0 when maximum players is reached', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.currentPlayerIndex = 2
+                    state.game.players = getMockPlayers()
+                })
+                OA().nextPlayer()
+                expect(OS().currentPlayerIndex).to.equal(0)
+                expect(OS().gameStatus).to.equal(GameStatus.PLAYER_PICKED)
+                expect(OS().debug.playerLog[0]).to.be.oneOf(["0 - malePlayer", "0 - femalePlayer", "0 - diversPlayer"])
+            })
+
+            it('should increase nextPlayerIndex if players max is not reached yet', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.currentPlayerIndex = 1
+                    state.game.players = getMockPlayers()
+                })
+                OA().nextPlayer()
+                expect(OS().currentPlayerIndex).to.equal(getMockPlayers().length - 1)
+                expect(OS().gameStatus).to.equal(GameStatus.PLAYER_PICKED)
+                expect(OS().debug.playerLog[0]).to.be.oneOf(["2 - malePlayer", "2 - femalePlayer", "2 - diversPlayer"])
+            })
+        })
+
     })
 })
