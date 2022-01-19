@@ -212,7 +212,7 @@ export const toggleDeveloper = ({ state }: Context) => {
 
 export const hideTabBar = ({ state }: Context, bool: boolean) => {
     // MC: Check before you replace to not rerender when not needed 
-    if (bool && state.game.hideTabBar !== bool)
+    if (state.game.hideTabBar !== bool)
         state.game.hideTabBar = bool
 }
 
