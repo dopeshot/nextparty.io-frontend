@@ -13,6 +13,12 @@ declare global {
             getSets(): void
 
             /**
+             * Custom command to intercept add set request
+             * @addSet cy.addSet()
+             */
+            addSet(): void
+
+            /**
              * Custom command to intercept get one set request
              * @getOneSet cy.getOneSet()
              */

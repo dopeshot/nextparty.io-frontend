@@ -6,6 +6,13 @@ Cypress.Commands.add('getSets', () => {
     }).as('getSets')
 })
 
+Cypress.Commands.add('addSet', () => {
+    cy.intercept('POST', `${api}/sets`, {
+        fixture: 'set.json'
+    }).as('addSet')
+})
+
+
 Cypress.Commands.add('getOneSet', () => {
     cy.intercept('GET', `${api}/sets/**`, {
         fixture: 'set.json'
@@ -80,7 +87,6 @@ Cypress.Commands.add('registerDuplicateUsername', () => {
         },
     }).as('registerDuplicateUsername')
 })
-
 
 Cypress.Commands.add('getSetsFromUser', () => {
     cy.intercept('GET', `${api}/sets/user/**`, {
