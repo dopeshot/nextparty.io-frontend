@@ -228,5 +228,21 @@ describe('the pain you feel when writing tests', () => {
                 expect(OS().debug.isDeveloper).to.be.true
             })
         })
+
+        describe('hideTabBar', () => {
+            before(() => {
+                expect(OA().hideTabBar).to.be.a("function")
+            })
+
+            it('should change the hideTabBar if payload is true while it was false', () => {
+                OA().hideTabBar(true)
+                expect(OS().hideTabBar).to.be.true
+            })
+
+            it('should not change the hideTabBar if payload is false while it was false', () => {
+                OA().hideTabBar(false)
+                expect(OS().hideTabBar).to.be.false
+            })
+        })
     })
 })
