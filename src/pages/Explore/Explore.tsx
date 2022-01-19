@@ -49,11 +49,11 @@ export const Explore: React.FC = () => {
                       </div>
                     ))}
                   </div>)}
-              </IonList >
-            </div >
+              </IonList>
+            </div>
           )}
-        </div >
-      </IonContent >
-    </IonPage >
+        </div>
+      </IonContent>
+    </IonPage>
   )
 }

@@ -18,9 +18,13 @@ export const InGame: React.FC = () => {
     } = useActions().game
 
     useIonViewWillEnter(() => {
-        hideTabBar(true)
-        launchGame(history)
-        setSeoTitle('Ingame')
+        if (launchGame()) {
+            hideTabBar(true)
+            setSeoTitle('Ingame')
+        } else {
+            // Push back to game
+            history.replace('/game')
+        }
     }, [launchGame])
 
     useIonViewWillLeave(() => {

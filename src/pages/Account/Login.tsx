@@ -1,6 +1,7 @@
 import { LoginIcon } from '@heroicons/react/outline';
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonToolbar, useIonViewWillEnter, useIonViewWillLeave } from '@ionic/react';
 import { Form, Formik } from "formik";
+import { useHistory } from 'react-router';
 import * as Yup from "yup";
 import arrowBack from "../../assets/icons/arrowback.svg";
 import { Button } from '../../components/Buttons/Button';
@@ -14,14 +15,16 @@ import { setSeoTitle } from '../../services/Utilities';
 export const Login: React.FC = () => {
     const { login, resetError } = useActions().profile
     const { profile: { authenticating, error }, game: { set } } = useAppState()
+    const history = useHistory()
 
     const initialValues = {
         email: "",
         password: ""
     }
 
-    const submitForm = (values: typeof initialValues) => {
-        login(values)
+    const submitForm = async (values: typeof initialValues) => {
+        await login(values)
+        history.replace('/account/profile')
     }
 
     const validationSchema = Yup.object().shape({
