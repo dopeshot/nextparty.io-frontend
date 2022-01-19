@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar, us
 import { SetItem } from '../../components/SetItem/SetItem';
 import { useActions, useAppState } from '../../overmind';
 import { Set } from '../../overmind/explore/state';
-import { setSeoTitle } from '../../services/utilities/setSeoTitle';
+import { setSeoTitle } from '../../services/Utilities';
 
 export const Explore: React.FC = () => {
   const { isLoadingSets, sets } = useAppState().explore
@@ -14,10 +14,10 @@ export const Explore: React.FC = () => {
   }, [loadExplore])
 
   return (
-    <IonPage className="bg-background-black">
+    <IonPage className="bg-dark-700">
       <IonHeader className="container ion-no-border my-4">
         <IonToolbar color="transparent">
-          <h1 className="text-3xl font-bold text-white">Explore</h1>
+          <h1 className="text-3xl font-bold text-light-500">Explore</h1>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -27,7 +27,7 @@ export const Explore: React.FC = () => {
             <div>
               <IonList>
                 {sets.length !== 0 && sets.map((set: Set, index) => (
-                  <SetItem dataCy="explore-set-item" key={set._id} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}/${set.slug}`} />
+                  <SetItem dataCy="explore-set-item" category={set.category} key={set._id} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}/${set.slug}`} />
                 ))}
               </IonList>
             </div>

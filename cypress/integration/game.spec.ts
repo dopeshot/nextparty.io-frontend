@@ -73,30 +73,29 @@ describe('Game', () => {
             cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
         })
 
-        // Buggy with cypress issue: https://github.com/cypress-io/cypress/issues/14722
-        // it('container should have height: 250px when message shorter than 100 letters when longer than height: 450px', () => {
-        //     cy.visit('/game')
-        //     cy.overmind().its('actions').invoke('game.resetSet')
-        //     cy.overmind().its('actions').invoke('game.addTestSet', "longmessage")
-
-        //     cy.overmind().its('state.game.set.name').then((name: string) => {
-        //         cy.get('[data-cy="game-set-actionblock"]').contains(name)
-        //         cy.get('[data-cy="game-play-button"]').click()
-
-        //         // Short Message
-        //         cy.get('[data-cy="choosetask-truth-button"]').click()
-        //         cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "250px").click()
-
-        //         // Long Message
-        //         cy.get('[data-cy="choosetask-dare-button"]').click()
-        //         cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "450px").click()
-        //     })
-        // })
-
         it('should hide tabbar when you are ingame and display again when you leave screen', () => {
             cy.get('[data-cy="app-tabbar"]').should('not.be.visible')
             cy.get('[data-cy="ingame-back-button"]').click()
             cy.get('[data-cy="app-tabbar"]').should('be.visible')
+        })
+
+
+        it('should show hide truth/dare button when player has no task', () => {
+            cy.visit('/game')
+            cy.overmind().its('actions').invoke('game.resetSet')
+            cy.overmind().its('actions').invoke('game.addTestSet', "noPossibleTasks")
+
+            cy.overmind().its('state.game.set.name').then((name: string) => {
+                cy.get('[data-cy="game-set-actionblock"]').contains(name)
+                cy.get('[data-cy="game-play-button"]').click()
+
+                cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+                cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
+
+                cy.get('button').click()
+
+                cy.contains("It's your turn!").should('exist')
+            })
         })
     })
 
@@ -136,16 +135,16 @@ describe('Game', () => {
         })
 
         it('should have play button disabled when both set and players are not selected', () => {
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
         })
 
         it('should have play button disabled when set or players are not selected', () => {
             cy.overmind().its('actions').invoke('game.addTestSet')
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
 
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('players.addTestPlayer')
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
         })
 
         it('should change to Ingame Page when click play button and both set and players are selected', () => {

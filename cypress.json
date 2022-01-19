@@ -6,5 +6,9 @@
         "apiUrl": "http://localhost:3001/api"
     },
     "pluginsFile": "cypress/plugins/index.ts",
-    "supportFile": "cypress/support/index.ts"
+    "supportFile": "cypress/support/index.ts",
+    "component": {
+        "componentFolder": "src",
+        "testFiles": "**/*spec.{js,jsx,ts,tsx}"
+    }
 }

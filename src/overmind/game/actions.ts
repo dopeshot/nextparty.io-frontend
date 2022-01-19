@@ -2,7 +2,7 @@ import { History } from 'history';
 import { Context } from "..";
 import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
-import { countGenderOccurrences } from "../../services/utilities/utilities";
+import { countGenderOccurrences } from "../../services/Utilities";
 import { Language } from '../../shared/enums/Language';
 import { Visibility } from '../../shared/enums/Visibility';
 import { SetCategory } from '../../shared/types/SetCategory';
@@ -12,7 +12,7 @@ import { Set } from '../explore/state';
 import { playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, StartGameErrors } from "./state";
 
-export const launchGame = ({ actions }: Context, history: History) => {
+export const launchGame = ({ actions, effects }: Context, history: History) => {
     const isPossibleToPlay = actions.game.isPossibleToPlay()
 
     if (!isPossibleToPlay.status) {
@@ -25,6 +25,18 @@ export const launchGame = ({ actions }: Context, history: History) => {
     }
     actions.game.newGame()
     actions.game.nextPlayer()
+    actions.game.updatePlayed()
+}
+
+export const updatePlayed = async ({ state, effects }: Context) => {
+    if (!state.game.set)
+        return
+
+    try {
+        await effects.game.updatePlayed(state.game.set._id)
+    } catch (error) /* istanbul ignore next // should not happen */ {
+        console.error(error)
+    }
 }
 
 export const isPossibleToPlay = ({ state }: Context) => {
@@ -217,7 +229,7 @@ export const resetSet = ({ state }: Context) => {
 /**
  * For Testing
  */
-export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | "longmessage") => {
+export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | "noPossibleTasks") => {
     const onlyTruths: (Set & { tasks: PlayTask[] }) = {
         "_id": "61a7bd4c08c2192fcff61461",
         "dareCount": 0,
@@ -302,6 +314,36 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         ]
     }
 
+    const noPossibleTasks: (Set & { tasks: PlayTask[] }) = {
+        "_id": "61a7bd4c08c2192fcff61465",
+        "dareCount": 1,
+        "truthCount": 1,
+        "played": 0,
+        "visibility": Visibility.PUBLIC,
+        "category": SetCategory.CLASSIC,
+        "language": Language.DE,
+        "createdBy": {
+            "_id": "61952ca8a3b39d65488ac330",
+            "username": "Zoe"
+        },
+        "name": "No Tasks",
+        "slug": "no-tasks",
+        "tasks": [
+            {
+                "currentPlayerGender": TaskCurrentPlayerGender.FEMALE,
+                "_id": "61a7bd4c08c2192fcff614d0",
+                "type": TaskType.DARE,
+                "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @f's Pobacke",
+                "requires": {
+                    "male": 0,
+                    "female": 1,
+                    "any": 0
+                },
+                "playedBy": []
+            }
+        ]
+    }
+
     const both: (Set & { tasks: PlayTask[] }) = {
         "_id": "61a7bd4c08c2192fcff61465",
         "dareCount": 1,
@@ -344,48 +386,6 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         ]
     }
 
-    const longmessage: (Set & { tasks: PlayTask[] }) = {
-        "_id": "61a7bd4c08c2192fcff61465",
-        "dareCount": 1,
-        "truthCount": 1,
-        "played": 0,
-        "visibility": Visibility.PUBLIC,
-        "category": SetCategory.CLASSIC,
-        "language": Language.DE,
-        "createdBy": {
-            "_id": "61952ca8a3b39d65488ac330",
-            "username": "Zoe"
-        },
-        "name": "Long Message",
-        "slug": "long-message",
-        "tasks": [
-            {
-                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
-                "_id": "61a7bd4c08c2192fcff614d0",
-                "type": TaskType.DARE,
-                "message": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,",
-                "requires": {
-                    "male": 0,
-                    "female": 0,
-                    "any": 0
-                },
-                "playedBy": []
-            },
-            {
-                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
-                "_id": "61a7bd4c08c2192fcff614d1",
-                "type": TaskType.TRUTH,
-                "message": "Wie viele Partner*innen hattest du bis jetzt?",
-                "requires": {
-                    "male": 0,
-                    "female": 0,
-                    "any": 0
-                },
-                "playedBy": []
-            }
-        ]
-    }
-
     if (!onlyTaskType) {
         state.game.set = both
     }
@@ -397,8 +397,8 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         case "dare":
             state.game.set = onlyDares
             break
-        case "longmessage":
-            state.game.set = longmessage
+        case "noPossibleTasks":
+            state.game.set = noPossibleTasks
             break
         default:
             state.game.set = both

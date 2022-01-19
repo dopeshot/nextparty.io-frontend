@@ -20,80 +20,92 @@ declare global {
 
             /**
              * Custom command to get overmind window object
-             * @getOneSet cy.overmind()
+             * @overmind cy.overmind()
              */
             overmind(): Chainable
 
             /**
              * Custom command to intercept login
-             * @getOneSet cy.login()
+             * @login cy.login()
              */
             login(): void
 
             /**
              * Custom command to intercept login when credentials are wrong
-             * @getOneSet cy.login()
+             * @loginWrongCredentials cy.loginWrongCredentials()
              */
             loginWrongCredentials(): void
 
             /**
              * Custom command to intercept login when user is banned
-             * @getOneSet cy.login()
+             * @loginBannedUser cy.loginBannedUser()
              */
             loginBannedUser(): void
             /**
              * Custom command to intercept register
-             * @getOneSet cy.register()
+             * @register cy.register()
              */
             register(): void
 
             /**
              * Custom command to intercept register when email is duplicated
-             * @getOneSet cy.registerDuplicateEmail()
+             * @registerDuplicateEmail cy.registerDuplicateEmail()
              */
             registerDuplicateEmail(): void
 
             /**
              * Custom command to intercept register when username is duplicated
-             * @getOneSet cy.registerDuplicateUsername()
+             * @registerDuplicateUsername cy.registerDuplicateUsername()
              */
             registerDuplicateUsername(): void
 
             /**
              * Custom command to intercept getSetsFromUser
-             * @getOneSet cy.getSetsFromUser()
+             * @getSetsFromUser cy.getSetsFromUser()
              */
             getSetsFromUser(): void
 
             /**
              * Custom command to intercept getSetsFromUser with empty array return
-             * @getOneSet cy.getEmptySetsFromUser()
+             * @getEmptySetsFromUser cy.getEmptySetsFromUser()
              */
             getEmptySetsFromUser(): void
 
             /**
              * Custom command to intercept getProfile verified user
-             * @getOneSet cy.getProfileVerified()
+             * @getProfileVerified cy.getProfileVerified()
              */
             getProfileVerified(): void
 
             /**
              * Custom command to intercept getProfile unverified user
-             * @getOneSet cy.getProfileVerified()
+             * @getProfileUnverified cy.getProfileVerified()
              */
             getProfileUnverified(): void
 
             /**
-             * Custom command to intercept all request to database and simulate timeout
-             * @getOneSet cy.databasedown()
+             * Custom command to intercept all request to database and simulate timeout when post request
+             * @databasedownPost cy.databasedownPost()
              */
-            databasedown(): void
+            databasedownPost(): void
 
             /**
-             * Custom command to intercept all rmail verification requests with response fail and success
-             * @getOneSet cy.getMail("success")
+            * Custom command to intercept all request to database and simulate timeout when post request
+            * @databasedownGet cy.databasedownGet()
+              */
+            databasedownGet(): void
+
+            /**
+             * Custom command to intercept all email verification requests with response fail and success
+             * @getMail cy.getMail("success")
              */
             getMail(response: "fail" | "success"): void
+
+            /**
+             * Custom command to intercept all resend email verification requests with response fail and success
+             * @resendMail cy.resendMail()
+             */
+            resendMail(): void
         }
     }
 }

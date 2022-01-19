@@ -1,5 +1,5 @@
 import { derived } from "overmind"
-import { parseJwt } from "../../services/utilities/parseJwt"
+import { parseJwt } from "../../services/Utilities"
 import { Set } from "../explore/state"
 
 export type CurrentUser = {

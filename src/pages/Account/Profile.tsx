@@ -3,7 +3,6 @@ import { RefresherEventDetail } from "@ionic/core";
 import { IonContent, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, useIonActionSheet, useIonToast, useIonViewWillEnter } from "@ionic/react";
 import { useState } from "react";
 import { useHistory } from "react-router";
-import example from '../../assets/example.png';
 import signout from '../../assets/icons/logout.svg';
 import refresh from '../../assets/icons/refresh.svg';
 import { Button } from "../../components/Buttons/Button";
@@ -12,11 +11,11 @@ import { CountItem } from "../../components/Profile/CountItem";
 import { SetItem } from "../../components/SetItem/SetItem";
 import { useActions, useAppState } from "../../overmind";
 import { Set } from "../../overmind/explore/state";
-import { setSeoTitle } from "../../services/utilities/setSeoTitle";
+import { setSeoTitle } from "../../services/Utilities";
 
 export const Profile: React.FC = () => {
-    const { currentUser, isLoadingSets, sets, userDetailed } = useAppState().profile
-    const { profile: { getSetsByUser, logout, resendMail, getUserDetailed }, creative: { createNewSet, editSet } } = useActions()
+    const { profile: { currentUser, isLoadingSets, sets, userDetailed }, game: { set } } = useAppState()
+    const { getSetsByUser, logout, resendMail, getUserDetailed } = useActions().profile
     const [present] = useIonActionSheet()
     const [presentToast, dismiss] = useIonToast()
     const history = useHistory()
@@ -42,21 +41,21 @@ export const Profile: React.FC = () => {
     }
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-background-black" style={{ backgroundImage: `url('${example}')`, backgroundSize: '100% 320px', backgroundPosition: 'top' }}>
+        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 320px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
             <IonContent style={{ "--background": "transparent" }}>
                 <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
                     <IonRefresherContent pullingIcon={refresh}
                         refreshingSpinner="circles" />
                 </IonRefresher>
-                <div className="bg-gradient-to-t from-background-black w-full">
+                <div className="bg-gradient-to-t from-dark-700 w-full">
                     <div className="container pb-12 md:pb-20">
                         <div className="flex justify-between pt-14 pb-6 md:pb-10">
                             <div className="flex items-center">
-                                <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `url(${example})`, minWidth: "100px" }}></div>
+                                <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `${set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')`}`, minWidth: "100px" }}></div>
                                 <h1 className="text-2xl text-white font-bold break-all px-4 pb-4">{currentUser?.username}</h1>
                             </div>
                             <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => logout() }], header: 'Settings' })}>
-                                <CogIcon className="w-6 h-6" />
+                                <CogIcon className="text-light-500 w-6 h-6" />
                             </button>
                         </div>
 
@@ -71,7 +70,7 @@ export const Profile: React.FC = () => {
                             </>}
                     </div>
                 </div>
-                <div className="bg-background-black">
+                <div className="bg-dark-700">
                     <div className="container">
                         <div>
                             {!isLoadingSets &&
@@ -91,7 +90,6 @@ export const Profile: React.FC = () => {
                                             }
                                         }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
                                         : <NoData onClick={() => {
-                                            createNewSet()
                                             history.push("/account/creative")
                                         }} dataCy="profile-no-data-verified" Icon={PlusIcon} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
                                     :
@@ -99,13 +97,12 @@ export const Profile: React.FC = () => {
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                             <h2 className="text-lg font-semibold">Your Sets</h2>
                                             <Button type="button" onClick={() => {
-                                                createNewSet()
                                                 history.push("/account/creative")
                                             }} Icon={PlusIcon} className="w-34 px-7">New</Button>
                                         </div>
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
-                                                <SetItem dataCy="profile-set-item" onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
+                                                <SetItem dataCy="profile-set-item" category={set.category} link={`/account/creative/${set._id}`} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
                                             ))}
                                         </IonList>
                                     </>
