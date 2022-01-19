@@ -189,5 +189,11 @@ describe('the pain you feel when writing tests', () => {
             })
         })
 
+        describe('findTask', () => {
+            before(() => {
+                expect(OA().findTask).to.be.a("function")
+            })
+        })
+
     })
 })
