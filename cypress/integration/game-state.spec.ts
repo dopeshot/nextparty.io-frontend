@@ -41,12 +41,6 @@ describe('the pain you feel when writing tests', () => {
             before(() => {
                 expect(OA().launchGame).to.be.a("function")
             })
-
-            // it('should be null if setDetails is in initial state', () => {
-
-            //     await OA().launchGame()
-            //     expect(OS().set).to.be.null
-            // })
         })
 
         describe('isPossibleToPlay', () => {
@@ -62,7 +56,7 @@ describe('the pain you feel when writing tests', () => {
                 expect(OA().isPossibleToPlay()).to.eql({ status: true, errors: [] })
             })
 
-            it('should return return PLAYERS error if not enough players', () => {
+            it('should return PLAYERS error if not enough players', () => {
                 overmind = createOvermindMock(config, (state) => {
                     state.players.players = []
                     state.game.set = getMockSoloPlayerSet()
@@ -70,18 +64,22 @@ describe('the pain you feel when writing tests', () => {
                 expect(OA().isPossibleToPlay()).to.eql({ status: false, errors: [StartGameErrors.PLAYERS] })
             })
 
-            it('should return return SET error if set is null', () => {
-                expect(OA().isPossibleToPlay()).to.eql({ status: false, errors: [StartGameErrors.SET] })
-            })
-
-            it('should return return SET error if set length is 0', () => {
+            it('should return SET error if set is null', () => {
                 overmind = createOvermindMock(config, (state) => {
-                    state.game.set = { ...getMockSoloPlayerSet(), tasks: [] }
+                    state.players.players = getMockPlayers()
                 })
                 expect(OA().isPossibleToPlay()).to.eql({ status: false, errors: [StartGameErrors.SET] })
             })
 
-            it('should return return both errors if not enough players and set null', () => {
+            it('should return SET error if set length is 0', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.set = { ...getMockSoloPlayerSet(), tasks: [] }
+                    state.players.players = getMockPlayers()
+                })
+                expect(OA().isPossibleToPlay()).to.eql({ status: false, errors: [StartGameErrors.SET] })
+            })
+
+            it('should return both errors if not enough players and set null', () => {
                 overmind = createOvermindMock(config, (state) => {
                     state.players.players = []
                 })
