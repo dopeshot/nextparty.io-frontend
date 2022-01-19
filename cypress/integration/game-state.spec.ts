@@ -217,5 +217,16 @@ describe('the pain you feel when writing tests', () => {
             })
 
         })
+
+        describe('toggleDeveloper', () => {
+            before(() => {
+                expect(OA().toggleDeveloper).to.be.a("function")
+            })
+
+            it('should change the developer mode', () => {
+                OA().toggleDeveloper()
+                expect(OS().debug.isDeveloper).to.be.true
+            })
+        })
     })
 })
