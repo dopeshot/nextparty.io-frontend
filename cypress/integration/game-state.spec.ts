@@ -195,6 +195,12 @@ describe('the pain you feel when writing tests', () => {
             })
         })
 
+        describe('generateFinalMessage', () => {
+            before(() => {
+                expect(OA().generateFinalMessage).to.be.a("function")
+            })
+        })
+
         describe('addSetToGame', () => {
             before(() => {
                 expect(OA().addSetToGame).to.be.a("function")
