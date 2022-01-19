@@ -1,5 +1,5 @@
 
-describe.only('Editor', () => {
+describe('Editor', () => {
     describe('Navigate', () => {
         beforeEach(() => {
             cy.visit('/account/profile')
