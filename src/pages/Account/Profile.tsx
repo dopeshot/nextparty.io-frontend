@@ -90,19 +90,19 @@ export const Profile: React.FC = () => {
                                             }
                                         }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
                                         : <NoData onClick={() => {
-                                            history.push("/account/creative")
+                                            history.push("/account/profile/creative")
                                         }} dataCy="profile-no-data-verified" Icon={PlusIcon} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
                                     :
                                     <>
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                             <h2 className="text-lg font-semibold">Your Sets</h2>
                                             <Button type="button" onClick={() => {
-                                                history.push("/account/creative")
+                                                history.push("/account/profile/creative")
                                             }} Icon={PlusIcon} className="w-34 px-7">New</Button>
                                         </div>
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
-                                                <SetItem dataCy="profile-set-item" category={set.category} link={`/account/creative/${set._id}`} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
+                                                <SetItem dataCy="profile-set-item" category={set.category} link={`/account/profile/creative/${set._id}`} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
                                             ))}
                                         </IonList>
                                     </>
