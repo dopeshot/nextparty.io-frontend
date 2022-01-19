@@ -29,7 +29,6 @@ export const launchGame = ({ actions }: Context, history: History) => {
 
 export const isPossibleToPlay = ({ state }: Context) => {
     const errors: StartGameErrors[] = []
-
     if (state.players.players.length < playerRequiredToPlay) {
         errors.push(StartGameErrors.PLAYERS)
     }
@@ -43,7 +42,8 @@ export const isPossibleToPlay = ({ state }: Context) => {
         errors
     }
 }
-export const newGame = ({ state, actions }: Context) => {
+
+export const newGame = ({ state }: Context) => {
     // MC: We know that state.game.set is not null here.
     if (!state.game.set)
         return
@@ -103,11 +103,9 @@ export const isPossibleTask = ({ state }: Context, taskType: TaskType) => {
 
     if (!state.game.set)
         return false // There is data missing
-
     let tasks = getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType)
     if (tasks.length === 0)
         return false // This player has no possible tasks at all
-
     tasks = getFillableTasks(tasks, state.game.currentPlayer, state.game.playersGenderCount)
     if (tasks.length === 0)
         return false // This group has no possible tasks for this player
@@ -201,7 +199,8 @@ export const toggleDeveloper = ({ state }: Context) => {
 }
 
 export const hideTabBar = ({ state }: Context, bool: boolean) => {
-    if (state.game.hideTabBar !== bool)
+    // MC: Check before you replace to not rerender when not needed 
+    if (bool && state.game.hideTabBar !== bool)
         state.game.hideTabBar = bool
 }
 
