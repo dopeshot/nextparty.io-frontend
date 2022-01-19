@@ -30,6 +30,19 @@ describe('the pain you feel when writing tests', () => {
             expect(OS().debug).to.eql({ tasksUnplayedAtAll: 0, tasksPlayedOnce: 0, tasksPlayedMoreThanOnce: 0, isDeveloper: false, playerLog: [] })
         })
 
+        // MD: Idk in what frontend stuff I am working here no clue what to google for mocking launchGame or history
+        describe('launchGame', () => {
+            before(() => {
+                expect(OA().launchGame).to.be.a("function")
+            })
+
+            // it('should be null if setDetails is in initial state', () => {
+
+            //     await OA().launchGame()
+            //     expect(OS().set).to.be.null
+            // })
+        })
+
 
 
     })
