@@ -11,9 +11,7 @@ export const setToken = ({ state }: Context, token?: string) => {
     if (!token) {
         state.profile.accessToken = null
         delete request.defaults.headers.common['Authorization']
-    }
-
-    if (token) {
+    } else {
         state.profile.accessToken = token
         request.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
@@ -49,6 +47,7 @@ export const loginWithGoogle = async ({ state, effects, actions }: Context, goog
 
         actions.profile.setToken(access_token)
         state.profile.error = null
+        return true
     } catch (error) {
         console.error(error)
         state.profile.error = checkAxiosErrorType(error, actions)

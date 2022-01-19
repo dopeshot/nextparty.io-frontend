@@ -40,6 +40,11 @@ export const Profile: React.FC = () => {
         getProfile(event)
     }
 
+    const doLogout = async () => {
+        await logout()
+        history.replace('/account/login')
+    }
+
     return (
         <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 320px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
             <IonContent style={{ "--background": "transparent" }}>
@@ -54,7 +59,7 @@ export const Profile: React.FC = () => {
                                 <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `${set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')`}`, minWidth: "100px" }}></div>
                                 <h1 className="text-2xl text-white font-bold break-all px-4 pb-4">{currentUser?.username}</h1>
                             </div>
-                            <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => logout() }], header: 'Settings' })}>
+                            <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => doLogout() }], header: 'Settings' })}>
                                 <CogIcon className="text-light-500 w-6 h-6" />
                             </button>
                         </div>
@@ -90,19 +95,19 @@ export const Profile: React.FC = () => {
                                             }
                                         }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
                                         : <NoData onClick={() => {
-                                            history.push("/account/creative")
+                                            history.push("/account/profile/creative")
                                         }} dataCy="profile-no-data-verified" Icon={PlusIcon} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
                                     :
                                     <>
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                             <h2 className="text-lg font-semibold">Your Sets</h2>
                                             <Button type="button" onClick={() => {
-                                                history.push("/account/creative")
+                                                history.push("/account/profile/creative")
                                             }} Icon={PlusIcon} className="w-34 px-7">New</Button>
                                         </div>
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
-                                                <SetItem dataCy="profile-set-item" category={set.category} played={set.played} link={`/account/creative/${set._id}`} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
+                                                <SetItem dataCy="profile-set-item" category={set.category} played={set.played} link={`/account/profile/creative/${set._id}`} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
                                             ))}
                                         </IonList>
                                     </>

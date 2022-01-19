@@ -32,12 +32,14 @@ export const MetaEditor: React.FC = () => {
         visibility: Yup.string().oneOf(Object.values(Visibility)).required()
     })
 
-    const submitForm = (values: typeof initialValues) => {
-        submitSet({ set: values, history })
+    const submitForm = async (values: typeof initialValues) => {
+        const response = await submitSet(values)
+        if (response)
+            history.replace(`/account/profile/creative/${response.data._id}`)
     }
 
     return <Formik enableReinitialize initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
-        <Form className="mb-8">
+        <Form className="mb-4">
             {/** Title input */}
             <div>
                 <label className="text-light-600 mb-1" htmlFor="name">Name</label>

@@ -2,7 +2,7 @@ import { DotsHorizontalIcon, PlayIcon } from '@heroicons/react/outline'
 import { RefresherEventDetail } from "@ionic/core"
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast, useIonViewWillEnter } from "@ionic/react"
 import { useRef } from "react"
-import { useHistory, useParams } from "react-router"
+import { RouteComponentProps, useHistory } from "react-router"
 import arrowBack from "../../assets/icons/arrowback.svg"
 import refresh from '../../assets/icons/refresh.svg'
 import { Button } from "../../components/Buttons/Button"
@@ -14,17 +14,14 @@ import { Task } from "../../overmind/explore/state"
 import { replaceStringWithIcon } from "../../services/Utilities"
 import { TaskType } from '../../shared/types/TaskType'
 
-type SetDetailsParams = {
+interface SetDetailsParams extends RouteComponentProps<{
     setId: string
     slug?: string
-}
+}> { }
 
-export const SetDetails: React.FC = () => {
+export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setId } } }) => {
     const [present, dismiss] = useIonToast()
-
     const history = useHistory()
-    const { setId } = useParams<SetDetailsParams>()
-
     const { isLoadingSetDetails, setDetails } = useAppState().explore
     const { loadSetDetails } = useActions().explore
     const { addSetToGame } = useActions().game
@@ -73,11 +70,11 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-dark-800">
                         <div className="container h-full flex flex-col justify-center">
-                            <Button dataCy='setdetails-play-button' type="button" onClick={(event: any) => {
+                            <Button dataCy='setdetails-play-button' type="button" onClick={!isLoadingSetDetails && setDetails ? (event: any) => {
                                 event.preventDefault()
-                                addSetToGame()
+                                addSetToGame(setDetails._id)
                                 history.push('/game')
-                            }} Icon={PlayIcon}>Play</Button>
+                            } : () => console.warn("set still loading")} Icon={PlayIcon}>Play</Button>
                         </div>
                     </div>
                 </div>

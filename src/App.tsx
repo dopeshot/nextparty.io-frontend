@@ -8,7 +8,6 @@ import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 import { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { GuestRoute } from './components/Routes/GuestRoute';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
 import { useAppState } from './overmind';
 import { EmailVerify } from './pages/Account/EmailVerify';
@@ -36,16 +35,20 @@ export const App: React.FC = () => {
             <IonTabs>
                 <IonRouterOutlet>
                     <Route exact path="/player" component={Player} />
-                    <Route exact path="/game/ingame" component={InGame} />
+
                     <Route exact path="/game" component={Game} />
+                    <Route path="/game/ingame" component={InGame} />
+
                     <Route exact path="/explore" component={Explore} />
-                    <Route exact path="/explore/:setId/:slug?" component={SetDetails} />
-                    <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={GuestLanding} />
-                    <Route exact path="/account/verify-account/:code" component={EmailVerify} />
-                    <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
-                    <GuestRoute exact path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
+                    <Route path="/explore/:setId/:slug?" component={SetDetails} />
+
+                    <Route exact path="/account" component={GuestLanding} />
+                    <PrivateRoute path="/account/login" component={Login} />
+                    <PrivateRoute path="/account/register" component={Register} />
+                    <Route path="/account/verify-account/:code" component={EmailVerify} />
                     <PrivateRoute exact path="/account/profile" component={Profile} />
-                    <Route exact path="/account/creative/:setId?" component={Editor} />
+                    <PrivateRoute path="/account/profile/creative/:setId?" component={Editor} />
+
                     <Route exact path="/">
                         <Redirect to="/explore" />
                     </Route>
