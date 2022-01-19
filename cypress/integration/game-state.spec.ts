@@ -195,5 +195,27 @@ describe('the pain you feel when writing tests', () => {
             })
         })
 
+        describe('addSetToGame', () => {
+            before(() => {
+                expect(OA().addSetToGame).to.be.a("function")
+            })
+
+            it('should be null and print error if setDetails is in initial state', () => {
+
+                cy.stub(window.console, 'error').as('consoleError')
+                OA().addSetToGame()
+                cy.get('@consoleError').should('be.calledOnce')
+                expect(OS().set).to.be.null
+            })
+
+            it('should not be null if setDetails is a set', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.explore.setDetails = getMockSoloPlayerSet()
+                })
+                OA().addSetToGame()
+                expect(OS().set).to.not.be.null
+            })
+
+        })
     })
 })
