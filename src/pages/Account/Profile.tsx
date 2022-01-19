@@ -104,7 +104,7 @@ export const Profile: React.FC = () => {
                                         </div>
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
-                                                <SetItem dataCy="profile-set-item" category={set.category} onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
+                                                <SetItem dataCy="profile-set-item" category={set.category} played={set.played} onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
                                             ))}
                                         </IonList>
                                     </>

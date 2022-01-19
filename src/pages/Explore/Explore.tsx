@@ -26,8 +26,8 @@ export const Explore: React.FC = () => {
           {isLoadingSets ? (<IonProgressBar data-cy="explore-progress-bar" type="indeterminate"></IonProgressBar>) : (
             <div>
               <IonList>
-                {sets.length !== 0 && sets.map((set: Set, index) => (
-                  <SetItem dataCy="explore-set-item" category={set.category} key={set._id} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}/${set.slug}`} />
+                {sets.length !== 0 && sets.map((set: Set) => (
+                  <SetItem dataCy="explore-set-item" played={set.played} category={set.category} key={set._id} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}/${set.slug}`} />
                 ))}
               </IonList>
             </div>

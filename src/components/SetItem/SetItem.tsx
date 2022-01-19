@@ -1,3 +1,4 @@
+import { PlayIcon } from '@heroicons/react/outline';
 import { IonItem } from '@ionic/react';
 import { SetCategory } from '../../shared/types/SetCategory';
 import { DareLabel } from './DareLabel';
@@ -12,9 +13,10 @@ type SetItemProps = {
 	link?: string
 	onClick?: () => void
 	dataCy?: string
+	played: number
 }
 
-export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dareCount, link, dataCy, onClick, category }) => {
+export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dareCount, link, dataCy, onClick, category, played }) => {
 	return (
 		<IonItem data-cy={dataCy} lines="none" routerLink={link ?? '#'} onClick={onClick} className="mb-5 rounded-lg">
 			<div className="flex items-center">
@@ -28,7 +30,10 @@ export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dare
 						<p className="text-light-600 mr-3">{truthCount}</p>
 						{/* Dare Count */}
 						<DareLabel category={category} />
-						<p className="text-light-600">{dareCount}</p>
+						<p className="text-light-600 mr-3">{dareCount}</p>
+						{/* Play */}
+						<PlayIcon className="w-6 h-6" />
+						<p className="text-light-600 ml-1">{played} Played</p>
 					</div>
 				</div>
 			</div>
