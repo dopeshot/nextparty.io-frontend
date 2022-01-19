@@ -47,6 +47,7 @@ export const loginWithGoogle = async ({ state, effects, actions }: Context, goog
 
         actions.profile.setToken(access_token)
         state.profile.error = null
+        return true
     } catch (error) {
         console.error(error)
         state.profile.error = checkAxiosErrorType(error, actions)
