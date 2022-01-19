@@ -19,6 +19,12 @@ declare global {
             addSet(): void
 
             /**
+             * Custom command to intercept get one request give no tasks back
+             * @getOneSetEmptyTask cy.getOneSetEmptyTask()
+             */
+            getOneSetEmptyTask(): void
+
+            /**
              * Custom command to intercept get one set request
              * @getOneSet cy.getOneSet()
              */

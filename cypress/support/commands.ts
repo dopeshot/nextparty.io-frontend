@@ -12,11 +12,16 @@ Cypress.Commands.add('addSet', () => {
     }).as('addSet')
 })
 
-
 Cypress.Commands.add('getOneSet', () => {
     cy.intercept('GET', `${api}/sets/**`, {
         fixture: 'set.json'
     }).as('getOneSet')
+})
+
+Cypress.Commands.add('getOneSetEmptyTask', () => {
+    cy.intercept('GET', `${api}/sets/**`, {
+        fixture: 'set-notasks.json'
+    }).as('getOneSetEmptyTask')
 })
 
 Cypress.Commands.add('login', () => {

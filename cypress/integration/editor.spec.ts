@@ -56,7 +56,7 @@ describe('Editor', () => {
         })
     })
 
-    describe.only('Metaeditor', () => {
+    describe('Meta Editor', () => {
         beforeEach(() => {
             cy.visit('/account/login')
             cy.getProfileVerified()
@@ -131,6 +131,138 @@ describe('Editor', () => {
             it('should show error when title is more than 32 letters', () => {
                 cy.get('[data-cy="metaeditor-title-input"]').clear().type('Lorem ipsum dolor sit amet, conse').blur()
                 cy.get('[data-cy="error-message"]').should('be.visible').contains('Your creative name must be at most 32 characters')
+            })
+        })
+    })
+
+    describe.only('Task Editor', () => {
+        beforeEach(() => {
+            cy.visit('/account/login')
+            cy.getProfileVerified()
+            cy.getSetsFromUser()
+            cy.login()
+
+            cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+            cy.get('[data-cy="login-password-input"]').type('12345678')
+
+            cy.get('[data-cy="login-button"]').click()
+
+            cy.wait('@login')
+            cy.wait('@getSetsFromUser')
+            cy.wait('@getProfileVerified')
+
+            cy.contains('New').click()
+
+            cy.get('[data-cy="metaeditor-title-input"]').type(set.name)
+
+            cy.getOneSetEmptyTask()
+            cy.addSet()
+            cy.get('[data-cy="metaeditor-set-button"]').click()
+
+            cy.wait('@addSet')
+            cy.wait('@getOneSetEmptyTask')
+
+            cy.contains('Edit Set').should('be.visible')
+        })
+
+        it('should open modal when click create task input', () => {
+            cy.get('[data-cy="taskeditor-addtask-input"]').click()
+
+            cy.get('[data-cy="taskeditor-modal"]').should('be.visible')
+        })
+
+        it('should open modal when click create task button', () => {
+            cy.visit('/account/login')
+            cy.getProfileVerified()
+            cy.getSetsFromUser()
+            cy.login()
+
+            cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+            cy.get('[data-cy="login-password-input"]').type('12345678')
+
+            cy.get('[data-cy="login-button"]').click()
+
+            cy.wait('@login')
+            cy.wait('@getSetsFromUser')
+            cy.wait('@getProfileVerified')
+
+            cy.contains('New').click()
+
+            cy.get('[data-cy="metaeditor-title-input"]').type(set.name)
+
+            cy.getOneSet()
+            cy.addSet()
+            cy.get('[data-cy="metaeditor-set-button"]').click()
+
+            cy.wait('@addSet')
+            cy.wait('@getOneSet')
+
+            cy.contains('Edit Set').should('be.visible')
+
+            cy.get('[data-cy="taskeditor-addtask-button"]').click()
+            cy.get('textarea').click().type('Create new Tasks!', { force: true })
+            cy.contains('Save').click()
+        })
+
+        it('should change gender when click "Which gender can play the task?"', () => {
+            cy.get('[data-cy="taskeditor-addtask-input"]').click()
+
+            cy.get('[data-cy="taskeditor-currentplayer-@cf"]').click({ force: true })
+            cy.contains('female').should('be.visible')
+
+            cy.get('[data-cy="taskeditor-currentplayer-@cm"]').click({ force: true })
+            cy.contains('male').should('be.visible')
+
+            cy.get('[data-cy="taskeditor-currentplayer-@ca"]').click({ force: true })
+            cy.contains('anyone').should('be.visible')
+        })
+
+        it('should add player in message when click label gender anyone', () => {
+            cy.get('[data-cy="taskeditor-addtask-input"]').click()
+            cy.get('[data-cy="taskeditor-player-@a"]').click({ force: true })
+            cy.get('textarea').should('have.value', '👤')
+        })
+
+        it('should add player in message when click label gender female', () => {
+            cy.get('[data-cy="taskeditor-addtask-input"]').click()
+            cy.get('[data-cy="taskeditor-player-@f"]').click({ force: true })
+            cy.get('textarea').should('have.value', '👩')
+        })
+
+        it('should add player in message when click label gender male', () => {
+            cy.get('[data-cy="taskeditor-addtask-input"]').click()
+            cy.get('[data-cy="taskeditor-player-@m"]').click({ force: true })
+            cy.get('textarea').should('have.value', '👨')
+        })
+
+        it('should change to truth/dare when click truth/dare', () => {
+            cy.get('[data-cy="taskeditor-addtask-input"]').click()
+
+            cy.get('[data-cy="taskeditor-taskstype-dare"]').click({ force: true })
+            cy.get('[data-cy="taskeditor-taskstype-dare-label"]').should('have.class', 'bg-light-500')
+
+            cy.get('[data-cy="taskeditor-taskstype-truth"]').click({ force: true })
+            cy.get('[data-cy="taskeditor-taskstype-truth-label"]').should('have.class', 'bg-light-500')
+        })
+
+        describe('Input Validation', () => {
+            beforeEach(() => {
+                cy.get('[data-cy="taskeditor-addtask-input"]').click()
+            })
+
+            it('should show error when message is empty', () => {
+                cy.get('[data-cy="taskeditor-textarea"]').clear()
+                cy.get('[data-cy="error-message"]').should('be.visible').contains('message is a required field')
+            })
+
+            it('should show error when message has less than 10 letters', () => {
+                cy.get('textarea').click().type('Create!', { force: true })
+                cy.get('[data-cy="error-message"]').should('be.visible').contains('message must be at least 10 characters')
+            })
+
+            it('should show error when message has more than 280 letters', () => {
+                cy.get('textarea').click().type('Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum h', { force: true })
+                cy.get('[data-cy="error-message"]').should('be.visible').contains('message must be at most 280 characters')
             })
         })
     })

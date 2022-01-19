@@ -100,7 +100,7 @@ export const TaskEditor: React.FC = () => {
         {set?.tasks && set.tasks.length !== 0 && <>
             <div className="flex justify-between items-center">
                 <h2 className="text-lg font-semibold">Tasks</h2>
-                <Button keepFocus={false} type="button" onClick={() => { setShowTaskEditor(true) }} Icon={PlusIcon} className="w-34 px-7">Task</Button>
+                <Button dataCy="taskeditor-addtask-button" keepFocus={false} type="button" onClick={() => { setShowTaskEditor(true) }} Icon={PlusIcon} className="w-34 px-7">Task</Button>
             </div>
             <p className="text-light-600 mb-3">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
             <div>
@@ -124,7 +124,7 @@ export const TaskEditor: React.FC = () => {
             </div>
         </>}
 
-        <button className="rounded-lg h-12 w-full px-4 flex bg-dark-500 items-center mb-4 cursor-pointer" onClick={() => {
+        <button data-cy="taskeditor-addtask-input" className="rounded-lg h-12 w-full px-4 flex bg-dark-500 items-center mb-4 cursor-pointer" onClick={() => {
             setShowTaskEditor(true)
         }}>
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
@@ -137,7 +137,7 @@ export const TaskEditor: React.FC = () => {
         </button>
 
         {/** Task Editor Modal */}
-        <IonModal onWillDismiss={closeTaskEditorModal} onDidDismiss={() => setEditData(null)} isOpen={showTaskEditor}>
+        <IonModal data-cy="taskeditor-modal" onWillDismiss={closeTaskEditorModal} onDidDismiss={() => setEditData(null)} isOpen={showTaskEditor}>
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>{editData ? 'Edit task' : 'Create task'}</IonTitle>
@@ -163,7 +163,7 @@ export const TaskEditor: React.FC = () => {
                                             Object.values(taskCurrentPlayerGenders).map(taskCurrentPlayerGender =>
                                                 <label key={taskCurrentPlayerGender.name} className={`${formik.values.currentPlayerGender === taskCurrentPlayerGender.name ? 'bg-light-500' : ''} hover:bg-light-600 text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
                                                     {taskCurrentPlayerGender.icon}
-                                                    <Field className="appearance-none hidden" type="radio" name="currentPlayerGender" value={taskCurrentPlayerGender.name} />
+                                                    <Field data-cy={`taskeditor-currentplayer-${taskCurrentPlayerGender.name}`} className="appearance-none hidden" type="radio" name="currentPlayerGender" value={taskCurrentPlayerGender.name} />
                                                 </label>
                                             )
                                         }
@@ -173,7 +173,7 @@ export const TaskEditor: React.FC = () => {
                             </div>
                             <div className="mb-6">
                                 <p className="text-light-600 mb-1">Write task</p>
-                                <IonTextarea ref={taskMessage} className="bg-dark-600 rounded pl-3 mb-1" placeholder={formik.values.type === TaskType.DARE ? `Show your last photo in your smartphone gallery.` : `What is the most attractive thing about 👤?`} autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => {
+                                <IonTextarea data-cy="taskeditor-textarea" ref={taskMessage} className="bg-dark-600 rounded px-3 mb-1" placeholder={formik.values.type === TaskType.DARE ? `Show your last photo in your smartphone gallery.` : `What is the most attractive thing about 👤?`} autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => {
                                     formik.setFieldValue('message', e.detail.value)
                                 }} onIonBlur={() => {
                                     // This is required since of the custom field of IonTextarea....
@@ -181,7 +181,7 @@ export const TaskEditor: React.FC = () => {
                                 }}></IonTextarea>
                                 <ErrorInput field="message" />
                                 <div className="flex gap-4 pt-1">{Object.values(taskPlayerGenders).map(taskPlayerGenders =>
-                                    <label onClick={() => {
+                                    <label data-cy={`taskeditor-player-${taskPlayerGenders.name}`} onClick={() => {
                                         formik.setFieldValue('message', generateTaskMessage(formik.values.message, taskPlayerGenders.name))
                                         setTaskMessageFocus()
                                     }} key={taskPlayerGenders.name} className={`hover:bg-light-600 text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
@@ -194,9 +194,9 @@ export const TaskEditor: React.FC = () => {
                                 <div className="flex">
                                     <div className="flex gap-2 bg-dark-600 p-1 rounded-full">
                                         {Object.values(taskTypes).map(taskType =>
-                                            <label key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-light-500 text-dark-700' : ''}  rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
+                                            <label data-cy={`taskeditor-taskstype-${taskType.name}-label`} key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-light-500 text-dark-700' : ''}  rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
                                                 {taskType.name}
-                                                <Field className="appearance-none hidden" type="radio" name="type" value={taskType.name} />
+                                                <Field data-cy={`taskeditor-taskstype-${taskType.name}`} className="appearance-none hidden" type="radio" name="type" value={taskType.name} />
                                             </label>)}
                                     </div>
                                 </div>
