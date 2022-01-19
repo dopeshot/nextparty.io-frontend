@@ -61,11 +61,6 @@ describe('Routes', () => {
             cy.get('h1').contains('Create your own questions')
         })
 
-        it('should display login when visit /account/profile', () => {
-            cy.visit('/account/profile')
-            cy.get('h1').contains('Welcome back!')
-        })
-
         it('should display login when visit /account/login', () => {
             cy.visit('/account/login')
             cy.get('h1').contains('Welcome back!')
