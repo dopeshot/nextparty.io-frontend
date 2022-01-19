@@ -12,9 +12,13 @@ const OS = () => overmind.state.game
 
 describe('the pain you feel when writing tests', () => {
     describe('the nightmares you get from this work', () => {
-        it('should drive you crazy one day', () => {
-            it('is pain', () => {
-                it('is')
+        describe('a scenario that leads to failure', () => {
+            describe('but is conquered by the strongest writers', () => {
+                describe('can only mean one thing:', () => {
+                    describe('the test:', () => {
+                        it('passed', () => { })
+                    })
+                })
             })
         })
     })
