@@ -32,10 +32,7 @@ describe('GameUtilities', () => {
         })
 
         it('should contain the same elements', () => {
-            const array = shuffleArray([1, 2, 3, 4, 5])
-            array.forEach((element) => {
-                expect(array.indexOf(element)).to.not.equal(-1)
-            })
+            expect(shuffleArray([1, 2, 3])).to.have.members([1, 2, 3])
         })
 
         it('should return a new array', () => {
