@@ -4,10 +4,11 @@ describe('Game', () => {
     describe('Game UI', () => {
         beforeEach(() => {
             cy.visit('/game')
-            cy.overmind().its('actions').invoke('players.resetPlayer')
-            cy.overmind().its('actions').invoke('game.resetSet')
 
+            cy.overmind().its('actions').invoke('players.resetPlayer')
             cy.overmind().its('actions').invoke('players.addTestPlayer')
+
+            cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet')
 
             cy.get('[data-cy="game-play-button"]').click()
@@ -27,6 +28,7 @@ describe('Game', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "dare")
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
 
             cy.overmind().its('state.game.set.name').then((name: string) => {
                 cy.get('[data-cy="game-set-actionblock"]').contains(name)
@@ -44,6 +46,7 @@ describe('Game', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "truth")
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
 
             cy.overmind().its('state.game.set.name').then((name: string) => {
                 cy.get('[data-cy="game-set-actionblock"]').contains(name)
@@ -84,6 +87,7 @@ describe('Game', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "noPossibleTasks")
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
 
             cy.overmind().its('state.game.set.name').then((name: string) => {
                 cy.get('[data-cy="game-set-actionblock"]').contains(name)
