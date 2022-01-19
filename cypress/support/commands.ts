@@ -12,6 +12,24 @@ Cypress.Commands.add('addSet', () => {
     }).as('addSet')
 })
 
+Cypress.Commands.add('putSet', () => {
+    cy.intercept('PUT', `${api}/sets/**`, {
+        fixture: 'set.json'
+    }).as('putSet')
+})
+
+Cypress.Commands.add('deleteSet', () => {
+    cy.intercept('DELETE', `${api}/sets/**`, {
+        statusCode: 204
+    }).as('deleteSet')
+})
+
+Cypress.Commands.add('deleteTask', () => {
+    cy.intercept('DELETE', `${api}/**/task/**`, {
+        statusCode: 200
+    }).as('deleteTask')
+})
+
 Cypress.Commands.add('getOneSet', () => {
     cy.intercept('GET', `${api}/sets/**`, {
         fixture: 'set.json'

@@ -56,7 +56,7 @@ export const Editor: React.FC<EditorParams> = ({ match: { params: { setId } } })
                     <IonBackButton className="text-light-500" icon={arrowBack} defaultHref="/account" />
                 </IonButtons>
                 {isEdit && <IonButtons slot="end">
-                    <IonButton data-cy="set-details-threedot-icon" onClick={() => showSetOptions({
+                    <IonButton data-cy="editor-threedot-icon" onClick={() => showSetOptions({
                         buttons: [{
                             text: 'Delete this Set',
                             role: 'destructive',

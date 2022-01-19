@@ -105,7 +105,7 @@ export const TaskEditor: React.FC = () => {
             <p className="text-light-600 mb-3">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
             <div>
                 {set.tasks.map(task => <div key={task._id} className="rounded-lg h-12 w-full px-4 flex bg-dark-500 items-center mb-4">
-                    <button onClick={() => {
+                    <button data-cy="taskeditor-tasks" onClick={() => {
                         setEditData(task)
                         setShowTaskEditor(true)
                     }} className="flex items-center grow min-w-0">
@@ -117,7 +117,7 @@ export const TaskEditor: React.FC = () => {
                         </div>
                         <p className="overflow-hidden text-ellipsis whitespace-nowrap">{replaceStringWithIcon(task.message)}</p>
                     </button>
-                    <button onClick={() => onDeleteTask(task._id)} className="ml-3 shrink-0 w-8 h-8 rounded-full flex justify-center items-center">
+                    <button data-cy="taskeditor-tasks-delete-button" onClick={() => onDeleteTask(task._id)} className="ml-3 shrink-0 w-8 h-8 rounded-full flex justify-center items-center">
                         <XIcon className="w-6 h-6" />
                     </button>
                 </div>)}
