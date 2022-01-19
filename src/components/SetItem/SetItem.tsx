@@ -31,7 +31,7 @@ export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dare
 						{/* Dare Count */}
 						<DareLabel category={category} />
 						<p className="text-light-600 mr-3">{dareCount}</p>
-						{/* Play */}
+						{/* Played Count */}
 						<PlayIcon className="w-6 h-6" />
 						<p className="text-light-600 ml-1">{played} Played</p>
 					</div>
