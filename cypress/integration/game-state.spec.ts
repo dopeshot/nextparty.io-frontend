@@ -2,8 +2,8 @@ import { createOvermindMock } from "overmind"
 import { config } from "../../src/overmind"
 import { GameStatus, StartGameErrors } from "../../src/overmind/game/state"
 import { TaskType } from "../../src/shared/types/TaskType"
-import { getGenders, getMockPlayers, getMockPlayersWithPossibleTaskCount } from "../game-mock-data.ts/players"
-import { getMockSoloPlayerSet, getMockUnplayableSet } from "../game-mock-data.ts/set"
+import { getGenders, getMockPlayers, getMockPlayersWithPossibleTaskCount } from "../mock/players"
+import { getMockSoloPlayerSet, getMockUnplayableSet } from "../mock/set"
 let overmind = createOvermindMock(config)
 const OA = () => overmind.actions.game
 const OS = () => overmind.state.game
