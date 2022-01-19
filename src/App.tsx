@@ -44,11 +44,11 @@ export const App: React.FC = () => {
                     <Route path="/explore/:setId/:slug?" component={SetDetails} />
 
                     <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={GuestLanding} />
-                    <Route path="/account/verify-account/:code" component={EmailVerify} />
-                    <GuestRoute path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
-                    <GuestRoute path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
+                    <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
+                    <GuestRoute exact path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
+                    <Route exact path="/account/verify-account/:code" component={EmailVerify} />
                     <PrivateRoute exact path="/account/profile" component={Profile} />
-                    <Route path="/account/profile/creative/:setId?" component={Editor} />
+                    <PrivateRoute exact path="/account/profile/creative/:setId?" component={Editor} />
 
                     <Route exact path="/">
                         <Redirect to="/explore" />
