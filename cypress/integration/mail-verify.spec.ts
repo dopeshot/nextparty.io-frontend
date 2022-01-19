@@ -87,7 +87,7 @@ describe('Mail Verify', () => {
         cy.get('ion-toast').should('not.be.visible')
     })
 
-    it.only('should hide toast when click hide', () => {
+    it('should hide toast when click hide', () => {
         cy.visit('/account/login')
         cy.getProfileUnverified()
         cy.getEmptySetsFromUser()
