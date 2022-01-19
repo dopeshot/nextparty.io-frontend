@@ -1,6 +1,7 @@
 import { createOvermindMock } from "overmind"
 import { config } from "../../src/overmind"
 import { GameStatus, StartGameErrors } from "../../src/overmind/game/state"
+import { TaskType } from "../../src/shared/types/TaskType"
 import { getMockPlayers, getMockPlayersWithPossibleTaskCount } from "../game-mock-data.ts/players"
 import { getMockSoloPlayerSet } from "../game-mock-data.ts/set"
 let overmind = createOvermindMock(config)
@@ -135,6 +136,20 @@ describe('the pain you feel when writing tests', () => {
                 expect(OS().currentPlayerIndex).to.equal(getMockPlayers().length - 1)
                 expect(OS().gameStatus).to.equal(GameStatus.PLAYER_PICKED)
                 expect(OS().debug.playerLog[0]).to.be.oneOf(["2 - malePlayer", "2 - femalePlayer", "2 - diversPlayer"])
+            })
+        })
+
+        describe('pickTaskType', () => {
+            before(() => {
+                expect(OA().pickTaskType).to.be.a("function")
+            })
+
+            it('should change the gameStatus', () => {
+                // This needs to be set again
+                cy.stub(window.console, 'error').as('consoleError')
+                OA().pickTaskType(TaskType.TRUTH)
+                cy.get('@consoleError').should('be.calledOnce')
+                expect(OS().gameStatus).to.equal(GameStatus.TYPE_PICKED)
             })
         })
 
