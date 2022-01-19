@@ -1,12 +1,15 @@
 import { createOvermindMock } from "overmind"
 import { config } from "../../src/overmind"
 import { GameStatus, StartGameErrors } from "../../src/overmind/game/state"
+// To stub functions they need to belong to an obj, thus the file is imported to serve as such
+import * as gameComponents from '../../src/services/game/GameComponents'
 import { TaskType } from "../../src/shared/types/TaskType"
 import { getGenders, getMockPlayers, getMockPlayersWithPossibleTaskCount } from "../mock/players"
 import { getMockMultiPlayerSet, getMockSoloPlayerSet, getMockUnplayableSet } from "../mock/set"
 let overmind = createOvermindMock(config)
 const OA = () => overmind.actions.game
 const OS = () => overmind.state.game
+
 describe('the pain you feel when writing tests', () => {
     describe('the nightmares you get from this work', () => {
         it('should drive you crazy one day', () => {
@@ -193,6 +196,104 @@ describe('the pain you feel when writing tests', () => {
             before(() => {
                 expect(OA().findTask).to.be.a("function")
             })
+
+            beforeEach(() => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.set = getMockSoloPlayerSet()
+                })
+                cy.stub(window.console, 'error').as('consoleError')
+                cy.stub(window.console, 'warn').as('consoleWarn')
+            })
+
+            it('should return false if game.set is null', () => {
+                overmind = createOvermindMock(config)
+                // Will use functionPostExit to determine if function exited at the desired point
+                cy.spy(gameComponents.getPossibleTasks).as('functionPostExit')
+
+                expect(OA().findTask(TaskType.TRUTH)).to.be.false
+
+                cy.get('@functionPostExit').should('not.be.called')
+                cy.get('@consoleError').should('be.calledOnce')
+            })
+
+            it('should return false if getPossibleTasks returns empty array', () => {
+                cy.stub(gameComponents, 'getPossibleTasks').returns([])
+                cy.spy(gameComponents.getFillableTasks).as('functionPostExit')
+
+                expect(OA().findTask(TaskType.TRUTH)).to.be.false
+
+                cy.get('@functionPostExit').should('not.be.called')
+                cy.get('@consoleError').should('be.calledOnce')
+            })
+
+            it('should return false if getFillableTasks returns empty array', () => {
+                cy.stub(gameComponents, 'getPossibleTasks').returns([1])
+                cy.stub(gameComponents, 'getFillableTasks').returns([])
+                cy.spy(gameComponents.getUnplayedOverall).as('functionPostExit')
+
+                expect(OA().findTask(TaskType.TRUTH)).to.be.false
+
+                cy.get('@functionPostExit').should('not.be.called')
+                cy.get('@consoleError').should('be.calledOnce')
+            })
+
+            it('should return true if getUnplayedOverall has tasks and can generateFinalMessage', () => {
+                cy.stub(gameComponents, 'getPossibleTasks').returns([1])
+                cy.stub(gameComponents, 'getFillableTasks').returns([1])
+                cy.stub(gameComponents, 'getUnplayedOverall').returns([1])
+                // Can't return false since findTask also checks for the same thing
+                cy.stub(OA(), 'generateFinalMessage').callsFake(() => { })
+                cy.spy(gameComponents.getUnplayedByMe).as('functionPostExit')
+
+                expect(OA().findTask(TaskType.TRUTH)).to.be.true
+
+                cy.get('@functionPostExit').should('not.be.called')
+            })
+
+            it('should warn if getUnplayedOverall returns empty array', () => {
+                cy.stub(gameComponents, 'getPossibleTasks').returns([1])
+                cy.stub(gameComponents, 'getFillableTasks').returns([1])
+                cy.stub(gameComponents, 'getUnplayedOverall').returns([])
+                cy.stub(gameComponents, 'getUnplayedByMe').returns([1])
+                cy.stub(OA(), 'generateFinalMessage').callsFake(() => { })
+                cy.spy(gameComponents.getLeastPlayedByMe).as('functionPostExit')
+
+                expect(OA().findTask(TaskType.TRUTH)).to.be.true
+
+                cy.get('@functionPostExit').should('not.be.called')
+                cy.get('@consoleWarn').should('be.calledOnce')
+            })
+
+            it('should warn twice if getUnplayedByMe returns empty array', () => {
+                cy.stub(gameComponents, 'getPossibleTasks').returns([1])
+                cy.stub(gameComponents, 'getFillableTasks').returns([1])
+                cy.stub(gameComponents, 'getUnplayedOverall').returns([])
+                cy.stub(gameComponents, 'getUnplayedByMe').returns([])
+                cy.stub(gameComponents, 'getLeastPlayedByMe').returns([1])
+                cy.stub(OA(), 'generateFinalMessage').callsFake(() => { })
+                cy.spy(gameComponents.getLeastPlayedOverall).as('functionPostExit')
+
+                expect(OA().findTask(TaskType.TRUTH)).to.be.true
+
+                cy.get('@functionPostExit').should('not.be.called')
+                cy.get('@consoleWarn').should('be.calledTwice')
+            })
+
+            it('should warn twice if getLeastPlayedByMe returns empty array', () => {
+                cy.stub(gameComponents, 'getPossibleTasks').returns([1])
+                cy.stub(gameComponents, 'getFillableTasks').returns([1])
+                cy.stub(gameComponents, 'getUnplayedOverall').returns([])
+                cy.stub(gameComponents, 'getUnplayedByMe').returns([])
+                cy.stub(gameComponents, 'getLeastPlayedByMe').returns([])
+                cy.stub(gameComponents, 'getLeastPlayedOverall').returns([])
+                cy.stub(OA(), 'generateFinalMessage').callsFake(() => { })
+
+                expect(OA().findTask(TaskType.TRUTH)).to.be.true
+
+                cy.get('@consoleWarn').should('be.calledTwice')
+                expect(gameComponents.getLeastPlayedOverall).to.be.calledOnce
+            })
+
         })
 
         describe('generateFinalMessage', () => {
