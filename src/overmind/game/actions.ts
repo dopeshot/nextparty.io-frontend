@@ -12,7 +12,7 @@ import { Set } from '../explore/state';
 import { playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, StartGameErrors } from "./state";
 
-export const launchGame = ({ actions }: Context, history: History) => {
+export const launchGame = ({ actions, effects }: Context, history: History) => {
     const isPossibleToPlay = actions.game.isPossibleToPlay()
 
     if (!isPossibleToPlay.status) {
@@ -25,6 +25,18 @@ export const launchGame = ({ actions }: Context, history: History) => {
     }
     actions.game.newGame()
     actions.game.nextPlayer()
+    actions.game.updatePlayed()
+}
+
+export const updatePlayed = async ({ state, effects }: Context) => {
+    if (!state.game.set)
+        return
+
+    try {
+        await effects.game.updatePlayed(state.game.set._id)
+    } catch (error) /* istanbul ignore next // should not happen */ {
+        console.error(error)
+    }
 }
 
 export const isPossibleToPlay = ({ state }: Context) => {
