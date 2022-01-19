@@ -333,10 +333,10 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
                 "currentPlayerGender": TaskCurrentPlayerGender.FEMALE,
                 "_id": "61a7bd4c08c2192fcff614d0",
                 "type": TaskType.DARE,
-                "message": "Iss ein Stück von etwas (z.B Schlagsahne) von @f's Pobacke",
+                "message": "Iss ein Stück @f von etwas (z.B Schlagsahne) von @f's Pobacke",
                 "requires": {
                     "male": 0,
-                    "female": 1,
+                    "female": 2,
                     "any": 0
                 },
                 "playedBy": []
