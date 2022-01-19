@@ -138,6 +138,16 @@ describe('the pain you feel when writing tests', () => {
                 expect(OS().gameStatus).to.equal(GameStatus.PLAYER_PICKED)
                 expect(OS().debug.playerLog[0]).to.be.oneOf(["2 - malePlayer", "2 - femalePlayer", "2 - diversPlayer"])
             })
+
+            it('should increase nextPlayerIndex to 0 after game start', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.players = getMockPlayers()
+                })
+                OA().nextPlayer()
+                expect(OS().currentPlayerIndex).to.equal(0)
+                expect(OS().gameStatus).to.equal(GameStatus.PLAYER_PICKED)
+                expect(OS().debug.playerLog[0]).to.be.oneOf(["0 - malePlayer", "0 - femalePlayer", "0 - diversPlayer"])
+            })
         })
 
         describe('pickTaskType', () => {
@@ -146,10 +156,8 @@ describe('the pain you feel when writing tests', () => {
             })
 
             it('should change the gameStatus', () => {
-                // This needs to be set again
-                cy.stub(window.console, 'error').as('consoleError')
+                cy.stub(OA(), 'findTask').callsFake(() => true)
                 OA().pickTaskType(TaskType.TRUTH)
-                cy.get('@consoleError').should('be.calledOnce')
                 expect(OS().gameStatus).to.equal(GameStatus.TYPE_PICKED)
             })
         })
