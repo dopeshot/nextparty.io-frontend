@@ -1,7 +1,7 @@
 import { createOvermindMock } from "overmind"
 import { config } from "../../src/overmind"
 import { GameStatus, StartGameErrors } from "../../src/overmind/game/state"
-import { getMockPlayers } from "../game-mock-data.ts/players"
+import { getMockPlayers, getMockPlayersWithPossibleTaskCount } from "../game-mock-data.ts/players"
 import { getMockSoloPlayerSet } from "../game-mock-data.ts/set"
 let overmind = createOvermindMock(config)
 const OA = () => overmind.actions.game
@@ -87,7 +87,28 @@ describe('the pain you feel when writing tests', () => {
 
         })
 
+        describe('newGame', () => {
+            before(() => {
+                expect(OA().newGame).to.be.a("function")
+            })
 
+            it('should change the the game.state to start', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.explore.setDetails = getMockSoloPlayerSet()
+                    state.players.players = getMockPlayers()
+                    state.game.set = getMockSoloPlayerSet()
+                    state.game.playersGenderCount = { male: 1, female: 1, divers: 1 }
+
+                })
+                OA().newGame()
+                expect(OS().gameStatus).to.equal(GameStatus.START)
+                expect(OS().players).to.deep.include.members(getMockPlayersWithPossibleTaskCount())
+                expect(OS().set!.tasks).to.deep.include.members(getMockSoloPlayerSet().tasks)
+                expect(OS().currentPlayerIndex).to.equal(-1)
+                expect(OS().currentTask).to.equal(null)
+                expect(OS().debug.playerLog).to.eql([])
+            })
+        })
 
     })
 })
