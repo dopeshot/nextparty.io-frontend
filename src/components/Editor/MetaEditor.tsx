@@ -39,7 +39,7 @@ export const MetaEditor: React.FC = () => {
     }
 
     return <Formik enableReinitialize initialValues={initialValues} validationSchema={validationSchema} onSubmit={submitForm}>{(formik) =>
-        <Form className="mb-8">
+        <Form className="mb-4">
             {/** Title input */}
             <div>
                 <label className="text-light-600 mb-1" htmlFor="name">Name</label>
