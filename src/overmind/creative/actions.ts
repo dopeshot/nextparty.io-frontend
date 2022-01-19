@@ -7,7 +7,7 @@ export const loadSet = async ({ state, effects }: Context, setId: string) => {
     try {
         const repsonse = await effects.explore.getSetById(setId)
         state.creative.set = repsonse.data
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         console.error(error)
     }
 
@@ -19,6 +19,7 @@ export const submitSet = async ({ state, effects }: Context, set: SetDto) => {
     let responseOfNewCreation
     try {
         if (state.creative.isEdit) {
+            /* istanbul ignore if // should not happen */
             if (!state.creative.set?._id) {
                 console.error("There is an error with the set id")
                 return
@@ -32,7 +33,7 @@ export const submitSet = async ({ state, effects }: Context, set: SetDto) => {
         else {
             responseOfNewCreation = await effects.creative.createSet(set)
         }
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         console.error(error)
     }
 
@@ -42,7 +43,6 @@ export const submitSet = async ({ state, effects }: Context, set: SetDto) => {
 }
 
 export const deleteSet = async ({ state, effects }: Context) => {
-
     // Check if set is valid
     if (!state.creative.set?._id) {
         console.error("set is not set")
@@ -51,7 +51,7 @@ export const deleteSet = async ({ state, effects }: Context) => {
     state.creative.isDeletingSet = true
     try {
         await effects.creative.deleteSet(state.creative.set._id)
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         console.error(error)
     }
     state.creative.isDeletingSet = false
@@ -67,10 +67,11 @@ export const addTask = async ({ state, effects }: Context, {
 }: { setId: string, task: TaskDto }) => {
     try {
         const response = await effects.creative.addTask(setId, task)
+        /* istanbul ignore if // should not happen */
         if (!state.creative.set?.tasks)
             state.creative.set!.tasks = []
         state.creative.set?.tasks.push(response.data)
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         console.error(error)
     }
 }
@@ -80,6 +81,7 @@ export const updateTask = async ({ state, effects }: Context, {
     taskId,
     task
 }: { setId: string, taskId: string, task: TaskDto }) => {
+    /* istanbul ignore if // should not happen */
     if (!state.creative.set) {
         console.error("set is not set")
         return
@@ -92,7 +94,7 @@ export const updateTask = async ({ state, effects }: Context, {
             ...state.creative.set.tasks[updatedTaskIndex],
             ...task
         }
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         console.error(error)
     }
 }
@@ -101,7 +103,7 @@ export const deleteTask = async ({ state, effects }: Context, {
     setId,
     taskId
 }: { setId: string, taskId: string }) => {
-    // Check if set is valid
+    /* istanbul ignore if // should not happen */
     if (!state.creative.set) {
         console.error("set is not set")
         return
@@ -110,7 +112,7 @@ export const deleteTask = async ({ state, effects }: Context, {
     try {
         await effects.creative.deleteTask(setId, taskId)
         state.creative.set.tasks = state.creative.set.tasks.filter(task => task._id !== taskId)
-    } catch (error) {
+    } catch (error) /* istanbul ignore next // should not happen */ {
         console.error(error)
     }
 }

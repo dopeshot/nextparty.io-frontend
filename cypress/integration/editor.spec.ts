@@ -1,6 +1,6 @@
 import set from '../fixtures/set.json'
 
-describe('Editor', () => {
+describe.only('Editor', () => {
     describe('Navigate', () => {
         beforeEach(() => {
             cy.visit('/account/login')
@@ -361,6 +361,12 @@ describe('Editor', () => {
             cy.contains('Yes, delete it').click()
 
             cy.wait('@deleteTask')
+        })
+
+        it('should open delete set action sheet', () => {
+            cy.get('[data-cy="editor-threedot-icon"]').click()
+            cy.get('ion-action-sheet').should('be.visible')
+            cy.get('ion-action-sheet .action-sheet-button').contains('Delete this Set').should('be.visible').click({ force: true })
         })
     })
 })
