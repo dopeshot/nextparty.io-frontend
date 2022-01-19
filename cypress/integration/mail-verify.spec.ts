@@ -86,6 +86,33 @@ describe('Mail Verify', () => {
         cy.wait(1200)
         cy.get('ion-toast').should('not.be.visible')
     })
+
+    it.only('should hide toast when click hide', () => {
+        cy.visit('/account/login')
+        cy.getProfileUnverified()
+        cy.getEmptySetsFromUser()
+        cy.login()
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
+
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+        cy.wait('@getEmptySetsFromUser')
+        cy.wait('@getProfileUnverified')
+
+        cy.resendMail()
+
+        cy.contains('Resend Mail').click()
+
+        cy.wait('@resendMail')
+        cy.get('ion-toast').shadow().contains('E-Mail has been sent.')
+
+        cy.get('ion-toast').shadow().find('.toast-button').contains('hide').click()
+
+        cy.get('ion-toast').should('not.be.visible')
+    })
 })
 
 
