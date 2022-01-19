@@ -95,7 +95,37 @@ export const getMockSoloPlayerSet = (): SetWithPlayTasks => ({
   ],
 })
 
-export const getMockMultiPlayerSet = (): SetWithPlayTasks => ({
+export const getMockUnplayableSet = () => ({
+  _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
+  truthCount: 4,
+  dareCount: 4,
+  language: Language.DE,
+  createdBy: {
+    _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
+    username: 'Hello',
+  },
+  name: 'TestSet',
+  played: 0,
+  category: SetCategory.CLASSIC,
+  visibility: Visibility.PUBLIC,
+  slug: 'testset',
+  tasks: [
+    {
+      currentPlayerGender: TaskCurrentPlayerGender.FEMALE,
+      _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
+      type: TaskType.TRUTH,
+      message: 'Ja oder Nein? @f @f',
+      requires: {
+        male: 0,
+        female: 2,
+        any: 0,
+      },
+      playedBy: [],
+    },
+  ],
+})
+
+export const getMockMultiPlayerSet = () => ({
   _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
   truthCount: 4,
   dareCount: 4,
