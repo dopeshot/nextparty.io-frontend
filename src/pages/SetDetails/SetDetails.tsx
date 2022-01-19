@@ -1,8 +1,10 @@
 import { DotsHorizontalIcon, PlayIcon } from '@heroicons/react/outline'
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonToolbar, useIonToast } from "@ionic/react"
+import { RefresherEventDetail } from "@ionic/core"
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast } from "@ionic/react"
 import { useEffect, useRef } from "react"
 import { useHistory, useParams } from "react-router"
 import arrowBack from "../../assets/icons/arrowback.svg"
+import refresh from '../../assets/icons/refresh.svg'
 import { Button } from "../../components/Buttons/Button"
 import { DareLabel } from '../../components/SetItem/DareLabel'
 import { TruthLabel } from '../../components/SetItem/TruthLabel'
@@ -38,6 +40,13 @@ export const SetDetails: React.FC = () => {
         }
     }, [loadSetDetails, setId, history])
 
+    // istanbul ignore next // not testable with cypress
+    const doRefresh = (event: CustomEvent<RefresherEventDetail>) => {
+        loadSetDetails({ setId, componentMounted, history })
+
+        if (event) event.detail.complete()
+    }
+
     return (
         <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundImage: setDetails ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${setDetails.category}.svg')` : '', backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
             <IonHeader className="ion-no-border container">
@@ -57,6 +66,10 @@ export const SetDetails: React.FC = () => {
                 </ IonToolbar>
             </IonHeader>
             <IonContent style={{ "--background": "transparent" }}>
+                <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+                    <IonRefresherContent pullingIcon={refresh}
+                        refreshingSpinner="circles" />
+                </IonRefresher>
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-dark-800">
                         <div className="container h-full flex flex-col justify-center">
