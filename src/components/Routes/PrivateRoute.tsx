@@ -1,12 +1,16 @@
+import React from "react";
+import { RouteProps } from 'react-router';
 import { Redirect, Route } from 'react-router-dom';
 import { useAppState } from '../../overmind';
 
-export const PrivateRoute = ({ component: Component, ...rest }: any) => {
+export interface PrivateRouteProps extends RouteProps { }
+
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({ component, ...props }) => {
     const { isLoggedIn } = useAppState().profile
 
-    return (
-        // Show the component only when the user is logged in
-        // Otherwise, redirect the user to /login page
-        <Route {...rest} render={(props) => isLoggedIn ? <Component {...props} /> : <Redirect to="/account/login" />} />
-    )
+    if (props.path === "/account/login" || props.path === "/account/register") {
+        return isLoggedIn ? <Redirect to="/account/profile" /> : <Route {...props} component={component} />
+    }
+
+    return !isLoggedIn ? <Redirect to="/account/profile" /> : <Route {...props} component={component} />
 }

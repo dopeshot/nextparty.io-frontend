@@ -11,9 +11,7 @@ export const setToken = ({ state }: Context, token?: string) => {
     if (!token) {
         state.profile.accessToken = null
         delete request.defaults.headers.common['Authorization']
-    }
-
-    if (token) {
+    } else {
         state.profile.accessToken = token
         request.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }

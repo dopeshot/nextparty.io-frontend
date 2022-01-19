@@ -32,7 +32,7 @@ export const submitSet = async ({ state, effects }: Context, { set, history }: {
         }
         else {
             const response = await effects.creative.createSet(set)
-            history.replace(`/account/creative/${response.data._id}`)
+            history.replace(`/account/profile/creative/${response.data._id}`)
         }
     } catch (error) {
         console.error(error)
