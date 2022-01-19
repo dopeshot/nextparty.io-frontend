@@ -1,16 +1,23 @@
-import { TaskCurrentPlayerGender } from "../../src/shared/types/TaskCurrentPlayerGender"
-import { TaskType } from "../../src/shared/types/TaskType"
+import { Language } from '../../src/shared/enums/Language'
+import { Visibility } from '../../src/shared/enums/Visibility'
+import { SetCategory } from '../../src/shared/types/SetCategory'
+import { TaskCurrentPlayerGender } from '../../src/shared/types/TaskCurrentPlayerGender'
+import { TaskType } from '../../src/shared/types/TaskType'
 
 export const getMockSoloPlayerSet = () => ({
   _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
   truthCount: 4,
   dareCount: 4,
-  language: 'de',
+  language: Language.DE,
   createdBy: {
     _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
     username: 'Hello',
   },
   name: 'TestSet',
+  played: 0,
+  category: SetCategory.CLASSIC,
+  visibility: Visibility.PUBLIC,
+  slug: 'testset',
   tasks: [
     {
       currentPlayerGender: TaskCurrentPlayerGender.ANYONE,
@@ -80,6 +87,36 @@ export const getMockSoloPlayerSet = () => ({
       requires: {
         male: 0,
         female: 0,
+        any: 0,
+      },
+      playedBy: [],
+    },
+  ],
+})
+
+export const getMockUnplayableSet = () => ({
+  _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
+  truthCount: 4,
+  dareCount: 4,
+  language: Language.DE,
+  createdBy: {
+    _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
+    username: 'Hello',
+  },
+  name: 'TestSet',
+  played: 0,
+  category: SetCategory.CLASSIC,
+  visibility: Visibility.PUBLIC,
+  slug: 'testset',
+  tasks: [
+    {
+      currentPlayerGender: TaskCurrentPlayerGender.FEMALE,
+      _id: 'aaaaaaaaaaaaaaaaaaaaaaaa',
+      type: TaskType.TRUTH,
+      message: 'Ja oder Nein? @f @f',
+      requires: {
+        male: 0,
+        female: 2,
         any: 0,
       },
       playedBy: [],
