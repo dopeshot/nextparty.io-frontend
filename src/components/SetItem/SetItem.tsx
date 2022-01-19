@@ -1,7 +1,5 @@
 import { PlayIcon } from '@heroicons/react/outline';
 import { IonItem } from '@ionic/react';
-import { useHistory } from 'react-router';
-import { useActions } from '../../overmind';
 import { SetCategory } from '../../shared/types/SetCategory';
 import { DareLabel } from './DareLabel';
 import { TruthLabel } from './TruthLabel';
@@ -19,8 +17,6 @@ type SetItemProps = {
 }
 
 export const SetItem: React.FC<SetItemProps> = ({ name, author, truthCount, dareCount, link, dataCy, onClick, category, played }) => {
-	const { addSetToGame } = useActions().game
-	const history = useHistory()
 
 	return (
 		<IonItem data-cy={dataCy} lines="none" routerLink={link ?? '#'} onClick={onClick} className="mb-5 rounded-lg">

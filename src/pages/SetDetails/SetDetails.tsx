@@ -73,11 +73,11 @@ export const SetDetails: React.FC = () => {
                 <div className="fixed bottom-0 z-10 w-full">
                     <div className="h-32 bg-gradient-to-t from-dark-800">
                         <div className="container h-full flex flex-col justify-center">
-                            <Button dataCy='setdetails-play-button' type="button" onClick={(event: any) => {
+                            <Button dataCy='setdetails-play-button' type="button" onClick={!isLoadingSetDetails && setDetails ? (event: any) => {
                                 event.preventDefault()
-                                addSetToGame()
+                                addSetToGame(setDetails._id)
                                 history.push('/game')
-                            }} Icon={PlayIcon}>Play</Button>
+                            } : () => console.warn("set still loading")} Icon={PlayIcon}>Play</Button>
                         </div>
                     </div>
                 </div>

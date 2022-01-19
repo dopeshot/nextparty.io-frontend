@@ -87,7 +87,7 @@ export const Editor: React.FC = () => {
                         {isEdit && <>
                             <SecondaryButton disabled={set?.tasks.length === 0} onClick={(event: any) => {
                                 event.preventDefault()
-                                addSetToGame()
+                                addSetToGame(set!._id!)
                                 history.push('/game')
                             }}>Play now</SecondaryButton>
                             <TaskEditor />
