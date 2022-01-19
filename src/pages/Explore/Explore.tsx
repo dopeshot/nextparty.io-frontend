@@ -45,7 +45,7 @@ export const Explore: React.FC = () => {
                     <h2 className="text-xl font-bold mb-2">{category.name}</h2>
                     {sets.map((set: Set) => (
                       <div key={set._id}>
-                        {category.name === set.category && <SetItem dataCy="explore-set-item" category={set.category} key={set._id} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}/${set.slug}`} />}
+                        {category.name === set.category && <SetItem dataCy="explore-set-item" category={set.category} played={set.played} key={set._id} name={set.name} author={set.createdBy.username} truthCount={set.truthCount} dareCount={set.dareCount} link={`/explore/${set._id}/${set.slug}`} />}
                       </div>
                     ))}
                   </div>)}
