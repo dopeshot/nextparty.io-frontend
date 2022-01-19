@@ -15,7 +15,7 @@ import { setSeoTitle } from "../../services/Utilities";
 
 export const Profile: React.FC = () => {
     const { profile: { currentUser, isLoadingSets, sets, userDetailed }, game: { set } } = useAppState()
-    const { profile: { getSetsByUser, logout, resendMail, getUserDetailed }, creative: { createNewSet, editSet } } = useActions()
+    const { getSetsByUser, logout, resendMail, getUserDetailed } = useActions().profile
     const [present] = useIonActionSheet()
     const [presentToast, dismiss] = useIonToast()
     const history = useHistory()
@@ -90,7 +90,6 @@ export const Profile: React.FC = () => {
                                             }
                                         }} dataCy="profile-no-data-unverified" buttonText="Resend Mail" headline="Verification Email has been send!" text={`Email has been send to ${userDetailed.email}. Check your inbox.`} />
                                         : <NoData onClick={() => {
-                                            createNewSet()
                                             history.push("/account/creative")
                                         }} dataCy="profile-no-data-verified" Icon={PlusIcon} buttonText="New" headline="Start creating awesome sets!" text="Create new sets to play with your friends and share with other people." />
                                     :
@@ -98,13 +97,12 @@ export const Profile: React.FC = () => {
                                         <div data-cy="profile-sets-container" className="flex justify-between items-center">
                                             <h2 className="text-lg font-semibold">Your Sets</h2>
                                             <Button type="button" onClick={() => {
-                                                createNewSet()
                                                 history.push("/account/creative")
                                             }} Icon={PlusIcon} className="w-34 px-7">New</Button>
                                         </div>
                                         <IonList>
                                             {sets.data?.map((set: Set) => (
-                                                <SetItem dataCy="profile-set-item" category={set.category} played={set.played} onClick={() => editSet({ setId: set._id, history })} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
+                                                <SetItem dataCy="profile-set-item" category={set.category} played={set.played} link={`/account/creative/${set._id}`} key={set._id} name={set.name} truthCount={set.truthCount} dareCount={set.dareCount} />
                                             ))}
                                         </IonList>
                                     </>

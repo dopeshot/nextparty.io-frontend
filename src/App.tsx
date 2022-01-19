@@ -45,7 +45,7 @@ export const App: React.FC = () => {
                     <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
                     <GuestRoute exact path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
                     <PrivateRoute exact path="/account/profile" component={Profile} />
-                    <Route exact path="/account/creative" component={Editor} />
+                    <Route exact path="/account/creative/:setId?" component={Editor} />
                     <Route exact path="/">
                         <Redirect to="/explore" />
                     </Route>
