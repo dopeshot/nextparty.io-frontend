@@ -3,7 +3,7 @@ import { config } from "../../src/overmind"
 import { GameStatus, StartGameErrors } from "../../src/overmind/game/state"
 import { TaskType } from "../../src/shared/types/TaskType"
 import { getGenders, getMockPlayers, getMockPlayersWithPossibleTaskCount } from "../mock/players"
-import { getMockSoloPlayerSet, getMockUnplayableSet } from "../mock/set"
+import { getMockMultiPlayerSet, getMockSoloPlayerSet, getMockUnplayableSet } from "../mock/set"
 let overmind = createOvermindMock(config)
 const OA = () => overmind.actions.game
 const OS = () => overmind.state.game
@@ -198,6 +198,32 @@ describe('the pain you feel when writing tests', () => {
         describe('generateFinalMessage', () => {
             before(() => {
                 expect(OA().generateFinalMessage).to.be.a("function")
+            })
+
+            it('should return false and print error if set is null', () => {
+                cy.stub(window.console, 'error').as('consoleError')
+                expect(OA().generateFinalMessage(getMockSoloPlayerSet().tasks[0])).to.be.false
+                cy.get('@consoleError').should('be.calledOnce')
+            })
+
+            it('should return the message unchanged if it is a solo task', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.set = getMockSoloPlayerSet()
+                    state.game.currentPlayer = getMockPlayers()[0]
+                })
+                OA().generateFinalMessage(getMockSoloPlayerSet().tasks[0])
+                expect(OS().currentTask).to.eql(getMockSoloPlayerSet().tasks[0])
+            })
+
+            it('should return a new message if it is a multi task', () => {
+                overmind = createOvermindMock(config, (state) => {
+                    state.game.set = getMockMultiPlayerSet()
+                    state.game.currentPlayer = getMockPlayers()[0]
+                    state.game.players = getMockPlayers()
+                })
+                OA().generateFinalMessage(getMockMultiPlayerSet().tasks[0])
+                expect(OS().currentTask).to.not.eql(getMockMultiPlayerSet().tasks[0])
+                expect(OS().currentTask!.message).to.be.oneOf(['femalePlayer', 'diversPlayer', 'malePlayer'])
             })
         })
 
