@@ -8,7 +8,6 @@ import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 import { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { GuestRoute } from './components/Routes/GuestRoute';
 import { PrivateRoute } from './components/Routes/PrivateRoute';
 import { useAppState } from './overmind';
 import { EmailVerify } from './pages/Account/EmailVerify';
@@ -43,12 +42,12 @@ export const App: React.FC = () => {
                     <Route exact path="/explore" component={Explore} />
                     <Route path="/explore/:setId/:slug?" component={SetDetails} />
 
-                    <GuestRoute exact path="/account" redirectWhenLoggedIn="/account/profile" component={GuestLanding} />
-                    <GuestRoute exact path="/account/login" redirectWhenLoggedIn="/account/profile" component={Login} />
-                    <GuestRoute exact path="/account/register" redirectWhenLoggedIn="/account/profile" component={Register} />
-                    <Route exact path="/account/verify-account/:code" component={EmailVerify} />
+                    <Route exact path="/account" component={GuestLanding} />
+                    <PrivateRoute path="/account/login" component={Login} />
+                    <PrivateRoute path="/account/register" component={Register} />
+                    <Route path="/account/verify-account/:code" component={EmailVerify} />
                     <PrivateRoute exact path="/account/profile" component={Profile} />
-                    <PrivateRoute exact path="/account/profile/creative/:setId?" component={Editor} />
+                    <PrivateRoute path="/account/profile/creative/:setId?" component={Editor} />
 
                     <Route exact path="/">
                         <Redirect to="/explore" />

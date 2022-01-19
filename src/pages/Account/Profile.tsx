@@ -40,6 +40,11 @@ export const Profile: React.FC = () => {
         getProfile(event)
     }
 
+    const doLogout = async () => {
+        await logout()
+        history.replace('/account/login')
+    }
+
     return (
         <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 320px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
             <IonContent style={{ "--background": "transparent" }}>
@@ -54,7 +59,7 @@ export const Profile: React.FC = () => {
                                 <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `${set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')`}`, minWidth: "100px" }}></div>
                                 <h1 className="text-2xl text-white font-bold break-all px-4 pb-4">{currentUser?.username}</h1>
                             </div>
-                            <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => logout() }], header: 'Settings' })}>
+                            <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => doLogout() }], header: 'Settings' })}>
                                 <CogIcon className="text-light-500 w-6 h-6" />
                             </button>
                         </div>
