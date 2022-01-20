@@ -1,25 +1,29 @@
 [
   {
     "dareCount": 0,
-    "_id": "61a7f1305d991051b395a59b",
+    "_id": "61a7f1305d991051b395a59x",
     "truthCount": 0,
     "language": "de",
     "createdBy": {
       "_id": "61a7f1045d991051b395a595",
       "username": "Hello"
     },
-    "name": "Versaut"
+    "slug": "versaut",
+    "name": "Versaut",
+    "category": "party"
   },
   {
     "dareCount": 0,
-    "_id": "61a7f1305d991051b395a59d",
+    "_id": "61a7f1305d991051b395a59b",
     "truthCount": 4,
     "language": "de",
     "createdBy": {
       "_id": "61a7f1045d991051b395a595",
       "username": "Hello"
     },
-    "name": "Sex"
+    "slug": "sex",
+    "name": "Sex",
+    "category": "party"
   },
   {
     "dareCount": 0,
@@ -30,7 +34,9 @@
       "_id": "61a7f1045d991051b395a595",
       "username": "Hello"
     },
-    "name": "HdM Stuttgart Edition"
+    "slug": "hdm-stuttgart-edition",
+    "name": "HdM Stuttgart Edition",
+    "category": "classic"
   },
   {
     "dareCount": 0,
@@ -41,6 +47,8 @@
       "_id": "61a7f1045d991051b395a595",
       "username": "Hello"
     },
-    "name": "Klassisch"
+    "slug": "klassisch",
+    "name": "Klassisch",
+    "category": "classic"
   }
 ]

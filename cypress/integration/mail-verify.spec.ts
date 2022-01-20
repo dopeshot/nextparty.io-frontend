@@ -2,12 +2,13 @@ import { interceptIndefinitely } from "../support/utils"
 
 describe('Mail Verify', () => {
     it('should display loading while waiting for mail verification', () => {
-        const interception = interceptIndefinitely('GET', `${Cypress.env('apiUrl')}/users/verify-account?code=*`, {
+        const interception = interceptIndefinitely('GET', `${Cypress.env('apiUrl')}/users/verify-account?code=*`, "verifyCodeIndefinitely", {
             statusCode: 200
         })
         cy.visit('/account/verify-account/1234')
         cy.get('[data-cy="email-verify-progress-bar"]').should('be.visible').then(() => {
             interception.sendResponse()
+            cy.wait('@verifyCodeIndefinitely')
             cy.get('[data-cy="email-verify-progress-bar"]').should('not.exist')
         })
     })
@@ -22,6 +23,95 @@ describe('Mail Verify', () => {
         cy.getMail("fail")
         cy.visit('/account/verify-account/1234')
         cy.contains("Failed").should("be.visible")
+    })
+
+    it('should display email verify text instead of no data component when email isnt verified', () => {
+        cy.visit('/account/login')
+        cy.getProfileUnverified()
+        cy.getEmptySetsFromUser()
+        cy.login()
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
+
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+        cy.wait('@getEmptySetsFromUser')
+        cy.wait('@getProfileUnverified')
+
+        cy.contains('Verification Email has been send!').should('be.visible')
+    })
+
+    it('should display no data component when email is verified', () => {
+        cy.visit('/account/login')
+        cy.getProfileVerified()
+        cy.getEmptySetsFromUser()
+        cy.login()
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
+
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+        cy.wait('@getEmptySetsFromUser')
+        cy.wait('@getProfileVerified')
+
+        cy.contains('Start creating awesome sets!').should('be.visible')
+    })
+
+    it('should resend mail when click button resend mail on profile', () => {
+        cy.visit('/account/login')
+        cy.getProfileUnverified()
+        cy.getEmptySetsFromUser()
+        cy.login()
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
+
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+        cy.wait('@getEmptySetsFromUser')
+        cy.wait('@getProfileUnverified')
+
+        cy.resendMail()
+
+        cy.contains('Resend Mail').click()
+
+        cy.wait('@resendMail')
+        cy.get('ion-toast').shadow().contains('E-Mail has been sent.')
+
+        cy.wait(1200)
+        cy.get('ion-toast').should('not.be.visible')
+    })
+
+    it('should hide toast when click hide', () => {
+        cy.visit('/account/login')
+        cy.getProfileUnverified()
+        cy.getEmptySetsFromUser()
+        cy.login()
+
+        cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
+        cy.get('[data-cy="login-password-input"]').type('12345678')
+
+        cy.get('[data-cy="login-button"]').click()
+
+        cy.wait('@login')
+        cy.wait('@getEmptySetsFromUser')
+        cy.wait('@getProfileUnverified')
+
+        cy.resendMail()
+
+        cy.contains('Resend Mail').click()
+
+        cy.wait('@resendMail')
+        cy.get('ion-toast').shadow().contains('E-Mail has been sent.')
+
+        cy.get('ion-toast').shadow().find('.toast-button').contains('hide').click()
+
+        cy.get('ion-toast').should('not.be.visible')
     })
 })
 

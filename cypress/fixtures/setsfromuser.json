@@ -9,7 +9,9 @@
             "_id": "61a7f1045d991051b395a595",
             "username": "Hello"
         },
+        "visibility": "public",
         "category": "classic",
+        "slug": "klassisch",
         "name": "Klassisch"
     },
     {
@@ -22,6 +24,8 @@
             "_id": "61a7f1045d991051b395a595",
             "username": "Hello"
         },
+        "visibility": "public",
+        "slug": "versaut",
         "category": "hot",
         "name": "Versaut"
     },
@@ -35,7 +39,9 @@
             "_id": "61a7f1045d991051b395a595",
             "username": "Hello"
         },
+        "visibility": "public",
         "category": "classic",
+        "slug": "hdm-stuttgart-edition",
         "name": "HdM Stuttgart Edition"
     },
     {
@@ -48,6 +54,8 @@
             "_id": "61a7f1045d991051b395a595",
             "username": "Hello"
         },
+        "visibility": "public",
+        "slug": "sex",
         "category": "sexy",
         "name": "Sex"
     }

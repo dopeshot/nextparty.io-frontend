@@ -1,5 +1,5 @@
 import { derived } from "overmind"
-import { parseJwt } from "../../services/utilities/parseJwt"
+import { parseJwt } from "../../services/Utilities"
 import { Set } from "../explore/state"
 
 export type CurrentUser = {
@@ -53,7 +53,10 @@ export const state: State = {
     currentUser: derived((state: State) => state.accessToken ? parseJwt(state.accessToken) : null),
     sets: {
         data: null,
-        truthCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.truthCount, 0)),
+        truthCount: derived((state: State['sets']) => {
+            console.log(state)
+            return state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.truthCount, 0)
+        }),
         dareCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.dareCount, 0)),
         setCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.length),
         playedCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.played, 0))

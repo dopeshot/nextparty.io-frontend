@@ -5,20 +5,24 @@ describe('Login', () => {
 
     it('should have a disabled state button when no input/one input is filled', () => {
         cy.get('[data-cy="login-password-input"]').clear()
-        cy.get('[data-cy="login-button"]').should('have.class', 'bg-dare-green opacity-30')
+        cy.get('[data-cy="login-button"]').should('have.class', 'bg-light-700')
 
         cy.get('[data-cy="login-password-input"]').type("12345678")
-        cy.get('[data-cy="login-button"]').should('have.class', 'bg-dare-green opacity-30')
+        cy.get('[data-cy="login-button"]').should('have.class', 'bg-light-700')
     })
 
     it('should open profile page when fill all inputs and click register', () => {
         cy.login()
         cy.getSetsFromUser()
+        cy.getProfileVerified()
 
         cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
         cy.get('[data-cy="login-password-input"]').type('12345678')
 
         cy.get('[data-cy="login-button"]').click()
+        cy.wait('@login')
+        cy.wait('@getSetsFromUser')
+        cy.wait('@getProfileVerified')
 
         cy.overmind().its('state.profile.currentUser.username').then((name: string) => {
             cy.get('h1').contains(name).should('be.visible')
@@ -105,7 +109,7 @@ describe('Login', () => {
         })
 
         it('should show error banner with text "408 - Request Timeout" when database is down', () => {
-            cy.databasedown()
+            cy.databasedownPost()
 
             cy.get('[data-cy="login-email-input"]').type('hello@gmail.com')
             cy.get('[data-cy="login-password-input"]').type('12345678')

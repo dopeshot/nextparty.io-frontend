@@ -1,15 +1,14 @@
 import { IonContent, IonHeader, IonPage, IonProgressBar, IonToolbar, useIonViewWillEnter } from '@ionic/react';
-import { useParams } from 'react-router';
-import { Error } from '../../components/Errors/Error';
+import { RouteComponentProps } from 'react-router';
+import { EmailVerifyComponent } from '../../components/Profile/EmailVerifyComponent';
 import { useActions, useAppState } from '../../overmind';
 
-type EmailVerifyParams = {
-    code: string
-}
 
-export const EmailVerify: React.FC = () => {
-    const { code } = useParams<EmailVerifyParams>()
+interface EmailVerifyParams extends RouteComponentProps<{
+    code: string;
+}> { }
 
+export const EmailVerify: React.FC<EmailVerifyParams> = ({ match: { params: { code } } }) => {
     const { verifyMail } = useActions().profile
     const { emailVerified, isEmailVerifying } = useAppState().profile
 
@@ -18,7 +17,7 @@ export const EmailVerify: React.FC = () => {
     }, [])
 
     return (
-        <IonPage className="bg-background-black">
+        <IonPage className="bg-dark-700">
             <IonHeader className="container ion-no-border my-4">
                 <IonToolbar color="transparent">
                 </IonToolbar>
@@ -27,8 +26,8 @@ export const EmailVerify: React.FC = () => {
                 {isEmailVerifying ? <IonProgressBar data-cy="email-verify-progress-bar" type="indeterminate" /> :
                     <>
                         {emailVerified ?
-                            <Error to="/" buttonContent="Start" errorType="Success" titleContent="Email Verified!" paragraphContent="Your Email was successfull verified login to start creating awesome sets." /> :
-                            <Error to="/account/login" buttonContent="Login" errorType="Failed" titleContent="Email verification link has expired." paragraphContent="Try to login and send email again." />}
+                            <EmailVerifyComponent to="/account" buttonContent="Start" type="Success" titleContent="Email Verified!" paragraphContent="Your Email was successfull verified login to start creating awesome sets." /> :
+                            <EmailVerifyComponent to="/account/login" buttonContent="Login" type="Failed" titleContent="Email verification link has expired." paragraphContent="Try to login and send email again." />}
                     </>
                 }
             </IonContent>

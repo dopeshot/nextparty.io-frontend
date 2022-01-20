@@ -17,13 +17,15 @@ export type EditSet = {
 export type State = {
     set: EditSet | null
     isEdit: boolean
-    isNew: boolean
     isLoading: boolean
+    isSubmitting: boolean
+    isDeletingSet: boolean
 }
 
 export const state: State = {
     set: null,
-    isEdit: false,
-    isNew: derived((state: State) => !state.isEdit),
-    isLoading: false
+    isEdit: derived((state: State) => Boolean(state.set)),
+    isLoading: false,
+    isSubmitting: false,
+    isDeletingSet: false
 }

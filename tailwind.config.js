@@ -1,6 +1,10 @@
 module.exports = {
-    purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-    darkMode: false, // or 'media' or 'class'
+    content: [
+        "./src/**/*.{js,jsx,ts,tsx}",
+    ],
+    safelist: [{
+        pattern: /(border|text|bg)-theme-(default|kids|classic|friendship|couples|soft|party|hot|sexy|hardcore|onlydares|onlytruths|crazy)-(truth|dare)/,
+    }],
     theme: {
         container: {
             center: true,
@@ -16,6 +20,44 @@ module.exports = {
                 md: '768px',
                 lg: '1024px'
             }
+        },
+        colors: {
+            "light-500": "#FFFFFF",
+            "light-600": "#FFFFFFBF",
+            "light-700": "#FFFFFF80",
+            "dark-500": "#232323",
+            "dark-600": "#111111",
+            "dark-700": "#0A0A0A",
+            "dark-800": "#000000",
+            "theme-default-truth": "#F45C68",
+            "theme-default-dare": "#00E5D9",
+            "theme-kids-truth": "#FF2641",
+            "theme-kids-dare": "#03E07C",
+            "theme-classic-truth": "#F99000",
+            "theme-classic-dare": "#94EFC6",
+            "theme-friendship-truth": "#FF5D5D",
+            "theme-friendship-dare": "#FDEB62",
+            "theme-couples-truth": "#E47583",
+            "theme-couples-dare": "#A368FC",
+            "theme-soft-truth": "#FAA69A",
+            "theme-soft-dare": "#7CC9DF",
+            "theme-party-truth": "#9585FF",
+            "theme-party-dare": "#01ED70",
+            "theme-hot-truth": "#FA5CB6",
+            "theme-hot-dare": "#FF3D56",
+            "theme-sexy-truth": "#FF233E",
+            "theme-sexy-dare": "#5CC9C2",
+            "theme-hardcore-truth": "#DB162F",
+            "theme-hardcore-dare": "#929292",
+            "theme-onlydares-truth": "#B04FD4",
+            "theme-onlydares-dare": "#E86507",
+            "theme-onlytruths-truth": "#9B72FF",
+            "theme-onlytruths-dare": "#49CADC",
+            "theme-crazy-truth": "#EC41EF",
+            "theme-crazy-dare": "#70CF7E",
+            "red-500": "#FB5454",
+            "red-700": "#371818",
+            "green-500": "#03E07C"
         },
         fontFamily: {
             'rubik': ['Rubik', 'sans-serif']
@@ -37,27 +79,11 @@ module.exports = {
             '4': '4px'
         },
         extend: {
-            colors: {
-                'lightgrey': '#B3B3BF',
-                'itemgrey': '#242528',
-                'itemactivegrey': '#4C4E54',
-                'darkgray': '#3E4851',
-                'truth-yellow': '#F6BF22',
-                'dare-green': '#09BB88',
-                'dare-green-darker': '#034532',
-                'hover-green': "#EEFFFA",
-                'background-black': '#0C0C0C',
-                'danger-red': "#FB5454",
-                "background-danger-red": "#371818"
-            },
             screens: {
                 'xxs': '375px',
                 'xs': '560px'
             }
         },
-    },
-    variants: {
-        extend: {},
     },
     plugins: [],
 }

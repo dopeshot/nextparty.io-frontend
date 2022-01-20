@@ -6,10 +6,40 @@ Cypress.Commands.add('getSets', () => {
     }).as('getSets')
 })
 
+Cypress.Commands.add('addSet', () => {
+    cy.intercept('POST', `${api}/sets`, {
+        fixture: 'set.json'
+    }).as('addSet')
+})
+
+Cypress.Commands.add('putSet', () => {
+    cy.intercept('PUT', `${api}/sets/**`, {
+        fixture: 'set.json'
+    }).as('putSet')
+})
+
+Cypress.Commands.add('deleteSet', () => {
+    cy.intercept('DELETE', `${api}/sets/**`, {
+        statusCode: 204
+    }).as('deleteSet')
+})
+
+Cypress.Commands.add('deleteTask', () => {
+    cy.intercept('DELETE', `${api}/**/task/**`, {
+        statusCode: 200
+    }).as('deleteTask')
+})
+
 Cypress.Commands.add('getOneSet', () => {
     cy.intercept('GET', `${api}/sets/**`, {
         fixture: 'set.json'
     }).as('getOneSet')
+})
+
+Cypress.Commands.add('getOneSetEmptyTask', () => {
+    cy.intercept('GET', `${api}/sets/**`, {
+        fixture: 'set-notasks.json'
+    }).as('getOneSetEmptyTask')
 })
 
 Cypress.Commands.add('login', () => {
@@ -41,10 +71,16 @@ Cypress.Commands.add('loginBannedUser', () => {
         }).as('loginBannedUser')
 })
 
-Cypress.Commands.add('databasedown', () => {
+Cypress.Commands.add('databasedownPost', () => {
     cy.intercept('POST', `${api}/**`, {
         forceNetworkError: true
-    }).as('databasedown')
+    }).as('databasedownPost')
+})
+
+Cypress.Commands.add('databasedownGet', () => {
+    cy.intercept('GET', `${api}/**`, {
+        forceNetworkError: true
+    }).as('databasedownGet')
 })
 
 Cypress.Commands.add('register', () => {
@@ -75,7 +111,6 @@ Cypress.Commands.add('registerDuplicateUsername', () => {
     }).as('registerDuplicateUsername')
 })
 
-
 Cypress.Commands.add('getSetsFromUser', () => {
     cy.intercept('GET', `${api}/sets/user/**`, {
         fixture: 'setsfromuser.json'
@@ -86,10 +121,16 @@ Cypress.Commands.add('getEmptySetsFromUser', () => {
     cy.intercept('GET', `${api}/sets/user/**`, []).as('getEmptySetsFromUser')
 })
 
-Cypress.Commands.add('getProfile', () => {
+Cypress.Commands.add('getProfileVerified', () => {
     cy.intercept('GET', `${api}/users/profile`, {
-        fixture: 'profile.json'
-    }).as('getProfile')
+        fixture: 'profile-verified.json'
+    }).as('getProfileVerified')
+})
+
+Cypress.Commands.add('getProfileUnverified', () => {
+    cy.intercept('GET', `${api}/users/profile`, {
+        fixture: 'profile-unverified.json'
+    }).as('getProfileUnverified')
 })
 
 Cypress.Commands.add('getMail', (response: "fail" | "success") => {
@@ -107,6 +148,11 @@ Cypress.Commands.add('getMail', (response: "fail" | "success") => {
     }).as('getMail')
 })
 
+Cypress.Commands.add('resendMail', () => {
+    cy.intercept('GET', `${api}/users/resend-account-verification`, {
+        statusCode: 200
+    }).as('resendMail')
+})
 
 Cypress.Commands.add('overmind', () => {
     let overmind: any

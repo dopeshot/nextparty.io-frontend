@@ -2,6 +2,7 @@ import axios from "axios";
 import { Context } from "../overmind";
 
 export const checkAxiosErrorType = (error: any, actions: Context["actions"]): string => {
+    // istanbul ignore else //should not happen
     if (axios.isAxiosError(error) && error.response) {
         return errorType(error, actions)
     } else if (axios.isAxiosError(error)) {
@@ -25,8 +26,11 @@ export const errorType = (error: any, actions: Context["actions"]): string => {
     }
     if (error.response.status === 409 && error.response.data.message === 'Username is already taken.')
         return error.response.data.message
+    // istanbul ignore else
     if (error.response.status === 409 && error.response.data.message === 'Email is already taken.')
         return error.response.data.message
+
+    // istanbul ignore next //should not happen
     return "Unknown Error occured"
 }
 

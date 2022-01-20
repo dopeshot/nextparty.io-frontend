@@ -17,6 +17,7 @@ export type Set = {
     language: Language
     name: string
     visibility: Visibility
+    slug: string
 }
 
 export type Task = {

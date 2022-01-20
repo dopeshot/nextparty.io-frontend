@@ -4,10 +4,11 @@ describe('Game', () => {
     describe('Game UI', () => {
         beforeEach(() => {
             cy.visit('/game')
-            cy.overmind().its('actions').invoke('players.resetPlayer')
-            cy.overmind().its('actions').invoke('game.resetSet')
 
+            cy.overmind().its('actions').invoke('players.resetPlayer')
             cy.overmind().its('actions').invoke('players.addTestPlayer')
+
+            cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet')
 
             cy.get('[data-cy="game-play-button"]').click()
@@ -23,10 +24,11 @@ describe('Game', () => {
             cy.get('[data-cy="displaytask-container"]').contains('Dare')
         })
 
-        it('should only display dare when in set are only dares', () => {
+        it('should only display dare when in set are only dares and clickarea should be the whole screen', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "dare")
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
 
             cy.overmind().its('state.game.set.name').then((name: string) => {
                 cy.get('[data-cy="game-set-actionblock"]').contains(name)
@@ -34,13 +36,17 @@ describe('Game', () => {
 
                 cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
                 cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+
+                cy.get('[data-cy="choosetask-dare-button"]').click('left')
+                cy.get('[data-cy="displaytask-container"]').should('be.visible')
             })
         })
 
-        it('should only display truth when in set are only truths', () => {
+        it('should only display truth when in set are only truths and clickarea should be the whole screen', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('game.addTestSet', "truth")
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
 
             cy.overmind().its('state.game.set.name').then((name: string) => {
                 cy.get('[data-cy="game-set-actionblock"]').contains(name)
@@ -48,6 +54,9 @@ describe('Game', () => {
 
                 cy.get('[data-cy="choosetask-truth-button"]').should('be.visible')
                 cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
+
+                cy.get('[data-cy="choosetask-truth-button"]').click('right')
+                cy.get('[data-cy="displaytask-container"]').should('be.visible')
             })
         })
 
@@ -67,29 +76,30 @@ describe('Game', () => {
             cy.get('[data-cy="choosetask-dare-button"]').should('be.visible')
         })
 
-        it('container should have height: 250px when message shorter than 100 letters when longer than height: 450px', () => {
+        it('should hide tabbar when you are ingame and display again when you leave screen', () => {
+            cy.get('[data-cy="app-tabbar"]').should('not.be.visible')
+            cy.get('[data-cy="ingame-back-button"]').click()
+            cy.get('[data-cy="app-tabbar"]').should('be.visible')
+        })
+
+
+        it('should show hide truth/dare button when player has no task', () => {
             cy.visit('/game')
             cy.overmind().its('actions').invoke('game.resetSet')
-            cy.overmind().its('actions').invoke('game.addTestSet', "longmessage")
+            cy.overmind().its('actions').invoke('game.addTestSet', "noPossibleTasks")
+            cy.overmind().its('actions').invoke('players.addTestPlayer')
 
             cy.overmind().its('state.game.set.name').then((name: string) => {
                 cy.get('[data-cy="game-set-actionblock"]').contains(name)
                 cy.get('[data-cy="game-play-button"]').click()
 
-                // Short Message
-                cy.get('[data-cy="choosetask-truth-button"]').click()
-                cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "250px").click()
+                cy.get('[data-cy="choosetask-truth-button"]').should('not.exist')
+                cy.get('[data-cy="choosetask-dare-button"]').should('not.exist')
 
-                // Long Message
-                cy.get('[data-cy="choosetask-dare-button"]').click()
-                cy.get('[data-cy="displaytask-task-container"]').should('have.css', 'height', "450px").click()
+                cy.get('button').click()
+
+                cy.contains("It's your turn!").should('exist')
             })
-        })
-
-        it('should hide tabbar when you are ingame and display again when you leave screen', () => {
-            cy.get('[data-cy="app-tabbar"]').should('not.be.visible')
-            cy.get('[data-cy="ingame-back-button"]').click()
-            cy.get('[data-cy="app-tabbar"]').should('be.visible')
         })
     })
 
@@ -129,16 +139,16 @@ describe('Game', () => {
         })
 
         it('should have play button disabled when both set and players are not selected', () => {
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
         })
 
         it('should have play button disabled when set or players are not selected', () => {
             cy.overmind().its('actions').invoke('game.addTestSet')
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
 
             cy.overmind().its('actions').invoke('game.resetSet')
             cy.overmind().its('actions').invoke('players.addTestPlayer')
-            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-dare-green opacity-30')
+            cy.get('[data-cy="game-play-button"]').should('have.class', 'bg-light-700')
         })
 
         it('should change to Ingame Page when click play button and both set and players are selected', () => {

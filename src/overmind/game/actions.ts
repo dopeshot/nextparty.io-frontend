@@ -1,8 +1,7 @@
-import { History } from 'history';
 import { Context } from "..";
 import { countPossibleTasksForPlayer, fillPlayersIntoMessage, getFillableTasks, getLeastPlayedByMe, getLeastPlayedOverall, getPossibleTasks, getUnplayedByMe, getUnplayedOverall } from "../../services/game/GameComponents";
 import { shuffleArray, shufflePlayers } from "../../services/game/GameUtilities";
-import { countGenderOccurrences } from "../../services/utilities/utilities";
+import { countGenderOccurrences } from "../../services/Utilities";
 import { Language } from '../../shared/enums/Language';
 import { Visibility } from '../../shared/enums/Visibility';
 import { SetCategory } from '../../shared/types/SetCategory';
@@ -12,24 +11,34 @@ import { Set } from '../explore/state';
 import { playerRequiredToPlay } from "../players/state";
 import { GameStatus, PlayTask, StartGameErrors } from "./state";
 
-export const launchGame = ({ actions }: Context, history: History) => {
+export const launchGame = ({ actions }: Context) => {
     const isPossibleToPlay = actions.game.isPossibleToPlay()
 
     if (!isPossibleToPlay.status) {
         console.error(isPossibleToPlay.errors)
-
-        // Push back to start page
-        history.push('/game')
-
-        return
+        return isPossibleToPlay.status
     }
+
     actions.game.newGame()
     actions.game.nextPlayer()
+    actions.game.updatePlayed()
+
+    return isPossibleToPlay.status
+}
+
+export const updatePlayed = async ({ state, effects }: Context) => {
+    if (!state.game.set)
+        return
+
+    try {
+        await effects.game.updatePlayed(state.game.set._id)
+    } catch (error) /* istanbul ignore next // should not happen */ {
+        console.error(error)
+    }
 }
 
 export const isPossibleToPlay = ({ state }: Context) => {
     const errors: StartGameErrors[] = []
-
     if (state.players.players.length < playerRequiredToPlay) {
         errors.push(StartGameErrors.PLAYERS)
     }
@@ -43,7 +52,8 @@ export const isPossibleToPlay = ({ state }: Context) => {
         errors
     }
 }
-export const newGame = ({ state, actions }: Context) => {
+
+export const newGame = ({ state }: Context) => {
     // MC: We know that state.game.set is not null here.
     if (!state.game.set)
         return
@@ -103,11 +113,9 @@ export const isPossibleTask = ({ state }: Context, taskType: TaskType) => {
 
     if (!state.game.set)
         return false // There is data missing
-
     let tasks = getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType)
     if (tasks.length === 0)
         return false // This player has no possible tasks at all
-
     tasks = getFillableTasks(tasks, state.game.currentPlayer, state.game.playersGenderCount)
     if (tasks.length === 0)
         return false // This group has no possible tasks for this player
@@ -177,23 +185,36 @@ export const generateFinalMessage = ({ state }: Context, playTask: PlayTask) => 
     state.game.currentTask = fillPlayersIntoMessage(state.game.players, playTask, state.game.currentPlayer)
 }
 
-export const addSetToGame = ({ state }: Context) => {
-    if (!state.explore.setDetails) {
-        console.error("setDetails is not set")
-        return
-    }
-
-    state.game.set = {
-        ...state.explore.setDetails,
-        tasks: state.explore.setDetails.tasks.map(task => ({
-            ...task,
-            requires: countGenderOccurrences(task.message),
-            playedBy: []
-        }))
-    }
+export const addSetToGame = ({ state }: Context, setId: string) => {
+    state.game.loadThisSetId = setId
 
     // Reset game status when selecting new set
     state.game.gameStatus = GameStatus.START
+}
+
+export const prepareSetToPlay = async ({ state, effects }: Context) => {
+    if (!state.game.loadThisSetId)
+        return
+    state.game.loadingSetToPlay = true
+
+    try {
+        const response = await effects.explore.getSetById(state.game.loadThisSetId)
+        const setWithTasks = response.data
+
+        state.game.set = {
+            ...setWithTasks,
+            tasks: setWithTasks.tasks.map(task => ({
+                ...task,
+                requires: countGenderOccurrences(task.message),
+                playedBy: []
+            }))
+        }
+    } catch (error)/* istanbul ignore next // should not happen */ {
+        console.error(error)
+    }
+    // Reset game status when selecting new set
+    state.game.gameStatus = GameStatus.START
+    state.game.loadingSetToPlay = false
 }
 
 export const toggleDeveloper = ({ state }: Context) => {
@@ -201,6 +222,7 @@ export const toggleDeveloper = ({ state }: Context) => {
 }
 
 export const hideTabBar = ({ state }: Context, bool: boolean) => {
+    // MC: Check before you replace to not rerender when not needed 
     if (state.game.hideTabBar !== bool)
         state.game.hideTabBar = bool
 }
@@ -218,7 +240,7 @@ export const resetSet = ({ state }: Context) => {
 /**
  * For Testing
  */
-export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | "longmessage") => {
+export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | "noPossibleTasks") => {
     const onlyTruths: (Set & { tasks: PlayTask[] }) = {
         "_id": "61a7bd4c08c2192fcff61461",
         "dareCount": 0,
@@ -227,6 +249,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         "played": 0,
         "category": SetCategory.CLASSIC,
         "visibility": Visibility.PUBLIC,
+        "slug": "only-truths",
         "createdBy": {
             "_id": "61952ca8a3b39d65488ac330",
             "username": "Zoe"
@@ -273,6 +296,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             "username": "Zoe"
         },
         "name": "Only Dares",
+        "slug": "only-dares",
         "tasks": [
             {
                 "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
@@ -301,6 +325,36 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         ]
     }
 
+    const noPossibleTasks: (Set & { tasks: PlayTask[] }) = {
+        "_id": "61a7bd4c08c2192fcff61465",
+        "dareCount": 1,
+        "truthCount": 1,
+        "played": 0,
+        "visibility": Visibility.PUBLIC,
+        "category": SetCategory.CLASSIC,
+        "language": Language.DE,
+        "createdBy": {
+            "_id": "61952ca8a3b39d65488ac330",
+            "username": "Zoe"
+        },
+        "name": "No Tasks",
+        "slug": "no-tasks",
+        "tasks": [
+            {
+                "currentPlayerGender": TaskCurrentPlayerGender.FEMALE,
+                "_id": "61a7bd4c08c2192fcff614d0",
+                "type": TaskType.DARE,
+                "message": "Iss ein Stück @f von etwas (z.B Schlagsahne) von @f's Pobacke",
+                "requires": {
+                    "male": 0,
+                    "female": 2,
+                    "any": 0
+                },
+                "playedBy": []
+            }
+        ]
+    }
+
     const both: (Set & { tasks: PlayTask[] }) = {
         "_id": "61a7bd4c08c2192fcff61465",
         "dareCount": 1,
@@ -314,6 +368,7 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
             "username": "Zoe"
         },
         "name": "Versaut",
+        "slug": "versaut",
         "tasks": [
             {
                 "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
@@ -324,47 +379,6 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
                     "male": 0,
                     "female": 0,
                     "any": 1
-                },
-                "playedBy": []
-            },
-            {
-                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
-                "_id": "61a7bd4c08c2192fcff614d1",
-                "type": TaskType.TRUTH,
-                "message": "Wie viele Partner*innen hattest du bis jetzt?",
-                "requires": {
-                    "male": 0,
-                    "female": 0,
-                    "any": 0
-                },
-                "playedBy": []
-            }
-        ]
-    }
-
-    const longmessage: (Set & { tasks: PlayTask[] }) = {
-        "_id": "61a7bd4c08c2192fcff61465",
-        "dareCount": 1,
-        "truthCount": 1,
-        "played": 0,
-        "visibility": Visibility.PUBLIC,
-        "category": SetCategory.CLASSIC,
-        "language": Language.DE,
-        "createdBy": {
-            "_id": "61952ca8a3b39d65488ac330",
-            "username": "Zoe"
-        },
-        "name": "Long Message",
-        "tasks": [
-            {
-                "currentPlayerGender": TaskCurrentPlayerGender.ANYONE,
-                "_id": "61a7bd4c08c2192fcff614d0",
-                "type": TaskType.DARE,
-                "message": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,",
-                "requires": {
-                    "male": 0,
-                    "female": 0,
-                    "any": 0
                 },
                 "playedBy": []
             },
@@ -394,8 +408,8 @@ export const addTestSet = ({ state }: Context, onlyTaskType: "truth" | "dare" | 
         case "dare":
             state.game.set = onlyDares
             break
-        case "longmessage":
-            state.game.set = longmessage
+        case "noPossibleTasks":
+            state.game.set = noPossibleTasks
             break
         default:
             state.game.set = both

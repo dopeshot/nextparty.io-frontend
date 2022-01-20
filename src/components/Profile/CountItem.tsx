@@ -12,7 +12,7 @@ export const CountItem: React.FC<CountItemProps> = (props) => {
     return (
         <div className="text-center">
             <AnimatedNumber className="font-semibold" value={props.number} formatValue={(value: number) => value.toFixed(0)} duration={animationDuration} />
-            <p>{props.name}</p>
+            <p className="text-light-500">{props.name}</p>
         </div>
     )
 }
