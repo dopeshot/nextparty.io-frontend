@@ -252,7 +252,8 @@ describe('Editor', () => {
                 })
 
                 it('should show error when message is empty', () => {
-                    cy.get('[data-cy="taskeditor-textarea"]').clear()
+                    cy.get('[data-cy="taskeditor-textarea"] textarea').clear()
+                    cy.get('body').click()
                     cy.get('[data-cy="error-message"]').should('be.visible').contains('message is a required field')
                 })
 
