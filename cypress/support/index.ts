@@ -13,6 +13,35 @@ declare global {
             getSets(): void
 
             /**
+             * Custom command to intercept add set request
+             * @addSet cy.addSet()
+             */
+            addSet(): void
+
+            /** 
+             * Custom command to intercept delete set request
+             * @deleteSet cy.deleteSet()
+             */
+            deleteSet(): void
+
+            /** 
+             * Custom command to intercept patch set request
+             * @putSet cy.putSet()
+             */
+            putSet(): void
+
+            /** 
+             * Custom command to intercept delete set request
+             * @deleteTask cy.deleteTask()
+             */
+            deleteTask(): void
+            /**
+             * Custom command to intercept get one request give no tasks back
+             * @getOneSetEmptyTask cy.getOneSetEmptyTask()
+             */
+            getOneSetEmptyTask(): void
+
+            /**
              * Custom command to intercept get one set request
              * @getOneSet cy.getOneSet()
              */

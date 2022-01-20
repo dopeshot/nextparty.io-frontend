@@ -43,12 +43,12 @@ export const MetaEditor: React.FC = () => {
             {/** Title input */}
             <div>
                 <label className="text-light-600 mb-1" htmlFor="name">Name</label>
-                <Input formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
+                <Input dataCy="metaeditor-title-input" formik={formik} field="name" id="name" type="text" placeholder="Set name" autocomplete="on" />
             </div>
             {/** Background picker */}
             <div className="mb-5">
                 <label className="text-light-600 mb-1" htmlFor="name">Choose your theme</label>
-                <button id="category" type="button" onClick={() => setShowThemePicker(true)}
+                <button data-cy="metaeditor-theme-picker-button" id="category" type="button" onClick={() => setShowThemePicker(true)}
                     className={`rounded-lg h-12 w-full flex justify-between px-4 items-center ${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-dark-700` : `text-light-500`}`}
                     style={{ backgroundImage: `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${categories[formik.values.category as SetCategory].name}.svg')`, backgroundSize: "100% 48px" }}>
                     <span>{formik.values.category}</span>
@@ -69,7 +69,7 @@ export const MetaEditor: React.FC = () => {
                             {
                                 categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.foreground === ForegroundColor.LIGHT ? 'text-light-500' : 'text-dark-700'} ${formik.values.category === category.name ? `border-4 border-green-500 box-border` : ``}`}
                                     style={{ backgroundImage: `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${category.name}.svg')`, backgroundSize: "100% 96px" }}>
-                                    <Field type="radio" name="category" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
+                                    <Field data-cy={`metaeditor-theme-picker-${category.name}`} type="radio" name="category" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
                                     {category.name}
                                 </label>
                                 )
@@ -83,7 +83,7 @@ export const MetaEditor: React.FC = () => {
             {/** Lanuage Picker */}
             <div className="mb-5">
                 <label className="text-light-600 mb-1" htmlFor="language">Language</label>
-                <button onClick={() => {
+                <button data-cy="metaeditor-language-picker-button" onClick={() => {
                     languagePicker({
                         buttons: [
                             {
@@ -113,12 +113,12 @@ export const MetaEditor: React.FC = () => {
             <div className="mb-5">
                 <label className="text-light-600 mb-1" htmlFor="language">Visibility</label>
                 <div className="flex items-center mb-1">
-                    <IonToggle color="medium" mode="ios" checked={formik.values.visibility === Visibility.PUBLIC} onIonChange={(e) => formik.setFieldValue('visibility', e.detail.checked ? Visibility.PUBLIC : Visibility.PRIVATE)} />
+                    <IonToggle data-cy="metaeditor-visibility-picker" color="medium" mode="ios" checked={formik.values.visibility === Visibility.PUBLIC} onIonChange={(e) => formik.setFieldValue('visibility', e.detail.checked ? Visibility.PUBLIC : Visibility.PRIVATE)} />
                     <span className="ml-3">{formik.values.visibility}</span>
                 </div>
                 <small className="text-light-600 mt-1">{formik.values.visibility === Visibility.PUBLIC ? 'Everyone can see and play the set.' : 'Only you can see and play the set.'}</small>
             </div>
-            <Button className="w-full" keepFocus={true} onClick={() => null} Icon={SaveIcon} loading={isSubmitting} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Update Set Details' : 'Create Set'}</Button>
+            <Button dataCy="metaeditor-set-button" className="w-full" keepFocus={true} onClick={() => null} Icon={SaveIcon} loading={isSubmitting} type="submit" disabled={!(formik.dirty && formik.isValid)}>{isEdit ? 'Update Set Details' : 'Create Set'}</Button>
         </Form>
     }
     </Formik>

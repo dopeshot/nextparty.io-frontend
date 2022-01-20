@@ -6,10 +6,40 @@ Cypress.Commands.add('getSets', () => {
     }).as('getSets')
 })
 
+Cypress.Commands.add('addSet', () => {
+    cy.intercept('POST', `${api}/sets`, {
+        fixture: 'set.json'
+    }).as('addSet')
+})
+
+Cypress.Commands.add('putSet', () => {
+    cy.intercept('PUT', `${api}/sets/**`, {
+        fixture: 'set.json'
+    }).as('putSet')
+})
+
+Cypress.Commands.add('deleteSet', () => {
+    cy.intercept('DELETE', `${api}/sets/**`, {
+        statusCode: 204
+    }).as('deleteSet')
+})
+
+Cypress.Commands.add('deleteTask', () => {
+    cy.intercept('DELETE', `${api}/**/task/**`, {
+        statusCode: 200
+    }).as('deleteTask')
+})
+
 Cypress.Commands.add('getOneSet', () => {
     cy.intercept('GET', `${api}/sets/**`, {
         fixture: 'set.json'
     }).as('getOneSet')
+})
+
+Cypress.Commands.add('getOneSetEmptyTask', () => {
+    cy.intercept('GET', `${api}/sets/**`, {
+        fixture: 'set-notasks.json'
+    }).as('getOneSetEmptyTask')
 })
 
 Cypress.Commands.add('login', () => {
@@ -80,7 +110,6 @@ Cypress.Commands.add('registerDuplicateUsername', () => {
         },
     }).as('registerDuplicateUsername')
 })
-
 
 Cypress.Commands.add('getSetsFromUser', () => {
     cy.intercept('GET', `${api}/sets/user/**`, {
