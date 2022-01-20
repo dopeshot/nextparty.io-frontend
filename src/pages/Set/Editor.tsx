@@ -1,8 +1,9 @@
 import { DotsHorizontalIcon } from "@heroicons/react/outline";
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonPage, IonProgressBar, IonToolbar, useIonActionSheet, useIonAlert, useIonRouter, useIonViewDidLeave, useIonViewWillEnter } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, useHistory } from "react-router";
 import trash from "../../assets/icons/trash.svg";
+import { SecondaryButton } from "../../components/Buttons/SecondaryButton";
 import { MetaEditor } from "../../components/Editor/MetaEditor";
 import { TaskEditor } from "../../components/Editor/TaskEditor";
 import { useActions, useAppState } from "../../overmind";
@@ -17,6 +18,8 @@ export const Editor: React.FC<EditorParams> = ({ match: { params: { setId } } })
 
     const { loadSet, deleteSet, resetSet } = useActions().creative
     const { isLoading, isEdit, set } = useAppState().creative
+    const { addSetToGame } = useActions().game
+    const history = useHistory()
     const ionRouter = useIonRouter()
     const [showDeleteAlert] = useIonAlert()
     const [showSetOptions] = useIonActionSheet()
@@ -82,7 +85,14 @@ export const Editor: React.FC<EditorParams> = ({ match: { params: { setId } } })
                 <main className="bg-dark-700 mb-12">
                     <div className="container">
                         <MetaEditor />
-                        {isEdit && <TaskEditor />}
+                        {isEdit && <>
+                            <SecondaryButton disabled={set?.tasks.length === 0} onClick={(event: any) => {
+                                event.preventDefault()
+                                addSetToGame(set!._id!)
+                                history.push('/game')
+                            }}>Play now</SecondaryButton>
+                            <TaskEditor />
+                        </>}
                     </div>
                 </main>
             </>}

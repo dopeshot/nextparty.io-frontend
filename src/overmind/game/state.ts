@@ -35,6 +35,8 @@ export type PlayerGenderCount = {
 export type SetWithPlayTasks = (Set & { tasks: PlayTask[] })
 export type State = {
     set: SetWithPlayTasks | null,
+    loadThisSetId: string | null,
+    loadingSetToPlay: boolean,
     hideTabBar: boolean,
     players: Player[],
     playersGenderCount: PlayerGenderCount,
@@ -54,6 +56,8 @@ export type State = {
 export const state: State = {
     hideTabBar: false,
     set: null,
+    loadThisSetId: null,
+    loadingSetToPlay: false,
     players: [],
     playersGenderCount: derived((state: State) => state.players.reduce((result, player) => {
         switch (player.gender) {

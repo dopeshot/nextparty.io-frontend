@@ -12,6 +12,7 @@ import { useFocus } from "../../shared/hooks/FocusHook";
 import { TaskCurrentPlayerGender, taskCurrentPlayerGenders } from "../../shared/types/TaskCurrentPlayerGender";
 import { taskPlayerGenders } from "../../shared/types/TaskPlayerGender";
 import { TaskType, taskTypes } from "../../shared/types/TaskType";
+import { SecondaryButton } from "../Buttons/SecondaryButton";
 
 
 export const TaskEditor: React.FC = () => {
@@ -202,7 +203,7 @@ export const TaskEditor: React.FC = () => {
                                 </div>
                             </div>
                             <Button className="w-full mb-4" type="submit" onClick={() => { }} disabled={!(formik.dirty && formik.isValid)} Icon={SaveIcon}>Save</Button>
-                            {editData && <Button className="w-full" type="button" onClick={() => onDeleteTask(editData._id)}>Delete</Button>}
+                            {editData && <SecondaryButton onClick={() => onDeleteTask(editData._id)}>Delete</SecondaryButton>}
                         </div>
                     </Form>
                     }</Formik>

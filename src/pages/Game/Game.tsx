@@ -9,15 +9,18 @@ import { setSeoTitle } from '../../services/Utilities';
 
 export const Game: React.FC = () => {
 	const { game: {
-		set
+		set,
+		loadingSetToPlay
 	}, players: {
 		players
 	} } = useAppState()
 
-	const { isPossibleToPlay } = useActions().game
+	const { isPossibleToPlay, prepareSetToPlay } = useActions().game
 
 	useIonViewWillEnter(() => {
+		console.log("useIonViewWillEnter")
 		setSeoTitle('Truth or Dare - Next Party', false)
+		prepareSetToPlay()
 	})
 
 	return (
@@ -42,7 +45,7 @@ export const Game: React.FC = () => {
 
 					{/* Play button */}
 					<div className='container pb-12'>
-						<Button dataCy="game-play-button" disabled={!isPossibleToPlay().status} Icon={PlayIcon} to='/game/ingame'>Play</Button>
+						<Button dataCy="game-play-button" loading={loadingSetToPlay} disabled={!isPossibleToPlay().status} Icon={PlayIcon} to='/game/ingame'>Play</Button>
 					</div>
 				</div>
 			</IonContent>

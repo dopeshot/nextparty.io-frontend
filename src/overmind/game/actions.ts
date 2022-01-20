@@ -39,7 +39,6 @@ export const updatePlayed = async ({ state, effects }: Context) => {
 
 export const isPossibleToPlay = ({ state }: Context) => {
     const errors: StartGameErrors[] = []
-
     if (state.players.players.length < playerRequiredToPlay) {
         errors.push(StartGameErrors.PLAYERS)
     }
@@ -53,7 +52,8 @@ export const isPossibleToPlay = ({ state }: Context) => {
         errors
     }
 }
-export const newGame = ({ state, actions }: Context) => {
+
+export const newGame = ({ state }: Context) => {
     // MC: We know that state.game.set is not null here.
     if (!state.game.set)
         return
@@ -113,11 +113,9 @@ export const isPossibleTask = ({ state }: Context, taskType: TaskType) => {
 
     if (!state.game.set)
         return false // There is data missing
-
     let tasks = getPossibleTasks(state.game.set.tasks, state.game.currentPlayer, taskType)
     if (tasks.length === 0)
         return false // This player has no possible tasks at all
-
     tasks = getFillableTasks(tasks, state.game.currentPlayer, state.game.playersGenderCount)
     if (tasks.length === 0)
         return false // This group has no possible tasks for this player
@@ -187,23 +185,36 @@ export const generateFinalMessage = ({ state }: Context, playTask: PlayTask) => 
     state.game.currentTask = fillPlayersIntoMessage(state.game.players, playTask, state.game.currentPlayer)
 }
 
-export const addSetToGame = ({ state }: Context) => {
-    if (!state.explore.setDetails) {
-        console.error("setDetails is not set")
-        return
-    }
-
-    state.game.set = {
-        ...state.explore.setDetails,
-        tasks: state.explore.setDetails.tasks.map(task => ({
-            ...task,
-            requires: countGenderOccurrences(task.message),
-            playedBy: []
-        }))
-    }
+export const addSetToGame = ({ state }: Context, setId: string) => {
+    state.game.loadThisSetId = setId
 
     // Reset game status when selecting new set
     state.game.gameStatus = GameStatus.START
+}
+
+export const prepareSetToPlay = async ({ state, effects }: Context) => {
+    if (!state.game.loadThisSetId)
+        return
+    state.game.loadingSetToPlay = true
+
+    try {
+        const response = await effects.explore.getSetById(state.game.loadThisSetId)
+        const setWithTasks = response.data
+
+        state.game.set = {
+            ...setWithTasks,
+            tasks: setWithTasks.tasks.map(task => ({
+                ...task,
+                requires: countGenderOccurrences(task.message),
+                playedBy: []
+            }))
+        }
+    } catch (error)/* istanbul ignore next // should not happen */ {
+        console.error(error)
+    }
+    // Reset game status when selecting new set
+    state.game.gameStatus = GameStatus.START
+    state.game.loadingSetToPlay = false
 }
 
 export const toggleDeveloper = ({ state }: Context) => {
@@ -211,6 +222,7 @@ export const toggleDeveloper = ({ state }: Context) => {
 }
 
 export const hideTabBar = ({ state }: Context, bool: boolean) => {
+    // MC: Check before you replace to not rerender when not needed 
     if (state.game.hideTabBar !== bool)
         state.game.hideTabBar = bool
 }
