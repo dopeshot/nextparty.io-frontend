@@ -23,7 +23,7 @@ export const ChooseTask: React.FC<ChooseTaskType> = ({ playerName }) => {
             {canPlayTruth && <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold">Truth</span>}
             {canPlayDare && <span style={{ writingMode: "vertical-lr" }} className="transform rotate-180 text-4xl font-semibold ml-auto">Dare</span>}
             {!canPlayTruth && !canPlayDare && <div className="mx-auto text-center">
-                <p>This player doesn't have any tasks to play. Tab to continue!</p>
+                <p>This player doesn't have any tasks to play. Tap to continue!</p>
                 <ChevronDownIcon className="h-5 mx-auto mt-2" />
             </div>}
         </div>
