@@ -26,6 +26,7 @@ declare global {
   interface Window { overmind: typeof overmind, Cypress: any }
 }
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider value={overmind}>

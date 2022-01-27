@@ -8,9 +8,12 @@ import { Visibility } from "../../shared/enums/Visibility";
 import { SetCategory } from "../../shared/types/SetCategory";
 
 export const onInitializeOvermind = async ({ state }: Context) => {
-  console.log("init");
-  GoogleAuth.init();
+  // comment this out for android...leave it in for everything else
+  if (process.env.REACT_APP_ENV !== "android") {
+    GoogleAuth.init();
+  }
 };
+
 export const setToken = ({ state }: Context, token?: string) => {
   if (!token) {
     state.profile.accessToken = null;

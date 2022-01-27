@@ -1,5 +1,5 @@
 {
-  "appId": "android.nextparty.io",
+  "appId": "app.nextparty.io",
   "appName": "nextparty",
   "webDir": "build",
   "bundledWebRuntime": false,
@@ -10,6 +10,20 @@
       "serverClientId": "1021858276430-5tjrcatgd47oirehhrmqhoecsqc31671.apps.googleusercontent.com",
       "forceCodeForRefreshToken": true,
       "grantOfflineAccess": false
+    },
+    "SplashScreen": {
+      "launchShowDuration": 500,
+      "launchAutoHide": true,
+      "backgroundColor": "#000000",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": true,
+      "androidSpinnerStyle": "large",
+      "iosSpinnerStyle": "small",
+      "spinnerColor": "#FF0000",
+      "splashFullScreen": true,
+      "splashImmersive": true,
+      "layoutName": "launch_screen"
     }
   }
 }
