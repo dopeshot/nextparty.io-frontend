@@ -110,7 +110,7 @@ export const TaskEditor: React.FC = () => {
                         setEditData(task)
                         setShowTaskEditor(true)
                     }} className="flex items-center grow min-w-0">
-                        <div className="shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
+                        <div className={`shrink-0 w-8 h-8 rounded-full ${task.type === TaskType.DARE ? "bg-theme-kids-dare text-dark-800" : "bg-theme-kids-truth"} flex items-center justify-center mr-3`}>
                             <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
                         </div>
                         <div className="shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
@@ -129,7 +129,7 @@ export const TaskEditor: React.FC = () => {
             setShowTaskEditor(true)
         }}>
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
-                <span className="text-xl">T</span>
+                <span className="text-xl">?</span>
             </div>
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
                 <span className="text-xl">👤</span>
