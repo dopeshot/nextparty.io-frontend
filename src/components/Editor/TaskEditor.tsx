@@ -1,4 +1,4 @@
-import { PlusIcon, SaveIcon, XIcon } from "@heroicons/react/outline";
+import { PlusIcon, SaveIcon, TrashIcon } from "@heroicons/react/outline";
 import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTextarea, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
@@ -118,8 +118,8 @@ export const TaskEditor: React.FC = () => {
                         </div>
                         <p className="overflow-hidden text-ellipsis whitespace-nowrap">{replaceStringWithIcon(task.message)}</p>
                     </button>
-                    <button data-cy="taskeditor-tasks-delete-button" onClick={() => onDeleteTask(task._id)} className="ml-3 shrink-0 w-8 h-8 rounded-full flex justify-center items-center">
-                        <XIcon className="w-6 h-6" />
+                    <button data-cy="taskeditor-tasks-delete-button" onClick={() => onDeleteTask(task._id)} className="ml-3 shrink-0 w-8 h-8 rounded-full flex justify-center items-center text-light-700 hover:text-light-500">
+                        <TrashIcon className="w-6 h-6" />
                     </button>
                 </div>)}
             </div>
