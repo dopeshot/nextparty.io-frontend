@@ -30,7 +30,7 @@ export const TaskEditor: React.FC = () => {
     }
 
     const validationSchema = Yup.object().shape({
-        message: Yup.string().min(10).max(280).required(),
+        message: Yup.string().min(1, "Please enter a valid task").max(280, "Your task must be at most 280 characters").required("Please enter a valid task"),
         type: Yup.string().oneOf(Object.values(TaskType)).required(),
         currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required()
     })
