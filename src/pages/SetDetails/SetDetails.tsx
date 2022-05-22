@@ -1,11 +1,15 @@
 import { PlayIcon } from '@heroicons/react/outline'
 import { RefresherEventDetail } from "@ionic/core"
+<<<<<<< HEAD
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonViewWillEnter } from "@ionic/react"
+=======
+import { IonBackButton, IonButton, IonButtons, IonContent, IonFab, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast, useIonViewWillEnter } from "@ionic/react"
+>>>>>>> main
 import { useRef } from "react"
 import { RouteComponentProps, useHistory } from "react-router"
 import arrowBack from "../../assets/icons/arrowback.svg"
 import refresh from '../../assets/icons/refresh.svg'
-import { Button } from "../../components/Buttons/Button"
+import { Button } from '../../components/Buttons/Button'
 import { DareLabel } from '../../components/SetItem/DareLabel'
 import { TruthLabel } from '../../components/SetItem/TruthLabel'
 import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
@@ -67,7 +71,7 @@ export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setI
                     <IonRefresherContent pullingIcon={refresh}
                         refreshingSpinner="circles" />
                 </IonRefresher>
-                <div className="fixed bottom-0 z-10 w-full">
+                <IonFab vertical="bottom" horizontal="start" slot="fixed" className="inset-x-0 bottom-0">
                     <div className="h-32 bg-gradient-to-t from-dark-800">
                         <div className="container h-full flex flex-col justify-center">
                             <Button dataCy='setdetails-play-button' type="button" onClick={!isLoadingSetDetails && setDetails ? (event: any) => {
@@ -77,7 +81,7 @@ export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setI
                             } : () => console.warn("set still loading")} Icon={PlayIcon}>Play</Button>
                         </div>
                     </div>
-                </div>
+                </IonFab>
 
                 <div>
                     <div className="bg-gradient-to-t from-dark-700 via-transparent">
