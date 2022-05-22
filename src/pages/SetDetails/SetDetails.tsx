@@ -1,6 +1,6 @@
-import { DotsHorizontalIcon, PlayIcon } from '@heroicons/react/outline'
+import { PlayIcon } from '@heroicons/react/outline'
 import { RefresherEventDetail } from "@ionic/core"
-import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast, useIonViewWillEnter } from "@ionic/react"
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast, useIonViewWillEnter } from "@ionic/react"
 import { useRef } from "react"
 import { RouteComponentProps, useHistory } from "react-router"
 import arrowBack from "../../assets/icons/arrowback.svg"
@@ -51,7 +51,7 @@ export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setI
                     <IonButtons>
                         <IonBackButton className="text-light-500" icon={arrowBack} defaultHref="/explore" />
                     </IonButtons>
-                    <IonButtons slot="end">
+                    {/* <IonButtons slot="end">
                         <IonButton data-cy="set-details-threedot-icon" onClick={() => present({
                             position: 'top',
                             buttons: [{ text: 'hide', handler: () => dismiss() }],
@@ -59,7 +59,7 @@ export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setI
                         })}>
                             <DotsHorizontalIcon className="text-white h-6 w-6" />
                         </IonButton>
-                    </IonButtons>
+                    </IonButtons> */}
                 </ IonToolbar>
             </IonHeader>
             <IonContent style={{ "--background": "transparent" }}>
