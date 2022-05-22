@@ -1,10 +1,6 @@
 import { PlayIcon } from '@heroicons/react/outline'
 import { RefresherEventDetail } from "@ionic/core"
-<<<<<<< HEAD
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonViewWillEnter } from "@ionic/react"
-=======
-import { IonBackButton, IonButton, IonButtons, IonContent, IonFab, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast, useIonViewWillEnter } from "@ionic/react"
->>>>>>> main
+import { IonBackButton, IonButtons, IonContent, IonFab, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonViewWillEnter } from "@ionic/react"
 import { useRef } from "react"
 import { RouteComponentProps, useHistory } from "react-router"
 import arrowBack from "../../assets/icons/arrowback.svg"
