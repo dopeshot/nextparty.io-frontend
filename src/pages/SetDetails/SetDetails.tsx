@@ -79,24 +79,24 @@ export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setI
                     </div>
                 </IonFab>
 
-                <div>
+                {setDetails && <div>
                     <div className="bg-gradient-to-t from-dark-700 via-transparent">
                         <div data-cy="set-detail-info-container" className="container">
                             <div className="flex flex-col justify-end h-48 pb-6" >
-                                <h1 className="text-3xl mb-2 font-bold">{setDetails?.name}</h1>
-                                <p className="text-light-600 mb-5">{setDetails?.createdBy.username}</p>
+                                <h1 className="text-3xl mb-2 font-bold">{setDetails.name}</h1>
+                                <p className="text-light-600 mb-5">{setDetails.createdBy.username}</p>
                                 <div className="flex items-center">
-                                    <TruthLabel category={setDetails ? setDetails.category : 'default'} />
-                                    <p className="text-light-600 mr-4">{setDetails?.truthCount} Truth</p>
-                                    <DareLabel category={setDetails ? setDetails.category : 'default'} />
-                                    <p className="text-light-600 mr-3">{setDetails?.dareCount} Dare</p>
+                                    <TruthLabel category={setDetails.category} />
+                                    <p className="text-light-600 mr-4">{setDetails.truthCount} Truth</p>
+                                    <DareLabel category={setDetails.category} />
+                                    <p className="text-light-600 mr-3">{setDetails.dareCount} Dare</p>
                                     <PlayIcon className="w-6 h-6" />
-                                    <p className="text-light-600 ml-1">{setDetails?.played} Played</p>
+                                    <p className="text-light-600 ml-1">{setDetails.played} Played</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>}
                 <div className="bg-dark-700 pt-6">
                     <div className="container pb-32">
                         {isLoadingSetDetails ? (<IonProgressBar data-cy="detail-set-progress-bar" type="indeterminate"></IonProgressBar>) : (
