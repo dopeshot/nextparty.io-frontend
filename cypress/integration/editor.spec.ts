@@ -260,6 +260,7 @@ describe('Editor', () => {
                 it('should show error when message has less than 10 letters', () => {
                     cy.get('textarea').click().type('Create!', { force: true })
                     cy.get('[data-cy="error-message"]').should('be.visible').contains('message must be at least 10 characters')
+                    // TODO: This is not good since we check for error message here... 
                 })
 
                 it('should show error when message has more than 280 letters', () => {
