@@ -1,6 +1,6 @@
 import { PlayIcon } from '@heroicons/react/outline'
 import { RefresherEventDetail } from "@ionic/core"
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonToast, useIonViewWillEnter } from "@ionic/react"
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonList, IonPage, IonProgressBar, IonRefresher, IonRefresherContent, IonToolbar, useIonViewWillEnter } from "@ionic/react"
 import { useRef } from "react"
 import { RouteComponentProps, useHistory } from "react-router"
 import arrowBack from "../../assets/icons/arrowback.svg"
@@ -20,7 +20,7 @@ interface SetDetailsParams extends RouteComponentProps<{
 }> { }
 
 export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setId } } }) => {
-    const [present, dismiss] = useIonToast()
+    // const [present, dismiss] = useIonToast()
     const history = useHistory()
     const { isLoadingSetDetails, setDetails } = useAppState().explore
     const { loadSetDetails } = useActions().explore
