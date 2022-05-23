@@ -4,6 +4,7 @@ import { Provider } from 'overmind-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
+import './i18n';
 import { config } from './overmind';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
