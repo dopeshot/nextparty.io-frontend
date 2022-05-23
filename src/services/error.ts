@@ -13,7 +13,7 @@ export const checkAxiosErrorType = (error: any, actions: Context["actions"]): st
 }
 
 export const errorType = (error: any, actions: Context["actions"]): string => {
-    console.log(error.response.data.message)
+    console.error(error.response.data.message)
     if (error.response.status === 401 && error.response.data.message === "Login Failed due to invalid credentials")
         return "Email or password is wrong"
     if (error.response.status === 401 && error.response.data.message === "This user is banned. Please contact the administrator") {

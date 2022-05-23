@@ -54,7 +54,6 @@ export const state: State = {
     sets: {
         data: null,
         truthCount: derived((state: State['sets']) => {
-            console.log(state)
             return state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.truthCount, 0)
         }),
         dareCount: derived((state: State['sets']) => state.data === null ? 0 : state.data.reduce((sum, set) => sum + set.dareCount, 0)),

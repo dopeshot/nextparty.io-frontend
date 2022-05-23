@@ -75,19 +75,20 @@ describe('Sets', () => {
             cy.get('.action-sheet-container').should('be.visible')
         })
 
-        it('should show toast when click on three dots in nav', () => {
-            cy.get('[data-cy="set-details-threedot-icon"]').click()
+        // This field is removed since we do not require it for the current version
+        // it('should show toast when click on three dots in nav', () => {
+        //     cy.get('[data-cy="set-details-threedot-icon"]').click()
 
-            cy.get('ion-toast').shadow().contains('Clicked options button')
-        })
+        //     cy.get('ion-toast').shadow().contains('Clicked options button')
+        // })
 
-        it('should close toast when click hide when toast is open', () => {
-            cy.get('[data-cy="set-details-threedot-icon"]').click()
-            cy.get('ion-toast').shadow().contains('Clicked options button')
+        // it('should close toast when click hide when toast is open', () => {
+        //     cy.get('[data-cy="set-details-threedot-icon"]').click()
+        //     cy.get('ion-toast').shadow().contains('Clicked options button')
 
-            cy.get('ion-toast').shadow().find('.toast-button').contains('hide').click()
-            cy.get('ion-toast').shadow().should('not.exist')
-        })
+        //     cy.get('ion-toast').shadow().find('.toast-button').contains('hide').click()
+        //     cy.get('ion-toast').shadow().should('not.exist')
+        // })
 
         it('should redirect to game page and add set to state when click play button', () => {
             cy.get('[data-cy="setdetails-play-button"]').click()
