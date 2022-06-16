@@ -1,5 +1,6 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { IonContent, IonIcon, IonItem, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
+import { useTranslation } from 'react-i18next';
 import divers from '../../assets/icons/divers.svg';
 import female from '../../assets/icons/female.svg';
 import male from '../../assets/icons/male.svg';
@@ -8,7 +9,9 @@ import { PlayerInput } from '../../components/Forms/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/Utilities';
 
+
 export const Player: React.FC = () => {
+    const { t } = useTranslation()
     const { players: { players, isAllowedToDelete }, game: { set } } = useAppState()
     const { addPlayer, confirmPlayers, loadPlayerScreen } = useActions().players
 
@@ -27,8 +30,8 @@ export const Player: React.FC = () => {
                 <div className="ion-no-border bg-cover mb-8" style={{ backgroundSize: "100% 204px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
                     <div className="bg-gradient-to-t from-dark-700 w-full h-full">
                         <div className="container">
-                            <h1 className="text-3xl pt-14 pb-6 text-light-500 font-bold">Players</h1>
-                            <p className="text-light-600">Add your friends and choose their gender.</p>
+                            <h1 className="text-3xl pt-14 pb-6 text-light-500 font-bold">{t("Players")}</h1>
+                            <p className="text-light-600">{t("Add your friends and choose their gender.")}</p>
                         </div>
                     </div>
                 </div>
