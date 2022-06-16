@@ -18,7 +18,6 @@ export const Game: React.FC = () => {
 	const { isPossibleToPlay, prepareSetToPlay } = useActions().game
 
 	useIonViewWillEnter(() => {
-		console.log("useIonViewWillEnter")
 		setSeoTitle('Truth or Dare - Next Party', false)
 		prepareSetToPlay()
 	})

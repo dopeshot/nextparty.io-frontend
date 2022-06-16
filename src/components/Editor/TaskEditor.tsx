@@ -1,14 +1,13 @@
-import { PlusIcon, SaveIcon, XIcon } from "@heroicons/react/outline";
+import { PlusIcon, SaveIcon, TrashIcon } from "@heroicons/react/outline";
 import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTextarea, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import { Field, Form, Formik } from "formik";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import * as Yup from "yup";
 import { Button } from "../../components/Buttons/Button";
 import { ErrorInput } from "../../components/Forms/ErrorMessage";
 import { useActions, useAppState } from "../../overmind";
 import { Task } from "../../overmind/explore/state";
 import { replaceCurrentPlayerStringWithIcon, replaceIconWithString, replaceStringWithIcon } from "../../services/Utilities";
-import { useFocus } from "../../shared/hooks/FocusHook";
 import { TaskCurrentPlayerGender, taskCurrentPlayerGenders } from "../../shared/types/TaskCurrentPlayerGender";
 import { taskPlayerGenders } from "../../shared/types/TaskPlayerGender";
 import { TaskType, taskTypes } from "../../shared/types/TaskType";
@@ -20,7 +19,7 @@ export const TaskEditor: React.FC = () => {
     const { set } = useAppState().creative
 
     const [editData, setEditData] = useState<Task | null>(null)
-    const [taskMessage, setTaskMessageFocus] = useFocus()
+    const textareaRef = useRef<HTMLIonTextareaElement>(null)
     const [showTaskEditor, setShowTaskEditor] = useState(false)
     const [showDeleteAlert] = useIonAlert()
 
@@ -31,7 +30,7 @@ export const TaskEditor: React.FC = () => {
     }
 
     const validationSchema = Yup.object().shape({
-        message: Yup.string().min(10).max(280).required(),
+        message: Yup.string().min(1, "Please enter a valid task").max(280, "Your task must be at most 280 characters").required("Please enter a valid task"),
         type: Yup.string().oneOf(Object.values(TaskType)).required(),
         currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required()
     })
@@ -57,20 +56,12 @@ export const TaskEditor: React.FC = () => {
         setShowTaskEditor(false)
     }
 
-
-
-    const generateTaskMessage = (string: string, addString: string): string => {
-        return string + addString
-    }
-
-
     const closeTaskEditorModal = () => {
         // Hide modal
         setShowTaskEditor(false)
 
         // The editData is getting reset in the onDidDismiss hook (we have to wait for the animation)
     }
-
 
     const onDeleteTask = (taskId: string) => {
         showDeleteAlert({
@@ -110,7 +101,7 @@ export const TaskEditor: React.FC = () => {
                         setEditData(task)
                         setShowTaskEditor(true)
                     }} className="flex items-center grow min-w-0">
-                        <div className="shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
+                        <div className={`shrink-0 w-8 h-8 rounded-full ${task.type === TaskType.DARE ? "bg-theme-kids-dare text-dark-800" : "bg-theme-kids-truth"} flex items-center justify-center mr-3`}>
                             <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
                         </div>
                         <div className="shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
@@ -118,8 +109,8 @@ export const TaskEditor: React.FC = () => {
                         </div>
                         <p className="overflow-hidden text-ellipsis whitespace-nowrap">{replaceStringWithIcon(task.message)}</p>
                     </button>
-                    <button data-cy="taskeditor-tasks-delete-button" onClick={() => onDeleteTask(task._id)} className="ml-3 shrink-0 w-8 h-8 rounded-full flex justify-center items-center">
-                        <XIcon className="w-6 h-6" />
+                    <button data-cy="taskeditor-tasks-delete-button" onClick={() => onDeleteTask(task._id)} className="ml-3 shrink-0 w-8 h-8 rounded-full flex justify-center items-center text-light-700 hover:text-light-500">
+                        <TrashIcon className="w-6 h-6" />
                     </button>
                 </div>)}
             </div>
@@ -129,7 +120,7 @@ export const TaskEditor: React.FC = () => {
             setShowTaskEditor(true)
         }}>
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
-                <span className="text-xl">T</span>
+                <span className="text-xl">?</span>
             </div>
             <div className="flex-shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
                 <span className="text-xl">👤</span>
@@ -174,7 +165,7 @@ export const TaskEditor: React.FC = () => {
                             </div>
                             <div className="mb-6">
                                 <p className="text-light-600 mb-1">Write task</p>
-                                <IonTextarea data-cy="taskeditor-textarea" ref={taskMessage} className="bg-dark-600 rounded px-3 mb-1" placeholder={formik.values.type === TaskType.DARE ? `Show your last photo in your smartphone gallery.` : `What is the most attractive thing about 👤?`} autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => {
+                                <IonTextarea data-cy="taskeditor-textarea" ref={textareaRef} className="bg-dark-600 rounded px-3 mb-1" placeholder={formik.values.type === TaskType.DARE ? `Show your last photo in your smartphone gallery.` : `What is the most attractive thing about 👤?`} autoGrow value={replaceStringWithIcon(formik.values.message)} onIonChange={e => {
                                     formik.setFieldValue('message', e.detail.value)
                                 }} onIonBlur={() => {
                                     // This is required since of the custom field of IonTextarea....
@@ -183,8 +174,25 @@ export const TaskEditor: React.FC = () => {
                                 <ErrorInput field="message" />
                                 <div className="flex gap-4 pt-1">{Object.values(taskPlayerGenders).map(taskPlayerGenders =>
                                     <label data-cy={`taskeditor-player-${taskPlayerGenders.name}`} onClick={() => {
-                                        formik.setFieldValue('message', generateTaskMessage(formik.values.message, taskPlayerGenders.name))
-                                        setTaskMessageFocus()
+                                        // @ts-ignore Ionic type does not have correct type .... 
+                                        const textarea = textareaRef.current.textareaWrapper.firstChild
+                                        const selectionStart = textarea.selectionStart
+                                        const selectionEnd = textarea.selectionEnd
+
+                                        // Update message. Replace item with your cursor selection
+                                        const newMessage = [
+                                            formik.values.message.slice(0, selectionStart),
+                                            taskPlayerGenders.name,
+                                            formik.values.message.slice(selectionEnd)
+                                        ].join("")
+                                        formik.setFieldValue('message', newMessage)
+
+                                        // Focus back textarea and select new cursor position
+                                        const newCursorPosition = selectionStart + taskPlayerGenders.name.length;
+                                        setTimeout(() => {
+                                            textarea.setSelectionRange(newCursorPosition, newCursorPosition);
+                                            textarea.focus();
+                                        }, 10);
                                     }} key={taskPlayerGenders.name} className={`hover:bg-light-600 text-xl rounded-full w-9 h-9 flex justify-center items-center cursor-pointer`}>
                                         {taskPlayerGenders.icon}
                                     </label>
