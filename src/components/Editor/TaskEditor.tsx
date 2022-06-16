@@ -91,7 +91,7 @@ export const TaskEditor: React.FC = () => {
     return <>
         {set?.tasks && set.tasks.length !== 0 && <>
             <div className="flex justify-between items-center">
-                <h2 className="text-lg font-semibold">Tasks</h2>
+                <h2 className="text-lg font-semibold">Tasks {(set.tasks.length > 0) && <span>({set.tasks.length})</span>}</h2>
                 <Button dataCy="taskeditor-addtask-button" keepFocus={false} type="button" onClick={() => { setShowTaskEditor(true) }} Icon={PlusIcon} className="w-34 px-7">Task</Button>
             </div>
             <p className="text-light-600 mb-3">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
