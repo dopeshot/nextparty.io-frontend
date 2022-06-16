@@ -10,7 +10,7 @@ import { Task } from "../../overmind/explore/state";
 import { replaceCurrentPlayerStringWithIcon, replaceIconWithString, replaceStringWithIcon } from "../../services/Utilities";
 import { TaskCurrentPlayerGender, taskCurrentPlayerGenders } from "../../shared/types/TaskCurrentPlayerGender";
 import { taskPlayerGenders } from "../../shared/types/TaskPlayerGender";
-import { TaskType, taskTypes } from "../../shared/types/TaskType";
+import { TaskType, taskTypeChar, taskTypes } from "../../shared/types/TaskType";
 import { SecondaryButton } from "../Buttons/SecondaryButton";
 
 
@@ -102,7 +102,7 @@ export const TaskEditor: React.FC = () => {
                         setShowTaskEditor(true)
                     }} className="flex items-center grow min-w-0">
                         <div className={`shrink-0 w-8 h-8 rounded-full ${task.type === TaskType.DARE ? "bg-theme-kids-dare text-dark-800" : "bg-theme-kids-truth"} flex items-center justify-center mr-3`}>
-                            <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
+                            <span className="text-xl">{taskTypeChar[task.type]}</span>
                         </div>
                         <div className="shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
                             <span className="text-xl">{replaceCurrentPlayerStringWithIcon(task.currentPlayerGender)}</span>
