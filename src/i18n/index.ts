@@ -1,10 +1,10 @@
-import i18n from "i18next";
+import { default as i18n, Resource } from "i18next";
 import { initReactI18next } from "react-i18next";
 
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
-const resources = {
+const resources: Resource = {
     en: {
         translation: {
             "Truth or Dare": "Truth or Dare",
@@ -13,7 +13,9 @@ const resources = {
             "Pick a set to play": "Pick a set to play",
             "N players added": "{{count}} players added",
             "set picked": "{{name}} picked",
-            "play": "Play"
+            "play": "Play",
+            "Players": "Players",
+            "Add your friends and choose their gender.": "Add your friends and choose their gender."
         }
     },
     de: {
@@ -24,7 +26,9 @@ const resources = {
             "Pick a set to play": "Wähle ein Aufgabendeck aus",
             "N players added": "{{count}} Spieler hinzugefügt",
             "set picked": "{{name}} ausgewählt",
-            "play": "Spielen"
+            "play": "Spielen",
+            "Players": "Spieler",
+            "Add your friends and choose their gender.": "Füge deine Freunde hinzu!"
         }
     }
 };
