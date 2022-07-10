@@ -14,6 +14,7 @@
 ## Clean Code
 - [ ] no console.logs
 - [ ] comments exist
+- [ ] no errors in browser console
 
 # Setup
 (Steps required for the Reviewer to see the changes)
