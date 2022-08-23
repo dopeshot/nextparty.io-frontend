@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "@capacitor/app": "^1.0.7",
+        "@capacitor/app": "^1.1.1",
         "@capacitor/core": "^3.3.4",
         "@capacitor/haptics": "1.1.3",
         "@capacitor/keyboard": "^1.2.0",
