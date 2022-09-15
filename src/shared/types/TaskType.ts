@@ -5,8 +5,8 @@ export enum TaskType {
 }
 
 export const taskTypeChar: { [key in TaskType]: string } = {
-    "truth": "?",
-    "dare": "!"
+    "truth": "T",
+    "dare": "D"
 }
 
 export const taskTypes: { [key in TaskType]: {
