@@ -2,7 +2,11 @@
     // MC: Tailwind CSS Settings for better experience wit TSX (Source: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#recommended-vs-code-settings)
     "css.validate": false,
     "editor.formatOnSave": true,
-    "editor.quickSuggestions": true,
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on",
+        "other": "on"
+    },
     "editor.codeActionsOnSave": {
         "source.organizeImports": true
     }
