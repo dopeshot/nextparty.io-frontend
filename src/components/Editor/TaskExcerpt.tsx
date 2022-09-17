@@ -3,7 +3,7 @@ import React from "react"
 import { useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 import { replaceCurrentPlayerStringWithIcon, replaceStringWithIcon } from "../../services/Utilities"
-import { TaskType } from "../../shared/types/TaskType"
+import { taskTypes } from "../../shared/types/TaskType"
 
 /**
  * MC: This is not used at the moment since it requires more rerenders than the current implementation. 
@@ -24,7 +24,7 @@ export const TaskExcerpt = React.memo<TaskExcerptProps>(({ taskId, setEditData, 
             setShowTaskEditor(true)
         }} className="flex items-center grow min-w-0">
             <div className="shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
-                <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
+                <span className="text-xl">{taskTypes[task.type].symbol}</span>
             </div>
             <div className="shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
                 <span className="text-xl">{replaceCurrentPlayerStringWithIcon(task.currentPlayerGender)}</span>

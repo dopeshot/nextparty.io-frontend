@@ -30,7 +30,7 @@ export const TaskEditor: React.FC = () => {
     }
 
     const validationSchema = Yup.object().shape({
-        message: Yup.string().min(1, "Please enter a valid task").max(280, "Your task must be at most 280 characters").required("Please enter a valid task"),
+        message: Yup.string().min(10, "Your task needs to be at least 10 characters long.").max(280, "Your task must be at most 280 characters").required("Please enter a valid task"),
         type: Yup.string().oneOf(Object.values(TaskType)).required(),
         currentPlayerGender: Yup.string().oneOf(Object.values(TaskCurrentPlayerGender)).required()
     })
@@ -91,7 +91,7 @@ export const TaskEditor: React.FC = () => {
     return <>
         {set?.tasks && set.tasks.length !== 0 && <>
             <div className="flex justify-between items-center">
-                <h2 className="text-lg font-semibold">Tasks</h2>
+                <h2 className="text-lg font-semibold">Tasks {(set.tasks.length > 0) && <span>({set.tasks.length})</span>}</h2>
                 <Button dataCy="taskeditor-addtask-button" keepFocus={false} type="button" onClick={() => { setShowTaskEditor(true) }} Icon={PlusIcon} className="w-34 px-7">Task</Button>
             </div>
             <p className="text-light-600 mb-3">{set.tasks.filter(task => task.type === TaskType.TRUTH).length} Truth - {set.tasks.filter(task => task.type === TaskType.DARE).length} Dare</p>
@@ -102,7 +102,7 @@ export const TaskEditor: React.FC = () => {
                         setShowTaskEditor(true)
                     }} className="flex items-center grow min-w-0">
                         <div className={`shrink-0 w-8 h-8 rounded-full ${task.type === TaskType.DARE ? "bg-theme-kids-dare text-dark-800" : "bg-theme-kids-truth"} flex items-center justify-center mr-3`}>
-                            <span className="text-xl">{task.type === TaskType.DARE ? 'D' : 'T'}</span>
+                            <span className="text-xl">{taskTypes[task.type].symbol}</span>
                         </div>
                         <div className="shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center mr-3">
                             <span className="text-xl">{replaceCurrentPlayerStringWithIcon(task.currentPlayerGender)}</span>
@@ -203,9 +203,9 @@ export const TaskEditor: React.FC = () => {
                                 <div className="flex">
                                     <div className="flex gap-2 bg-dark-600 p-1 rounded-full">
                                         {Object.values(taskTypes).map(taskType =>
-                                            <label data-cy={`taskeditor-taskstype-${taskType.name}-label`} key={taskType.name} className={`${formik.values.type === taskType.name ? 'bg-light-500 text-dark-700' : ''}  rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
+                                            <label data-cy={`taskeditor-taskstype-${taskType.key}-label`} key={taskType.key} className={`${formik.values.type === taskType.key ? 'bg-light-500 text-dark-700' : ''}  rounded-full px-6 py-2 flex justify-center items-center cursor-pointer`}>
                                                 {taskType.name}
-                                                <Field data-cy={`taskeditor-taskstype-${taskType.name}`} className="appearance-none hidden" type="radio" name="type" value={taskType.name} />
+                                                <Field data-cy={`taskeditor-taskstype-${taskType.key}`} className="appearance-none hidden" type="radio" name="type" value={taskType.key} />
                                             </label>)}
                                     </div>
                                 </div>
