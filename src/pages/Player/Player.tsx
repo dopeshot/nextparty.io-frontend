@@ -1,5 +1,5 @@
 import { UserAddIcon } from '@heroicons/react/outline';
-import { IonContent, IonIcon, IonItem, IonList, IonPage, useIonViewDidEnter, useIonViewDidLeave } from '@ionic/react';
+import { IonContent, IonIcon, IonItem, IonList, IonPage, useIonViewDidEnter } from '@ionic/react';
 import divers from '../../assets/icons/divers.svg';
 import female from '../../assets/icons/female.svg';
 import male from '../../assets/icons/male.svg';
@@ -10,15 +10,11 @@ import { setSeoTitle } from '../../services/Utilities';
 
 export const Player: React.FC = () => {
     const { players: { players, isAllowedToDelete }, game: { set } } = useAppState()
-    const { addPlayer, confirmPlayers, loadPlayerScreen } = useActions().players
+    const { addPlayer, loadPlayerScreen } = useActions().players
 
     useIonViewDidEnter(() => {
         loadPlayerScreen()
         setSeoTitle('Players')
-    })
-
-    useIonViewDidLeave(() => {
-        confirmPlayers()
     })
 
     return (
