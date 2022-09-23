@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap");
+
+/* JS TODO: Check if before and after exists as class helper */
 .text-lines::before,
 .text-lines::after {
     content: "";
@@ -13,6 +15,7 @@
     margin: 0 -55% 0 0.5em;
 }
 
+/* JS TODO: Change to use arbitary values.  */
 .height-450 {
     height: 450px;
 }

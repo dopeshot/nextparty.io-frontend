@@ -15,10 +15,11 @@ export const Game: React.FC = () => {
 		players
 	} } = useAppState()
 
-	const { isPossibleToPlay, prepareSetToPlay } = useActions().game
+	const { game: { isPossibleToPlay, prepareSetToPlay }, players: { confirmPlayers } } = useActions()
 
 	useIonViewWillEnter(() => {
 		setSeoTitle('Truth or Dare - Next Party', false)
+		confirmPlayers()
 		prepareSetToPlay()
 	})
 
