@@ -1,5 +1,5 @@
-import { UserAddIcon } from '@heroicons/react/outline';
-import { IonContent, IonIcon, IonItem, IonList, IonPage, useIonViewDidEnter } from '@ionic/react';
+import { PlayIcon, UserAddIcon } from '@heroicons/react/outline';
+import { IonContent, IonFab, IonIcon, IonItem, IonList, IonPage, useIonViewDidEnter } from '@ionic/react';
 import divers from '../../assets/icons/divers.svg';
 import female from '../../assets/icons/female.svg';
 import male from '../../assets/icons/male.svg';
@@ -20,6 +20,14 @@ export const Player: React.FC = () => {
     return (
         <IonPage className="bg-dark-700">
             <IonContent>
+                <IonFab vertical="bottom" horizontal="start" slot="fixed" className="inset-x-0 bottom-0">
+                    <div className="h-32 bg-gradient-to-t from-dark-800">
+                        <div className="container h-full flex flex-col justify-center">
+                            <Button dataCy='setdetails-play-button' type="button" to="/game" Icon={PlayIcon}>Play</Button>
+                        </div>
+                    </div>
+                </IonFab>
+
                 <div className="ion-no-border bg-cover mb-8" style={{ backgroundSize: "100% 204px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
                     <div className="bg-gradient-to-t from-dark-700 w-full h-full">
                         <div className="container">
@@ -36,7 +44,7 @@ export const Player: React.FC = () => {
                     </IonList>
                     <Button className="w-full" keepFocus={true} type="button" dataCy='player-add-button' onClick={() => addPlayer()} Icon={UserAddIcon}>Add player</Button>
                 </div>
-                <div className="container">
+                <div className="container mb-32">
                     <IonList lines="none">
                         <IonItem>
                             <span className={`flex items-center justify-center bg-theme-${set ? set.category : 'default'}-truth border-4 border-dark-700 rounded-full mr-3`} style={{ minWidth: "44px", minHeight: "44px" }}>
