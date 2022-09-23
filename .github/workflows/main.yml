@@ -1,38 +1,33 @@
-name: Tests
+# name: Tests
 
-on: 
-  push:
-    branches: main
-  pull_request:
-    branches: main
+# on: 
+#   push:
+#     branches: main
+#   pull_request:
+#     branches: main
 
-jobs:
-  cypress-run:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-20.04
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
     
-      - name: install dependencies
-        run: npm i
+#       - name: install dependencies
+#         run: npm i
         
-      - name: instrument
-        run: npm run cc:instrument
+#       - name: instrument
+#         run: npm run cc:instrument
         
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          start: npm run start:cc
-          wait-on: 'http://localhost:3000'  
+#       - name: Cypress run
+#         uses: cypress-io/github-action@v2
+#         with:
+#           start: npm run start:cc
+#           wait-on: 'http://localhost:3000'  
         
         
-      - name: Archive report
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-report
-          path: coverage/lcov-report
-      
-        
-      
-  
-
+#       - name: Archive report
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: test-report
+#           path: coverage/lcov-report
