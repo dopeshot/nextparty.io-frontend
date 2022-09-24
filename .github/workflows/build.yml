@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Install dependencies 
       run: |
-        npm ci
+        npm ci --production
     - name: Build Frontend
       run: |
           npm run build --if-present
@@ -22,4 +22,3 @@ jobs:
         name: nextparty_truth_or_dare_frontend
         path: |
           build
-          !build/**/*.md
