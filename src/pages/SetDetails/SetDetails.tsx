@@ -12,6 +12,7 @@ import { TaskListItem } from "../../components/TaskListItem/TaskListItem"
 import { useActions, useAppState } from "../../overmind"
 import { Task } from "../../overmind/explore/state"
 import { replaceStringWithIcon } from "../../services/Utilities"
+import { getFrontendOrigin } from '../../services/utilities/getFrontendOrigin'
 import { TaskType } from '../../shared/types/TaskType'
 
 interface SetDetailsParams extends RouteComponentProps<{
@@ -45,7 +46,7 @@ export const SetDetails: React.FC<SetDetailsParams> = ({ match: { params: { setI
     }
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundImage: setDetails ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${setDetails.category}.svg')` : '', backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
+        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundImage: setDetails ? `url('${getFrontendOrigin}/assets/themes/${setDetails.category}.svg')` : '', backgroundSize: '100% 268px', backgroundPosition: 'top' }}> {/* MC TODO: Fix this with the actual background color */}
             <IonHeader className="ion-no-border container">
                 <IonToolbar color="transparent">
                     <IonButtons>

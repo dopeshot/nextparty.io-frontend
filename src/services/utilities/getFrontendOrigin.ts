@@ -1,0 +1,1 @@
+export const getFrontendOrigin = window.location.origin

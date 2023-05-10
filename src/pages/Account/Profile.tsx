@@ -12,6 +12,7 @@ import { SetItem } from "../../components/SetItem/SetItem";
 import { useActions, useAppState } from "../../overmind";
 import { Set } from "../../overmind/explore/state";
 import { setSeoTitle } from "../../services/Utilities";
+import { getFrontendOrigin } from "../../services/utilities/getFrontendOrigin";
 
 export const Profile: React.FC = () => {
     const { profile: { currentUser, isLoadingSets, sets, userDetailed }, game: { set } } = useAppState()
@@ -46,7 +47,7 @@ export const Profile: React.FC = () => {
     }
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 320px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
+        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 320px", backgroundImage: set ? `url('${getFrontendOrigin}/assets/themes/${set.category}.svg')` : `url('${getFrontendOrigin}/assets/themes/default.svg')` }}>
             <IonContent style={{ "--background": "transparent" }}>
                 <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
                     <IonRefresherContent pullingIcon={refresh}
@@ -56,7 +57,7 @@ export const Profile: React.FC = () => {
                     <div className="container pb-12 md:pb-20">
                         <div className="flex justify-between pt-14 pb-6 md:pb-10">
                             <div className="flex items-center">
-                                <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `${set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')`}`, minWidth: "100px" }}></div>
+                                <div className="bg-cover rounded-full h-24" style={{ backgroundImage: `${set ? `url('${getFrontendOrigin}/assets/themes/${set.category}.svg')` : `url('${getFrontendOrigin}/assets/themes/default.svg')`}`, minWidth: "100px" }}></div>
                                 <h1 className="text-2xl text-white font-bold break-all px-4 pb-4">{currentUser?.username}</h1>
                             </div>
                             <button data-cy="profile-settings-button" onClick={() => present({ buttons: [{ text: 'Logout', icon: signout, handler: () => doLogout() }], header: 'Settings' })}>

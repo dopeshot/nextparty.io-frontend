@@ -7,6 +7,7 @@ import { Button } from '../../components/Buttons/Button';
 import { PlayerInput } from '../../components/Forms/PlayerInput';
 import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/Utilities';
+import { getFrontendOrigin } from '../../services/utilities/getFrontendOrigin';
 
 export const Player: React.FC = () => {
     const { players: { players, isAllowedToDelete }, game: { set } } = useAppState()
@@ -20,7 +21,7 @@ export const Player: React.FC = () => {
     return (
         <IonPage className="bg-dark-700">
             <IonContent>
-                <div className="ion-no-border bg-cover mb-8" style={{ backgroundSize: "100% 204px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
+                <div className="ion-no-border bg-cover mb-8" style={{ backgroundSize: "100% 204px", backgroundImage: set ? `url('${getFrontendOrigin}/assets/themes/${set.category}.svg')` : `url('${getFrontendOrigin}/assets/themes/default.svg')` }}>
                     <div className="bg-gradient-to-t from-dark-700 w-full h-full">
                         <div className="container">
                             <h1 className="text-3xl pt-14 pb-6 text-light-500 font-bold">Players</h1>
