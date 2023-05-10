@@ -7,6 +7,7 @@ import { SecondaryButton } from "../../components/Buttons/SecondaryButton";
 import { MetaEditor } from "../../components/Editor/MetaEditor";
 import { TaskEditor } from "../../components/Editor/TaskEditor";
 import { useActions, useAppState } from "../../overmind";
+import { getFrontendOrigin } from "../../services/utilities/getFrontendOrigin";
 
 
 interface EditorParams extends RouteComponentProps<{
@@ -52,7 +53,7 @@ export const Editor: React.FC<EditorParams> = ({ match: { params: { setId } } })
     }
 
 
-    return <IonPage className="bg-center bg-no-repeat bg-dark-700" style={!isLoading ? { backgroundPosition: "top", backgroundSize: "100% 134px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` } : {}}>
+    return <IonPage className="bg-center bg-no-repeat bg-dark-700" style={!isLoading ? { backgroundPosition: "top", backgroundSize: "100% 134px", backgroundImage: set ? `url('${getFrontendOrigin}/assets/themes/${set.category}.svg')` : `url('${getFrontendOrigin}/assets/themes/default.svg')` } : {}}>
         <IonHeader className="container ion-no-border my-1">
             <IonToolbar color="transparent">
                 <IonButtons>

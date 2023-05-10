@@ -3,6 +3,7 @@ import { useHistory } from "react-router"
 import { useActions, useAppState } from "../../overmind"
 import { GameStatus } from "../../overmind/game/state"
 import { setSeoTitle } from "../../services/Utilities"
+import { getFrontendOrigin } from "../../services/utilities/getFrontendOrigin"
 import { ChooseTask } from "./ChooseTask"
 import { DisplayTask } from "./DisplayTask"
 
@@ -31,7 +32,7 @@ export const InGame: React.FC = () => {
         hideTabBar(false)
     })
     return (
-        <IonPage className="bg-dark-700 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
+        <IonPage className="bg-dark-700 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: set ? `url('${getFrontendOrigin}/assets/themes/${set.category}.svg')` : `url('${getFrontendOrigin}/assets/themes/default.svg')` }}>
             <div className="fixed w-full z-50">
                 <IonHeader className="ion-no-border container">
                     <IonToolbar color="transparent">

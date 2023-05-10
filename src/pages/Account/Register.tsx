@@ -11,6 +11,7 @@ import { Input } from '../../components/Forms/Input';
 import { PasswordInput } from '../../components/Forms/PasswordInput';
 import { useActions, useAppState } from '../../overmind';
 import { setSeoTitle } from '../../services/Utilities';
+import { getFrontendOrigin } from '../../services/utilities/getFrontendOrigin';
 
 export const Register: React.FC = () => {
     const { profile: { register, resetError } } = useActions()
@@ -41,7 +42,7 @@ export const Register: React.FC = () => {
     }, [])
 
     return (
-        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 172px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
+        <IonPage className="bg-center bg-no-repeat bg-dark-700" style={{ backgroundPosition: "top", backgroundSize: "100% 172px", backgroundImage: set ? `url('${getFrontendOrigin}/assets/themes/${set.category}.svg')` : `url('${getFrontendOrigin}/assets/themes/default.svg')` }}>
             <IonHeader className="container ion-no-border my-1">
                 <IonToolbar color="transparent">
                     <IonButtons>

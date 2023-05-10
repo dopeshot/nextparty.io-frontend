@@ -6,9 +6,10 @@ import { useHistory } from "react-router";
 import * as Yup from "yup";
 import { Input } from "../../components/Forms/Input";
 import { useActions, useAppState } from "../../overmind";
+import { getFrontendOrigin } from "../../services/utilities/getFrontendOrigin";
 import { Visibility } from "../../shared/enums/Visibility";
 import { Language, languagePickerOptions, languages } from "../../shared/types/Language";
-import { categories, categoriesList, ForegroundColor, SetCategory } from "../../shared/types/SetCategory";
+import { ForegroundColor, SetCategory, categories, categoriesList } from "../../shared/types/SetCategory";
 import { Button } from "../Buttons/Button";
 
 export const MetaEditor: React.FC = () => {
@@ -50,7 +51,7 @@ export const MetaEditor: React.FC = () => {
                 <label className="text-light-600 mb-1" htmlFor="name">Choose your theme</label>
                 <button data-cy="metaeditor-theme-picker-button" id="category" type="button" onClick={() => setShowThemePicker(true)}
                     className={`rounded-lg h-12 w-full flex justify-between px-4 items-center ${categories[formik.values.category as SetCategory]?.foreground === ForegroundColor.DARK ? `text-dark-700` : `text-light-500`}`}
-                    style={{ backgroundImage: `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${categories[formik.values.category as SetCategory].name}.svg')`, backgroundSize: "100% 48px" }}>
+                    style={{ backgroundImage: `url('${getFrontendOrigin}/assets/themes/${categories[formik.values.category as SetCategory].name}.svg')`, backgroundSize: "100% 48px" }}>
                     <span>{formik.values.category}</span>
                     <PencilIcon className={`h-6`} />
                 </button>
@@ -68,7 +69,7 @@ export const MetaEditor: React.FC = () => {
                         <div className="container mt-4">
                             {
                                 categoriesList.map(category => <label key={category.name} className={`rounded-lg h-24 w-full flex items-center mb-4 px-4 cursor-pointer ${category.foreground === ForegroundColor.LIGHT ? 'text-light-500' : 'text-dark-700'} ${formik.values.category === category.name ? `border-4 border-green-500 box-border` : ``}`}
-                                    style={{ backgroundImage: `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${category.name}.svg')`, backgroundSize: "100% 96px" }}>
+                                    style={{ backgroundImage: `url('${getFrontendOrigin}/assets/themes/${category.name}.svg')`, backgroundSize: "100% 96px" }}>
                                     <Field data-cy={`metaeditor-theme-picker-${category.name}`} type="radio" name="category" value={category.name} onClick={() => setShowThemePicker(false)} className="hidden" />
                                     {category.name}
                                 </label>

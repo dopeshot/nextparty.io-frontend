@@ -5,6 +5,7 @@ import { ActionBlock } from '../../components/Game/ActionBlock';
 import { useActions, useAppState } from '../../overmind';
 import { StartGameErrors } from '../../overmind/game/state';
 import { setSeoTitle } from '../../services/Utilities';
+import { getFrontendOrigin } from '../../services/utilities/getFrontendOrigin';
 
 
 export const Game: React.FC = () => {
@@ -27,7 +28,7 @@ export const Game: React.FC = () => {
 		<IonPage className="bg-dark-700">
 			<IonContent>
 				<div className='flex flex-col justify-between h-full'>
-					<div className="ion-no-border bg-cover mb-8" style={{ backgroundSize: "100% 204px", backgroundImage: set ? `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/${set.category}.svg')` : `url('${process.env.REACT_APP_PUBLIC_URL}/assets/themes/default.svg')` }}>
+					<div className="ion-no-border bg-cover mb-8" style={{ backgroundSize: "100% 204px", backgroundImage: set ? `url('${getFrontendOrigin}/assets/themes/${set.category}.svg')` : `url('${getFrontendOrigin}/assets/themes/default.svg')` }}>
 						<div className="bg-gradient-to-t from-dark-700 w-full h-full">
 							<div className="container text-center flex justify-center flex-col">
 								<LightningBoltIcon className="text-light-500 mt-14 pb-6 h-20" />
